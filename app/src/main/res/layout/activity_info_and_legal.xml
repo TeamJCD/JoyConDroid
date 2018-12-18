@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/switch_logo"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".InfoAndLegalActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainMenuToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:logo="@drawable/ic_procontroller_icon"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/info_and_legal"
+        app:titleMarginStart="32dp" />
+
+    <WebView
+        android:id="@+id/webContent"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/accept_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/menu_button_bg"
+        android:foreground="?attr/selectableItemBackground"
+        android:onClick="setAccepted"
+        android:textColor="@color/white"
+        android:text="@string/accept" />
+
+</LinearLayout>

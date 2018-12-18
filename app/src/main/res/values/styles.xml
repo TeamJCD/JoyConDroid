@@ -1,0 +1,13 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/switch_logo_bg</item>
+        <item name="colorPrimaryDark">@color/dark_red</item>
+        <item name="colorAccent">@color/switch_logo_bg</item>
+    </style>
+
+    <style name="MenuTextAppearance">
+        <item name="android:ellipsize">end</item>
+    </style>
+</resources>

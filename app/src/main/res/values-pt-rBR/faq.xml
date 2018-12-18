@@ -1,0 +1,90 @@
+<resources>
+    <string-array name="questions">
+        <item>O Joy-Con Droid funciona no meu dispositivo?</item>
+        <item>Você pode fazer o Joy-Con Droid funcionar no meu dispositivo?</item>
+        <item>O Joy-Con Droid pode prejudicar meu Nintendo Switch?</item>
+        <item>O que devo fazer se o Joy-Con Droid se desconectar depois de sair da tela de configuração dos controles?</item>
+        <item>O que devo fazer se o Joy-Con Droid não receber a solicitação de pareamento?</item>
+        <item>O que devo fazer se o controle estiver com delay?</item>
+        <item>O Joy-Con Droid funciona com todas as versões de firmware do Switch?</item>
+        <item>Como posso obter ajuda ou solicitar funcionalidades/informações</item>
+        <item>Como posso adicionar minha própria UI ao aplicativo?</item>
+    </string-array>
+    <string-array name="answers">
+        <item>
+            <![CDATA[
+            Este aplicativo requer <b>Android 9 (P) ou superior</b>. Ele utiliza a função HID Profile que alguns
+            fabricantes não incluíram no seu <b>Software do Sistema</b>. Você pode verificar a compatibilidade
+            do seu dispositivo através deste aplicativo <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
+            Bluetooth HID Profile Tester</a>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Se no software do seu sistema faltar a Função HID Profile; só poderá ser adicionado com <b>Atualização de Sistema</b>
+            que só pode ser fornecido pela <b>Fabricante do Dispositivo</b>. Se você quer definitivamente usar este aplicativo,
+            você pode instalar o sistema <a href="https://lineageos.org/">Linage OS</a>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>O Joy-Con Droid</b> é utilizado atualmente por muitos usuários e até agora não causou erros irreversíveis.
+            Ocasionalmente, o Switch pode travar, mas reiniciar o console resolve o problema.
+            Porém, utilize o aplicativo <b>Joy-Con Droid</b> por sua própria conta e risco. <b>O Joy-Con Droid</b> não
+            vem com nenhuma garantia.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            "Desconexão contínua quando a tela de configuração for deixada." é um problema conhecido, no entanto
+            ainda não há uma correção conhecida para esse problema. Entretanto, há uma solução alternativa:
+            <ol>
+                <li>Vá até a opção Mudar a ordem ou o modo de utilização.</li>
+                <li>Aguarde a solicitação de conexão Bluetooth, mas <b>NÃO ACEITE!</b></li>
+                <li>Volte até o menu de controles.</li>
+                <li>Agora aceite a solicitação de conexão.</li>
+                <li>A conexão deve ser estabelecida.</li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Se o <b>Joy-Con Droid</b> não receber a solicitação de conexão mesmo estando em <b>Mudar a ordem ou
+            o modo de utilização</b>. Há algumas coisas que você precisa fazer.  Verifique se o seu dispositivo definiu
+            o nome do bluetooth para Joy-Con (R), Joy-Con (L), ou Pro Controller.
+            Se o nome do dispositivo estiver configurado corretamente. Feche o aplicativo e clique na notificação para fechar o
+            serviço. Vá para configurações e escolha a opção de desconectar os controles do seu Switch.
+            Desligue o Bluetooth. (Talvez você precise reiniciar seu dispositivo). Uma vez que todas essas etapas
+            forem feitas. Abra a opção <b>Mudar a ordem ou o modo de utilização.</b> e abra o <b>Joy-Con Droid</b> e
+            repita as etapas de conexão.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Outro problema conhecido é o atraso nos comandos do controle (input delay). A reconexão geralmente corrige o problema de input delay.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b> testado até a versão do Switch <b>9.0.1</b>. Não há garantia que o
+            <b>Joy-Con Droid</b> continuará funcionando em versões superiores do firmware do Switch.
+            Por favor, confira o <b>Joy-Con Droid</b> para ver a versão mais recente suportada antes de atualizar sua versão do firmware do Switch.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Há duas maneiras de se comunicar com o desenvolvedor:
+            <ul>
+                <li><a href="mailto:allplaylive@gmail.com">Email</a></li>
+                <li><a href="https://youtubeplays.com/joycon-droid">Discord</a></li>
+            </ul>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Você pode verificar este projeto de exemplo <a href="https://github.com/YouTubePlays/JoyConDroidNESStyleController">NES Style Controller</a>.
+            Se desejar desenvolver uma UI (interface de usuário) semelhante ou qualquer script útil, contate o desenvolvedor.
+            ]]>
+        </item>
+    </string-array>
+</resources>

@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+
+android {
+    buildToolsVersion '30.0.0 rc2'
+    compileSdkVersion 29
+    def VERBOSE = "2"
+    def DEBUG = "3"
+    def INFO = "4"
+    def WARN = "5"
+    def ERROR = "6"
+    def ASSERT = "7"
+    def NONE = "0";
+
+    defaultConfig {
+        applicationId "com.rdapps.gamepad"
+        minSdkVersion 28
+        targetSdkVersion 29
+        versionCode 122
+        versionName "1.0.91.2"
+        resValue "string", "version_name", versionName
+        buildConfigField  'boolean', 'CHECK_UPDATE', 'false'
+        buildConfigField  'int', 'LOG_LEVEL', VERBOSE
+        buildConfigField  'byte[]', 'DEBUG_INPUT', '{0x21, 0x31, 0x30}'
+        buildConfigField  'byte[]', 'DEBUG_OUTPUT', '{0x11, 0x01}'
+        buildConfigField  'boolean', 'VM', 'false'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'boolean', 'VM', 'true'
+        }
+        apk {
+            buildConfigField 'int', 'LOG_LEVEL', NONE
+            buildConfigField 'boolean', 'CHECK_UPDATE', 'true'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField 'int', 'LOG_LEVEL', NONE
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        vm {
+            minifyEnabled true
+            buildConfigField 'int', 'LOG_LEVEL', NONE
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'boolean', 'VM', 'true'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+    }
+    androidResources {
+        noCompress 'jcui'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.browser:browser:1.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.media:media:1.1.0'
+    implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+
+    //Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'org.mockito:mockito-core:1.10.19'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+    //File Picker
+    implementation 'com.github.angads25:filepicker:1.1.1'
+
+    //Mac Text
+    implementation 'com.github.phearme:macaddress-edittext:1.0.1'
+
+    //Rest API
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.6.0'
+    implementation 'commons-io:commons-io:2.6'
+
+    //Color Picker
+    implementation 'com.azeesoft.lib.colorpicker:colorpicker:1.0.8@aar'
+
+    //Device Name
+    implementation 'com.jaredrummler:android-device-names:1.1.9'
+
+}

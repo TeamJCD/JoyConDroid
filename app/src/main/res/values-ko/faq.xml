@@ -1,0 +1,119 @@
+<resources>
+    <string-array name="questions">
+        <item>Joy-Con Droid가 제 기기에서 작동하나요?</item>
+        <item>Joy-Con Droid가 제 기기에서 작동하도록 해주실 수 있나요?</item>
+        <item>Joy-Con Droid가 제 Switch에 안좋은 영향을 줄 수 있나요?</item>
+        <item>잡는 방법/순서 변경 화면을 떠난 후 Joy-Con Droid의 연결이 끊긴다면 어떻게 해야하나요?</item>
+        <item>Joy-Con Droid가 페어링 요청을 받지 못한다면 어떻게 해야하나요?</item>
+        <item>입력에 지연이 있을 경우 어떻게 해야하나요?</item>
+        <item>Joy-Con Droid는 모든 Switch의 펌웨어 버전에서 작동하나요?</item>
+        <item>도움이 필요하거나 기능을 요청하고 싶으면 어떻게 해야하나요?</item>
+        <item>제가 원하는 UI를 애플리케이션에 추가하려면 어떻게 해야하나요?</item>
+        <item>왜 제 MAC 주소가 필요한가요?</item>
+        <item>제 MAC 주소는 어떻게 찾을 수 있나요?</item>
+        <item>어떻게 하면 MAC 주소 관련 설정을 변경할 수 있나요?</item>
+        <item>테스트 프로그램에 참여할 수 있나요?</item>
+    </string-array>
+    <string-array name="answers">
+        <item>
+            <![CDATA[
+            이 애플리케이션은 <b>안드로이드 버전 9 혹은 그 이상</b>을 필요로 합니다. Joy-Con Droid는 일부 기기 제조사가 <b>시스템 소프트웨어</b>에 포함시키지 않은 HID 프로파일이라는 기능을 사용합니다. 
+            <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">Bluetooth HID Profile Tester</a>를 이용해 기기의 호환 여부를 확인할 수 있습니다.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            만약 여러분의 시스템 소프트웨어가 HID 프로파일을 지원하지 않는 경우, <b>기기 제조사</b>가 제공하는 <b>시스템 업데이트</b>만이 이 문제를 해결할 수 있습니다. 
+            만약 이 애플리케이션을 간절히 사용하고 싶으실 경우 <a href="https://lineageos.org/">Lineage OS</a>를 설치해보세요.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b>는 이미 많은 사람들이 사용하고 있으며, 지금까지 심각한 오류가 발생한 적은 없습니다. 
+            때때로 Switch가 멈출 수도 있지만, 이는 Switch를 재시작함으로써 해결되는 문제입니다.
+            그렇지만, <b>Joy-Con Droid</b>를 사용하면서 발생하는 모든 것에 대한 책임은 여러분에게 있습니다. <b>Joy-Con Droid</b>는 아무것도 책임지지 않습니다.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            잡는 방법/순서 변경 화면을 떠났을 때 계속해서 연결이 끊기는 현상은 이미 확인된 것 이지만, 이에 대한 알려진 해결 방법은 아직 없습니다. 
+            그렇지만, 이를 해결하기 위한 다양한 시도들이 있었습니다:
+            <ol>
+                <li>잡는 방법/순서 변경 화면을 켜기</li>
+                <li>블루투스 페어링 요청을 기다리기. <b>요청이 떠도 수락하지 말 것!</b></li>
+                <li>Switch에서 한 단계 뒤로 가서 컨트롤러 메뉴를 띄우기</li>
+                <li>이제 페어링 요청을 수락하기</li>
+                <li>이제 연결이 되었을거에요!</li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>잡는 방법/순서 변경</b> 화면에 있음에도 불구하고 <b>Joy-Con Droid</b>가 페어링 요청을 받지 못할 경우, 여러분이 확인해 주셔야 할 사항이 몇 가지 있습니다. 
+            블루투스를 위한 기기 이름이 Joy-Con (R), Joy-Con (L), 혹은 Pro Controller로 설정되어 있는지 확인해 주세요. 
+            만약 이름이 올바르게 설정되어 있을 경우, 애플리케이션을 닫은 후 <b>Joy-Con Droid</b>의 알림을 눌러 서비스를 종료시켜주세요. 
+            그 후 Switch의 <b>설정 > 컨트롤러와 센서</b>에 있는 <b>컨트롤러와의 통신 끊기</b>를 사용해 주세요. 마지막으로 기기의 블루투스를 꺼주세요 (기기를 재시작해도 좋습니다).
+            위 지시 사항들을 모두 마친 후에, Switch에서 <b>잡는 방법/순서 변경</b> 화면을 열고 <b>Joy-Con Droid</b>를 켠 다음 연결을 시도해 주세요.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            입력 지연 또한 이미 확인된 현상 중 하나이며, 이는 주로 다시 연결함으로써 해결되고 있습니다.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b>는 Switch 펌웨어 버전 <b>9.0.0</b>까지 테스트 되었습니다.
+            <b>Joy-Con Droid</b>가 새로운 버전의 Switch 펌웨어에서 계속해서 작동할 것이라는 보장은 없습니다.
+            Switch의 펌웨어를 업데이트 하기 전에 <b>Joy-Con Droid<b>에서 지원하고 있는 펌웨어 버전을 확인해주세요.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            여러분이 개발자에게 연락해 주실 수 있는 방법으로 몇 가지가 있습니다:
+            <ul>
+                <li><a href="mailto:allplaylive@gmail.com">이메일</a></li>
+                <li><a href="https://youtubeplays.com/joycon-droid">디스코드 서버</a></li>
+            </ul>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            예시 프로젝트인 <a href="https://github.com/YouTubePlays/JoyConDroidNESStyleController">NES Style Controller</a>를 참조해주세요. 
+            만약 비슷한 UI나 기능을 개발하려는 경우 개발자에게 연락해주세요.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con과 Pro 컨트롤러</b>는 <b>Switch</b>에 그들의 MAC 주소를 전달합니다. 이 정보는 나중에 다시 연결하기 위해 사용됩니다.
+            하지만, <b>안드로이드 OS</b>에서 <b>Joy-Con Droid</b>와 같은 애플리케이션은 기기의 MAC 주소를 알아낼 수 없습니다. 
+            그러므로 여러분께서는 연결 품질의 개선을 위해 MAC 주소를 입력하실지 말지 결정하실 수 있습니다.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            대부분의 기기에서 아래 방법으로 블루투스 MAC 주소를 찾을 수 있습니다:
+            <ol>
+                <li>기기의 <b>설정</b>을 열어주세요.</li>
+                <li><b>시스템</b>을 선택해주세요. (일부 기기에서는 이 단계가 해당되지 않습니다)</li>
+                <li>맨 아래로 스크롤 한 다음 <b>휴대전화 정보</b>, <b>디바이스 정보</b>, <b>기기 정보</b>, 혹은 <b>태블릿 정보</b> 항목을 눌러주세요.</li>
+                <li><b>상태<b> 항목을 눌러주세요.</b></li>
+                <li>이제 목록에서 <b>블루투스 주소</b>를 확인할 수 있습니다.</li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            만약 입력하신 MAC 주소를 삭제하거나 변경하고 싶으신 경우, 혹은 \'다시 물어보지 말아주세요\'를 취소하고 싶으신 경우에는,
+            <b>Joy-Con Droid</b>의 메인 화면에서 왼쪽 위의 샌드위치 아이콘을 눌러 사이드 메뉴를 열고, <b>블루투스 설정 초기화</b>를 눌러주세요.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            여러분께서 <b>Joy-Con Droid</b>의 최신 상태를 확인하고 싶으신 경우, 테스트 그룹에 참여하실 수 있습니다. 
+            하지만 테스트 그룹의 버전은 더 많은 문제들을 가지고 있을 수도 있으며, 업데이트가 자주 진행됩니다. 
+            더 많은 정보를 원하신다면 <a href="mailto:allplaylive@gmail.com">이메일</a>을 보내주시거나 <a href="https://youtubeplays.com/joycon-droid">디스코드 서버</a>에 참여해주세요.
+            ]]>
+        </item>
+    </string-array>
+</resources>

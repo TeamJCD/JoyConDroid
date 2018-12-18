@@ -1,0 +1,11 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/selected"
+    android:oneshot="false">
+    <item
+        android:drawable="@drawable/ic_ledon"
+        android:duration="300" />
+    <item
+        android:drawable="@drawable/ic_ledofftransparent"
+        android:duration="300" />
+</animation-list>

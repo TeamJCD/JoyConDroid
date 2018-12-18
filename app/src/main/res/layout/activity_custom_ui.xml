@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context="com.rdapps.gamepad.CustomUIActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainMenuToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:logo="@drawable/ic_procontroller_icon"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/custom_ui_selection"
+        app:titleMarginStart="32dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:indeterminate="true"
+        android:indeterminateOnly="true"
+        android:indeterminateTint="@color/blue" />
+
+    <ListView
+        android:id="@+id/customUIList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
+        android:drawSelectorOnTop="true">
+
+    </ListView>
+
+</LinearLayout>

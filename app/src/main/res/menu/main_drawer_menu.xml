@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/custom_ui">
+        <item
+            android:id="@+id/action_custom_left_joycon"
+            android:icon="@drawable/ic_procontroller_icon"
+            android:orderInCategory="100"
+            android:title="@string/custom_ui_selection"></item>
+    </group>
+    <group android:id="@+id/mapping">
+        <item
+            android:id="@+id/action_button_mapping"
+            android:icon="@drawable/ic_map_buttons_icon"
+            android:orderInCategory="200"
+            android:title="@string/map_buttons"></item>
+    </group>
+    <group android:id="@+id/settings">
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/ic_settings"
+            android:orderInCategory="300"
+            android:title="@string/settings"></item>
+    </group>
+    <group android:id="@+id/revert_bt">
+        <item
+            android:id="@+id/action_revert_bluetooth"
+            android:icon="@drawable/ic_menu_revert_bluetooth"
+            android:orderInCategory="400"
+            android:title="@string/revert_bluetooth"></item>
+    </group>
+    <group android:id="@+id/info">
+        <item
+            android:id="@+id/action_info"
+            android:icon="@drawable/ic_info"
+            android:orderInCategory="500"
+            android:title="@string/info_and_legal"></item>
+    </group>
+    <group android:id="@+id/faq">
+        <item
+            android:id="@+id/action_faq"
+            android:icon="@drawable/ic_questionmark"
+            android:orderInCategory="600"
+            android:title="@string/frequently_asked_questions"></item>
+    </group>
+    <group android:id="@+id/discord">
+        <item
+            android:id="@+id/action_discord"
+            android:icon="@drawable/ic_discord_logo"
+            android:orderInCategory="700"
+            android:title="@string/discord"></item>
+    </group>
+</menu>

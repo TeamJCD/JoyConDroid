@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/switch_logo"
+    android:orientation="vertical"
+    tools:context=".ButtonMappingActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainMenuToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:logo="@drawable/ic_procontroller_icon"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/map_buttons"
+        app:titleMarginStart="32dp" />
+
+    <ListView
+        android:id="@+id/button_mappings"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/switch_logo_bg"
+        android:foreground="?attr/selectableItemBackground"
+        android:textColor="@color/white"
+        android:onClick="saveClicked"
+        android:text="@string/save" />
+</LinearLayout>
