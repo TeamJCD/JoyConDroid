@@ -101,4 +101,10 @@
             Se ocorrer alguma desconexão, repita este processo.
         </item>
     </string-array>
+    <string name="frequently_asked_questions">Perguntas Frequentes</string>
+    <string name="incorrect_mac_address">"Endereço Incorreto do Mac "</string>
+    <string name="later">Mais tarde</string>
+    <string name="never_ask_again">"Nunca Pergunte Novamente "</string>
+    <string name="settings">Settings</string>
+    <string name="set">Estabelecer</string>
 </resources>
