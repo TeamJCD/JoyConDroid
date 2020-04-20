@@ -38,11 +38,6 @@
         </item>
     </string-array>
 
-    <string name="ad_id_interstitial" translatable="false">ca-app-pub-4722456569150221/7389554914</string>
-    <string name="ad_id_banner" translatable="false">ca-app-pub-4722456569150221/6544566470</string>
-    <string name="ad_id_mapping_reward" translatable="false">ca-app-pub-4722456569150221/2899224419</string>
-
-    <string name="public_key" translatable="false">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzsESil7TGUDGG6yWBumL5843Qmob+AWQ+aaiH8eq6urEqVsvh1G3QxNcw+IGr3jtkwqsigI9aJuU6yH8VkBG8rkNl/dbyly8YklSQLAvHK8Cv5P+L0LdztOp8Zwr4Fk/yTYHNsPyR7nqijpnGNrwJDaBC+FKdI6sD/Om+8ndAosESqXmLjL59MCyG93QkVgBDN5J2dhxnnvjk5SJR4wkAlN2gRWqjWf5ORX8eP86SwBktRaBOuml/5Fs/SMZiJniCuIFtoQS61veApojMgYFrfRHEoa+I4EoBpytYZnRa3oruH7tqN0Ixr+kTrDttfEojRQyerhvX0Z2YeezfxWwxwIDAQAB</string>
     <string name="ads_removed">移除广告后请重启APP</string>
     <string name="ads_not_removed">无法移除广告!</string>
     <string name="do_not_show_at_the_start_up">启动不显示指南</string>
@@ -110,7 +105,6 @@
     <string name="save_button_with_ads">保存 (视频奖励)</string>
     <string name="button_mappings_saves">按键映射已保存.</string>
     <string name="frequently_asked_questions">常见问题</string>
-    <string name="discord" translatable="false">Discord</string>
     <string name="set_bt_address">输入蓝牙Mac地址来连接</string>
     <string name="later">等待</string>
     <string name="set">设置</string>

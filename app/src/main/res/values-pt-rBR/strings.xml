@@ -102,9 +102,24 @@
         </item>
     </string-array>
     <string name="frequently_asked_questions">Perguntas Frequentes</string>
-    <string name="incorrect_mac_address">"Endereço Incorreto do Mac "</string>
+    <string name="incorrect_mac_address">Endereço MAC incorreto</string>
     <string name="later">Mais tarde</string>
-    <string name="never_ask_again">"Nunca Pergunte Novamente "</string>
+    <string name="never_ask_again">Não perguntar novamente</string>
     <string name="settings">Settings</string>
-    <string name="set">Estabelecer</string>
+    <string name="set">Determinar</string>
+    <string name="set_bt_address">Digite o endereço MAC do Bluetooth para melhorar a conexão</string>
+    <string name = "push_axis_same_direction_to_map_to_button"> Pressione %s na mesma direção para mapear para %s </string>
+
+    <!-- Colors -->
+    <string name = "pro_controller_body_color"> Cor do Pro Controller: </string>
+    <string name = "pro_controller_button_color"> Cor do botão do Pro Controller: </string>
+    <string name = "left_joycon_body_color"> Cor do JoyCon esquerdo: </string>
+    <string name = "left_joycon_button_color"> Cor do botão do JoyCon esquerdo: </string>
+    <string name = "right_joycon_body_color"> Cor do JoyCon direito: </string>
+    <string name = "right_joycon_button_color"> Cor do botão do JoyCon direito: </string>
+    <string name = "color_settings"> Configurações de Cores </string>
+    <string name = "feature_settings"> Configurações de Recursos </string>
+    <string name = "enable_accelerometer"> Ativar Acelerômetro </string>
+    <string name = "enable_gyroscope"> Ativar Giroscópio </string>
+    <string name = "enable_amiibo"> Ativar Amiibo </string>
 </resources>
