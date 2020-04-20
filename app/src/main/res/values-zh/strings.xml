@@ -1,0 +1,134 @@
+<resources>
+    <string name="app_name">Joy-Con Droid</string>
+    <string name="bt_not_available">蓝牙不可用</string>
+    <string name="bt_enable_canceled">打开蓝牙出错</string>
+    <string name="bt_discovery_canceled">启用蓝牙发现出错</string>
+    <string name="could_not_pair">无法自动配对</string>
+    <string name="pair_with_switch">配对Switch</string>
+    <string name="sl_label">SL</string>
+    <string name="sr_label">SR</string>
+    <string name="connected_to_switch">连接到了Switch</string>
+    <string name="disconnected_from_switch">Switch连接断开了</string>
+    <string name="left_joycon">左JoyCon</string>
+    <string name="user_guide">用户指南</string>
+    <string name="remove_ads">移除广告</string>
+    <string name="revert_bluetooth">恢复蓝牙默认配置</string>
+    <string name="bt_config_is_reverted">成功恢复蓝牙默认配置</string>
+    <string name="bt_config_was_not_changed">蓝牙配置未修改</string>
+
+    <string-array name="explanations">
+        <item>1. 进入Nintendo Switch手柄界面.</item>
+        <item>2. 点击进入匹配手柄界面.</item>
+        <item>3. 确保NS进入匹配模式.</item>
+        <item>4. 进入APP的JoyCon菜单并且按下同步按钮.</item>
+        <item>5. 允许你的手机被其他设备发现.</item>
+        <item>6. 等待NS初始化连接\n
+            此操作可能得多次尝试才能成功.
+        </item>
+        <item>7. 一旦NS请求匹配\n
+             请等到JoyCon图标如下图所示.
+        </item>
+        <item>8. 请尝试按SL和SR,可能要按多次</item>
+        <item>9. 一旦JoCon图标变灰\n
+            按下键,并且退出发现模式
+        </item>
+        <item>
+            10. 现在Joycon应该可以使用了\n
+            如果断开连接,请重试以上步骤.
+        </item>
+    </string-array>
+
+    <string name="ad_id_interstitial" translatable="false">ca-app-pub-4722456569150221/7389554914</string>
+    <string name="ad_id_banner" translatable="false">ca-app-pub-4722456569150221/6544566470</string>
+    <string name="ad_id_mapping_reward" translatable="false">ca-app-pub-4722456569150221/2899224419</string>
+
+    <string name="public_key" translatable="false">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzsESil7TGUDGG6yWBumL5843Qmob+AWQ+aaiH8eq6urEqVsvh1G3QxNcw+IGr3jtkwqsigI9aJuU6yH8VkBG8rkNl/dbyly8YklSQLAvHK8Cv5P+L0LdztOp8Zwr4Fk/yTYHNsPyR7nqijpnGNrwJDaBC+FKdI6sD/Om+8ndAosESqXmLjL59MCyG93QkVgBDN5J2dhxnnvjk5SJR4wkAlN2gRWqjWf5ORX8eP86SwBktRaBOuml/5Fs/SMZiJniCuIFtoQS61veApojMgYFrfRHEoa+I4EoBpytYZnRa3oruH7tqN0Ixr+kTrDttfEojRQyerhvX0Z2YeezfxWwxwIDAQAB</string>
+    <string name="ads_removed">移除广告后请重启APP</string>
+    <string name="ads_not_removed">无法移除广告!</string>
+    <string name="do_not_show_at_the_start_up">启动不显示指南</string>
+    <string name="right_joycon">右JoyCon</string>
+    <string name="pro_controller">Pro Controller</string>
+    <string name="info_and_legal">信息和授权</string>
+
+    <string name="info_and_disclaimer">
+        <![CDATA[
+            <body>
+            <h2><span style="color:#000;">App信息<span></h2>
+            <br/>
+            <p style="color:#888888;">JoyCon Droid可以用来模拟右Joy-Con, 左Joy-Con 和 Pro Controller.</p>
+            <br/>
+            <p style="color:#888888;">请查看用户指南以获取更多信息</p>
+            <p style="color:#888888;">本APP还处于早期测试阶段,可能不支持部分手机.</p>
+            <br/>
+            <p style="color:#888888;">
+                注意: 本APP不兼容以下品牌的手机:
+                <ul style="color:#888888;">
+                    <li style="color:#888888;">Sony</li>
+                    <li style="color:#888888;">小米</li>
+                    <li style="color:#888888;">LG</li>
+                    <li style="color:#888888;">一加</li>
+                    <li style="color:#888888;">华为</li>
+                </ul>
+            </p>
+            <br/>
+            <p style="color:#888888;">本App与Nintendo没有任何关系.</p>
+            <br/>
+            <br/>
+            <h2><span style="color:#000;">声明<span></h2>
+            <br/>
+            <p style="color:#888888;">JoyCon Droid不对任何使用者或者使用者的财产提供任何保证,请用户自行承担相关风险.</p>
+            <br/>
+            <p style="color:#888888;">JoyCon Droid的开发者对任何使用者不承担任何责任.</p>
+            <br/>
+            </body>
+        ]]>
+    </string>
+    <string name="accept">接受</string>
+    <string name="bt_name_not_set">无法设置蓝牙名称,请手动设置为%1$s</string>
+    <string name="bt_sdp_failed">SDP设置失败,请联系开发者.</string>
+    <string name="bt_register_failed">蓝牙不能注册到应用</string>
+    <string name="disconnect_controller">断开手柄</string>
+    <string name="device_is_not_compatible">你的设备不支持这个APP,请联系开发者或者供应商.</string>
+    <string name="ok">OK</string>
+    <string name="custom_left_joycon">自定义左JoyCon UI</string>
+    <string name="custom_ui_selection">选择自定义UI</string>
+    <string name="map_buttons">重映射按键</string>
+    <string name="settings">设置</string>
+    <string name="unknown">未知</string>
+    <string name="press_a_button_to_remap">按一个按键来重映射 %s</string>
+    <string name="repress_to_map">按相同按键来映射%s 到 %s</string>
+    <string name="reset_settings">重置配置</string>
+    <string name="push_right_joystick_up">右摇杆上推</string>
+    <string name="push_left_joystick_up">左摇杆上推</string>
+    <string name="axis_registered">%s 轴注册到 %s</string>
+    <string name="push_right_joystick_right">右摇杆右推</string>
+    <string name="push_left_joystick_right">左摇杆右推</string>
+    <string name="joystick_mapping_completed">要保存当前手柄映射吗?</string>
+    <string name="save">保存</string>
+    <string name="redo">撤销</string>
+    <string name="file_permission_is_required">需要获取文件权限.</string>
+    <string name="save_button_with_ads">保存 (视频奖励)</string>
+    <string name="button_mappings_saves">按键映射已保存.</string>
+    <string name="frequently_asked_questions">常见问题</string>
+    <string name="discord" translatable="false">Discord</string>
+    <string name="set_bt_address">输入蓝牙Mac地址来连接</string>
+    <string name="later">等待</string>
+    <string name="set">设置</string>
+    <string name="incorrect_mac_address">非法MAC地址</string>
+    <string name="never_ask_again">不再询问</string>
+    <string name="push_axis_same_direction_to_map_to_button">按%s 相同方向来映射到 %s</string>
+
+    <!-- Colors -->
+    <string name="pro_controller_body_color">ProController机身颜色:</string>
+    <string name="pro_controller_button_color">ProController按钮颜色:</string>
+    <string name="left_joycon_body_color">左JoyCon机身颜色:</string>
+    <string name="left_joycon_button_color">左JoyCon按钮颜色:</string>
+    <string name="right_joycon_body_color">右JoyCon机身颜色:</string>
+    <string name="right_joycon_button_color">右JoyCon按钮颜色:</string>
+    <string name="color_settings">颜色设置</string>
+    <string name="feature_settings">特性设置</string>
+    <string name="enable_accelerometer">使用加速度计</string>
+    <string name="enable_gyroscope">使用陀螺仪</string>
+    <string name="enable_amiibo">使用Amiibo</string>
+
+</resources>

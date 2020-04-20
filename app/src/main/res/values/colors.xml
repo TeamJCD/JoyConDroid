@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e60012</color>
+    <color name="colorPrimaryDark">#CA4141</color>
+    <color name="colorAccent">#d81b60</color>
+    <color name="blue">#00bbdb</color>
+    <color name="dark_blue">#006e81</color>
+    <color name="red">#ff5f53</color>
+    <color name="dark_red">#CA4141</color>
+    <color name="joycon_red">#ff5f53</color>
+    <color name="pressed">#FFFF00</color>
+    <color name="focused">#FFAB40</color>
+    <color name="released">#44484c</color>
+    <color name="border">#000</color>
+    <color name="launcher_bg">#498CFE</color>
+    <color name="switch_logo">#ffffff</color>
+    <color name="switch_logo_bg">#e60012</color>
+    <color name="switch_logo_bg_pressed">#FF4081</color>
+    <color name="switch_logo_bg_focused">#E040FB</color>
+    <color name="grey">#aaa</color>
+    <color name="dark_grey">#666</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+</resources>

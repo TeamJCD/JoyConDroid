@@ -8,7 +8,7 @@
     <string name="sl_label">SL</string>
     <string name="sr_label">SR</string>
     <string name="connected_to_switch">Mit Nintendo Switch verbunden!</string>
-    <string name="disconnected_from_switch">Verbundung mit Switch getrennt.</string>
+    <string name="disconnected_from_switch">Verbindung mit Switch getrennt.</string>
     <string name="left_joycon">Linker Joy-Con</string>
     <string name="user_guide">Anleitung</string>
     <string name="remove_ads">Werbung entfernen</string>
@@ -69,6 +69,7 @@ Dein Gerät ist möglicherweise nicht mit dieser App kompatibel. Kontaktiere den
     <string name="custom_ui_selection">Benutzerdefinierte UI auswählen</string>
     <string name="map_buttons">Tasten belegen</string>
     <string name="unknown">Unbekannt</string>
+    <string name="settings">Einstellungen</string>
     <string name="press_a_button_to_remap">Drücke A zum Umbelegen von %s</string>
     <string name="repress_to_map">Drücke denselben Knopf um %s auf %s zu legen</string>
     <string name="reset_settings">Einstellungen zurücksetzen</string>
@@ -91,4 +92,18 @@ Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
     <string name="set">Einstellen</string>
     <string name="incorrect_mac_address">Inkorrekte Mac-Addresse!</string>
     <string name="never_ask_again">Nicht mehr fragen</string>
+    <string name="push_axis_same_direction_to_map_to_button">Drücke %s in die gleiche Richtung um auf %s zu belegen</string>
+
+<!-- Colors -->
+    <string name="pro_controller_body_color">ProController: Gehäusefarbe:</string>
+    <string name="pro_controller_button_color">Pro Controller: Tastenfarbe:</string>
+    <string name="left_joycon_body_color">Linker Joy-Con: Gehäusefarbe:</string>
+    <string name="left_joycon_button_color">Linker Joy-Con: Tastenfarbe:</string>
+    <string name="right_joycon_body_color">Rechter Joy-Con: Gehäusefarbe:</string>
+    <string name="right_joycon_button_color">Rechter Joy-Con: Tastenfarbe:</string>
+    <string name="color_settings">Farbeinstellungen</string>
+    <string name="feature_settings">Funktionseinstellungen</string>
+    <string name="enable_accelerometer">Beschleunigungsmesser aktivieren</string>
+    <string name="enable_gyroscope">Gyroskop aktivieren</string>
+    <string name="enable_amiibo">Amiibo aktivieren</string>
 </resources>
