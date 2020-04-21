@@ -105,7 +105,7 @@
     <string name="incorrect_mac_address">Endereço MAC incorreto</string>
     <string name="later">Mais tarde</string>
     <string name="never_ask_again">Não perguntar novamente</string>
-    <string name="settings">Settings</string>
+    <string name="settings">Configurações</string>
     <string name="set">Determinar</string>
     <string name="set_bt_address">Digite o endereço MAC do Bluetooth para melhorar a conexão</string>
     <string name = "push_axis_same_direction_to_map_to_button"> Pressione %s na mesma direção para mapear para %s </string>
