@@ -124,5 +124,6 @@
     <string name="enable_accelerometer">使用加速度计</string>
     <string name="enable_gyroscope">使用陀螺仪</string>
     <string name="enable_amiibo">使用Amiibo</string>
+    <string name="custom_ui">自定义UI</string>
 
 </resources>

@@ -94,7 +94,7 @@ Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
     <string name="never_ask_again">Nicht mehr fragen</string>
     <string name="push_axis_same_direction_to_map_to_button">Drücke %s in die gleiche Richtung um auf %s zu belegen</string>
 
-<!-- Colors -->
+    <!-- Colors -->
     <string name="pro_controller_body_color">ProController: Gehäusefarbe:</string>
     <string name="pro_controller_button_color">Pro Controller: Tastenfarbe:</string>
     <string name="left_joycon_body_color">Linker Joy-Con: Gehäusefarbe:</string>
@@ -106,4 +106,5 @@ Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
     <string name="enable_accelerometer">Beschleunigungsmesser aktivieren</string>
     <string name="enable_gyroscope">Gyroskop aktivieren</string>
     <string name="enable_amiibo">Amiibo aktivieren</string>
+    <string name="custom_ui">Benutzerdefinierte UI</string>
 </resources>

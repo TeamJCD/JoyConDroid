@@ -109,4 +109,5 @@
     <string name="set">설정</string>
     <string name="incorrect_mac_address">Mac 주소가 잘못되었습니다.</string>
     <string name="never_ask_again">다시 묻지 않음</string>
+    <string name="custom_ui">"커스텀 UI "</string>
 </resources>

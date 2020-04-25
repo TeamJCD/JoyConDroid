@@ -122,4 +122,5 @@
     <string name = "enable_accelerometer"> Ativar Acelerômetro </string>
     <string name = "enable_gyroscope"> Ativar Giroscópio </string>
     <string name = "enable_amiibo"> Ativar Amiibo </string>
+    <string name="custom_ui">Layout Customizado</string>
 </resources>
