@@ -134,4 +134,7 @@
     <string name="enable_gyroscope">Enable Gyroscope</string>
     <string name="enable_amiibo">Enable Amiibo</string>
 
+    <string name="purchase_pending">Purchase is pending once purchase is approved restart the application.</string>
+    <string name="acknowledgement_failed"> Acknowledgement Failed</string>
+
 </resources>
