@@ -88,6 +88,7 @@
     <string name="ok">OK</string>
     <string name="custom_left_joycon">UI JoyCon Sinistro personalizzata</string>
     <string name="custom_ui_selection">Seleziona UI personalizzata</string>
+    <string name="custom_ui">UI personalizzata</string>
     <string name="map_buttons">Mappa Pulsanti</string>
     <string name="settings">Impostazioni</string>
     <string name="unknown">Sconosciuto</string>
@@ -125,7 +126,8 @@
     <string name="enable_accelerometer">Attiva Accelerometro</string>
     <string name="enable_gyroscope">Attiva Giroscopio</string>
     <string name="enable_amiibo">Attiva Amiibo</string>
-    <string name="custom_ui">UI Personalizzata</string>
-
+    
+    <string name="purchase_pending">L'acquisto è in fase di approvazione. Una volta approvato riavvia l'applicazione.</string>
+    <string name="acknowledgement_failed"> Acknowledgement Failed</string>
 </resources>
 
