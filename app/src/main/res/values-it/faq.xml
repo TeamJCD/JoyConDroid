@@ -1,0 +1,128 @@
+<resources>
+    <string-array name="questions">
+        <item>Joy-Con Droid funziona sul mio telefono?</item>
+        <item>Puoi far funzionare Joy-Con Droid sul mio telefono?</item>
+        <item>Joy-Con Droid può danneggiare la mia Nintendo Switch?</item>
+        <item>Cosa devo fare se Joy-Con Droid dopo aver lasciato la schermata Cambia Impugnatura/Ordine?</item>
+        <item>Cosa devo fare se Joy-Con Droid non riceve la richiesta di Pairing?</item>
+        <item>Cosa devo fare in caso di ritardo dell\'input?</item>
+        <item>Joy-Con Droid funziona con tutte le versioni del Firmware Switch?</item>
+        <item>Come posso chiedere aiuto, informazioni o nuove funzionalità?</item>
+        <item>Come posso aggiungere una mia UI all\'applicazione?</item>
+        <item>Perché è necessario il mio MAC address?</item>
+        <item>Dove trovo il mio MAC address?</item>
+        <item>Come posso cambiare/rimuovere il mio MAC Address o il "Non chiedere più"?</item>
+        <item>Posso entrare nel programma di test?</item>
+    </string-array>
+    <string-array name="answers">
+        <item>
+            <![CDATA[
+            Questa applicazione richiede <b>Android 9 (P) o superiore</b>. Utilizza il profilo HID che alcuni
+            produttori non includono nel loro <b>Sistema Operativo</b>. Puoi controllare la compatibilità
+            del dispositivo tramite <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
+            Bluetooth HID Profile Tester</a>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Se al tuo sistema manca il profilo HID, questo può essere risolto solo tramite un <b>Aggiornamento 
+            di Sistema</b> distribuito dal <b>Produttore</b>. Se vuoi assolutamente usare questa app puoi
+            installare <a href="https://lineageos.org/">Lineage OS</a>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b> è già utilizzata da molti utenti e non ha sinora causato errori irreversibili.
+            Talvolta la Nintendo Switch può crashare ma un reset risolve il problema.
+            In qualsiasi caso, utilizza <b>Joy-Con Droid</b> a tuo rischio. <b>Joy-Con Droid</b> non 
+            dà alcuna garanzia.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            "La disconessione continua quando si chiude la schermata Cambia impugnatura/Ordine." è un problema noto
+            ma non è ancora stata trovata una soluzione. È possibile usare questo workaround:
+            <ol>
+                <li>Vai alla schermata Cambia impugnatura/Ordine.</li>
+                <li>Aspetta la richiesta di Accoppiamento Bluetooth ma <b>NON ACCETTARE!</b></li>
+                <li>Vai un passo indietro nel menu controller.</li>
+                <li>Adesso accetta la richiesta di accoppiamento.</li>
+                <li>Adesso la connessione dovrebbe essere stabilita.</li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Se <b>Joy-Con Droid</b> non riceve la richiesta di accoppiamento nonostante sia nella schermata
+            <b>Cambia impugnatura/Ordine</b>. Puoi fare un paio di controlli. Controlla se il tuo dispositivo
+            ha il nome del dispositivo desiderato, ad esempio Joy-Con (R), Joy-Con (L) o Pro Controller.
+            Se il nome è impostato correttamente, chiudi l\'applicazione e clicca sulla notifica per killare
+            il servizio. Vai nelle impostazioni di Nintendo Switch e disconnetti i controller.
+            Spegni il bluetooth. (Per sicurezza puoi riavviare il tuo dispositivo Android). Fatti tutti questi
+            passi, apri la schermata <b>Cambia impugnatura/Ordine</b>, apri <b>Joy-Con Droid</b> e ripeti
+            gli step di connessione.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            L\'input ritardato è un altro problema noto, solitamente risolvibile tramite riconessione.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b> è stata testata su firmware Nintento Switch fino al <b>9.0.0</b>. Non ci sono
+            garanzie che <b>Joy-Con Droid</b> continui a funzionare su versioni più nuove del firmware.
+            Per favore. controlla <b>Joy-Con Droid</b> per sapere qual è l\'ultima versione supportata prima di aggiornare 
+            la tua Nintendo Switch.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Ci sono un paio di modi con cui raggiungere lo sviluppatore:
+            <ul>
+                <li><a href="mailto:allplaylive@gmail.com">Email</a></li>
+                <li><a href="https://youtubeplays.com/joycon-droid">Discord</a></li>
+            </ul>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Puoi fare riferimento al progetto di esempio <a href="https://github.com/YouTubePlays/JoyConDroidNESStyleController">NES Style Controller</a>.
+            Se vuoi sviluppare una UI simile o un altro script utile contatta lo sviluppatore.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con and Pro Controller</b> mandano il loro MAC address alla <b>Nintendo Switch</b>. Questa informazione è usata per riconettersi.
+            Tuttavia, in <b>Android</b> non è possibile accedere al MAC address del dispositivo. L\'utente può inserire il MAC address per
+            migliorare la qualità della connessione.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Nella maggior parte dei dispostivi basta seguire queste istruzioni per trovare il MAC address del Bluetooth:
+            <ol>
+                <li>Dalla schermata <b>Home</b>, apri l\'app drawer e poi <b>“Impostazioni“</b>.</li>
+                <li>Seleziona <b>“Sistema“</b>. (Salta questo step su alcuni modelli)</li>
+                <li>Scorri fino in fondo e tocca <b>“Informazioni sul telefono“, “Informazioni sul dispositivo“, o “Informazioni sul tablet“</b>.</li>
+                <li>Scorri fino in fondo e tocca <b>“Status“</b>.</li>
+                <li>Scorri fino in fondo e troverai l\'<b>"indirizzo Bluetooth"</b> nella lista.</li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Se vuoi cambiare o rimuovere il MAC address o cambiare la tua decisione sul "Non chiedere più":
+            Apri il menu laterale tramite l\'icona in alto a sinistra e tocca <b>Reimposta Configurazione Bluetooth</b>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Se vuoi seguire lo sviluppo di <b>Joy-Con Droid</b>, puoi unirti al gruppo di test.
+            Tuttavia, tieni presente che le release di test possono presentare più problemi ed essere aggiornate più frequentemente.
+            Manda una <a href="mailto:allplaylive@gmail.com">Email</a> o unisciti al server <a href="https://youtubeplays.com/joycon-droid">Discord</a>
+            per maggiori informazioni.
+            ]]>
+        </item>
+    </string-array>
+</resources>

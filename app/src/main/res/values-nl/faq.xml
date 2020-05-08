@@ -1,0 +1,126 @@
+<resources>
+    <string-array name="questions">
+        <item>Werkt Joy-Con Droid op mijn telefoon?</item>
+        <item>Kun je Joy-Con Droid laten werken op mijn telefoon?</item>
+        <item>Kan Joy-Con Droid schade toebrengen aan mijn Nintendo Switch?</item>
+        <item>Wat moet ik doen als Joy-Con Droid de verbinding verbreekt zodra ik speelstijl/volgorde verlaat?</item>
+        <item>wat moet ik doen als Joy-Con Droid geen verbindings verzoek krijgt?</item>
+        <item>Wat moet ik doen als er invoervertraging is?</item>
+        <item>Werkt Joy-Con Droid met alle Switch Firmware-versies?</item>
+        <item>Hoe kan ik hulp krijgen of functies / informatie aanvragen?</item>
+        <item>Hoe kan ik mijn eigen gebruikersinterface toevoegen aan de applicatie?</item>
+        <item>Waarom heb je mijn MAC-adres nodig?</item>
+        <item>Hoe vind ik mijn MAC-adres?</item>
+        <item>Hoe wijzig / verwijder ik mijn MAC-adres of een Nooit meer vragen beslissing?</item>
+        <item>Kan ik aan de test programma mee doen?</item>
+    </string-array>
+    <string-array name="answers">
+        <item>
+            <![CDATA[
+            Deze applicatie vereist <b>Android 9 (P) of hoger</b>. het gebruikt HID profile wat sommige
+            faabrikanten niet hebben toegevoegd aan hun <b>Systeem Software</b>. Je kan je apparaat testen voor HID met deze link:
+            <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
+            Bluetooth HID Profile Tester</a>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Als uw systeemsoftware het HID-profiel mist; dit kan alleen worden opgelost met een <b>Systeemupdate</b>
+            die alleen kan worden geleverd door <b>Apparaat Beheer</b>. Als je deze app zeker wilt gebruiken
+            u kunt <a href="https://lineageos.org/"> Lineage OS </a> installeren.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b> word gebruikt door veel gebruikers en er zijn nog geen schades gevonden.
+            soms, kan de Nintend Switch crashen maar een reset lost dit op.
+            Gebruik echter de <b> Joy-Con Droid </b> -applicatie op eigen risico. <b> Joy-Con Droid </b> bied geen garanties.
+            
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            "Continu loskoppelen wanneer het scherm Volgorde wijzigen / grip is verlaten." is echter een bekend probleem
+            er is nog geen oplossing voor dit probleem bekend. Er is echter een oplossing:
+            <ol>
+                <li> Ga naar het scherm Order / Grip wijzigen. </li>
+                <li> Wacht op Bluetooth-koppelingsverzoek, maar <b> ACCEPTEER NIET! </b> </li>
+                <li> Ga een stap terug naar het controllermenu. </li>
+                <li> Accepteer nu het koppelingsverzoek. </li>
+                <li> Verbinding moet tot stand worden gebracht. </li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Als <b>Joy-Con Droid</b> geen verbindings verzoek terwijl je op <b>verander speelstijl/volgorde</b> scherm zit. Er zijn een paar controles die u moet doen. Controleer of uw apparaat het gewenste heeft
+            apparaatnaam voor bluetooth zoals Joy-Con (R), Joy-Con (L) of Pro Controller.
+            Als de apparaatnaam correct is ingesteld. Sluit de applicatie en klik op notificatie om de te doden
+            onderhoud. Ga naar instellingen en kies de optie controllers loskoppelen op je Nintendo Switch.
+            Schakel de bluetooth uit. (Mogelijk wilt u uw Android-apparaat opnieuw opstarten). Zodra al deze stappen
+            zijn voltooid. Open het scherm <b> Verander speelstijd / volgorde </b> en open <b> Joy-Con Droid </b> en
+            herhaal verbindingsstappen.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Een ander bekend probleem is ingangsvertraging, het opnieuw verbinden lost meestal het probleem met ingangsvertraging op.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b> tested up to Nintendo Switch Version <b>9.0.0</b>. There is no guarantee
+            <b>Joy-Con Droid</b> will continue you to work on higher versions of Nintendo Switch firmware.
+            Please check <b>Joy-Con Droid</b> to see latest supported version before updating your Nintendo Switch Version
+            firmware.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Er zijn een paar manieren hoe contact kunt krijgen met de developer:
+            <ul>
+                <li><a href="mailto:allplaylive@gmail.com">Email</a></li>
+                <li><a href="https://youtubeplays.com/joycon-droid">Discord</a></li>
+            </ul>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+           U kunt het voorbeeldproject bekijken <a href="https://github.com/YouTubePlays/JoyConDroidNESStyleController">NES Style Controller</a>.
+            Als u een vergelijkbare gebruikersinterface of een nuttig script wilt ontwikkelen, neem dan contact op met de ontwikkelaar.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b> Joy-Con en Pro Controller </b> sturen hun MAC-adres naar <b> Nintendo Switch </b>. Deze informatie wordt gebruikt om opnieuw verbinding te maken. Hoe dan ook,
+            in <b>Android OS</b> het is niet mogelijk om toegang te krijgen tot het MAC-adres van een apparaat. De gebruiker kan ervoor kiezen om een ​​MAC-adres op te geven om de verbindingskwaliteit te verbeteren.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Bij de meeste apparaten zijn de volgende stappen voldoende om het Bluetooth MAC-adres te vinden:
+            <ol>
+                <li> Open vanuit het <b> startscherm </b> de app-lade en open vervolgens <b> "Instellingen" </b>. </li>
+                <li> Selecteer <b> 'Systeem' </b>. (Sla deze stap over bij sommige modellen) </li>
+                <li> Scrol naar beneden en tik op <b> 'Over telefoon', 'Over apparaat' of 'Over tablet' </b>. </li>
+                <li> Scroll naar beneden en tik op <b> "Status" </b>. </li>
+                <li> Scroll naar beneden <b> "Bluetooth-adres" </b> wordt weergegeven in de lijst. </li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Als u het ingevoerde MAC-adres wilt verwijderen of wijzigen of simpelweg Never Ask Again-besluit wilt wijzigen:
+            Open het zijmenu via het menupictogram linksboven en tik op <b> Bluetooth-configuratie terugzetten </b>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Als je de laatste status van de <b> Joy-Con Droid </b> wilt zien, kun je lid worden van de testergroep.
+            Houd er echter rekening mee dat de testgroep van tijd tot tijd meer problemen heeft en regelmatig wordt bijgewerkt.
+            <a href="mailto:allplaylive@gmail.com"> E-mail </a> of word lid van <a href="https://youtubeplays.com/joycon-droid"> Discord </a>
+            voor meer informatie.
+            ]]>
+        </item>
+    </string-array>
+</resources>

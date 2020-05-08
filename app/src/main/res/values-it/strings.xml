@@ -1,0 +1,131 @@
+<resources>
+    <string name="app_name">Joy-Con Droid</string>
+    <string name="bt_not_available">Bluetooth non disponibile</string>
+    <string name="bt_enable_canceled">C\'è stato un errore nell\'attivazione del Bluetooth.</string>
+    <string name="bt_discovery_canceled">C\'è stato un errore durante l\'attivazione della ricerca Bluetooth.</string>
+    <string name="could_not_pair">Non è stato possibile l\'accoppiamento automatico</string>
+    <string name="pair_with_switch">Accoppia Switch</string>
+    <string name="sl_label">SL</string>
+    <string name="sr_label">SR</string>
+    <string name="connected_to_switch">Dispositivo connesso alla Switch</string>
+    <string name="disconnected_from_switch">Dispositivo disconnesso dalla Switch</string>
+    <string name="left_joycon">JoyCon Sinistro</string>
+    <string name="user_guide">Guida Utente</string>
+    <string name="remove_ads">Rimuovi Ads</string>
+    <string name="revert_bluetooth">Reimposta Configurazione Bluetooth</string>
+    <string name="bt_config_is_reverted">La Configurazione Bluetooth è stata reimpostata!</string>
+    <string name="bt_config_was_not_changed">La Configurazione Bluetooth non è stata modificata.</string>
+
+    <string-array name="explanations">
+        <item>1. Vai nel menu dei controller sulla Nintendo Switch.</item>
+        <item>2. Clicca su "Cambia impugnatura/Ordine".</item>
+        <item>3. Lascia la Switch in modalità di accoppiamento.</item>
+        <item>4. Vai nel menu JoyCon di questa app e premi il Sync Button.</item>
+        <item>5. Consenti al tuo telefono di essere trovato da altri dispositivi.</item>
+        <item>6. Aspetta che la Nintendo Switch inizi la connessione\n
+            Sii paziente ma potresti dover provare un paio di volte.
+        </item>
+        <item>7. Quando la Switch chiede l\'accoppiamento\n
+            aspetta fino a che non viene mostrata l\'icona JoyCon come sotto.
+        </item>
+        <item>8. Premi SL e SR un paio di volte.</item>
+        <item>9. Quando l\'icona diventa grigio pieno\n
+            premi il bottone giù ed esci dalla ricerca.
+        </item>
+        <item>
+            10. Adesso il JoyCon dovrebbe essere operativo\n
+            Se si disconnette ripeti questi step.
+        </item>
+    </string-array>
+    <string name="ads_removed">Ads Rimossi Per Favore Riavvia l\'Applicazione</string>
+    <string name="ads_not_removed">Gli ads non possono essere rimossi!</string>
+    <string name="do_not_show_at_the_start_up">Non mostrare la guida all\'avvio</string>
+    <string name="right_joycon">JoyCon Destro</string>
+    <string name="pro_controller">Pro Controller</string>
+    <string name="info_and_legal">Info And Legal</string>
+
+    <string name="info_and_disclaimer">
+        <![CDATA[
+            <body>
+            <h2><span style="color:#000;">App Info<span></h2>
+            <br/>
+            <p style="color:#888888;">JoyCon Droid emula Joy-Con Destro, Joy-Con Sinistro e Pro Controller.</p>
+            <br/>
+            <p style="color:#888888;">Per favore controlla la Guida Utente per maggiori informazioni.</p>
+            <p style="color:#888888;">Questa applicazione è ancora in alpha stage e non funziona su alcuni telefoni.</p>
+            <br/>
+            <p style="color:#888888;">
+                Attenzione: Questa applicazione non è compatibile con alcuni dei dispositivi di questi produttori:
+                <ul style="color:#888888;">
+                    <li style="color:#888888;">Sony</li>
+                    <li style="color:#888888;">Xiaomi</li>
+                    <li style="color:#888888;">LG</li>
+                    <li style="color:#888888;">OnePlus</li>
+                    <li style="color:#888888;">Huawei</li>
+                </ul>
+            </p>
+            <br/>
+            <p style="color:#888888;">Questa applicazione non è in alcun modo affiliata a Nintendo.</p>
+            <br/>
+            <br/>
+            <h2><span style="color:#000;">Disclaimer<span></h2>
+            <br/>
+            <p style="color:#888888;">JoyCon Droid non dà alcuna garanzia, esplicita o implicita, riguardo l\'uso dell\'applicazione e
+            le possibili conseguenze su di te o sulla tua proprietà. È responsabilità dell\'utente valutare i rischi dell\'utilizzo di questa
+            applicazione o applicazioni simili.</p>
+            <br/>
+            <p style="color:#888888;">Lo sviluppatore di JoyCon Droid non è in alcun modo o forma responsabile per l\'utilizzo di questa applicazione.</p>
+            <br/>
+            </body>
+        ]]>
+    </string>
+    <string name="accept">Accetta</string>
+    <string name="bt_name_not_set">Il nome del dispositivo Bluetooth non può essere modificato deve essere impostato manualmente a %1$s</string>
+    <string name="bt_sdp_failed">Impostazioni SDP fallite contatta lo sviluppatore.</string>
+    <string name="bt_register_failed">Il Bluetooth non è riuscito a registrare l\'applicazione</string>
+    <string name="disconnect_controller">Disconnetti Controller</string>
+    <string name="device_is_not_compatible">Il tuo dispositivo potrebbe non essere compatibile con questa applicazione. Contatta lo sviluppatore o il produttore.</string>
+    <string name="ok">OK</string>
+    <string name="custom_left_joycon">UI JoyCon Sinistro personalizzata</string>
+    <string name="custom_ui_selection">Seleziona UI personalizzata</string>
+    <string name="map_buttons">Mappa Pulsanti</string>
+    <string name="settings">Impostazioni</string>
+    <string name="unknown">Sconosciuto</string>
+    <string name="press_a_button_to_remap">Premi un pulsante per rimappare %s</string>
+    <string name="repress_to_map">Premi lo stesso pulsante per rimappare %s su %s</string>
+    <string name="reset_settings">Resetta Impostazioni</string>
+    <string name="push_right_joystick_up">Tira su la levetta destra</string>
+    <string name="push_left_joystick_up">Tira su la levetta sinistra</string>
+    <string name="axis_registered">asse %s registrato su %s</string>
+    <string name="push_right_joystick_right">Tira a destra la levetta destra</string>
+    <string name="push_left_joystick_right">Tira a sinistra la levetta sinistra</string>
+    <string name="joystick_mapping_completed">Vuoi salvare la mappatura del joystick?</string>
+    <string name="save">Salva</string>
+    <string name="redo">Rifai</string>
+    <string name="file_permission_is_required">È richiesto il permesso per ottenere la lista dei file.</string>
+    <string name="save_button_with_ads">Salva (Ricompensa Video)</string>
+    <string name="button_mappings_saves">Le mappature dei pulsanti sono state salvate.</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="set_bt_address">Inserisci il MAC Address del Bluetooth per una connessione migliore</string>
+    <string name="later">Più tardi</string>
+    <string name="set">Imposta</string>
+    <string name="incorrect_mac_address">MAC Address non corretto</string>
+    <string name="never_ask_again">Non chiedere più</string>
+    <string name="push_axis_same_direction_to_map_to_button">Tira %s nella stessa direzione per mappare su %s</string>
+
+    <!-- Colors -->
+    <string name="pro_controller_body_color">Colore Corpo ProController:</string>
+    <string name="pro_controller_button_color">Colore Pulsante ProController:</string>
+    <string name="left_joycon_body_color">Colore Corpo JoyCon Sinistro:</string>
+    <string name="left_joycon_button_color">Colore Pulsante JoyCon Sinistro:</string>
+    <string name="right_joycon_body_color">Colore Corpo JoyCon Destro:</string>
+    <string name="right_joycon_button_color">Colore Pulsante JoyCon Destro:</string>
+    <string name="color_settings">Impostazioni Colore</string>
+    <string name="feature_settings">Impostazioni funzionalità</string>
+    <string name="enable_accelerometer">Attiva Accelerometro</string>
+    <string name="enable_gyroscope">Attiva Giroscopio</string>
+    <string name="enable_amiibo">Attiva Amiibo</string>
+    <string name="custom_ui">UI Personalizzata</string>
+
+</resources>
+

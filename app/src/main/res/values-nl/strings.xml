@@ -1,0 +1,140 @@
+<resources>
+    <string name="app_name">Joy-Con Droid</string>
+    <string name="bt_not_available">Bluetooth is niet beschikbaar</string>
+    <string name="bt_enable_canceled">Er is een error opegekomen onderstussen bluetooth is opgestart.</string>
+    <string name="bt_discovery_canceled">Foutje bij Bluetooth discovery.</string>
+    <string name="could_not_pair">Kan niet automatisch verbinden</string>
+    <string name="pair_with_switch">Verbind Switch</string>
+    <string name="sl_label">SL</string>
+    <string name="sr_label">SR</string>
+    <string name="connected_to_switch">Apparaat verbonden met Switch</string>
+    <string name="disconnected_from_switch">Apparaat verbinding vebroken met Switch</string>
+    <string name="left_joycon">Linker JoyCon</string>
+    <string name="user_guide">Gebruikersaanwijzing</string>
+    <string name="remove_ads">Vewijder Reclame</string>
+    <string name="revert_bluetooth">Bluetooth Instellingen resetten</string>
+    <string name="bt_config_is_reverted">Bluetooth Instellingen zijn gereset!</string>
+    <string name="bt_config_was_not_changed">Bluetooth Instellingen zijn niet gewijzigd.</string>
+
+    <string-array name="explanations">
+        <item>1. Ga naar controller menu op je switch.</item>
+        <item>2. Klik "Speelstijd/volgorde wijzigen" Menu knopje.</item>
+        <item>3. Laat je Nintendo in verbindingsmodus.</item>
+        <item>4. Ga naar de JoyCon menu in deze App en klik op "Verbinding Maken".</item>
+        <item>5. Laat toe dat je apparaat gevonden kan worden door andere apparaten.</item>
+        <item>6. Wacht tot je Nintendo Switch vervinding maakt\n
+            Wees geduldig het kan zo zijn dat je dit een paar keer moet doen.
+        </item>
+        <item>7. Zodra Nintendo vraagt om te verbinden\n
+            Wacht tot de joycon dit afbeeld.
+        </item>
+        <item>8. houd SL en SR een paar keer ingedrukt.</item>
+        <item>9. Zodra de joycons donker grijs worden\n
+            Druk de knoppen in en verlaat verbindingsmodus
+        </item>
+        <item>
+            10. Nu zouden je joycons moeten werken\n
+            Als de verbinding vebroken word, herhaal deze stappen.
+        </item>
+    </string-array>
+
+    <string name="ad_id_interstitial" translatable="false">ca-app-pub-4722456569150221/7389554914</string>
+    <string name="ad_id_banner" translatable="false">ca-app-pub-4722456569150221/6544566470</string>
+    <string name="ad_id_mapping_reward" translatable="false">ca-app-pub-4722456569150221/2899224419</string>
+
+    <string name="public_key" translatable="false">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzsESil7TGUDGG6yWBumL5843Qmob+AWQ+aaiH8eq6urEqVsvh1G3QxNcw+IGr3jtkwqsigI9aJuU6yH8VkBG8rkNl/dbyly8YklSQLAvHK8Cv5P+L0LdztOp8Zwr4Fk/yTYHNsPyR7nqijpnGNrwJDaBC+FKdI6sD/Om+8ndAosESqXmLjL59MCyG93QkVgBDN5J2dhxnnvjk5SJR4wkAlN2gRWqjWf5ORX8eP86SwBktRaBOuml/5Fs/SMZiJniCuIFtoQS61veApojMgYFrfRHEoa+I4EoBpytYZnRa3oruH7tqN0Ixr+kTrDttfEojRQyerhvX0Z2YeezfxWwxwIDAQAB</string>
+    <string name="ads_removed">Reclame verwijderd! A.U.B. herstart uw app.</string>
+    <string name="ads_not_removed">Reclame kon niet worden verwijderd!</string>
+    <string name="do_not_show_at_the_start_up">Laat gids niet meer zien bij opstarten.</string>
+    <string name="right_joycon">Rechter JoyCon</string>
+    <string name="pro_controller">Pro Controller</string>
+    <string name="info_and_legal">Info en Legaal</string>
+
+    <string name="info_and_disclaimer">
+        <![CDATA[
+            <body>
+            <h2><span style="color:#000;">App Info<span></h2>
+            <br/>
+            <p style="color:#888888;">JoyCon Droid emulates Right Joy-Con, Left Joy-Con and Pro Controller.</p>
+            <br/>
+            <p style="color:#888888;">Please check the User Guide for more information.</p>
+            <p style="color:#888888;">This application is in alpha stage and does not work with some phones.</p>
+            <br/>
+            <p style="color:#888888;">
+                Note: This application is not compatible with some of the below Android devices:
+                <ul style="color:#888888;">
+                    <li style="color:#888888;">Sony</li>
+                    <li style="color:#888888;">Xiaomi</li>
+                    <li style="color:#888888;">LG</li>
+                    <li style="color:#888888;">OnePlus</li>
+                    <li style="color:#888888;">Huawei</li>
+                </ul>
+            </p>
+            <br/>
+            <p style="color:#888888;">This application is not associated with Nintendo in any way.</p>
+            <br/>
+            <br/>
+            <h2><span style="color:#000;">Disclaimer<span></h2>
+            <br/>
+            <p style="color:#888888;">JoyCon Droid in no way provides any warranty, express or implied, toward the use of the application and
+            possible consequences to you or your property. It is user\'s responsibility to assess the risks of using this
+            application or similar application.</p>
+            <br/>
+            <p style="color:#888888;">The JoyCon Droid Developer is in no way or shape liable for any use of this application.</p>
+            <br/>
+            </body>
+        ]]>
+    </string>
+    <string name="accept">Accepteren</string>
+    <string name="bt_name_not_set">Bluetooth apparaat naam kan niet veranderd worden. veranderingen moetn handmatig veranderd worden. %1$s</string>
+    <string name="bt_sdp_failed">SDP Instellingen gefaald, neem contact op met de developer.</string>
+    <string name="bt_register_failed">Bluetooth kan de applicatie niet registreren</string>
+    <string name="disconnect_controller">Controller verbinding verbroken.</string>
+    <string name="device_is_not_compatible">Jouwn apparaat is mogelijk niet verenigbaar met deze app. Neem contact op met de developer of fabrikant.</string>
+    <string name="ok">Oke</string>
+    <string name="custom_left_joycon">Custom Linker JoyCon UI</string>
+    <string name="custom_ui_selection">Selecteer Custom UI</string>
+    <string name="custom_ui">Custom UI</string>
+    <string name="map_buttons">wijz knoppen aan</string>
+    <string name="settings">Instellingen</string>
+    <string name="unknown">Onbekend</string>
+    <string name="press_a_button_to_remap">Wijs een knop aan %s</string>
+    <string name="repress_to_map">Druk dezelfde knop om aan te wijzen %s to %s</string>
+    <string name="reset_settings">Reset Instellingen</string>
+    <string name="push_right_joystick_up">Druk rechter joystick omhoog</string>
+    <string name="push_left_joystick_up">Druk linker joystick omhoog</string>
+    <string name="axis_registered">%s axis registreed naar %s</string>
+    <string name="push_right_joystick_right">Druk rechter joystick rechts</string>
+    <string name="push_left_joystick_right">Druk linker joystick rechts</string>
+    <string name="joystick_mapping_completed">Wil je deze joystick wijziging opslaan?</string>
+    <string name="save">Opslaan</string>
+    <string name="redo">terug</string>
+    <string name="file_permission_is_required">Toestemming is nodig om de lijst met bestanden te laten zien.</string>
+    <string name="save_button_with_ads">Sla (Video Reward) op</string>
+    <string name="button_mappings_saves">Knop wijzigingen zijn opgeslagen.</string>
+    <string name="frequently_asked_questions">Veel gestelde vragen</string>
+    <string name="discord" translatable="false">Discord</string>
+    <string name="set_bt_address">Toets Bluetooth Mac-adress in voor beter verbinding</string>
+    <string name="later">Later</string>
+    <string name="set">zet</string>
+    <string name="incorrect_mac_address">Incorrecte Mac Address</string>
+    <string name="never_ask_again">Nooit meer vragen</string>
+    <string name="push_axis_same_direction_to_map_to_button">druk% s naar dezelfde richting om toe te wijzen aan% s</string>
+
+    <!-- Colors -->
+    <string name="pro_controller_body_color">ProController lichaam kleur:</string>
+    <string name="pro_controller_button_color">ProController knoppen kleur:</string>
+    <string name="left_joycon_body_color">Linker JoyCon lichaam kleur:</string>
+    <string name="left_joycon_button_color">linker JoyCon knoppen kleur:</string>
+    <string name="right_joycon_body_color">rechter JoyCon lichaam kleur:</string>
+    <string name="right_joycon_button_color">rechter JoyCon knoppen kleur:</string>
+    <string name="color_settings">Kleuren instellingen</string>
+    <string name="feature_settings">Kenmerk instellingen</string>
+    <string name="enable_accelerometer">Accelerometer inschakelen</string>
+    <string name="enable_gyroscope">Gyroscope inschakelen</string>
+    <string name="enable_amiibo">Amiibo inschakelen</string>
+
+    <string name="purchase_pending">Aankoop is in behandeling zodra de aankoop is goedgekeurd, start de applicatie opnieuw.</string>
+    <string name="acknowledgement_failed"> Bevestiging mislukt.</string>
+
+</resources>
