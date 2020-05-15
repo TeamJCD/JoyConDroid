@@ -1,60 +1,60 @@
 <resources>
     <string name="app_name">Joy-Con Droid</string>
-    <string name="bt_not_available">Bluetooth no esta disponible</string>
-    <string name="bt_enable_canceled">Ocurrio un error mientras se activaba bluetooth</string>
-    <string name="bt_discovery_canceled">Ocurrio un error mientras se iniciaba el descubrimiento bluetooth</string>
-    <string name="could_not_pair">No se puede emparejar automaticamente</string>
-    <string name="pair_with_switch">Emparejar con switch</string>
+    <string name="bt_not_available">Bluetooth no esta disponible.</string>
+    <string name="bt_enable_canceled">Ocurrio un error mientras se activaba bluetooth.</string>
+    <string name="bt_discovery_canceled">Ocurrio un error mientras se iniciaba el descubrimiento Bluetooth.</string>
+    <string name="could_not_pair">No se puede emparejar automaticamente.</string>
+    <string name="pair_with_switch">Emparejar con Nintendo Switch.</string>
     <string name="sl_label">SL</string>
     <string name="sr_label">SR</string>
-    <string name="connected_to_switch">Dispositivo emparejado con switch</string>
-    <string name="disconnected_from_switch">Dispositivo desconectado con switch</string>
+    <string name="connected_to_switch">Se ha emparejado el dispositivo con la Nintendo Switch.</string>
+    <string name="disconnected_from_switch">Se ha desconectado el dispositivo de la Nintendo Switch.</string>
     <string name="left_joycon">Joycon izquierdo</string>
     <string name="user_guide">Guia del usuario</string>
     <string name="remove_ads">Quitar anuncios</string>
-    <string name="revert_bluetooth">Revertir configuracion bluetooth</string>
-    <string name="bt_config_is_reverted">La configuracion bluetooth ha sido revertida!</string>
-    <string name="bt_config_was_not_changed">La configuracion bluetooth no ha sido modificada</string>
+    <string name="revert_bluetooth">Revertir configuracion Bluetooth</string>
+    <string name="bt_config_is_reverted">La configuracion Bluetooth ha sido revertida!</string>
+    <string name="bt_config_was_not_changed">La configuracion Bluetooth no ha sido modificada.</string>
 
     <string-array name="explanations">
-        <item>1. Dirijase al menu "controles" en la switch</item>
-        <item>2. Seleccione la opcion "Change Grip/Order" en el menu</item>
+        <item>1. Dirijase al menu "Controles" en su Nintendo Switch.</item>
+        <item>2. Seleccione la opcion "Change Grip/Order" en el menu.</item>
         <item>3. Deje la consola en modo emparejamiento</item>
-        <item>4. Entre al menu del joycon y presione el boton "Sincronizar"</item>
-        <item>5. Permita a su dispositivo ser visible para otros dispositivos</item>
-        <item>6. Espere que la consola Nintendo Switch establezca la conexion\n
+        <item>4. Entre al menu del control deseado y presione el boton "Sincronizar".</item>
+        <item>5. Permita a su dispositivo ser visible para otros dispositivos.</item>
+        <item>6. Espere que la consola Nintendo Switch establezca la conexion
             Sea paciente, puede nececitar un par de intentos.
         </item>
-        <item>7. Una vez la Switch pida conectarse, \n
-            esperar hasta que el joycon se muestre como en la imagen
+        <item>7. Una vez la Nintendo Switch pida conectarse, \n
+            espere hasta que el control se muestre como en la imagen.
         </item>
-        <item>8. Presione los botones SL y SR un par de veces</item>
+        <item>8. Presione los botones SL y SR un par de veces.</item>
         <item>9. Cuando los joycons se muestren opacos,\n
-            presione el boton abajo y salga del menu de emparejamiento
+            presione el boton abajo y salga del menu de emparejamiento.
         </item>
         <item>
-            10. Ahora los joycons deberian estar conectados\n
-            Si se desconectan, repetir los pasos anteriores
+            10. Ahora los controles deberian estar conectados.\n
+            Si se desconectan, repetir los pasos anteriores.
         </item>
     </string-array>
-    <string name="ads_removed">Anuncios removidos. Por favor, reinicie la aplicacion</string>
+    <string name="ads_removed">Anuncios removidos. Por favor, reinicie la aplicacion.</string>
     <string name="ads_not_removed">Los anuncios no han podido ser removidos!</string>
-    <string name="do_not_show_at_the_start_up">No mostrar la guia al iniciar</string>
+    <string name="do_not_show_at_the_start_up">No mostrar la guia al iniciar.</string>
     <string name="right_joycon">Joycon derecho</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Informacion y legal</string>
     <string name="info_and_disclaimer">
         <![CDATA[
             <body>
-            <h2><span style="color:#000;">Info app<span></h2>
+            <h2><span style="color:#000;">Acerca de la aplicacion.<span></h2>
             <br/>
-            <p style="color:#888888;">JoyCon Droid emula los joycons izquierdos, derechos y el pro controller.</p>
+            <p style="color:#888888;">JoyCon Droid emula los joycons izquierdos, derechos y el Pro Controller.</p>
             <br/>
             <p style="color:#888888;">Por favor, revise la guia del usuario para mas informacion.</p>
             <p style="color:#888888;">Esta aplicacion esta en alpha y puede no funcionar en algunos telefonos .</p>
             <br/>
             <p style="color:#888888;">
-                Note: La aplicacion no es compatible con los siguientes telefonos:
+                Note: La aplicacion no es compatible con los siguientes marcas de telefonos:
                 <ul style="color:#888888;">
                     <li style="color:#888888;">Sony</li>
                     <li style="color:#888888;">Xiaomi</li>
@@ -69,7 +69,7 @@
             <br/>
             <h2><span style="color:#000;">Disclaimer<span></h2>
             <br/>
-            <p style="color:#888888;">JoyCon Droid no provee ninguna garantia explicita o implicita por el uso de esta aplicacion y las posibles consecuencias sobre usted o su propiedad.Es responsabilidad suya o del usuario aceptar las posibles consecuencias del uso de esta aplicacion o de similares</p>
+            <p style="color:#888888;">JoyCon Droid no provee ninguna garantia explicita o implicita por el uso de esta aplicacion y las posibles consecuencias sobre usted o su propiedad. Es su responsabilidad aceptar las posibles consecuencias del uso de esta aplicacion o de similares.</p>
             <br/>
             <p style="color:#888888;">Los desarrolladores de JoyCon Droid no se haran responsables de cualquier uso de esta aplicacion.</p>
             <br/>
@@ -77,50 +77,50 @@
         ]]>
     </string>
     <string name="accept">Aceptar</string>
-    <string name="bt_name_not_set">El nombre del dispositivo no puede ser cambiado y debe ser cambiado manualmente a %1$s</string>
-    <string name="bt_sdp_failed">Opciones SDP fallidas, por favor contacte al desarrollador</string>
-    <string name="bt_register_failed">Bluetooth no puede registrar la aplicacion</string>
-    <string name="disconnect_controller">Control desconectado</string>
-    <string name="device_is_not_compatible">Tu dispositivo puede no ser compatible con la aplicacion. Contacta al desarrollador o al manufacturador</string>
+    <string name="bt_name_not_set">El nombre del dispositivo no puede ser cambiado y debe ser cambiado manualmente a %1$s.</string>
+    <string name="bt_sdp_failed">Opciones SDP fallidas, por favor contacte al desarrollador.</string>
+    <string name="bt_register_failed">Bluetooth no puede registrar la aplicacion.</string>
+    <string name="disconnect_controller">Desconectar control</string>
+    <string name="device_is_not_compatible">Tu dispositivo puede no ser compatible con la aplicacion. Por favor contacte al desarrollador o al manufacturador.</string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">UI personalizado del joycon izquierdo</string>
-    <string name="custom_ui_selection">Seleccionar UI personalizado</string>
+    <string name="custom_left_joycon">UI personalizada del joycon izquierdo</string>
+    <string name="custom_ui_selection">Seleccionar UI personalizada</string>
     <string name="map_buttons">Mapear botones</string>
     <string name="settings">Opciones</string>
     <string name="unknown">Desconocido</string>
-    <string name="press_a_button_to_remap">Presione un boton para remapear %s</string>
-    <string name="repress_to_map">Presione el mismo boton para mapear %s a %s</string>
-    <string name="reset_settings">Reiniciar opciones</string>
-    <string name="push_right_joystick_up">incline la palanca derecha hacia arriba</string>
-    <string name="push_left_joystick_up">incline la palanca izquierda hacia arriba</string>
-    <string name="axis_registered">%s axis registrada como %s</string>
-    <string name="push_right_joystick_right">Incline la palanca derecha hacia la derecha</string>
-    <string name="push_left_joystick_right">Incline la palanca izquierda hacia la derecha</string>
-    <string name="joystick_mapping_completed">Quiere guardar el mapeado del joystick?</string>
+    <string name="press_a_button_to_remap">Presione un boton para remapear %s.</string>
+    <string name="repress_to_map">Presione el mismo boton para mapear %s a %s.</string>
+    <string name="reset_settings">Reiniciar opciones.</string>
+    <string name="push_right_joystick_up">incline la palanca derecha hacia arriba.</string>
+    <string name="push_left_joystick_up">incline la palanca izquierda hacia arriba.</string>
+    <string name="axis_registered">%s axis registrada como %s.</string>
+    <string name="push_right_joystick_right">Incline la palanca derecha hacia la derecha.</string>
+    <string name="push_left_joystick_right">Incline la palanca izquierda hacia la derecha.</string>
+    <string name="joystick_mapping_completed">¿Desea guardar el mapeado del joystick?</string>
     <string name="save">Guardar</string>
     <string name="redo">Rehacer</string>
     <string name="file_permission_is_required">Se nececitan permisos para obtener la lista de archivos</string>
     <string name="save_button_with_ads">Guardar (video con recompensas)</string>
     <string name="button_mappings_saves">El mapeado de los botones ha sido guardado</string>
     <string name="frequently_asked_questions">Preguntas frecuentes</string>
-    <string name="set_bt_address">Ingrese la direccion MAC bluetooth para mejor conexion</string>
+    <string name="set_bt_address">Ingrese la direccion MAC Bluetooth para mejorar la conexion.</string>
     <string name="later">Mas tarde</string>
     <string name="set">Establecer</string>
     <string name="incorrect_mac_address">Direccion MAC incorrecta</string>
     <string name="never_ask_again">No volver a preguntarme</string>
-    <string name="push_axis_same_direction_to_map_to_button">Push %s to same direction to map to %s</string>
+    <string name="push_axis_same_direction_to_map_to_button">Incline %s a la misma direccion para mapear %s</string>
 
     <!-- Colors -->
-    <string name="pro_controller_body_color">Color del cuerpo del ProController:</string>
-    <string name="pro_controller_button_color">Color del boton del ProController:</string>
+    <string name="pro_controller_body_color">Color del cuerpo del Pro Controller:</string>
+    <string name="pro_controller_button_color">Color del boton del Pro Controller:</string>
     <string name="left_joycon_body_color">Color del cuerpo del JoyCon izquierdo</string>
     <string name="left_joycon_button_color">Color del boton del Joytstick zquierdo:</string>
     <string name="right_joycon_body_color">Color del cuerpo del Joystick derecho:</string>
     <string name="right_joycon_button_color">Color de boton del Joystick derecho:</string>
     <string name="color_settings">Opciones de color</string>
-    <string name="feature_settings">Feature Settings</string>
-    <string name="enable_accelerometer">Habilitar Aceletometro</string>
-    <string name="enable_gyroscope">Habilitar Giroscopio</string>
-    <string name="enable_amiibo">Habilitar Amiibo</string>
+    <string name="feature_settings">Opciones de las caracteristicas</string>
+    <string name="enable_accelerometer">Habilitar Acelerometro.</string>
+    <string name="enable_gyroscope">Habilitar Giroscopio.</string>
+    <string name="enable_amiibo">Habilitar Amiibos (Experimental).</string>
 
 </resources>
