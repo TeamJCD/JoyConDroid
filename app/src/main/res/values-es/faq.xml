@@ -18,7 +18,7 @@
         <item>
             <![CDATA[
             Esta aplicacion requiere <b>Android 9 (P) o superior</b>. Este software usa perfiles HID que algunos 
-            manufacturadores no incluyen en el<b>software del sistema</b>. Puedes revisas la compatibilidad
+            manufacturadores no incluyen en el <b>software del sistema</b>. Puedes revisas la compatibilidad
             a traves de la aplicacion <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
             Bluetooth HID Profile Tester</a>.
             ]]>
@@ -33,33 +33,33 @@
         <item>
             <![CDATA[
             <b>Joy-Con Droid</b> es utilizado por bastantes usuarios y en ningun caso, ha causado daños irreversibles.
-            Ocasionalmente, la consola Nintendo Switch puede crashear, pero reiniciar la consola soluciona el problema.
+            Ocasionalmente, la consola Nintendo Switch puede congelarse, pero basta con reiniciar la consola para solucionar el problema.
             En todo caso, use la aplicacion <b>Joy-Con Droid</b> bajo su propio riesgo. <b>Joy-Con Droid</b> no viene
             con ninguna garantia.
             ]]>
         </item>
         <item>
             <![CDATA[
-            La desconexion producida al salir del menu "Change Order/Grip." es un problema ya conocido, del cual 
-            todavia no hay una solucion conocida, sin embargo, hay una solucion temporal alternativa.
+            La desconexion producida al salir del menu Change Order/Grip es un problema ya conocido, del cual 
+            todavia no existe una solucion definitiva, sin embargo, existe una solucion temporal.
             <ol>
                 <li>Ir al menu "Change Order/Grip".</li>
-                <li>Esperar a la peticion de emparejamiento pero <b>¡NO ACEPTE!</b></li>
+                <li>Esperar a la peticion de emparejamiento pero <b>¡NO ACEPTE EL EMPAREJAMIENTO!</b></li>
                 <li>Retroceda al menu de control.</li>
                 <li>Ahora acepte la peticion de emparejamiento.</li>
-                <li>La conexion deberia establecerse.</li>
+                <li>La conexion deberia de establecerse.</li>
             </ol>
             ]]>
         </item>
         <item>
             <![CDATA[
-            Si<b>Joy-Con Droid</b> no recibe peticiones de emparejamiento, incluso si se encuentra en el menu 
-            <b>Change Order/Grip<b>. Hay algunos pasos que debe realizar. Revise si el nombre de su dispositivo
+            Si<b> Joy-Con Droid</b> no recibe peticiones de emparejamiento, incluso si se encuentra en el menu 
+            <b>Change Order/Grip<b>, hay algunos pasos que puede realizar. Revise si el nombre de su dispositivo
             posee el nombre del control deseado como Joy-Con (R), Joy-Con (L), o Pro Controller.
-            Si el nombre del dispositivo esta correctamente colocado. Cierre la aplicacion y fuerce el cierre
-            del servicio en la barra de notificaciones. Vaya a opciones en su Nitendo Switch y seleccione desconectar
-            todos los controles. Apague la conexion bluetooth (Puede requerir reiniciar el dispositivo). Una vez cumplidas 
-            todos los pasos anteriores. Abra el menu <b>"Change Order/Grip</b>", abra <b>Joy-Con Droid</b> y
+            Si el nombre del dispositivo esta correctamente colocado, cierre la aplicacion y fuerce el cierre
+            del servicio en la barra de notificaciones. Vaya a opciones en su Nintendo Switch y seleccione desconectar
+            todos los controles. Apague la conexion bluetooth (Puede requerir reiniciar el dispositivo). Una vez cumplidos 
+            todos los pasos anteriores, abra el menu <b>"Change Order/Grip</b>", abra <b>Joy-Con Droid</b> y
             repita los pasos para conectarse.
             ]]>
         </item>
@@ -81,7 +81,7 @@
             Hay varias formas de contactar al programador:
             <ul>
                 <li><a href="mailto:allplaylive@gmail.com">Email</a></li>
-                <li><a href="https://youtubeplays.com/joycon-droid">Discord</a></li>
+                <li><a href="https://youtubeplays.com/joycon-droid">Servidor de Discord</a></li>
             </ul>
             ]]>
         </item>
@@ -93,16 +93,16 @@
         </item>
         <item>
             <![CDATA[
-            <b>Los Joy-Con y el Pro Controller</b> envian su direccion MAC a la <b>Nintendo Switch</b>. Esta informacion es utilizada para reconectarse.
-            Sin embargo, en <b>Android OS</b> no es posible acceder a las direcciones MAC de los dispositivos. El usuario puede proveer la direccion MAC
-            con el objetivo de mejorar la conexion.
+            <b>Los Joy-Con y el Pro Controller</b> envian su direccion MAC a la <b>Nintendo Switch</b>. Esta informacion es utilizada para reconectarse a la consola.
+            El usuario puede proporcionar esta direccion MAC para mejorar la calidad de la conexion.  
+            Sin embargo, en <b>Android OS</b> no es posible acceder a las direcciones MAC de un dispositivo.
             ]]>
         </item>
         <item>
             <![CDATA[
             En la mayoria de los dispositivos, acceder a la direccion MAC solo requiere seguir los siguientes pasos:
             <ol>
-                <li>Desde el <b>menu principal/b>, se abre la lista de aplicaciones, y se abre <b>“Settings“</b>.</li>
+                <li>Desde el <b>menu principal<b>, abra la lista de aplicaciones, y seleccione <b>“Opciones/Ajustes“</b>.</li>
                 <li>Seleccione <b>“Sistema“</b>. (En algunos pasos, se puede saltar este paso)</li>
                 <li>Baje y seleccione la opcion <b>“Sobre el telefono/tablet/dispositivo“</b>.</li>
                 <li>Baje y seleccione la opcion<b>“Estado“</b>.</li>
@@ -120,7 +120,7 @@
             <![CDATA[
             Si quiere probar la version mas reciente de <b>Joy-Con Droid</b>, puede formar parte de nuestro grupo de beta-testers.
             Advertimos que las versiones de pruebas se actualizan mas seguido y suelen presentar mas problemas frecuentemente.
-            <a href="mailto:allplaylive@gmail.com">Envie un correo </a> o unase a nuestro servidor de <a href="https://youtubeplays.com/joycon-droid">Discord</a>
+            <a href="mailto:allplaylive@gmail.com">Envie un correo </a> o puede unirse a nuestro servidor de <a href="https://youtubeplays.com/joycon-droid">Discord</a>
             para mas informacion.
             ]]>
         </item>
