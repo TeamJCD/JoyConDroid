@@ -114,9 +114,19 @@
     <string name="feature_settings">기능 설정</string>
     <string name="enable_accelerometer">가속도센서 활성화</string>
     <string name="enable_gyroscope">자이로스코프 활성화</string>
-    <string name="enable_amiibo">Amiibo 활성화</string>
+    <string name="enable_amiibo">NFC 활성화 (실험)</string>
 
     <string name="purchase_pending">결제가 진행 중 입니다. 결제가 완료된 경우 애플리케이션을 다시 시작해주세요.</string>
     <string name="acknowledgement_failed">구매 검증 실패</string>
+    
+    <string name="mtu_warning_title"> MTU 크기 경고 </string>
+    <string name="mtu_warning_text"> NFC 기능은 현재 기술적 제한으로 인해 삼성 기기들에서만 작동합니다. 이 기기는 아미보를 지원하지 않을 수도 있습니다.</string>
+    <string name="continue_option"> 계속 </string>
+    <string name="amiibo_experimental_title">경고</string>
+    <string name="amiibo_experimental_text"> NFC 기능은 실험 단계에 있으며, 작동하지 않을 수도 있습니다.</string>
+    <string name="amiibo_file_preset">NFC 바이너리가 설정되었습니다.</string>
+    <string name="amiibo_file_cannot_be">경고! NFC 바이너리를 설정할 수 없습니다.</string>
+    <string name="enable_haptic_feedback">햅틱 피드백 활성화</string>
+    <string name="amiibo_bin_path">NFC 바이너리 경로</string>
 
 </resources>
