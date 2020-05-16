@@ -126,8 +126,8 @@
     <string name="enable_accelerometer">Attiva Accelerometro</string>
     <string name="enable_gyroscope">Attiva Giroscopio</string>
     <string name="enable_amiibo">Attiva Amiibo</string>
-    
-    <string name="purchase_pending">L'acquisto è in fase di approvazione. Una volta approvato riavvia l'applicazione.</string>
+
+    <string name="purchase_pending">L\'acquisto è in fase di approvazione. Una volta approvato riavvia l\'applicazione.</string>
     <string name="acknowledgement_failed"> Acknowledgement Failed</string>
 </resources>
 
