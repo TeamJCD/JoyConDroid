@@ -125,9 +125,17 @@
     <string name="feature_settings">Impostazioni funzionalità</string>
     <string name="enable_accelerometer">Attiva Accelerometro</string>
     <string name="enable_gyroscope">Attiva Giroscopio</string>
-    <string name="enable_amiibo">Attiva Amiibo</string>
+    <string name="enable_amiibo">Attiva NFC (sperimentale)</string>
 
     <string name="purchase_pending">L\'acquisto è in fase di approvazione. Una volta approvato riavvia l\'applicazione.</string>
     <string name="acknowledgement_failed"> Acknowledgement Failed</string>
+    <string name="mtu_warning_title">Avviso Dimensione MTU</string>
+    <string name="mtu_warning_text">La funzionalità NFC funziona attualmente solo su dispositivi Samsung a causa di limiti tecnici. Il tuo dispositivo potrebbe non supportare Amiibo.</string>
+    <string name="continue_option">Continua</string>
+    <string name="amiibo_experimental_title">Attenzione</string>
+    <string name="amiibo_experimental_text">La funzionalità NFC è sperimentale e potrebbe non funzionare.</string>
+    <string name="amiibo_file_preset">NFC Binary impostato.</string>
+    <string name="amiibo_file_cannot_be">Attenzione! NFC Binary non può essere impostato.</string>
+    <string name="enable_haptic_feedback">Attiva Feedback Aptico</string>
+    <string name="amiibo_bin_path">Percorso NFC Binary</string>
 </resources>
-
