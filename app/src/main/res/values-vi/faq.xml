@@ -1,0 +1,127 @@
+<resources>
+    <string-array name="questions">
+        <item>Joy-Con Droid có hoạt động với điện thoại này không?</item>
+        <item>Bạn có thể làm Joy-Con Droid hoạt động trên điện thoại này không?</item>
+        <item>Joy-Con Droid có thể gây hại cho Nintendo Switch không?</item>
+        <item>Tôi phải làm gì khi Joy-Con Droid bị ngắt kết nối sau khi rời màn hình Change Grip/Order?</item>
+        <item>Tôi phải làm gì khi Joy-Con Droid không nhận được yêu cầu ghép nối?</item>
+        <item>Tôi phải làm gì khi các nút bấm bị delay?</item>
+        <item>Joy-Con Droid có hoạt động với tất cả firmware của Nintendo Switch không?</item>
+        <item>Làm sao để tôi yêu cầu hỗ trợ hay các tính năng mới?</item>
+        <item>Làm sao để tôi thêm giao diện tùy chỉnh?</item>
+        <item>Tại sao ứng dụng cần địa chỉ MAC?</item>
+        <item>Làm sao để tìm địa chỉ MAC?</item>
+        <item>Làm sao để tôi thay sửa/xóa địa chỉ MAC hoặc tùy chọn Không hỏi lại nữa?</item>
+        <item>Tôi có thể tham gia chương trình thử nghiệm không?</item>
+    </string-array>
+    <string-array name="answers">
+        <item>
+            <![CDATA[
+            Ứng dụng này yêu cầu <b>Android 9 (P) hoặc cao hơn</b>. Ứng dụng dùng HID profile mà một số
+            nhà sản xuất điện thoại không kèm theo trong <b>hệ thống</b>. Bạn có thể kiểm tra
+            tính tương thích bằng <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
+            Bluetooth HID Profile Tester</a>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Nếu hệ thống không có HID profile; cách duy nhất để sửa là <b>Cập Nhật Phần Mềm</b>
+            được cung cấp bởi <b>nhà sản xuất điện thoại</b>. Nếu bạn muốn dùng ứng dụng này,
+            bạn có thể sử dụng <a href="https://lineageos.org/">Lineage OS</a>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b> đang được sử dụng bởi rất nhiều người và tới hiện tại vẫn không gây lỗi gì cho Nintendo Switch.
+            Thông thường, Nintendo Switch sẽ crash, khởi động lại máy sẽ sửa được lỗi này.
+            Tuy nhiên, hãy sử dụng <b>Joy-Con Droid</b> thật cẩn thận. <b>Joy-Con Droid</b> sẽ không có
+            bất kì trách nhiệm nào cho các vấn đề xảy ra với thiết bị của bạn.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            "Ngắt kết nối sau khi rời màn hình Change Grip/Order" là một lỗi đã biết, nhưng
+            vẫn chưa có cách giải quyết vấn đề này. Tuy nhiên, có một cách giải quyết tạm thời:
+            <ol>
+                <li>Đi vào trang Change Order/Grip.</li>
+                <li>Đợi yêu cầu ghép nối Bluetooth nhưng <b>KHÔNG ĐƯỢC ĐỒNG Ý!</b></li>
+                <li>Lùi một bước trở lại về màn hình Controller.</li>
+                <li>Bây giờ hãy đồng ý ghép nối.</li>
+                <li>Kết nối sẽ hoạt động lúc này.</li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Nếu <b>Joy-Con Droid</b> không hiển thị yêu cầu ghép nối ngay cả khi bạn đang ở màn hình <b>Change Order
+            /Grip</b>, có một số thứ bạn phải kiểm tra. Hãy chắc chắn thiết bị đang có tên
+            cho bluetooth như là Joy-Con (R), Joy-Con (L), hoặc Pro Controller.
+            Nếu tên đã được đặt đúng, hãy đóng ứng dụng và bấm vào thông báo để dừng
+            dịch vụ. Vào Settings và chọn Disconnect Controller trên Nintendo Switch.
+            Tắt bluetooth. (Có thể bạn sẽ muốn khởi động lại điện thoại Android của bạn). Một khi các bước này 
+            thành công, mở trang <b>Change Order/Grip</b>, mở <b>Joy-Con Droid</b> và
+            lặp lại các bước kết nối.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Một lỗi đã biết khác là nút bấm bị delay, kết nối lại thường sẽ sửa vấn đề này.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con Droid</b> đã được thử nghiệm với Nintendo Switch version <b>9.0.0</b>. Không có sự chắc chắn
+            <b>Joy-Con Droid</b> sẽ hoạt động với các phiên bản firmware Nintendo Switch cao hơn.
+            Hãy kiểm tra <b>Joy-Con Droid</b> để kiểm tra firmware mới nhất được hỗ trợ trước khi cập nhật Nintendo Switch.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Có một số cách để liên hệ nhà phát triển:
+            <ul>
+                <li><a href="mailto:allplaylive@gmail.com">Email</a></li>
+                <li><a href="https://youtubeplays.com/joycon-droid">Discord</a></li>
+            </ul>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Bạn có thể xem qua một số dự án mãu <a href="https://github.com/YouTubePlays/JoyConDroidNESStyleController">NES Style Controller</a>.
+            Nếu bạn muốn dùng giao diện riêng to the developer hoặc đóng góp các chức năng hữu ích hãy liên hệ chúng tôi.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            <b>Joy-Con và Pro Controller</b> gửi địa chỉ MAC tới <b>Nintendo Switch</b>. Thông tin này được dùng để kết nối lại Switch và Controller. Tuy nhiên,
+            ở <b>Android OS</b> việc lấy địa chỉ MAC là không thể. Người dùng có thể tự nhập địa chỉ MAC để cải thiện
+            chất lượng kết nối.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Hầu hết với các thiết bị, các bước này thường được dùng để tìm địa chỉ MAC:
+            <ol>
+                <li>Từ màn hình <b>Home</b>, mở ngăn chứa ứng dụng, sau đó mở <b>“Cài đặt“</b>.</li>
+                <li>Chọn <b>“Hệ thống“</b>. (Bỏ bước này ở một số thiết bị)</li>
+                <li>Kéo xuống dưới cùng và chọn <b>“Thông tin về điện thoại“, “Thông tin điện thoại“, or “Thông tin máy tính bảng“</b>.</li>
+                <li>Kéo xuống dưới chọn <b>“Tình trạng“</b>.</li>
+                <li>Kéo xuống dưới bạn sẽ thấy <b>“địa chỉ MAC”</b> nằm trong danh sách.</li>
+            </ol>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Nếu bạn muốn thay sửa/xóa địa chỉ MAC hoặc tùy chọn Không hỏi lại nữa:
+            Mở menu bằng cách bấm vào icon ở góc trên bên trái, chọn <b>Đặt lại các cài đặt Bluetooth</b>.
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            Nếu bạn muốn thấy tình trạng mới nhất của <b>Joy-Con Droid</b>, bạn có thể vào nhóm thử nghiệm.
+            Tuy nhiên, hãy nhớ rằng nhóm thử nghiệm này sẽ có nhiều lỗi hơn và sẽ được cập nhật thường xuyên hơn.
+            <a href="mailto:allplaylive@gmail.com">Email</a> hoặc tham gia <a href="https://youtubeplays.com/joycon-droid">Discord</a>
+            để biết thêm thông tin.
+            ]]>
+        </item>
+    </string-array>
+</resources>
