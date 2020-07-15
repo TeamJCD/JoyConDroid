@@ -1,7 +1,7 @@
 <resources>
     <string-array name="questions">
-        <item>Joy-Con Droid có hoạt động với điện thoại này không?</item>
-        <item>Bạn có thể làm Joy-Con Droid hoạt động trên điện thoại này không?</item>
+        <item>Joy-Con Droid có hoạt động với thiết bị này không?</item>
+        <item>Bạn có thể làm Joy-Con Droid hoạt động trên thiết bị này không?</item>
         <item>Joy-Con Droid có thể gây hại cho Nintendo Switch không?</item>
         <item>Tôi phải làm gì khi Joy-Con Droid bị ngắt kết nối sau khi rời màn hình Change Grip/Order?</item>
         <item>Tôi phải làm gì khi Joy-Con Droid không nhận được yêu cầu ghép nối?</item>
@@ -18,7 +18,7 @@
         <item>
             <![CDATA[
             Ứng dụng này yêu cầu <b>Android 9 (P) hoặc cao hơn</b>. Ứng dụng dùng HID profile mà một số
-            nhà sản xuất điện thoại không kèm theo trong <b>hệ thống</b>. Bạn có thể kiểm tra
+            nhà sản xuất thiết bị không kèm theo trong <b>hệ thống</b>. Bạn có thể kiểm tra
             tính tương thích bằng <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
             Bluetooth HID Profile Tester</a>.
             ]]>
@@ -26,14 +26,14 @@
         <item>
             <![CDATA[
             Nếu hệ thống không có HID profile; cách duy nhất để sửa là <b>Cập Nhật Phần Mềm</b>
-            được cung cấp bởi <b>nhà sản xuất điện thoại</b>. Nếu bạn muốn dùng ứng dụng này,
+            được cung cấp bởi <b>nhà sản xuất thiết bị</b>. Nếu bạn muốn dùng ứng dụng này,
             bạn có thể sử dụng <a href="https://lineageos.org/">Lineage OS</a>.
             ]]>
         </item>
         <item>
             <![CDATA[
             <b>Joy-Con Droid</b> đang được sử dụng bởi rất nhiều người và tới hiện tại vẫn không gây lỗi gì cho Nintendo Switch.
-            Thông thường, Nintendo Switch sẽ crash, khởi động lại máy sẽ sửa được lỗi này.
+            Thông thường, Nintendo Switch sẽ crash, khởi động lại Switch sẽ sửa được lỗi này.
             Tuy nhiên, hãy sử dụng <b>Joy-Con Droid</b> thật cẩn thận. <b>Joy-Con Droid</b> sẽ không có
             bất kì trách nhiệm nào cho các vấn đề xảy ra với thiết bị của bạn.
             ]]>
@@ -55,10 +55,10 @@
             <![CDATA[
             Nếu <b>Joy-Con Droid</b> không hiển thị yêu cầu ghép nối ngay cả khi bạn đang ở màn hình <b>Change Order
             /Grip</b>, có một số thứ bạn phải kiểm tra. Hãy chắc chắn thiết bị đang có tên
-            cho bluetooth như là Joy-Con (R), Joy-Con (L), hoặc Pro Controller.
+            Bluetooth như là Joy-Con (R), Joy-Con (L), hoặc Pro Controller.
             Nếu tên đã được đặt đúng, hãy đóng ứng dụng và bấm vào thông báo để dừng
             dịch vụ. Vào Settings và chọn Disconnect Controller trên Nintendo Switch.
-            Tắt bluetooth. (Có thể bạn sẽ muốn khởi động lại điện thoại Android của bạn). Một khi các bước này 
+            Tắt bluetooth. (Có thể bạn sẽ muốn khởi động lại thiết bị Android của bạn). Một khi các bước này 
             thành công, mở trang <b>Change Order/Grip</b>, mở <b>Joy-Con Droid</b> và
             lặp lại các bước kết nối.
             ]]>
@@ -87,13 +87,13 @@
         <item>
             <![CDATA[
             Bạn có thể xem qua một số dự án mãu <a href="https://github.com/YouTubePlays/JoyConDroidNESStyleController">NES Style Controller</a>.
-            Nếu bạn muốn dùng giao diện riêng to the developer hoặc đóng góp các chức năng hữu ích hãy liên hệ chúng tôi.
+            Nếu bạn muốn dùng giao diện riêng hoặc đóng góp các chức năng hữu ích hãy liên hệ chúng tôi.
             ]]>
         </item>
         <item>
             <![CDATA[
             <b>Joy-Con và Pro Controller</b> gửi địa chỉ MAC tới <b>Nintendo Switch</b>. Thông tin này được dùng để kết nối lại Switch và Controller. Tuy nhiên,
-            ở <b>Android OS</b> việc lấy địa chỉ MAC là không thể. Người dùng có thể tự nhập địa chỉ MAC để cải thiện
+            ở <b>hệ điều hành Android</b> việc lấy địa chỉ MAC là không thể. Người dùng có thể tự nhập địa chỉ MAC để cải thiện
             chất lượng kết nối.
             ]]>
         </item>
@@ -103,9 +103,9 @@
             <ol>
                 <li>Từ màn hình <b>Home</b>, mở ngăn chứa ứng dụng, sau đó mở <b>“Cài đặt“</b>.</li>
                 <li>Chọn <b>“Hệ thống“</b>. (Bỏ bước này ở một số thiết bị)</li>
-                <li>Kéo xuống dưới cùng và chọn <b>“Thông tin về điện thoại“, “Thông tin điện thoại“, or “Thông tin máy tính bảng“</b>.</li>
+                <li>Kéo xuống dưới cùng và chọn <b>“Thông tin về điện thoại“, “Thông tin điện thoại“, hoặc “Thông tin máy tính bảng“</b>.</li>
                 <li>Kéo xuống dưới chọn <b>“Tình trạng“</b>.</li>
-                <li>Kéo xuống dưới bạn sẽ thấy <b>“địa chỉ MAC”</b> nằm trong danh sách.</li>
+                <li>Kéo xuống dưới bạn sẽ thấy <b>“Địa chỉ MAC”</b> nằm trong danh sách.</li>
             </ol>
             ]]>
         </item>
