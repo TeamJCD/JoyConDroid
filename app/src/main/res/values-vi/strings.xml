@@ -97,9 +97,9 @@
     <string name="custom_ui">Tùy chỉnh giao diện</string>
     <string name="map_buttons">Map Buttons</string>
     <string name="settings">Cài đặt</string>
-    <string name="unknown">Unknown</string>
+    <string name="unknown">Không biết</string>
     <string name="press_a_button_to_remap">Bấm một nút để remap %s</string>
-    <string name="repress_to_map">Bấm lại để map %s to %s</string>
+    <string name="repress_to_map">Bấm lại để map %s thành %s</string>
     <string name="reset_settings">Khôi phục cài đặt</string>
     <string name="push_right_joystick_up">Đẩy joystick phải lên</string>
     <string name="push_left_joystick_up">Đẩy joystick trái lên</string>
@@ -109,8 +109,8 @@
     <string name="joystick_mapping_completed">Bạn có muốn lưu joystick mapping?</string>
     <string name="save">Lưu</string>
     <string name="redo">Redo</string>
-    <string name="file_permission_is_required">Cần được cấp quyền để hiển thị danh sách files.</string>
-    <string name="save_button_with_ads">Lưu (Video Reward)</string>
+    <string name="file_permission_is_required">Cần được cấp quyền để hiển thị danh sách tập tin.</string>
+    <string name="save_button_with_ads">Lưu (Phần thưởng video)</string>
     <string name="button_mappings_saves">Button mappings đã được lưu.</string>
     <string name="frequently_asked_questions">Câu hỏi thường được hỏi nhiều</string>
     <string name="discord" translatable="false">Discord</string>
