@@ -1,19 +1,19 @@
 <resources>
     <string name="app_name">JoyCon Droid</string>
-    <string name="bt_not_available">Bluetooth ist nicht verfügbar.</string>
-    <string name="bt_enable_canceled">Fehler bei der Bluetooth-Verbindung.</string>
-    <string name="bt_discovery_canceled">Fehler bei der Bluetooth-Suche aufgetreten.</string>
+    <string name="bt_not_available">Bluetooth ist nicht verfügbar/aktiviert.</string>
+    <string name="bt_enable_canceled">Konnte nicht Verbinden mit der Nintendo Switch.</string>
+    <string name="bt_discovery_canceled">Ein Fehler ist bei der Suche nach der Nintendo Switch Konsole aufgetreten.</string>
     <string name="could_not_pair"> Konnte nicht automatisch koppeln.</string>
-    <string name="pair_with_switch">Mit Switch verbinden</string>
+    <string name="pair_with_switch">Wollen sie mit der Nintendo Switch verbinden</string>
     <string name="sl_label">SL</string>
     <string name="sr_label">SR</string>
-    <string name="connected_to_switch">Mit Nintendo Switch verbunden!</string>
-    <string name="disconnected_from_switch">Verbindung mit Switch getrennt.</string>
+    <string name="connected_to_switch">Mit der Nintendo Switch verbunden!</string>
+    <string name="disconnected_from_switch">Die Verbindung mit der Nintendo Switch wurde getrennt.</string>
     <string name="left_joycon">Linker Joy-Con</string>
     <string name="user_guide">Anleitung</string>
     <string name="remove_ads">Werbung entfernen</string>
     <string name="revert_bluetooth">Bluetooth-Konfiguration wiederherstellen</string>
-    <string name="bt_config_is_reverted">Bluetooth-Konfiguration wiederhergestellt!</string>
+    <string name="bt_config_is_reverted">Die Bluetooth-Konfiguration wurde wiederhergestellt.</string>
     <string name="bt_config_was_not_changed">Die Bluetooth-Konfiguration wurde nicht verändert.</string>
     <string-array name="explanations">
 <item>
@@ -43,7 +43,7 @@
     </string-array>
     <string name="ads_removed">Werbung entfernt. Starte die App neu!</string>
     <string name="ads_not_removed">Werbung konnte nicht entfernt werden!</string>
-    <string name="do_not_show_at_the_start_up">Anleitung nicht mehr bei App-Start anzeigen</string>
+    <string name="do_not_show_at_the_start_up">Anleitung nicht mehr beim Starten der App anzeigen</string>
     <string name="right_joycon">Rechter Joy-Con</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Infos und Rechtshinweise</string>
@@ -65,8 +65,8 @@ SDP-Einstellungen fehlgeschlagen, kontaktiere den Entwickler.
 Dein Gerät ist möglicherweise nicht mit dieser App kompatibel. Kontaktiere den Entwickler oder den Hersteller.
 </string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">Benutzerdefinierte UI für linken Joy-Con</string>
-    <string name="custom_ui_selection">Benutzerdefinierte UI auswählen</string>
+    <string name="custom_left_joycon">Benutzerdefinierte Oberfläche für linken Joy-Con</string>
+    <string name="custom_ui_selection">Benutzerdefinierte Oberfläche</string>
     <string name="map_buttons">Tasten belegen</string>
     <string name="unknown">Unbekannt</string>
     <string name="settings">Einstellungen</string>
@@ -106,5 +106,5 @@ Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
     <string name="enable_accelerometer">Beschleunigungsmesser aktivieren</string>
     <string name="enable_gyroscope">Gyroskop aktivieren</string>
     <string name="enable_amiibo">Amiibo aktivieren</string>
-    <string name="custom_ui">Benutzerdefinierte UI</string>
+    <string name="custom_ui">Benutzerdefinierte Oberfläche</string>
 </resources>
