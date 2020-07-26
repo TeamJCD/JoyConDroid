@@ -1,23 +1,23 @@
 <resources>
     <string-array name="questions">
         <item>Funktioniert Joy-Con Droid auf meinem Gerät?</item>
-        <item>Kannst du Joy-Con Droid mit meinem Gerät kompatibel machen?</item>
-        <item>Kann Joy-Con Droid meiner Nintendo Switch-Konsole Schaden hinzufügen?</item>
-        <item>Was sollte ich tun, wenn Joy-Con Droid nach dem Verlassen von "Griffweise/Reihenfolge ändern" die Verbindung verliert?</item>
+        <item>Wird mein Handy in der Zukunft unterstützt?</item>
+        <item>Kann Joy-Con Droid Schaden zu meiner Nintendo Switch Konsole zufügen?</item>
+        <item>Was sollte ich tun, wenn Joy-Con Droid nach dem Verlassen von den "Griffweise/Reihenfolge ändern" Menu die Verbindung verliert?</item>
         <item>Was sollte ich tun, wenn Joy-Con Droid keine Verbindungsanfrage bekommt?</item>
         <item>Was sollte ich tun, wenn es eine Eingabeverzögerung gibt?</item>
         <item>Funktioniert Joy-Con Droid mit jeder Firmware-Version auf der Switch?</item>
         <item>Wie kann ich Hilfe bekommen, Fragen stellen oder Funktionen vorschlagen?</item>
-        <item>Wie kann ich meine eigene UI in dieser App hinzufügen?</item>
-        <item>Wozu wird meine MAC-Addresse benötigt?</item>
+        <item>Wie kann ich meine eigene Benutzeridentifizierte Oberfläche in dieser App hinzufügen?</item>
+        <item>Was ändert es wenn ich meine MAC-Adresse eingebe in Joy-Con Droid?</item>
         <item>Wo finde ich meine MAC-Addresse?</item>
         <item>Wie ändere bzw. entferne ich die MAC-Addresse oder die "Nicht mehr fragen"-Option?</item>
-        <item>Kann ich dem Testprogramm beitreten?</item>
+        <item>Wie kann ich den Testprogramm beitreten?</item>
     </string-array>
     <string-array name="answers">
         <item>
             <![CDATA[
-            Diese Anwendung erfordert <b>Android 9 (P) oder höher</b>. Sie nutzt das HID-Profil,  welches einige Hersteller nicht in der <b>Systemsoftware</b> integrieren. Überprüfe die Gerätekompatibilität mit <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
+            Diese Anwendung erfordert <b>Android 9 (P) oder höher</b>. Sie nutzt das HID-Profil das mit Android 9 hinzugefügt wurde,  welches einige Hersteller noch nicht oder nie in der <b>Systemsoftware</b> integrieren werden. Überprüfe die Gerätekompatibilität mit <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
             Bluetooth HID Profile Tester</a>.
             ]]>
         </item>
@@ -35,7 +35,7 @@
         </item>
         <item>
             <![CDATA[
-            Wiederholte Verbindungsabbrüche, wenn der "Griffweise/Reihenfolge ändern"-Bildschirm verlassen wird, sind ein bekanntes Problem. Es gibt momentan noch keinen sicheren Fix dafür. Hier gibt es aber einen Workaround:
+            Wiederholte Verbindungsabbrüche, wenn der "Griffweise/Reihenfolge ändern"-Bildschirm verlassen wird, sind ein bekanntes Problem. Es gibt momentan noch keine sichere Behebung dafür. Hier gibt es aber einen Workaround:
             <ol>
                 <li>Gehe zu Griffweise/Reihenfolge ändern.</li>
                 <li>Warte auf die Verbindungsanfrage, aber <b>nimm sie nicht an!</b></li>
