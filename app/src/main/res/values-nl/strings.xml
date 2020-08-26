@@ -38,11 +38,6 @@
         </item>
     </string-array>
 
-    <string name="ad_id_interstitial" translatable="false">ca-app-pub-4722456569150221/7389554914</string>
-    <string name="ad_id_banner" translatable="false">ca-app-pub-4722456569150221/6544566470</string>
-    <string name="ad_id_mapping_reward" translatable="false">ca-app-pub-4722456569150221/2899224419</string>
-
-    <string name="public_key" translatable="false">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzsESil7TGUDGG6yWBumL5843Qmob+AWQ+aaiH8eq6urEqVsvh1G3QxNcw+IGr3jtkwqsigI9aJuU6yH8VkBG8rkNl/dbyly8YklSQLAvHK8Cv5P+L0LdztOp8Zwr4Fk/yTYHNsPyR7nqijpnGNrwJDaBC+FKdI6sD/Om+8ndAosESqXmLjL59MCyG93QkVgBDN5J2dhxnnvjk5SJR4wkAlN2gRWqjWf5ORX8eP86SwBktRaBOuml/5Fs/SMZiJniCuIFtoQS61veApojMgYFrfRHEoa+I4EoBpytYZnRa3oruH7tqN0Ixr+kTrDttfEojRQyerhvX0Z2YeezfxWwxwIDAQAB</string>
     <string name="ads_removed">Reclame verwijderd! A.U.B. herstart uw app.</string>
     <string name="ads_not_removed">Reclame kon niet worden verwijderd!</string>
     <string name="do_not_show_at_the_start_up">Laat gids niet meer zien bij opstarten.</string>

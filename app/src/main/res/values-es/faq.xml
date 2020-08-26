@@ -40,7 +40,7 @@
         </item>
         <item>
             <![CDATA[
-            La desconexion producida al salir del menu Change Order/Grip es un problema ya conocido, del cual 
+            La desconexion producida al salir del menu Change Order/Grip es un problema ya conocido, del cual
             todavia no existe una solucion definitiva, sin embargo, existe una solucion temporal.
             <ol>
                 <li>Ir al menu "Change Order/Grip".</li>
@@ -53,12 +53,12 @@
         </item>
         <item>
             <![CDATA[
-            Si<b> Joy-Con Droid</b> no recibe peticiones de emparejamiento, incluso si se encuentra en el menu 
+            Si<b> Joy-Con Droid</b> no recibe peticiones de emparejamiento, incluso si se encuentra en el menu
             <b>Change Order/Grip<b>, hay algunos pasos que puede realizar. Revise si el nombre de su dispositivo
             posee el nombre del control deseado como Joy-Con (R), Joy-Con (L), o Pro Controller.
             Si el nombre del dispositivo esta correctamente colocado, cierre la aplicacion y fuerce el cierre
             del servicio en la barra de notificaciones. Vaya a opciones en su Nintendo Switch y seleccione desconectar
-            todos los controles. Apague la conexion bluetooth (Puede requerir reiniciar el dispositivo). Una vez cumplidos 
+            todos los controles. Apague la conexion bluetooth (Puede requerir reiniciar el dispositivo). Una vez cumplidos
             todos los pasos anteriores, abra el menu <b>"Change Order/Grip</b>", abra <b>Joy-Con Droid</b> y
             repita los pasos para conectarse.
             ]]>
@@ -94,7 +94,7 @@
         <item>
             <![CDATA[
             <b>Los Joy-Con y el Pro Controller</b> envian su direccion MAC a la <b>Nintendo Switch</b>. Esta informacion es utilizada para reconectarse a la consola.
-            El usuario puede proporcionar esta direccion MAC para mejorar la calidad de la conexion.  
+            El usuario puede proporcionar esta direccion MAC para mejorar la calidad de la conexion.
             Sin embargo, en <b>Android OS</b> no es posible acceder a las direcciones MAC de un dispositivo.
             ]]>
         </item>
