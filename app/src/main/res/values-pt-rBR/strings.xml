@@ -130,8 +130,8 @@
     <string name="mtu_warning_text"> A funcionalidade de NFC está atualmente funcionando em apenas dispositivos Samsung por conta de restrições técnicas. O seu dispositivo pode não suportar a funcinalidade do Amiibo.</string>
     <string name="continue_option"> Continuar </string>
     <string name="amiibo_experimental_title">Atenção</string>
-    <string name="amiibo_experimental_text"> A funcionalidade de NFC é esperimental e pode não funcionar.</string>
-    <string name="amiibo_file_preset">Arquivo binário de NFC configurado</string>
+    <string name="amiibo_experimental_text"> A funcionalidade de NFC é experimental e pode não funcionar.</string>
+    <string name="amiibo_file_preset">Arquivo binário de NFC configurado.</string>
     <string name="amiibo_file_cannot_be">Antenção! Não foi possivel configurar o diretório do arquivo binário.</string>
     <string name="enable_haptic_feedback">Habilitar feedback háptico</string>
 </resources>
