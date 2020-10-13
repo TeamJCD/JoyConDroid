@@ -140,5 +140,12 @@
     <string name="amiibo_file_cannot_be">Lưu ý! Không thể thiết lập NFC Binary.</string>
     <string name="enable_haptic_feedback">Bật Haptic Feedback</string>
     <string name="amiibo_bin_path">Đường dẫn NFC Binary</string>
-
+    <string name="update_available">Có bản cập nhật mới</string>
+    <string name="update_message">Phiên bản JoyCon Droid mới đã có. Bạn có muốn tải bản cập nhật không?</string>
+    <string name="update">Cập nhật</string>
+    <string name="packet_rate">Packet Rate: %d pps</string>
+    <string name="invalid_intent">Không thể cài đặt giao diện tuỳ chỉnh.</string>
+    <string name="custom_ui_loaded">Giao diện tuỳ chỉnh đã được nạp.</string>
+    <string name="custom_ui_is_not_found">Không tìm thấy giao diện tuỳ chỉnh.</string>
+    <string name="custom_ui_has_newer_version">Giao diện tuỳ chỉnh có cùng phiên bản hoặc cao hơn</string>
 </resources>
