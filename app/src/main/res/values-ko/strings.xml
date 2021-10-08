@@ -103,7 +103,8 @@
     <string name="incorrect_mac_address">올바르지 않은 MAC 주소입니다.</string>
     <string name="never_ask_again">다시 묻지 말아주세요</string>
     <string name="push_axis_same_direction_to_map_to_button">%s축을 %s 버튼에 매핑하려면 동일한 방향으로 다시 한 번 움직여주세요.</string>
-
+    
+    <!-- Colors -->
     <string name="pro_controller_body_color">Pro 컨트롤러 몸통 색:</string>
     <string name="pro_controller_button_color">Pro 컨트롤러 버튼 색:</string>
     <string name="left_joycon_body_color">왼쪽 Joy-Con 몸통 색:</string>
@@ -127,5 +128,12 @@
     <string name="amiibo_file_cannot_be">경고! NFC 바이너리를 설정할 수 없습니다.</string>
     <string name="enable_haptic_feedback">햅틱 피드백 활성화</string>
     <string name="amiibo_bin_path">NFC 바이너리 경로</string>
-
+    <string name="update_available">업데이트 확인</string>
+    <string name="update_message">새로운 버전의 JoyCon Droid가 존재합니다. 업데이트를 다운로드 하시겠습니까?</string>
+    <string name="update">업데이트</string>
+    <string name="packet_rate">패킷 속도: %d pps</string>
+    <string name="invalid_intent">사용자 정의 UI를 설치하지 못했습니다.</string>
+    <string name="custom_ui_loaded">사용자 정의 UI를 불러왔습니다.</string>
+    <string name="custom_ui_is_not_found">사용자 정의 UI를 찾지 못했습니다.</string>
+    <string name="custom_ui_has_newer_version">더 최신이거나 동일한 버전의 사용자 정의 UI입니다.</string>
 </resources>
