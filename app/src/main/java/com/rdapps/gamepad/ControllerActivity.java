@@ -153,8 +153,9 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
     @Override
-    public void finish() {
-        super.finish();
+    public void onDestroy() {
+        super.onDestroy();
+
         if (isBound) {
             try {
                 unbindService(serviceConnection);
@@ -163,11 +164,6 @@ public class ControllerActivity extends AppCompatActivity {
             }
             isBound = false;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
 
         if (Objects.isNull(mBluetoothAdapter)) {
             return;
