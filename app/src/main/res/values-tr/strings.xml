@@ -4,11 +4,11 @@
     <string name="bt_enable_canceled">Bluetooth etkinleştirilirken hata meydana geldi.</string>
     <string name="bt_discovery_canceled">Bluetooth keşif modu etkinleştirilirken hata meydana geldi.</string>
     <string name="could_not_pair">Otomatik olarak eşleştirilemedi</string>
-    <string name="pair_with_switch">Switch'i Eşleştir</string>
+    <string name="pair_with_switch">Switch\'i Eşleştir</string>
     <string name="sl_label">SL</string>
     <string name="sr_label">SR</string>
-    <string name="connected_to_switch">Cihaz Switch'e bağlandı</string>
-    <string name="disconnected_from_switch">Cihazın Switch'ten bağlantısı kesildi</string>
+    <string name="connected_to_switch">Cihaz Switch\'e bağlandı</string>
+    <string name="disconnected_from_switch">Cihazın Switch\'ten bağlantısı kesildi</string>
     <string name="left_joycon">Sol JoyCon</string>
     <string name="user_guide">Kullanıcı Rehberi</string>
     <string name="remove_ads">Reklamları Kaldır</string>
@@ -68,7 +68,7 @@
     <string name="feature_settings">Özellik Ayarları</string>
     <string name="enable_accelerometer">Akselerometreyi Etkinleştir</string>
     <string name="enable_gyroscope">Cayroskopu Etkinleştir</string>
-    <string name="enable_amiibo">NFC'yi Etkinleştir (Deneysel)</string>
+    <string name="enable_amiibo">NFC\'yi Etkinleştir (Deneysel)</string>
 
     <string name="purchase_pending">Ödeme beklemede, ödeme onaylanınca uygulamayı yeniden başlat.</string>
     <string name="acknowledgement_failed">Onay Başarıız</string>
@@ -82,7 +82,7 @@
     <string name="enable_haptic_feedback">Dokunsal Geribeslemeyi Etkinleştir</string>
     <string name="amiibo_bin_path">NFC Dosyası Yolu</string>
     <string name="update_available">Güncelleme Mevcut</string>
-    <string name="update_message">JoyCon Droid'in yeni bir sürümü mevcut. Güncellemeyi indirmek istiyor musun?</string>
+    <string name="update_message">JoyCon Droid\'in yeni bir sürümü mevcut. Güncellemeyi indirmek istiyor musun?</string>
     <string name="update">Güncelle</string>
     <string name="packet_rate">Paket Oranı: %d pps</string>
     <string name="invalid_intent">Özel Arayüz Yüklenemedi.</string>
