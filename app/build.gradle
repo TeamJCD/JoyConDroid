@@ -95,7 +95,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.6'
 
     //Color Picker
-    implementation 'com.azeesoft.lib.colorpicker:colorpicker:1.0.8@aar'
+    implementation 'com.github.alexandre-g:AndroidPhotoshopColorPicker:1.2.4'
 
     //Device Name
     implementation 'com.jaredrummler:android-device-names:1.1.9'
