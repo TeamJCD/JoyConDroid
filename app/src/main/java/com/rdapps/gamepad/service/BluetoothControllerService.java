@@ -213,7 +213,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         state = State.INITIAL;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        this.getClass().getMethod("setBluetoothClass", new Class[]{}).invoke(this);
+        //this.getClass().getMethod("setBluetoothClass", new Class[]{}).invoke(this);
         mBluetoothHidExecutor = Executors.newCachedThreadPool();
         mBluetoothHidDevice = null;
         timeoutScheduler = Executors.newScheduledThreadPool(1);
