@@ -399,7 +399,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 QOS_DELAY_VARIATION
         );
 
-        boolean registeredApp = mBluetoothHidDevice.registerApp(
+        mBluetoothHidDevice.registerApp(
                 bluetoothHidDeviceAppSdpSettings,
                 qos,
                 qos,
@@ -407,7 +407,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 new Callback()
         );
 
-        if (!registeredApp) {
+        if (!appRegistered) {
             unregisterApp();
             mainHandler.post(() -> couldNotRegisterApp(getApplicationContext()));
         }
