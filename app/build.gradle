@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdk 29
     def VERBOSE = "2"
     def DEBUG = "3"
     def INFO = "4"
