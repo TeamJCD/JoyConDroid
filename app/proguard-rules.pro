@@ -23,3 +23,17 @@
 -keep class com.erz.joysticklibrary.** { *; }
 -keep class androidx.appcompat.app.** { *; }
 -keep class com.synnapps.carouselview.** { *; }
+
+# Please add these rules to your existing keep rules in order to suppress warnings.
+# This is generated automatically by the Android Gradle plugin.
+-dontwarn kotlin.KotlinNullPointerException
+-dontwarn kotlin.Metadata
+-dontwarn kotlin.Result$Companion
+-dontwarn kotlin.Result
+-dontwarn kotlin.ResultKt
+-dontwarn kotlin.coroutines.Continuation
+-dontwarn kotlin.jvm.functions.Function1
+-dontwarn kotlin.jvm.internal.Intrinsics
+-dontwarn kotlin.jvm.internal.Lambda
+-dontwarn kotlinx.coroutines.CancellableContinuation
+-dontwarn org.jetbrains.annotations.NotNull

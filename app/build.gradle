@@ -52,11 +52,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    lintOptions {
-        abortOnError false
-    }
     androidResources {
         noCompress 'jcui'
+    }
+    namespace 'com.rdapps.gamepad'
+    lint {
+        abortOnError false
     }
 }
 
@@ -79,8 +80,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.4'
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     //Mac Text
     implementation 'com.github.phearme:macaddress-edittext:1.0.1'
