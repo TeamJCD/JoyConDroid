@@ -53,7 +53,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     androidResources {
-        noCompress 'jcui'
+        noCompress = 'jcui'
     }
     namespace 'com.rdapps.gamepad'
     lint {
