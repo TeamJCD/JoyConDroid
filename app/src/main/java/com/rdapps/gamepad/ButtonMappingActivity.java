@@ -83,15 +83,14 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.action_reset:
-                //ControllerActionUtils.setControllerActions(this, null);
-                controllerActions = CONTROLLER_ACTIONS;
-                Optional.ofNullable(adapter).ifPresent(adapter -> adapter.refresh(controllerActions));
-                return true;
-            default:
-                return false;
+        if (id == R.id.action_reset) {
+            //ControllerActionUtils.setControllerActions(this, null);
+            controllerActions = CONTROLLER_ACTIONS;
+            Optional.ofNullable(adapter).ifPresent(adapter -> adapter.refresh(controllerActions));
+            return true;
         }
+
+        return false;
     }
 
     @Override

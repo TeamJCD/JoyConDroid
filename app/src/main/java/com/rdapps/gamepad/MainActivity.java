@@ -149,33 +149,30 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        switch (id) {
-            case R.id.action_user_guide:
-                showGuide();
-                return true;
-            case R.id.action_revert_bluetooth:
-                revertBTConfig();
-                return true;
-            case R.id.action_info:
-                showInfoAndLegal();
-                return true;
-            case R.id.action_custom_left_joycon:
-                showCustomUI();
-                return true;
-            case R.id.action_button_mapping:
-                showButtonMapping();
-                return true;
-            case R.id.action_settings:
-                showSettings();
-                return true;
-            case R.id.action_faq:
-                showFAQ();
-                return true;
-            case R.id.action_discord:
-                showDiscord();
-                return true;
-            default:
-                break;
+        if (id == R.id.action_user_guide) {
+            showGuide();
+            return true;
+        } else if (id == R.id.action_revert_bluetooth) {
+            revertBTConfig();
+            return true;
+        } else if (id == R.id.action_info) {
+            showInfoAndLegal();
+            return true;
+        } else if (id == R.id.action_custom_left_joycon) {
+            showCustomUI();
+            return true;
+        } else if (id == R.id.action_button_mapping) {
+            showButtonMapping();
+            return true;
+        } else if (id == R.id.action_settings) {
+            showSettings();
+            return true;
+        } else if (id == R.id.action_faq) {
+            showFAQ();
+            return true;
+        } else if (id == R.id.action_discord) {
+            showDiscord();
+            return true;
         }
 
 

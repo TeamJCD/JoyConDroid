@@ -55,13 +55,12 @@ public class SettingsActivity extends AppCompatActivity implements FeatureSwitch
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.action_reset:
-                reset();
-                return true;
-            default:
-                return false;
+        if (id == R.id.action_reset) {
+            reset();
+            return true;
         }
+
+        return false;
     }
 
     private void reset() {
