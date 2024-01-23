@@ -70,7 +70,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
         axisDirection = 0;
 
         Button saveButton = findViewById(R.id.save_button);
-        saveButton.setText(R.string.save_button_with_ads);
+        saveButton.setText(R.string.save_button);
     }
 
     @Override

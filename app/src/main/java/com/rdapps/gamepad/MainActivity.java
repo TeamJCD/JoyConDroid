@@ -85,12 +85,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (PreferenceUtils.isAdsRemoved(this)) {
-            Button remove_ad = findViewById(R.id.menu_remove_ad);
-            remove_ad.setBackgroundResource(R.drawable.ic_menu_pro_controller);
-            remove_ad.setText(R.string.custom_ui);
-        }
-
         checkUpdate();
     }
 
@@ -249,6 +243,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void showProController(View v) {
         showController(ControllerType.PRO_CONTROLLER);
+    }
+
+    public void showCustomUi(View v) {
+        showCustomUI();
     }
 
     private void showController(ControllerType type) {

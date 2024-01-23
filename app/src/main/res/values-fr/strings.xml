@@ -11,12 +11,9 @@
     <string name="disconnected_from_switch">Périphérique déconnecté de la Switch</string>
     <string name="left_joycon">Joy-Con Gauche</string>
     <string name="user_guide">Guide d\'utilisation</string>
-    <string name="remove_ads">Supprimer les pubs</string>
     <string name="revert_bluetooth">Réinitialiser les paramètres Bluetooth</string>
     <string name="bt_config_is_reverted">La configuration Bluetooth a été réinitalisée!</string>
     <string name="bt_config_was_not_changed">La configuration Bluetooth n\'a pas été modifié.</string>
-    <string name="ads_removed">Les pubs ont étés retirées. Redémarrez l\'application.</string>
-    <string name="ads_not_removed">Les pubs n\'ont pas pu être retirées!</string>
     <string name="do_not_show_at_the_start_up">Ne plus afficher le guide au démarrage</string>
     <string name="right_joycon">Joy-Con Droit</string>
     <string name="pro_controller">Manette Pro</string>
@@ -45,7 +42,7 @@
     <string name="save">Enregistrer</string>
     <string name="redo">Refaire</string>
     <string name="file_permission_is_required">Une permission est nécessaire pour obtenir la liste des fichiers.</string>
-    <string name="save_button_with_ads">Enregistrer (Publicité)</string>
+    <string name="save_button">Enregistrer</string>
     <string name="button_mappings_saves">Le mappage des boutons a été enregistré.</string>
     <string name="frequently_asked_questions">Foire aux questions</string>
     <string name="set_bt_address">Entrez l\'adresse mac Bluetooth pour une meilleure connexion</string>

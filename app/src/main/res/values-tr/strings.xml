@@ -11,12 +11,9 @@
     <string name="disconnected_from_switch">Cihazın Switch\'ten bağlantısı kesildi</string>
     <string name="left_joycon">Sol JoyCon</string>
     <string name="user_guide">Kullanıcı Rehberi</string>
-    <string name="remove_ads">Reklamları Kaldır</string>
     <string name="revert_bluetooth">Bluetooth Konfigürasyonunu Geri Al</string>
     <string name="bt_config_is_reverted">Bluetooth Konfigürasyonu geri alındı!</string>
     <string name="bt_config_was_not_changed">Bluetooth Konfigürasyonu modifiye edilmedi.</string>
-    <string name="ads_removed">Reklamlar Kaldırıldı Lütfen Uygulamayı Yeniden Başlatın</string>
-    <string name="ads_not_removed">Reklamlar kaldırılamadı!</string>
     <string name="do_not_show_at_the_start_up">Başlangıçta rehberi gösterme</string>
     <string name="right_joycon">Sağ JoyCon</string>
     <string name="pro_controller">Pro Controller</string>
@@ -46,7 +43,7 @@
     <string name="save">Kaydet</string>
     <string name="redo">Yeniden Yap</string>
     <string name="file_permission_is_required">Dosya listesini göstermek için izin gerekli.</string>
-    <string name="save_button_with_ads">Kaydet (Video Ödülü)</string>
+    <string name="save_button">Kaydet</string>
     <string name="button_mappings_saves">Tuş atamaları kaydedildi.</string>
     <string name="frequently_asked_questions">Sık Sorulan Sorular</string>
     <string name="discord" translatable="false">Discord</string>

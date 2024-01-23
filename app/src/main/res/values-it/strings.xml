@@ -11,12 +11,9 @@
     <string name="disconnected_from_switch">Dispositivo disconnesso dalla Switch</string>
     <string name="left_joycon">JoyCon Sinistro</string>
     <string name="user_guide">Guida Utente</string>
-    <string name="remove_ads">Rimuovi Ads</string>
     <string name="revert_bluetooth">Reimposta Configurazione Bluetooth</string>
     <string name="bt_config_is_reverted">La Configurazione Bluetooth è stata reimpostata!</string>
     <string name="bt_config_was_not_changed">La Configurazione Bluetooth non è stata modificata.</string>
-    <string name="ads_removed">Ads Rimossi Per Favore Riavvia l\'Applicazione</string>
-    <string name="ads_not_removed">Gli ads non possono essere rimossi!</string>
     <string name="do_not_show_at_the_start_up">Non mostrare la guida all\'avvio</string>
     <string name="right_joycon">JoyCon Destro</string>
     <string name="pro_controller">Pro Controller</string>
@@ -46,7 +43,7 @@
     <string name="save">Salva</string>
     <string name="redo">Rifai</string>
     <string name="file_permission_is_required">È richiesto il permesso per ottenere la lista dei file.</string>
-    <string name="save_button_with_ads">Salva (Ricompensa Video)</string>
+    <string name="save_button">Salva</string>
     <string name="button_mappings_saves">Le mappature dei pulsanti sono state salvate.</string>
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="set_bt_address">Inserisci il MAC Address del Bluetooth per una connessione migliore</string>

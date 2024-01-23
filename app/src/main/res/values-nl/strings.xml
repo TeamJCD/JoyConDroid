@@ -11,13 +11,10 @@
     <string name="disconnected_from_switch">Apparaat verbinding vebroken met Switch</string>
     <string name="left_joycon">Linker JoyCon</string>
     <string name="user_guide">Gebruikersaanwijzing</string>
-    <string name="remove_ads">Vewijder Reclame</string>
     <string name="revert_bluetooth">Bluetooth Instellingen resetten</string>
     <string name="bt_config_is_reverted">Bluetooth Instellingen zijn gereset!</string>
     <string name="bt_config_was_not_changed">Bluetooth Instellingen zijn niet gewijzigd.</string>
 
-    <string name="ads_removed">Reclame verwijderd! A.U.B. herstart uw app.</string>
-    <string name="ads_not_removed">Reclame kon niet worden verwijderd!</string>
     <string name="do_not_show_at_the_start_up">Laat gids niet meer zien bij opstarten.</string>
     <string name="right_joycon">Rechter JoyCon</string>
     <string name="pro_controller">Pro Controller</string>
@@ -47,7 +44,7 @@
     <string name="save">Opslaan</string>
     <string name="redo">terug</string>
     <string name="file_permission_is_required">Toestemming is nodig om de lijst met bestanden te laten zien.</string>
-    <string name="save_button_with_ads">Sla (Video Reward) op</string>
+    <string name="save_button">Sla op</string>
     <string name="button_mappings_saves">Knop wijzigingen zijn opgeslagen.</string>
     <string name="frequently_asked_questions">Veel gestelde vragen</string>
     <string name="set_bt_address">Toets Bluetooth Mac-adress in voor beter verbinding</string>

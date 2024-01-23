@@ -13,7 +13,6 @@ public class PreferenceUtils {
     public static final String MAC_FAKE_ADDRESS = "02:00:00:00:00:00";
 
     private static final String ORIGINAL_NAME = "ORIGINAL_NAME";
-    private static final String ADS_REMOVED = "ADS_REMOVED";
     private static final String DO_NOT_SHOW = "DO_NOT_SHOW";
     private static final String LEGAL_ACCEPTED = "LEGAL_ACCEPTED";
     private static final String BUTTON_MAPPING = "BUTTON_MAPPING";
@@ -53,22 +52,6 @@ public class PreferenceUtils {
                 .apply();
     }
 
-    public static void removeAds(Context context) {
-        setAdsRemove(context, true);
-    }
-
-    private static void setAdsRemove(Context context, boolean removeAds) {
-        PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
-                .putBoolean(ADS_REMOVED, removeAds)
-                .apply();
-    }
-
-    public static boolean isAdsRemoved(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(ADS_REMOVED, false);
-    }
-
     public static boolean getDoNotShow(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(DO_NOT_SHOW, false);
@@ -103,10 +86,6 @@ public class PreferenceUtils {
                 .edit()
                 .putString(BUTTON_MAPPING, buttonMapping)
                 .apply();
-    }
-
-    public static void adsNotRemoved(Context context) {
-        setAdsRemove(context, false);
     }
 
     public static String getBluetoothAddress(Context context) {

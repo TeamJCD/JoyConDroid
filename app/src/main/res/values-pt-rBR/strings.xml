@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name">JoyCon Droid</string>
     <string name="accept">Aceito</string>
-    <string name="ads_not_removed">Os anúncios não puderam ser removidos!</string>
-    <string name="ads_removed">Anúncios Removidos, Por favor Reinicie a Aplicação</string>
     <string name="bt_config_is_reverted">As configurações do Bluetooth foram revertidas!</string>
     <string name="bt_config_was_not_changed">As configurações do Bluetooth não foram modificadas.</string>
     <string name="bt_enable_canceled">Ocorreu um erro ao habilitar o Bluetooth.</string>
@@ -27,7 +25,6 @@
     <string name="ok">Certo</string>
     <string name="pair_with_switch">Pareando ao Switch</string>
     <string name="pro_controller">Pro Controller</string>
-    <string name="remove_ads">Remover Anúncios</string>
     <string name="revert_bluetooth">Reverter as Configurações do Bluetooth</string>
     <string name="right_joycon">JoyCon Direito</string>
     <string name="user_guide">Guia do Usuário</string>
@@ -46,7 +43,7 @@
     <string name="push_right_joystick_right">"Mover joystick esquerdo para direita "</string>
     <string name="redo">Refazer</string>
     <string name="save">Salvar</string>
-    <string name="save_button_with_ads">Salvar (Recompensa em vídeo)</string>
+    <string name="save_button">Salvar</string>
     <string name="frequently_asked_questions">Perguntas Frequentes</string>
     <string name="incorrect_mac_address">Endereço MAC incorreto</string>
     <string name="later">Mais tarde</string>

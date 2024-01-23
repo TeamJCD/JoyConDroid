@@ -11,12 +11,9 @@
     <string name="disconnected_from_switch">기기와 Switch의 연결이 끊겼습니다</string>
     <string name="left_joycon">왼쪽 Joy-Con</string>
     <string name="user_guide">사용자 설명서</string>
-    <string name="remove_ads">광고 제어</string>
     <string name="revert_bluetooth">블루투스 설정 초기화</string>
     <string name="bt_config_is_reverted">블루투스 설정이 초기화되었습니다!</string>
     <string name="bt_config_was_not_changed">블루투스 설정이 변경되지 않았습니다.</string>
-    <string name="ads_removed">광고가 제거되었습니다. 애플리케이션을 다시 시작해주세요.</string>
-    <string name="ads_not_removed">광고를 제거하지 못했습니다!</string>
     <string name="do_not_show_at_the_start_up">애플리케이션 실행 시 설명서를 띄우지 않기</string>
     <string name="right_joycon">오른쪽 Joy-Con</string>
     <string name="pro_controller">Pro 컨트롤러</string>
@@ -46,7 +43,7 @@
     <string name="save">저장하기</string>
     <string name="redo">다시 실행</string>
     <string name="file_permission_is_required">파일 목록을 가져오기 위해 권한이 필요합니다.</string>
-    <string name="save_button_with_ads">저장하기 (동영상 광고 시청)</string>
+    <string name="save_button">저장하기</string>
     <string name="button_mappings_saves">버튼 매핑이 저장되었습니다.</string>
     <string name="frequently_asked_questions">자주 묻는 질문</string>
     <string name="set_bt_address">더 나은 연결 품질을 위해 블루투스 MAC 주소를 입력해주세요</string>

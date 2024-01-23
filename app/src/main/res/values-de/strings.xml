@@ -11,12 +11,9 @@
     <string name="disconnected_from_switch">Die Verbindung mit der Switch wurde getrennt.</string>
     <string name="left_joycon">Linker Joy-Con</string>
     <string name="user_guide">Anleitung</string>
-    <string name="remove_ads">Werbung entfernen</string>
     <string name="revert_bluetooth">Bluetooth-Konfiguration wiederherstellen</string>
     <string name="bt_config_is_reverted">Die Bluetooth-Konfiguration wurde wiederhergestellt.</string>
     <string name="bt_config_was_not_changed">Die Bluetooth-Konfiguration wurde nicht verändert.</string>
-    <string name="ads_removed">Werbung entfernt. Starte die App neu!</string>
-    <string name="ads_not_removed">Werbung konnte nicht entfernt werden!</string>
     <string name="do_not_show_at_the_start_up">Anleitung nicht mehr beim Starten der App anzeigen</string>
     <string name="right_joycon">Rechter Joy-Con</string>
     <string name="pro_controller">Pro Controller</string>
@@ -53,7 +50,7 @@ Dein Gerät ist möglicherweise nicht mit dieser App kompatibel. Kontaktiere den
     <string name="file_permission_is_required">
 Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
 </string>
-    <string name="save_button_with_ads">Speichern (Nach der Werbung)</string>
+    <string name="save_button">Speichern</string>
     <string name="button_mappings_saves">Tastenbelegung gespeichert!</string>
     <string name="frequently_asked_questions">Häufig gestellte Fragen</string>
     <string name="set_bt_address">Bluetooth Mac-Addresse für bessere Verbindung eingeben</string>

@@ -11,12 +11,9 @@
     <string name="disconnected_from_switch">Device disconnected from Switch</string>
     <string name="left_joycon">Left JoyCon</string>
     <string name="user_guide">User Guide</string>
-    <string name="remove_ads">Remove Ads</string>
     <string name="revert_bluetooth">Revert Bluetooth Configuration</string>
     <string name="bt_config_is_reverted">Bluetooth Configuration is reverted!</string>
     <string name="bt_config_was_not_changed">Bluetooth Configuration is not modified.</string>
-    <string name="ads_removed">Ads Removed Please Restart The Application</string>
-    <string name="ads_not_removed">Ads could not be removed!</string>
     <string name="do_not_show_at_the_start_up">Don\'t show guide at the start up</string>
     <string name="right_joycon">Right JoyCon</string>
     <string name="pro_controller">Pro Controller</string>
@@ -46,7 +43,7 @@
     <string name="save">Save</string>
     <string name="redo">Redo</string>
     <string name="file_permission_is_required">Permission is required for getting list of files.</string>
-    <string name="save_button_with_ads">Save (Video Reward)</string>
+    <string name="save_button">Save</string>
     <string name="button_mappings_saves">Button mappings have been saved.</string>
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="discord" translatable="false">Discord</string>

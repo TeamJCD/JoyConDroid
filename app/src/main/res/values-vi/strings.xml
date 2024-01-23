@@ -11,12 +11,9 @@
     <string name="disconnected_from_switch">Thiết bị đã ngắt kết nối với Switch</string>
     <string name="left_joycon">JoyCon trái</string>
     <string name="user_guide">Hướng dẫn</string>
-    <string name="remove_ads">Xóa quảng cáo</string>
     <string name="revert_bluetooth">Đặt lại các cài đặt Bluetooth</string>
     <string name="bt_config_is_reverted">Các cài đặt Bluetooth đã được đặt lại!</string>
     <string name="bt_config_was_not_changed">Các cài đặt Bluetooth chưa thay đổi.</string>
-    <string name="ads_removed">Quảng cáo đã được xóa. Hãy khởi động lại ứng dụng</string>
-    <string name="ads_not_removed">Không thể xóa quảng cáo!</string>
     <string name="do_not_show_at_the_start_up">Đừng hiện hướng dẫn khi khởi động</string>
     <string name="right_joycon">JoyCon phải</string>
     <string name="pro_controller">Pro Controller</string>
@@ -46,7 +43,7 @@
     <string name="save">Lưu</string>
     <string name="redo">Redo</string>
     <string name="file_permission_is_required">Cần được cấp quyền để hiển thị danh sách tập tin.</string>
-    <string name="save_button_with_ads">Lưu (Phần thưởng video)</string>
+    <string name="save_button">Lưu</string>
     <string name="button_mappings_saves">Button mappings đã được lưu.</string>
     <string name="frequently_asked_questions">Câu hỏi thường được hỏi nhiều</string>
     <string name="set_bt_address">Nhập địa chỉ MAC của Bluetooth để kết nối tốt hơn</string>

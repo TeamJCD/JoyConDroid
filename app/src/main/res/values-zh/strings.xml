@@ -11,12 +11,9 @@
     <string name="disconnected_from_switch">Switch连接断开了</string>
     <string name="left_joycon">左JoyCon</string>
     <string name="user_guide">用户指南</string>
-    <string name="remove_ads">移除广告</string>
     <string name="revert_bluetooth">恢复蓝牙默认配置</string>
     <string name="bt_config_is_reverted">成功恢复蓝牙默认配置</string>
     <string name="bt_config_was_not_changed">蓝牙配置未修改</string>
-    <string name="ads_removed">移除广告后请重启APP</string>
-    <string name="ads_not_removed">无法移除广告!</string>
     <string name="do_not_show_at_the_start_up">启动不显示指南</string>
     <string name="right_joycon">右JoyCon</string>
     <string name="pro_controller">Pro Controller</string>
@@ -45,7 +42,7 @@
     <string name="save">保存</string>
     <string name="redo">撤销</string>
     <string name="file_permission_is_required">需要获取文件权限.</string>
-    <string name="save_button_with_ads">保存 (视频奖励)</string>
+    <string name="save_button">保存</string>
     <string name="button_mappings_saves">按键映射已保存.</string>
     <string name="frequently_asked_questions">常见问题</string>
     <string name="set_bt_address">输入蓝牙Mac地址来连接</string>
