@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdk 29
+    compileSdk 34
     def VERBOSE = "2"
     def DEBUG = "3"
     def INFO = "4"
@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.rdapps.gamepad"
         minSdkVersion 28
-        targetSdkVersion 29
+        targetSdkVersion 34
         versionCode 122
         versionName "1.0.91.2"
         resValue "string", "version_name", versionName
@@ -62,22 +62,22 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.preference:preference:1.1.1'
-    implementation 'androidx.browser:browser:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'androidx.browser:browser:1.7.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.media:media:1.1.0'
+    implementation 'androidx.media:media:1.7.0'
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
+    implementation 'com.google.android.material:material:1.11.0'
 
     //Test
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'org.mockito:mockito-core:1.10.19'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'org.mockito:mockito-core:5.7.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     //Lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
@@ -86,9 +86,9 @@ dependencies {
     implementation 'com.github.phearme:macaddress-edittext:1.0.1'
 
     //Rest API
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
-    implementation 'com.squareup.retrofit2:converter-jackson:2.6.0'
-    implementation 'commons-io:commons-io:2.6'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+    implementation 'commons-io:commons-io:2.15.1'
 
     //Color Picker
     implementation 'com.github.alexandre-g:AndroidPhotoshopColorPicker:1.2.4'

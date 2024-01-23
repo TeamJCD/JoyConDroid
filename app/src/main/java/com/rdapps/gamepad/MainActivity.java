@@ -1,5 +1,6 @@
 package com.rdapps.gamepad;
 
+import static android.Manifest.permission.*;
 import static android.bluetooth.BluetoothAdapter.ACTION_STATE_CHANGED;
 import static android.bluetooth.BluetoothAdapter.STATE_OFF;
 import static android.bluetooth.BluetoothAdapter.STATE_ON;
@@ -15,23 +16,27 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -45,8 +50,7 @@ import com.rdapps.gamepad.versionchecker.Version;
 import com.rdapps.gamepad.versionchecker.VersionCheckerClient;
 import com.rdapps.gamepad.versionchecker.VersionCheckerService;
 
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
 
     private static final int LEGAL_CODE = 1;
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private static final String[] RUNTIME_PERMISSIONS_S
+            = new String[] { BLUETOOTH_ADVERTISE, BLUETOOTH_CONNECT, BLUETOOTH_SCAN };
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private static final String[] RUNTIME_PERMISSIONS_T
+            = new String[] { POST_NOTIFICATIONS };
 
     private BluetoothBroadcastReceiver mBluetoothBroadcastReceiver;
 
@@ -86,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         checkUpdate();
+        checkPermissions();
     }
 
     private void checkUpdate() {
@@ -125,6 +138,26 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
         builder.create().show();
+    }
+
+    private void checkPermissions() {
+        List<String> permissions = new ArrayList<>();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Arrays.stream(RUNTIME_PERMISSIONS_S)
+                    .filter(permission -> ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
+                    .forEach(permissions::add);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Arrays.stream(RUNTIME_PERMISSIONS_T)
+                    .filter(permission -> ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
+                    .forEach(permissions::add);
+        }
+
+        if (!permissions.isEmpty()) {
+            ActivityCompat.requestPermissions(this, permissions.toArray(new String[0]), 2);
+        }
     }
 
     @Override

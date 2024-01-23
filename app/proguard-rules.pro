@@ -8,7 +8,10 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
--keepclassmembers class fqcn.of.javascript.interface.for.webview {
+-keepclassmembers class com.rdapps.gamepad.nintendo_switch.CustomFragment$JoyConJSInterface {
+   public *;
+}
+-keepclassmembers class com.rdapps.gamepad.util.ControllerFunctions {
    public *;
 }
 
@@ -24,16 +27,13 @@
 -keep class androidx.appcompat.app.** { *; }
 -keep class com.synnapps.carouselview.** { *; }
 
-# Please add these rules to your existing keep rules in order to suppress warnings.
-# This is generated automatically by the Android Gradle plugin.
--dontwarn kotlin.KotlinNullPointerException
--dontwarn kotlin.Metadata
--dontwarn kotlin.Result$Companion
--dontwarn kotlin.Result
--dontwarn kotlin.ResultKt
--dontwarn kotlin.coroutines.Continuation
--dontwarn kotlin.jvm.functions.Function1
--dontwarn kotlin.jvm.internal.Intrinsics
--dontwarn kotlin.jvm.internal.Lambda
--dontwarn kotlinx.coroutines.CancellableContinuation
--dontwarn org.jetbrains.annotations.NotNull
+# see https://github.com/square/retrofit/issues/3751#issuecomment-1192043644
+# TODO can be removed after a retrofit update is available
+# Keep generic signature of Call, Response (R8 full mode strips signatures from non-kept items).
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+
+# With R8 full mode generic signatures are stripped for classes that are not
+# kept. Suspend functions are wrapped in continuations where the type argument
+# is used.
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation

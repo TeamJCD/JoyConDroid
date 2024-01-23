@@ -46,8 +46,6 @@ public class UserGuideActivity extends AppCompatActivity {
         Locale aDefault = Locale.getDefault();
         log("Locale", "Locale:" + aDefault.toString());
         webSettings.setMediaPlaybackRequiresUserGesture(false);
-        webSettings.setAppCachePath(this.getApplicationContext().getCacheDir().getAbsolutePath());
-        webSettings.setAppCacheEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.loadUrl(url);

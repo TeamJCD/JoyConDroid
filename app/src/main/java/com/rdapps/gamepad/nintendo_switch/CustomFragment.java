@@ -75,8 +75,6 @@ public class CustomFragment extends ControllerFragment {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
-        webSettings.setAppCachePath(getActivity().getApplicationContext().getCacheDir().getAbsolutePath());
-        webSettings.setAppCacheEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.loadUrl(url);

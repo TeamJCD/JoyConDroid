@@ -279,7 +279,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 .setContentTitle(contentTitle)
                 .setContentText(getText(R.string.disconnect_controller))
                 .setCategory(Notification.CATEGORY_SERVICE)
-                .setContentIntent(PendingIntent.getService(getApplicationContext(), 0, closeIntent, 0))
+                .setContentIntent(PendingIntent.getService(getApplicationContext(), 0, closeIntent, PendingIntent.FLAG_IMMUTABLE))
                 .build();
     }
 
