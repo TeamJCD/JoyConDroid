@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
 import android.bluetooth.BluetoothHidDeviceAppQosSettings;
@@ -28,7 +27,6 @@ import com.rdapps.gamepad.protocol.JoyControllerBuilder;
 import com.rdapps.gamepad.protocol.JoyControllerListener;
 import com.rdapps.gamepad.util.PreferenceUtils;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.Optional;
@@ -170,21 +168,6 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             m.invoke(device, (Object[]) null);
         } catch (Exception e) {
             log(TAG, "Unpair Failed: ", e);
-        }
-    }
-
-    public void setBluetoothClass() {
-        try {
-            Method forName = Class.class.getMethod("forName", String.class);
-            Method getMethod = Class.class.getMethod("getMethod", String.class, Class[].class);
-            Object hiddenClass = forName.invoke(null, "android.bluetooth.BluetoothAdapter");
-            Object hiddenMethod = getMethod.invoke(hiddenClass, "setBluetoothClass", new Class[]{BluetoothClass.class});
-
-            Method getConstructor = Class.class.getMethod("getConstructors", new Class[]{});
-            Object btClass = (((Constructor[]) getConstructor.invoke(BluetoothClass.class, null))[0]).newInstance(0x002508);
-            ((Method) hiddenMethod).invoke(mBluetoothAdapter, btClass);
-        } catch (Exception e) {
-            log(TAG, "setBluetoothClass Failed: ", e);
         }
     }
 
