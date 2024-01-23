@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    buildToolsVersion '30.0.0 rc2'
     compileSdkVersion 29
     def VERBOSE = "2"
     def DEBUG = "3"
