@@ -391,7 +391,6 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         );
 
         if (!appRegistered) {
-            unregisterApp();
             mainHandler.post(() -> couldNotRegisterApp(getApplicationContext()));
         }
     }
