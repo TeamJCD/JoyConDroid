@@ -82,9 +82,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
 
-    //File Picker
-    implementation 'com.github.angads25:filepicker:1.1.1'
-
     //Mac Text
     implementation 'com.github.phearme:macaddress-edittext:1.0.1'
 

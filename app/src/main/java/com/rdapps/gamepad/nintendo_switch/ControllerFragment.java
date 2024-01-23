@@ -1,27 +1,19 @@
 package com.rdapps.gamepad.nintendo_switch;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.os.Environment;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.Button;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import com.erz.joysticklibrary.JoyStick;
-import com.github.angads25.filepicker.model.DialogConfigs;
-import com.github.angads25.filepicker.model.DialogProperties;
-import com.github.angads25.filepicker.view.FilePickerDialog;
-import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.device.ButtonType;
 import com.rdapps.gamepad.device.JoystickType;
 import com.rdapps.gamepad.led.LedState;
@@ -33,13 +25,13 @@ import com.rdapps.gamepad.vibrator.VibrationPattern;
 
 import org.apache.commons.io.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import static android.app.Activity.RESULT_OK;
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN;
 import static android.view.KeyEvent.KEYCODE_DPAD_LEFT;
 import static android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
@@ -53,6 +45,7 @@ import static com.rdapps.gamepad.util.EventUtils.getTouchDownEvent;
 import static com.rdapps.gamepad.util.EventUtils.getTouchUpEvent;
 
 public abstract class ControllerFragment extends Fragment {
+    public static final int REQUEST_SELECT_FILE = 1;
 
     private Context context;
     private SensorManager sensorManager;
@@ -65,7 +58,6 @@ public abstract class ControllerFragment extends Fragment {
     private Map<Pair<Integer, Integer>, ButtonType> axisMap;
     private Map<JoystickType, ControllerAction> joystickMap;
 
-    protected FilePickerDialog dialog;
     protected Boolean hapticFeedBackEnabled;
     protected Vibrator vibrator;
 
@@ -468,22 +460,6 @@ public abstract class ControllerFragment extends Fragment {
     public void showAmiiboPicker() {
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case FilePickerDialog.EXTERNAL_READ_PERMISSION_GRANT: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (dialog == null) {
-                        openFileSelectionDialog();
-                    }
-                } else {
-                    //Permission has not been granted. Notify the user.
-                    Toast.makeText(getContext(), getText(R.string.file_permission_is_required), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
     protected void vibrate(VibrationPattern vibrationPattern) {
         getVibrator().ifPresent(v -> {
             v.vibrate(vibrationPattern.getVibrationEffect());
@@ -491,67 +467,27 @@ public abstract class ControllerFragment extends Fragment {
     }
 
     protected void openFileSelectionDialog() {
-        Context context = getContext();
-        FragmentActivity activity = getActivity();
-        if ((null != dialog && dialog.isShowing()) ||
-                context == null ||
-                activity == null ||
-                activity.isFinishing()
-        ) {
-            //dialog.dismiss();
-            return;
-        }
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/octet-stream");
 
-        //Create a DialogProperties object.
-        DialogProperties properties = new DialogProperties();
-        String amiiboFilePath = PreferenceUtils.getAmiiboFilePath(context);
-        if (Objects.nonNull(amiiboFilePath)) {
-            File file = new File(amiiboFilePath);
-            File folder = file.getParentFile();
-            if (folder.exists() && folder.isDirectory()) {
-                properties.root = folder;
-            }
-        } else {
-            properties.root = Environment.getExternalStorageDirectory();
-        }
-
-
-        //Instantiate FilePickerDialog with Context and DialogProperties.
-        dialog = new FilePickerDialog(getContext(), properties);
-        dialog.setTitle("Select a File");
-        dialog.setPositiveBtnName("Select");
-        dialog.setNegativeBtnName("Cancel");
-        //properties.selection_mode = DialogConfigs.MULTI_MODE; // for multiple files
-        properties.selection_mode = DialogConfigs.SINGLE_MODE; // for single file
-        properties.selection_type = DialogConfigs.FILE_SELECT;
-
-        //Method handle selected files.
-        dialog.setDialogSelectionListener(this::onSelectedFilePaths);
-        dialog.setOnCancelListener(this::onFileSelectorCanceled);
-        dialog.setOnDismissListener(this::onFileSelectorDismissed);
-
-        dialog.show();
+        startActivityForResult(intent, REQUEST_SELECT_FILE);
     }
 
-    public void onSelectedFilePaths(String[] files) {
-        if (files.length > 0 || Objects.nonNull(device)) {
-            String file = files[0];
-            try {
-                byte[] bytes = IOUtils.toByteArray(new FileInputStream(file));
-                PreferenceUtils.setAmiiboFilePath(context, file);
-                device.setAmiiboBytes(bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SELECT_FILE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Context context = getContext();
+                Uri uri = data.getData();
+                try (InputStream is = context.getContentResolver().openInputStream(uri)) {
+                    byte[] bytes = IOUtils.toByteArray(is);
+                    PreferenceUtils.setAmiiboFileName(context, uri);
+                    device.setAmiiboBytes(bytes);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-    }
-
-    public void onFileSelectorCanceled(DialogInterface dialog) {
-        this.dialog = null;
-    }
-
-    public void onFileSelectorDismissed(DialogInterface dialog) {
-        this.dialog = null;
     }
 
     public abstract void setPlayerLights(LedState led1, LedState led2, LedState led3, LedState led4);

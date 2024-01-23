@@ -1,7 +1,7 @@
 package com.rdapps.gamepad.nintendo_switch;
 
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,10 +28,10 @@ import com.rdapps.gamepad.button.ButtonEnum;
 import com.rdapps.gamepad.led.LedState;
 import com.rdapps.gamepad.util.ControllerFunctions;
 
-import java.io.File;
 import java.util.Objects;
 import java.util.concurrent.Phaser;
 
+import static android.app.Activity.RESULT_OK;
 import static com.rdapps.gamepad.ControllerActivity.CUSTOM_UI_URL;
 import static com.rdapps.gamepad.button.ButtonState.BUTTON_DOWN;
 import static com.rdapps.gamepad.button.ButtonState.BUTTON_UP;
@@ -503,45 +503,19 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public void onSelectedFilePaths(String[] files) {
-        results = new Uri[files.length];
-        for (int i = 0; i < files.length; i++) {
-            String filePath = new File(files[i]).getAbsolutePath();
-            if (!filePath.startsWith("file://")) {
-                filePath = "file://" + filePath;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SELECT_FILE && resultCode == RESULT_OK) {
+            Uri[] results = new Uri[1];
+            if (data != null) {
+                Context context = getContext();
+                results[0] = data.getData();
+                log(LOG_TAG, "file uri: " + results[0]);
             }
-            results[i] = Uri.parse(filePath);
-            log(LOG_TAG, "file path: " + filePath);
-            log(LOG_TAG, "file uri: " + String.valueOf(results[i]));
+            mUploadMessage.onReceiveValue(results);
+            mUploadMessage = null;
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
-        mUploadMessage.onReceiveValue(results);
-        mUploadMessage = null;
-    }
-
-    @Override
-    public void onFileSelectorCanceled(DialogInterface dialog) {
-        if (null != mUploadMessage) {
-            if (null != results && results.length >= 1) {
-                mUploadMessage.onReceiveValue(results);
-            } else {
-                mUploadMessage.onReceiveValue(null);
-            }
-        }
-        mUploadMessage = null;
-        this.dialog = null;
-    }
-
-    @Override
-    public void onFileSelectorDismissed(DialogInterface dialog) {
-        if (null != mUploadMessage) {
-            if (null != results && results.length >= 1) {
-                mUploadMessage.onReceiveValue(results);
-            } else {
-                mUploadMessage.onReceiveValue(null);
-            }
-        }
-        mUploadMessage = null;
-        this.dialog = null;
     }
 
     @Override
