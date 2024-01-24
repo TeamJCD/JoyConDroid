@@ -84,7 +84,9 @@ public class CustomUIActivity extends AppCompatActivity implements Callback<List
         List<CustomUIItem> customUIItems = response.body();
         if (customUIItems != null) {
             ArrayList<CustomUIItem> allUis = new ArrayList<>(customUIItems);
-            allUis.addAll(new CustomUIDBHandler(this).getCustomUIs());
+            try (CustomUIDBHandler customUIDBHandler = new CustomUIDBHandler(this)) {
+                allUis.addAll(customUIDBHandler.getCustomUIs());
+            }
 
             List<CustomUIItem> filtered = allUis.stream()
                     .filter(item -> item.getAppVersion() <= BuildConfig.VERSION_CODE)
