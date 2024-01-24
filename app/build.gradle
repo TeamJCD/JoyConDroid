@@ -85,9 +85,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
-    //Mac Text
-    implementation 'com.github.phearme:macaddress-edittext:1.0.1'
-
     //Rest API
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
