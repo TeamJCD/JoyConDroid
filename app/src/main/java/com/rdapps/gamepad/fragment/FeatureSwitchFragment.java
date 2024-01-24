@@ -36,7 +36,6 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
     private FeatureSwitchListener featureSwitchListener;
     private SwitchCompat switchController;
     private boolean enabled;
-    private TextView textView;
 
     public static FeatureSwitchFragment getInstance(FeatureType type) {
         FeatureSwitchFragment colorPickerFragment = new FeatureSwitchFragment();
@@ -52,7 +51,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
         Bundle arguments = getArguments();
         type = (FeatureType) arguments.getSerializable(TYPE);
 
-        textView = view.findViewById(R.id.controllerTextView);
+        TextView textView = view.findViewById(R.id.controllerTextView);
         switchController = view.findViewById(R.id.featureSwitch);
         switchController.setOnCheckedChangeListener(this);
         enabled = false;

@@ -40,7 +40,6 @@ import static com.rdapps.gamepad.util.ControllerActionUtils.getControllerActions
 
 public class ButtonMappingActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, ButtonMappingAlertDialog.DialogEventListener {
 
-    private ListView listView;
     private ButtonMappingViewAdapter adapter;
     private ButtonMappingAlertDialog alertDialog;
     private ButtonType buttonType;
@@ -60,7 +59,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
 
         controllerActions = getControllerActions(this);
 
-        listView = findViewById(R.id.button_mappings);
+        ListView listView = findViewById(R.id.button_mappings);
         adapter = new ButtonMappingViewAdapter(this, controllerActions);
         listView.setAdapter(adapter);
         listView.setClickable(true);

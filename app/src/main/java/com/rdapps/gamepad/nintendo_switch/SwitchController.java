@@ -120,7 +120,6 @@ public class SwitchController extends AbstractDevice {
 
     private static final float G = 9.80665f;
     private float[] accCoeffs;
-    private short[] accOffset;
     private float[] gyrCoeffs;
     private short[] gyrOffset;
 
@@ -198,7 +197,7 @@ public class SwitchController extends AbstractDevice {
         gyrCoeffs = new float[3];
 
         byte[] motionCalibration = eeprom.read(0x8026, 26);
-        accOffset = new short[3];
+        short[] accOffset = new short[3];
         int[] calAccCoef = new int[3];
         gyrOffset = new short[3];
         int[] calGyrCoef = new int[3];

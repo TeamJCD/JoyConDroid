@@ -37,17 +37,14 @@ public class CustomUIActivity extends AppCompatActivity implements Callback<List
 
     private static final String TAG = CustomUIActivity.class.getName();
 
-    private ListView customUIView;
     private CustomUIViewAdapter customUIViewAdapter;
-
-    private CustomUIService customUIService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_ui);
 
-        customUIView = findViewById(R.id.customUIList);
+        ListView customUIView = findViewById(R.id.customUIList);
         customUIViewAdapter = new CustomUIViewAdapter(this);
         customUIView.setAdapter(customUIViewAdapter);
         customUIView.setClickable(true);
@@ -55,7 +52,7 @@ public class CustomUIActivity extends AppCompatActivity implements Callback<List
 
         customUIViewAdapter.setItems(new ArrayList<>());
 
-        customUIService = CustomUIClient.getService();
+        CustomUIService customUIService = CustomUIClient.getService();
         Call<List<CustomUIItem>> customUIs = customUIService.getCustomUIs();
         customUIs.enqueue(this);
     }

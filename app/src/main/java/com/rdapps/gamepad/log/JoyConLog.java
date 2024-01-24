@@ -12,7 +12,7 @@ import static android.util.Log.VERBOSE;
 import static android.util.Log.WARN;
 
 public class JoyConLog {
-    private static String PREFIX = "JoyCon Droid-";
+    private static final String PREFIX = "JoyCon Droid-";
     private static int LOG_LEVEL = BuildConfig.LOG_LEVEL;
 
     public static void log(String tag, String message, Throwable tr) {
