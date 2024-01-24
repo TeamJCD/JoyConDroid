@@ -22,7 +22,6 @@ import java.util.Optional;
 
 import static com.rdapps.gamepad.model.ControllerAction.Type.AXIS;
 import static com.rdapps.gamepad.model.ControllerAction.Type.BUTTON;
-import static com.rdapps.gamepad.model.ControllerAction.Type.JOYSTICK;
 import static com.rdapps.gamepad.util.ControllerActionUtils.AXIS_NAMES;
 import static com.rdapps.gamepad.util.ControllerActionUtils.BUTTON_NAMES;
 import static com.rdapps.gamepad.util.ControllerActionUtils.getJoystickMapping;

@@ -21,8 +21,6 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import static com.rdapps.gamepad.log.JoyConLog.log;
-
 public class JoyControllerBuilder {
 
     private static final String TAG = JoyControllerBuilder.class.getName();

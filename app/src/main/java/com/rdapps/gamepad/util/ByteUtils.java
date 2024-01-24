@@ -6,8 +6,6 @@ import android.graphics.Color;
 
 import com.google.android.gms.common.util.Hex;
 
-import org.apache.commons.io.HexDump;
-
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;

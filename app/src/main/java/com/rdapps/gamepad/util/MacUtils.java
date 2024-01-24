@@ -3,7 +3,6 @@ package com.rdapps.gamepad.util;
 import android.util.Log;
 
 import com.google.android.gms.common.util.Hex;
-import com.rdapps.gamepad.nintendo_switch.SwitchController;
 
 public class MacUtils {
     private static final String TAG = MacUtils.class.getName();
