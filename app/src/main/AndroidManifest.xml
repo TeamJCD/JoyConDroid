@@ -74,6 +74,7 @@
 
         <service
             android:name=".service.BluetoothControllerService"
+            android:foregroundServiceType="connectedDevice"
             android:exported="false" />
 
         <uses-library
