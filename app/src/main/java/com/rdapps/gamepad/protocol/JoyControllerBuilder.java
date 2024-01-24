@@ -29,7 +29,7 @@ public class JoyControllerBuilder {
         return new JoyControllerBuilder(context);
     }
 
-    private Context context;
+    private final Context context;
     private ControllerType type;
     private ControllerMemory memory;
     private ButtonState buttonsState;

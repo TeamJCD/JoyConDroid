@@ -56,9 +56,9 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
 
     @Setter
     private JoyStickListener listener;
-    private Paint paint;
-    private RectF temp;
-    private GestureDetector gestureDetector;
+    private final Paint paint;
+    private final RectF temp;
+    private final GestureDetector gestureDetector;
     @Getter
     private int direction = DIRECTION_CENTER;
     @Setter

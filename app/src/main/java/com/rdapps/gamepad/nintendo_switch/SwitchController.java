@@ -125,22 +125,22 @@ public class SwitchController extends AbstractDevice {
     private short[] gyrOffset;
 
     private SPIMemory eeprom;
-    private ButtonStates buttonStates;
-    private BluetoothControllerService service;
-    private boolean amiiboEnabled;
+    private final ButtonStates buttonStates;
+    private final BluetoothControllerService service;
+    private final boolean amiiboEnabled;
     private volatile InputMode inputMode;
-    private volatile MCUMode mcuMode;
+    private final MCUMode mcuMode;
 
     @Setter
     private volatile byte[] amiiboBytes;
 
-    private ScheduledExecutorService executorService;
+    private final ScheduledExecutorService executorService;
     private ScheduledFuture<?> fullModeSender;
 
-    private Queue<SensorEvent> accelerometerEvents = new LinkedBlockingQueue<>();
-    private Queue<SensorEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
+    private final Queue<SensorEvent> accelerometerEvents = new LinkedBlockingQueue<>();
+    private final Queue<SensorEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
 
-    private ControllerType type;
+    private final ControllerType type;
 
     private Callback notificationCallBack;
 
@@ -761,8 +761,8 @@ public class SwitchController extends AbstractDevice {
         return (byte) 0xB0;
     }
 
-    float[] accs = new float[3 * 3];
-    float[] gyrs = new float[3 * 3];
+    final float[] accs = new float[3 * 3];
+    final float[] gyrs = new float[3 * 3];
 
     private synchronized byte[] getSensorData() {
         int multiplier = 1;

@@ -23,7 +23,7 @@ import java.util.Objects;
 
 public class MacAddressFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
 
-    private static String TAG = MacAddressFragment.class.getName();
+    private static final String TAG = MacAddressFragment.class.getName();
 
 
     private TextView textView;

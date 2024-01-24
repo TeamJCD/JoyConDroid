@@ -4,8 +4,8 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 public class ControllerFunctions {
-    private Runnable runnable;
-    private WebView webView;
+    private final Runnable runnable;
+    private final WebView webView;
 
     public ControllerFunctions(WebView webView, Runnable runnable) {
         this.runnable = runnable;

@@ -26,7 +26,7 @@ import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 public class DeviceNameFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
 
-    private static String TAG = DeviceNameFragment.class.getName();
+    private static final String TAG = DeviceNameFragment.class.getName();
 
 
     private TextView textView;

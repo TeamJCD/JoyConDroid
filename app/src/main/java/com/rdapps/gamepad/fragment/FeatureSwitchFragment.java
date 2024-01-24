@@ -28,7 +28,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
 
     private static String TAG = FeatureSwitchFragment.class.getName();
 
-    private static String TYPE = "TYPE";
+    private static final String TYPE = "TYPE";
 
     private FeatureType type;
     @Setter

@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class CustomUIViewAdapter extends BaseAdapter {
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
     private List<CustomUIItem> customUIItems;
 
 

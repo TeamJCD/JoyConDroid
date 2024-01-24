@@ -49,23 +49,23 @@ public class JoyController extends AbstractDevice {
 
     //Memory
     @Getter
-    private ControllerMemory controllerMemory;
+    private final ControllerMemory controllerMemory;
 
     //Button State
     @Getter
-    private ButtonState buttonState;
+    private final ButtonState buttonState;
 
     //Amiibo
     @Getter
-    private AmiiboConfig amiiboConfig;
+    private final AmiiboConfig amiiboConfig;
 
     //Executor Service
     @Getter
-    private ScheduledExecutorService executorService;
+    private final ScheduledExecutorService executorService;
     private ScheduledFuture<?> scheduledFuture;
 
     //Config
-    private JoyControllerConfig controllerConfig;
+    private final JoyControllerConfig controllerConfig;
 
     //Output Handler
     @Setter
@@ -79,12 +79,12 @@ public class JoyController extends AbstractDevice {
 
     //State
     @Getter
-    private JoyControllerState state;
+    private final JoyControllerState state;
 
     @Getter
-    private Queue<AccelerometerEvent> accelerometerEvents = new LinkedBlockingQueue<>();
+    private final Queue<AccelerometerEvent> accelerometerEvents = new LinkedBlockingQueue<>();
     @Getter
-    private Queue<GyroscopeEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
+    private final Queue<GyroscopeEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
 
     @Getter
     @Setter

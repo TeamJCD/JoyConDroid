@@ -28,7 +28,7 @@ import static com.rdapps.gamepad.util.ControllerActionUtils.getJoystickMapping;
 
 public class ButtonMappingViewAdapter extends BaseAdapter {
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
     private List<ControllerAction> controllerActionList;
     private Map<Enum<?>, ControllerAction> actionMap;
 

@@ -22,7 +22,7 @@ import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 public class BluetoothBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = BluetoothBroadcastReceiver.class.getName();
 
-    private BBRListener listener;
+    private final BBRListener listener;
 
     public BluetoothBroadcastReceiver(BBRListener listener) {
         this.listener = listener;

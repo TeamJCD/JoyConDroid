@@ -115,7 +115,7 @@ public class CustomFragment extends ControllerFragment {
     }
 
     private class JoyConJSInterface {
-        private Phaser phaser = new Phaser(1);
+        private final Phaser phaser = new Phaser(1);
 
         @JavascriptInterface
         public void onUp(boolean pressed) {

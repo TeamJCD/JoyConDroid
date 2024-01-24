@@ -17,9 +17,9 @@ import static androidx.core.text.HtmlCompat.fromHtml;
 
 public class FAQViewAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
-    private String[] questionList;
-    private String[] answerList;
+    private final Context context;
+    private final String[] questionList;
+    private final String[] answerList;
 
     public FAQViewAdapter(
             Context context,

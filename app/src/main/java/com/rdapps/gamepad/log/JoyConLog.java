@@ -13,7 +13,7 @@ import static android.util.Log.WARN;
 
 public class JoyConLog {
     private static final String PREFIX = "JoyCon Droid-";
-    private static int LOG_LEVEL = BuildConfig.LOG_LEVEL;
+    private static final int LOG_LEVEL = BuildConfig.LOG_LEVEL;
 
     public static void log(String tag, String message, Throwable tr) {
         switch (LOG_LEVEL) {

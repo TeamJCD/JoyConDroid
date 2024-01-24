@@ -23,13 +23,13 @@ public class JoyControllerState {
 
     private static final double G = 9.8f;
 
-    private AtomicInteger timeByte = new AtomicInteger(0);
+    private final AtomicInteger timeByte = new AtomicInteger(0);
 
     @Getter
     private InputReportMode inputReportMode = SIMPLE_HID;
 
     @Getter
-    private BatteryData batteryData = new BatteryData(true, (float) 1.0);
+    private final BatteryData batteryData = new BatteryData(true, (float) 1.0);
 
     @Setter
     @Getter

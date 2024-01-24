@@ -29,7 +29,7 @@ public class InfoAndLegalActivity extends AppCompatActivity {
 
     private static final String TAG = InfoAndLegalActivity.class.getName();
 
-    private AtomicBoolean errored = new AtomicBoolean(false);
+    private final AtomicBoolean errored = new AtomicBoolean(false);
 
 
     @Override

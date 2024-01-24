@@ -12,8 +12,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class UnzipUtil {
-    private AssetFileDescriptor zipFile;
-    private String location;
+    private final AssetFileDescriptor zipFile;
+    private final String location;
 
     public UnzipUtil(AssetFileDescriptor zipFile, String location) {
         this.zipFile = zipFile;

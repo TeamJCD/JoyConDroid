@@ -28,7 +28,7 @@ import static java.util.Arrays.asList;
 
 public class OutputHandler {
     private static final String TAG = OutputHandler.class.getName();
-    private JoyController joyController;
+    private final JoyController joyController;
 
     public OutputHandler(JoyController joyController) {
         this.joyController = joyController;
