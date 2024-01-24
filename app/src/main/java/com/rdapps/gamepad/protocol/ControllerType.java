@@ -13,9 +13,9 @@ public enum ControllerType {
     private static final String HID_PROVIDER = "Nintendo";
     private static final String DESCRIPTOR = "05010905a1010601ff8521092175089530810285300930750895308102853109317508966901810285320932750896690181028533093375089669018102853f05091901291015002501750195108102050109391500250775049501814205097504950181010501093009310933093416000027ffff00007510950481020601ff85010901750895309102851009107508953091028511091175089530910285120912750895309102c0";
 
-    private String btName;
-    private byte typeByte;
-    private int memoryResource;
+    private final String btName;
+    private final byte typeByte;
+    private final int memoryResource;
 
     ControllerType(String btName, byte typeByte, int memoryResource) {
         this.btName = btName;

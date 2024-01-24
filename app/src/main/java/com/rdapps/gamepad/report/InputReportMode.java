@@ -18,7 +18,7 @@ public enum InputReportMode {
     SIMPLE_HID(0x3F),
     UNKNOWN(0xFF);
 
-    private byte arg;
+    private final byte arg;
 
     InputReportMode(int arg) {
         this.arg = (byte) arg;

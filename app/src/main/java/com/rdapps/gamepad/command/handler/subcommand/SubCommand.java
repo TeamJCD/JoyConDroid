@@ -39,9 +39,9 @@ public enum SubCommand {
     ;
 
     @Getter
-    private byte subCommandId;
+    private final byte subCommandId;
     @Getter
-    private SubCommandHandler handler;
+    private final SubCommandHandler handler;
 
     SubCommand(int subCommandId, SubCommandHandler handler) {
         this.subCommandId = (byte) subCommandId;

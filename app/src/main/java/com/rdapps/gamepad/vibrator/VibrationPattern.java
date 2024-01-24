@@ -17,6 +17,7 @@ public enum VibrationPattern {
             -1));
 
     @Getter
+    final
     VibrationEffect vibrationEffect;
 
     VibrationPattern(VibrationEffect vibrationEffect) {

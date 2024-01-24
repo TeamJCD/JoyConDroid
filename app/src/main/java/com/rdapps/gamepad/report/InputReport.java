@@ -106,9 +106,9 @@ public class InputReport {
         NFC_IR_REPORT(0x31, 48 + 313);
 
         @Getter
-        private byte reportId;
+        private final byte reportId;
         @Getter
-        private int reportSize;
+        private final int reportSize;
 
         Type(int reportId, int reportSize) {
             this.reportId = (byte) reportId;
