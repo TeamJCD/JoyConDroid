@@ -206,54 +206,30 @@ public abstract class ControllerFragment extends Fragment {
     }
 
     private boolean dispatchButton(KeyEvent keyEvent, MotionEvent event, ButtonType buttonType) {
-        switch (buttonType) {
-            case LEFT:
-                return dispatchEvent(getLeft(), event);
-            case RIGHT:
-                return dispatchEvent(getRight(), event);
-            case UP:
-                return dispatchEvent(getUp(), event);
-            case DOWN:
-                return dispatchEvent(getDown(), event);
-            case B:
-                return dispatchEvent(getB(), event);
-            case A:
-                return dispatchEvent(getA(), event);
-            case Y:
-                return dispatchEvent(getY(), event);
-            case X:
-                return dispatchEvent(getX(), event);
-            case R:
-                return dispatchEvent(getR(), event);
-            case ZR:
-                return dispatchEvent(getZR(), event);
-            case RIGHT_SR:
-            case LEFT_SR:
-                return dispatchEvent(getSR(), event);
-            case L:
-                return dispatchEvent(getL(), event);
-            case ZL:
-                return dispatchEvent(getZL(), event);
-            case RIGHT_SL:
-            case LEFT_SL:
-                return dispatchEvent(getSL(), event);
-            case PLUS:
-                return dispatchEvent(getPlus(), event);
-            case MINUS:
-                return dispatchEvent(getMinus(), event);
-            case HOME:
-                return dispatchEvent(getHome(), event);
-            case CAPTURE:
-                return dispatchEvent(getCapture(), event);
-            case LEFT_STICK:
-                return setLeftStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
-            case RIGHT_STICK:
-                return setRightStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
-            case SYNC:
-                return dispatchEvent(getSync(), event);
-            default:
-                return false;
-        }
+        return switch (buttonType) {
+            case LEFT -> dispatchEvent(getLeft(), event);
+            case RIGHT -> dispatchEvent(getRight(), event);
+            case UP -> dispatchEvent(getUp(), event);
+            case DOWN -> dispatchEvent(getDown(), event);
+            case B -> dispatchEvent(getB(), event);
+            case A -> dispatchEvent(getA(), event);
+            case Y -> dispatchEvent(getY(), event);
+            case X -> dispatchEvent(getX(), event);
+            case R -> dispatchEvent(getR(), event);
+            case ZR -> dispatchEvent(getZR(), event);
+            case RIGHT_SR, LEFT_SR -> dispatchEvent(getSR(), event);
+            case L -> dispatchEvent(getL(), event);
+            case ZL -> dispatchEvent(getZL(), event);
+            case RIGHT_SL, LEFT_SL -> dispatchEvent(getSL(), event);
+            case PLUS -> dispatchEvent(getPlus(), event);
+            case MINUS -> dispatchEvent(getMinus(), event);
+            case HOME -> dispatchEvent(getHome(), event);
+            case CAPTURE -> dispatchEvent(getCapture(), event);
+            case LEFT_STICK -> setLeftStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
+            case RIGHT_STICK -> setRightStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
+            case SYNC -> dispatchEvent(getSync(), event);
+            default -> false;
+        };
     }
 
     private static boolean dispatchEvent(Button button, MotionEvent event) {

@@ -27,17 +27,12 @@ public class NfcIrMcu {
         BUSY;
 
         public byte getByte() {
-            switch (this) {
-                case NFC:
-                    return 0x04;
-                case BUSY:
-                    return 0x06;
-                case NOT_INITIALIZED:
-                case STAND_BY:
-                    return 0x01;
-                default:
-                    return 0x00;
-            }
+            return switch (this) {
+                case NFC -> 0x04;
+                case BUSY -> 0x06;
+                case NOT_INITIALIZED, STAND_BY -> 0x01;
+                default -> 0x00;
+            };
         }
     }
 

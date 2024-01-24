@@ -60,17 +60,11 @@ public class CustomUIViewAdapter extends BaseAdapter {
 
         int icon = R.drawable.ic_left_joycon_icon_black;
         if (Objects.nonNull(customUIItem.getType())) {
-            switch (customUIItem.getType()) {
-                case RIGHT_JOYCON:
-                    icon = R.drawable.ic_right_joycon_icon_black;
-                    break;
-                case LEFT_JOYCON:
-                    icon = R.drawable.ic_left_joycon_icon_black;
-                    break;
-                case PRO_CONTROLLER:
-                    icon = R.drawable.ic_procontroller_icon_black;
-                    break;
-            }
+            icon = switch (customUIItem.getType()) {
+                case RIGHT_JOYCON -> R.drawable.ic_right_joycon_icon_black;
+                case LEFT_JOYCON -> R.drawable.ic_left_joycon_icon_black;
+                case PRO_CONTROLLER -> R.drawable.ic_procontroller_icon_black;
+            };
         }
         imageView.setImageResource(icon);
 
