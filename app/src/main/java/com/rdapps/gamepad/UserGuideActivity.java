@@ -24,7 +24,7 @@ import static com.rdapps.gamepad.log.JoyConLog.log;
 public class UserGuideActivity extends AppCompatActivity {
 
     private static final String TAG = UserGuideActivity.class.getName();
-    private static final String BASE_URL = "https://joycon.gitbook.io/joycondroid/";
+    private static final String BASE_URL = "https://joycondroid.gitbook.io/joycondroid/";
 
     public static final String PATH = "PATH";
 
