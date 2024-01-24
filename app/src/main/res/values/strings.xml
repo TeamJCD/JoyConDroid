@@ -90,4 +90,5 @@
     <string name="mac_address">Mac Address</string>
     <string name="clear">Clear</string>
     <string name="device_name">Device Name</string>
+    <string name="close">Close</string>
 </resources>
