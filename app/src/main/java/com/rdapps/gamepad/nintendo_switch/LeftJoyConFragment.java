@@ -105,11 +105,6 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public void onMove(JoyStick joyStick, double angle, double power, int direction) {
         if (Objects.isNull(device)) {
             return;

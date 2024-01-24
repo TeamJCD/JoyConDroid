@@ -136,11 +136,6 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         sync.setOnClickListener(this);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
     private class LeftStickListener implements JoyStick.JoyStickListener {
         @Override
         public void onMove(JoyStick joyStick, double angle, double power, int direction) {

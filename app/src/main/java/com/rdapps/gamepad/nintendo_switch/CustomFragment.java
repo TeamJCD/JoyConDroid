@@ -373,11 +373,6 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public boolean setLeftStickPress(boolean pressed) {
         return true;
     }
