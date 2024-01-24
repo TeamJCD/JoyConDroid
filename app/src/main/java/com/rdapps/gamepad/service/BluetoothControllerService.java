@@ -72,7 +72,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     private Handler mainHandler;
 
-    private Object registerLock = new Object();
+    private final Object registerLock = new Object();
 
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothHidDevice mBluetoothHidDevice;
