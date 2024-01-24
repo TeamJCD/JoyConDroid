@@ -8,7 +8,7 @@ android {
     def WARN = "5"
     def ERROR = "6"
     def ASSERT = "7"
-    def NONE = "0";
+    def NONE = "0"
 
     defaultConfig {
         applicationId "com.rdapps.gamepad"
