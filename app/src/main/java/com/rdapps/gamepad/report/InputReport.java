@@ -99,15 +99,14 @@ import static java.lang.Short.MIN_VALUE;
 public class InputReport {
     private static final String TAG = InputReport.class.getName();
 
+    @Getter
     public enum Type {
         SIMPLE_HID_REPORT(0x3F, 11),
         STANDARD_FULL_REPORT(0x30, 48),
         SUBCOMMAND_REPLY_REPORT(0x21, 48),
         NFC_IR_REPORT(0x31, 48 + 313);
 
-        @Getter
         private final byte reportId;
-        @Getter
         private final int reportSize;
 
         Type(int reportId, int reportSize) {

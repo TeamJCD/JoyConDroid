@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import static android.os.VibrationEffect.DEFAULT_AMPLITUDE;
 
+@Getter
 public enum VibrationPattern {
     BUTTON_PRESS(VibrationEffect.createOneShot(100, DEFAULT_AMPLITUDE)),
     BUTTON_RELEASE(VibrationEffect.createOneShot(50, DEFAULT_AMPLITUDE)),
@@ -16,7 +17,6 @@ public enum VibrationPattern {
             new int[]{50, 30, 25},
             -1));
 
-    @Getter
     final
     VibrationEffect vibrationEffect;
 

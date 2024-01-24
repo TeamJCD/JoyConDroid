@@ -1,6 +1,7 @@
 package com.rdapps.gamepad.protocol;
 
 import com.rdapps.gamepad.R;
+import lombok.Getter;
 
 public enum ControllerType {
     LEFT_JOYCON("Joy-Con (L)", (byte) 0x01, R.raw.left_joycon_eeprom),
@@ -14,7 +15,9 @@ public enum ControllerType {
     private static final String DESCRIPTOR = "05010905a1010601ff8521092175089530810285300930750895308102853109317508966901810285320932750896690181028533093375089669018102853f05091901291015002501750195108102050109391500250775049501814205097504950181010501093009310933093416000027ffff00007510950481020601ff85010901750895309102851009107508953091028511091175089530910285120912750895309102c0";
 
     private final String btName;
+    @Getter
     private final byte typeByte;
+    @Getter
     private final int memoryResource;
 
     ControllerType(String btName, byte typeByte, int memoryResource) {
@@ -25,14 +28,6 @@ public enum ControllerType {
 
     public String getBTName() {
         return btName;
-    }
-
-    public byte getTypeByte() {
-        return typeByte;
-    }
-
-    public int getMemoryResource() {
-        return memoryResource;
     }
 
     public byte getSubClass() {

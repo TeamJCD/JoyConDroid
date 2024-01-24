@@ -10,6 +10,7 @@ import com.rdapps.gamepad.vibrator.VibratorData;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.report.InputReportMode.NFC_IR_MODE;
@@ -30,24 +31,30 @@ public class JoyControllerState {
     @Getter
     private BatteryData batteryData = new BatteryData(true, (float) 1.0);
 
+    @Setter
     @Getter
     private byte playerLights = 0;
 
+    @Setter
     @Getter
     private boolean axisSensorEnabled = false;
 
+    @Setter
     @Getter
     private boolean vibrationEnabled = false;
 
     /**
      * TODO implement this
      */
+    @Setter
     @Getter
     private VibratorData vibratorData = new VibratorData();
 
+    @Setter
     @Getter
     private byte[] macBytes;
 
+    @Setter
     @Getter
     private NfcIrMcu nfcIrMcu = new NfcIrMcu();
 
@@ -116,30 +123,6 @@ public class JoyControllerState {
             nfcIrMcu.setMcuState(NfcIrMcu.MCUState.NOT_INITIALIZED);
             nfcIrMcu.setAction(NfcIrMcu.Action.NON);
         }
-    }
-
-    public void setPlayerLights(byte playerLights) {
-        this.playerLights = playerLights;
-    }
-
-    public void setAxisSensorEnabled(boolean axisSensorEnabled) {
-        this.axisSensorEnabled = axisSensorEnabled;
-    }
-
-    public void setVibrationEnabled(boolean vibrationEnabled) {
-        this.vibrationEnabled = vibrationEnabled;
-    }
-
-    public void setVibratorData(VibratorData vibratorData) {
-        this.vibratorData = vibratorData;
-    }
-
-    public void setMacBytes(byte[] macBytes) {
-        this.macBytes = macBytes;
-    }
-
-    public void setNfcIrMcu(NfcIrMcu nfcIrMcu) {
-        this.nfcIrMcu = nfcIrMcu;
     }
 
 }

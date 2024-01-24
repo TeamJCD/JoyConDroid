@@ -30,6 +30,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.rdapps.gamepad.R;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by edgarramirez on 10/30/15.
@@ -52,25 +54,36 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
     public static final int TYPE_2_AXIS_LEFT_RIGHT = 33;
     public static final int TYPE_2_AXIS_UP_DOWN = 44;
 
+    @Setter
     private JoyStickListener listener;
     private Paint paint;
     private RectF temp;
     private GestureDetector gestureDetector;
+    @Getter
     private int direction = DIRECTION_CENTER;
+    @Setter
+    @Getter
     private int type = TYPE_8_AXIS;
+    @Getter
     private float centerX;
+    @Getter
     private float centerY;
     private float posX;
     private float posY;
+    @Getter
     private float radius;
     private float buttonRadius;
+    @Getter
     private double power = 0;
+    @Getter
     private double angle = 0;
 
     //Background Color
+    @Setter
     private int padColor;
 
     //Stick Color
+    @Setter
     private int buttonColor;
 
     //Keeps joystick in last position
@@ -291,39 +304,11 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
         }
     }
 
-    public void setListener(JoyStickListener listener) {
-        this.listener = listener;
-    }
-
-    public double getPower() {
-        return power;
-    }
-
-    public double getAngle() {
-        return angle;
-    }
-
     public double getAngleDegrees() {
         return Math.toDegrees(angle);
     }
 
-    public int getDirection() {
-        return direction;
-    }
-
-    public int getType() {
-        return type;
-    }
-
     //Customization ----------------------------------------------------------------
-
-    public void setPadColor(int padColor) {
-        this.padColor = padColor;
-    }
-
-    public void setButtonColor(int buttonColor) {
-        this.buttonColor = buttonColor;
-    }
 
     //size of button is a percentage of the minimum(width, height)
     //percentage must be between 25 - 50
@@ -353,19 +338,4 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
         this.buttonBitmap = bitmap;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public float getCenterX() {
-        return centerX;
-    }
-
-    public float getCenterY() {
-        return centerY;
-    }
-
-    public float getRadius() {
-        return radius;
-    }
 }

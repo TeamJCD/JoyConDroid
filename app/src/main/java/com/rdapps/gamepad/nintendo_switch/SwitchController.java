@@ -33,6 +33,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import lombok.Data;
+import lombok.Setter;
 
 import static androidx.core.math.MathUtils.clamp;
 import static com.rdapps.gamepad.log.JoyConLog.log;
@@ -130,6 +131,7 @@ public class SwitchController extends AbstractDevice {
     private volatile InputMode inputMode;
     private volatile MCUMode mcuMode;
 
+    @Setter
     private volatile byte[] amiiboBytes;
 
     private ScheduledExecutorService executorService;
@@ -141,10 +143,6 @@ public class SwitchController extends AbstractDevice {
     private ControllerType type;
 
     private Callback notificationCallBack;
-
-    public void setAmiiboBytes(byte[] bytes) {
-        amiiboBytes = bytes;
-    }
 
     public interface Callback {
         void notifyBeforePackage();

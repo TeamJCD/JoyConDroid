@@ -23,6 +23,7 @@ import com.rdapps.gamepad.util.Pair;
 import com.rdapps.gamepad.util.PreferenceUtils;
 import com.rdapps.gamepad.vibrator.VibrationPattern;
 
+import lombok.Setter;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -52,6 +53,7 @@ public abstract class ControllerFragment extends Fragment {
     private Sensor senAccelerometer;
     private Sensor senGyroscope;
 
+    @Setter
     protected JoyController device;
 
     private Map<Integer, ButtonType> buttonMap;
@@ -135,10 +137,6 @@ public abstract class ControllerFragment extends Fragment {
         return axisMap;
     }
 
-
-    public void setDevice(JoyController device) {
-        this.device = device;
-    }
 
     public abstract Button getA();
 

@@ -26,7 +26,11 @@ public abstract class AbstractDevice implements SensorEventListener {
 
     private BluetoothHidDevice proxy;
 
+    @Setter
+    @Getter
     private boolean accelerometerEnabled;
+    @Setter
+    @Getter
     private boolean gyroscopeEnabled;
 
     public AbstractDevice(
@@ -71,25 +75,9 @@ public abstract class AbstractDevice implements SensorEventListener {
 
     public abstract void stop();
 
-    public void setAccelerometerEnabled(boolean enabled) {
-        this.accelerometerEnabled = enabled;
-    }
-
-    public void setGyroscopeEnabled(boolean enabled) {
-        this.gyroscopeEnabled = enabled;
-    }
-
     public void setMotionControlsEnabled(boolean enabled) {
         setAccelerometerEnabled(enabled);
         setGyroscopeEnabled(enabled);
-    }
-
-    public boolean isAccelerometerEnabled() {
-        return accelerometerEnabled;
-    }
-
-    public boolean isGyroscopeEnabled() {
-        return gyroscopeEnabled;
     }
 
     public boolean isMotionControlsEnabled() {
