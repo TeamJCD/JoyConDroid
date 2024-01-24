@@ -743,10 +743,8 @@ public class SwitchController extends AbstractDevice {
     }
 
     private byte getBatteryReport() {
-        /**
-         * TODO: Currently returning battery is full all the time
-         * Might be improved to return correct battery level
-         */
+        // TODO: Currently returning battery is full all the time
+        // Might be improved to return correct battery level
         byte batteryReport = (byte) 0x90; //Battery level. 8=full, 6=medium, 4=low, 2=critical, 0=empty. LSB=Charging.
         if (type != PRO_CONTROLLER) {
             batteryReport = (byte) (batteryReport | 0x0E);
@@ -758,10 +756,8 @@ public class SwitchController extends AbstractDevice {
     }
 
     private byte getVibratorData() {
-        /**
-         * TODO: Currently returning fake vibrator setting
-         * might return real values depending on the device
-         */
+        // TODO: Currently returning fake vibrator setting
+        // might return real values depending on the device
         return (byte) 0xB0;
     }
 
