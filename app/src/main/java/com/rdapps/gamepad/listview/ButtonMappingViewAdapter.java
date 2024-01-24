@@ -76,17 +76,16 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(layout, parent, false);
         }
 
-        ControllerAction controllerAction = action;
-        if (Objects.isNull(controllerAction)) {
+        if (Objects.isNull(action)) {
             return convertView;
         }
 
 
-        if (controllerAction.getType() == BUTTON) {
+        if (action.getType() == BUTTON) {
             TextView nameView = convertView.findViewById(R.id.buttonName);
             TextView valueView = convertView.findViewById(R.id.buttonValue);
 
-            ButtonType buttonType = controllerAction.getButton();
+            ButtonType buttonType = action.getButton();
             Integer keyValue = actionMap.get(buttonType).getKey();
             String keyName = Optional.ofNullable(keyValue)
                     .map(BUTTON_NAMES::get)
@@ -98,19 +97,19 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
             } else {
                 valueView.setText(R.string.unknown);
             }
-        } else if (controllerAction.getType() == AXIS) {
+        } else if (action.getType() == AXIS) {
             TextView nameView = convertView.findViewById(R.id.stickName);
             TextView xValueView = convertView.findViewById(R.id.stickXValue);
             TextView yValueView = convertView.findViewById(R.id.stickYValue);
 
-            ButtonType buttonType = controllerAction.getButton();
+            ButtonType buttonType = action.getButton();
             Integer axisValue = actionMap.get(buttonType).getXAxis();
             String axisName = Optional.ofNullable(axisValue)
                     .map(AXIS_NAMES::get)
                     .orElse(null);
 
             nameView.setText(buttonType.name());
-            yValueView.setText(String.valueOf(controllerAction.getXDirection()));
+            yValueView.setText(String.valueOf(action.getXDirection()));
             if (Objects.nonNull(axisName)) {
                 xValueView.setText(axisName);
             } else {
@@ -121,7 +120,7 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
             TextView xValueView = convertView.findViewById(R.id.stickXValue);
             TextView yValueView = convertView.findViewById(R.id.stickYValue);
 
-            JoystickType joystick = controllerAction.getJoystick();
+            JoystickType joystick = action.getJoystick();
             nameView.setText(joystick.name());
             ControllerAction ca = joysticks.get(joystick);
 
