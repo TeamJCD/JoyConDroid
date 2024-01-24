@@ -21,6 +21,8 @@ import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class SensorTest {
