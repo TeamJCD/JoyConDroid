@@ -128,9 +128,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     private boolean revertBluetoothAdapterName() {
         Optional<String> originalNameOpt = PreferenceUtils.getOriginalName(getApplicationContext());
-        if (!originalNameOpt.isPresent()) {
-            return false;
-        } else {
+        if (originalNameOpt.isPresent()) {
             try {
                 if (mBluetoothAdapter.setName(originalNameOpt.get())) {
                     PreferenceUtils.removeOriginalName(getApplicationContext());
@@ -140,8 +138,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
                 log(TAG, "Missing permission", e);
             }
-            return false;
         }
+        return false;
     }
 
     private String getBluetoothMacAddress() {
