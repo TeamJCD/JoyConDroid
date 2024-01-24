@@ -124,6 +124,8 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
             if (controllerAction.isPresent()) {
                 remapJoystick(controllerAction.get());
             }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
