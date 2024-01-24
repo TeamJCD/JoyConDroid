@@ -21,7 +21,7 @@ import com.rdapps.gamepad.util.PreferenceUtils;
 
 import java.util.Objects;
 
-public class MacAddressFragment extends Fragment implements ResetableSettingFragment, View.OnClickListener {
+public class MacAddressFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
 
     private static String TAG = MacAddressFragment.class.getName();
 

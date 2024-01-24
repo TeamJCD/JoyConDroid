@@ -907,7 +907,7 @@ public class SwitchController extends AbstractDevice {
         }
         //Unknown
         buffer[index + 10] = 0x01;
-        //If 01, colors in SPI are used. Otherwise default ones.
+        //If 01, colors in SPI are used. Otherwise, default ones.
         //  buffer[index + 11] = 0x01;
         buffer[index + 11] = eeprom.read(0x601B, 1)[0];
         ;

@@ -96,7 +96,7 @@ public class JoyControllerBuilder {
         return this;
     }
 
-    public JoyControllerBuilder setlocalMacAddress(String localMacAddress) {
+    public JoyControllerBuilder setLocalMacAddress(String localMacAddress) {
         this.localMacAddress = localMacAddress;
         return this;
     }

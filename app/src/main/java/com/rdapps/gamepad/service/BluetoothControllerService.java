@@ -356,7 +356,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             state = State.STARTING;
             Context context = getApplicationContext();
             switchController = JoyControllerBuilder.with(context)
-                    .setlocalMacAddress(getBluetoothMacAddress())
+                    .setLocalMacAddress(getBluetoothMacAddress())
                     .setType(controllerType)
                     .setListener(this)
                     .build();

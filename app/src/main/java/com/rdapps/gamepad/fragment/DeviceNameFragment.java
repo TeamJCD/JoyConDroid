@@ -24,7 +24,7 @@ import java.util.Optional;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
-public class DeviceNameFragment extends Fragment implements ResetableSettingFragment, View.OnClickListener {
+public class DeviceNameFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
 
     private static String TAG = DeviceNameFragment.class.getName();
 

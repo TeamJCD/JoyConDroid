@@ -74,7 +74,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
                 }
                 break;
             default:
-                listener.unknowAction(context, intent);
+                listener.unknownAction(context, intent);
                 break;
         }
     }
@@ -96,7 +96,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        public void unknowAction(Context context, Intent intent) {
+        public void unknownAction(Context context, Intent intent) {
             log(TAG, "Unknown Action");
         }
 

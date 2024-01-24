@@ -1,5 +1,5 @@
 package com.rdapps.gamepad.fragment;
 
-public interface ResetableSettingFragment {
+public interface ResettableSettingFragment {
     void reset();
 }

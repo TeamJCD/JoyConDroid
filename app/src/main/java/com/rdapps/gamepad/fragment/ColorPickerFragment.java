@@ -23,7 +23,7 @@ import java.util.Optional;
 
 import static com.rdapps.gamepad.log.JoyConLog.log;
 
-public class ColorPickerFragment extends Fragment implements View.OnClickListener, ResetableSettingFragment {
+public class ColorPickerFragment extends Fragment implements View.OnClickListener, ResettableSettingFragment {
 
     private static String TAG = ColorPickerFragment.class.getName();
 

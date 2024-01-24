@@ -48,7 +48,7 @@ class RequestDeviceInfoHandler implements SubCommandHandler {
         }
         //Unknown
         deviceInfo[10] = 0x01;
-        //If 01, colors in SPI are used. Otherwise default ones.
+        //If 01, colors in SPI are used. Otherwise, default ones.
         //  buffer[index + 11] = 0x01;
         deviceInfo[11] = controllerMemory.read(0x601B, 1)[0];
         subcommandReply.fillData(14, deviceInfo);

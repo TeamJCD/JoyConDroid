@@ -254,7 +254,7 @@ public class JoyController extends AbstractDevice {
 
     @Override
     public void onInterruptData(BluetoothDevice rDevice, byte reportId, byte[] data) {
-        //log(TAG, "Interrupt Data Report Id: " + ByteUtils.encodeHexString(reportId) + " data: " + Hex.bytesToStringUppercase(data));
+        //log(TAG, "Interrupt Data Report ID: " + ByteUtils.encodeHexString(reportId) + " data: " + Hex.bytesToStringUppercase(data));
         OutputReport outputReport = new OutputReport(reportId, data);
         if (ByteUtils.asList(BuildConfig.DEBUG_OUTPUT).contains(outputReport.getReportId())) {
             log(TAG, outputReport.toString());

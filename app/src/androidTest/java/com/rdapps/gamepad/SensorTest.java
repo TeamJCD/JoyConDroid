@@ -1,7 +1,6 @@
 package com.rdapps.gamepad;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -35,12 +34,12 @@ public class SensorTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         joyController = JoyControllerBuilder.with(appContext)
                 .setType(ControllerType.PRO_CONTROLLER)
-                .setlocalMacAddress("C0:17:4D:69:F6:55")
+                .setLocalMacAddress("C0:17:4D:69:F6:55")
                 .build();
     }
 
     @Test
-    public void noEventsensorData() {
+    public void noEventSensorData() {
         InputReport inputReport = new InputReport(InputReport.Type.STANDARD_FULL_REPORT);
         inputReport.fillSensorData(joyController);
         byte[] buffer = inputReport.getBuffer();

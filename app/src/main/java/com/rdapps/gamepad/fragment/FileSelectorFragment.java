@@ -24,7 +24,7 @@ import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
-public class FileSelectorFragment extends Fragment implements ResetableSettingFragment, View.OnClickListener {
+public class FileSelectorFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
 
     private static String TAG = FileSelectorFragment.class.getName();
 
