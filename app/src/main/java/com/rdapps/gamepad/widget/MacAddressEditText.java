@@ -83,22 +83,22 @@ public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditT
 
     private static String formatMacAddress(String cleanMac) {
         int groupedCharacters = 0;
-        String formattedMac = "";
+        StringBuilder formattedMac = new StringBuilder();
 
         for (int i = 0; i < cleanMac.length(); ++i) {
-            formattedMac += cleanMac.charAt(i);
+            formattedMac.append(cleanMac.charAt(i));
             ++groupedCharacters;
             if (groupedCharacters == 2) {
-                formattedMac += ":";
+                formattedMac.append(":");
                 groupedCharacters = 0;
             }
         }
 
         if (cleanMac.length() == 12) {
-            formattedMac = formattedMac.substring(0, formattedMac.length() - 1);
+            formattedMac = new StringBuilder(formattedMac.substring(0, formattedMac.length() - 1));
         }
 
-        return formattedMac;
+        return formattedMac.toString();
     }
 
     private static String clearNonMacCharacters(String mac) {
