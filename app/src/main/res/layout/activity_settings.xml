@@ -43,7 +43,7 @@
                 android:layout_height="1dp"
                 android:background="@color/dark_grey" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/accelerometerFeatureFrag"
                 android:name="com.rdapps.gamepad.fragment.FeatureSwitchFragment"
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:tag="@string/enable_accelerometer"
                 app:feature_type="ACCELEROMETER" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/gyroscopeFeatureFrag"
                 android:name="com.rdapps.gamepad.fragment.FeatureSwitchFragment"
                 android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 android:tag="@string/enable_gyroscope"
                 app:feature_type="GYROSCOPE" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/hapticFeedbackFeatureFrag"
                 android:name="com.rdapps.gamepad.fragment.FeatureSwitchFragment"
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                 android:tag="@string/enable_haptic_feedback"
                 app:feature_type="HAPTIC_FEEDBACK" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/amiiboFeatureFrag"
                 android:name="com.rdapps.gamepad.fragment.FeatureSwitchFragment"
                 android:layout_width="match_parent"
@@ -75,14 +75,14 @@
                 android:tag="@string/enable_amiibo"
                 app:feature_type="AMIIBO" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/amiiboSelector"
                 android:name="com.rdapps.gamepad.fragment.FileSelectorFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:tag="@string/amiibo_bin_path" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/packetRateSelector"
                 android:name="com.rdapps.gamepad.fragment.PacketRateFragment"
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                 android:background="@color/dark_grey" />
 
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/leftJoyConBodyColorSetting"
                 android:name="com.rdapps.gamepad.fragment.ColorPickerFragment"
                 android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                 app:section="BODY"
                 app:type="LEFT_JOYCON" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/leftJoyConButtonColorSetting"
                 android:name="com.rdapps.gamepad.fragment.ColorPickerFragment"
                 android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                 app:section="BUTTON"
                 app:type="LEFT_JOYCON" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/rightJoyConBodyColorSetting"
                 android:name="com.rdapps.gamepad.fragment.ColorPickerFragment"
                 android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                 app:section="BODY"
                 app:type="RIGHT_JOYCON" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/rightJoyConButtonColorSetting"
                 android:name="com.rdapps.gamepad.fragment.ColorPickerFragment"
                 android:layout_width="match_parent"
@@ -152,14 +152,14 @@
                 android:layout_height="1dp"
                 android:background="@color/dark_grey" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/macAddressSetting"
                 android:name="com.rdapps.gamepad.fragment.MacAddressFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:tag="@string/mac_address" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/deviceName"
                 android:name="com.rdapps.gamepad.fragment.DeviceNameFragment"
                 android:layout_width="match_parent"
