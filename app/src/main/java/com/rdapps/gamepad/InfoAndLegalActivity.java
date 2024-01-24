@@ -75,9 +75,7 @@ public class InfoAndLegalActivity extends AppCompatActivity {
 
         webView.addJavascriptInterface(new ControllerFunctions(
                 webView,
-                () -> {
-                    webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal");
-                }
+                () -> webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal")
         ), "Controller");
     }
 

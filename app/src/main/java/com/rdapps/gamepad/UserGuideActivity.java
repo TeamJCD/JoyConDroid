@@ -68,9 +68,7 @@ public class UserGuideActivity extends AppCompatActivity {
 
         webView.addJavascriptInterface(new ControllerFunctions(
                 webView,
-                () -> {
-                    webView.loadUrl(url);
-                }
+                () -> webView.loadUrl(url)
         ), "Controller");
     }
 

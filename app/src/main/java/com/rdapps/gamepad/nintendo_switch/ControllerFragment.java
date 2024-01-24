@@ -459,9 +459,7 @@ public abstract class ControllerFragment extends Fragment {
     }
 
     protected void vibrate(VibrationPattern vibrationPattern) {
-        getVibrator().ifPresent(v -> {
-            v.vibrate(vibrationPattern.getVibrationEffect());
-        });
+        getVibrator().ifPresent(v -> v.vibrate(vibrationPattern.getVibrationEffect()));
     }
 
     protected void openFileSelectionDialog() {

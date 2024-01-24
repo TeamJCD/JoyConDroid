@@ -338,14 +338,12 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
     public void onDeviceNotCompatible() {
-        runOnUiThread(() -> {
-            new AlertDialog.Builder(ControllerActivity.this)
-                    .setMessage(R.string.device_is_not_compatible)
-                    .setPositiveButton(R.string.ok, (dialog, which) -> {
-                        //TODO Report phone model
-                    })
-                    .show();
-        });
+        runOnUiThread(() -> new AlertDialog.Builder(ControllerActivity.this)
+                .setMessage(R.string.device_is_not_compatible)
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
+                    //TODO Report phone model
+                })
+                .show());
     }
 
     @Override

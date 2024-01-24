@@ -110,9 +110,7 @@ public class CustomFragment extends ControllerFragment {
         webView.addJavascriptInterface(new JoyConJSInterface(), "joyconJS");
         webView.addJavascriptInterface(new ControllerFunctions(
                 webView,
-                () -> {
-                    webView.loadUrl(url);
-                }
+                () -> webView.loadUrl(url)
         ), "Controller");
     }
 

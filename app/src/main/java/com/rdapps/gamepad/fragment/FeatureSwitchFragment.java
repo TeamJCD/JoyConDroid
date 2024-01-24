@@ -156,9 +156,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
         builder.setTitle(R.string.mtu_warning_title);
         builder.setMessage(R.string.mtu_warning_text);
         builder.setPositiveButton(R.string.continue_option, (dialog, i) -> showAmiiboExperimentalWarning());
-        builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> {
-            switchController.setChecked(false);
-        });
+        builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> switchController.setChecked(false));
         builder.setOnCancelListener((dialogInterface -> switchController.setChecked(false)));
         builder.create().show();
     }
