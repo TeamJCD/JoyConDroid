@@ -183,7 +183,7 @@ public class JoyController extends AbstractDevice {
                 ControllerType controllerType = getControllerType();
                 long delay = getDelay();
                 long endTime = System.nanoTime();
-                long wait = ((startTime + delay) - endTime)/1000_000l;
+                long wait = ((startTime + delay) - endTime)/ 1000_000L;
                 if (wait > 0) {
                     ThreadUtil.safeSleep((int) wait);
                 }

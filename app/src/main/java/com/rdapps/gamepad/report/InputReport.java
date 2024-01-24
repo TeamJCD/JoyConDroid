@@ -292,7 +292,7 @@ public class InputReport {
         byte batteryByte = 0;
         // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/bluetooth_hid_notes.md#standard-input-report-format
         batteryByte |= (byte) ((round(batteryData.getBatteryLevel() * 4) * 2) << 4);
-        batteryByte |= batteryData.isCharging() ? 0x10 : 0x00;
+        batteryByte |= (byte) (batteryData.isCharging() ? 0x10 : 0x00);
         buffer[1] |= batteryByte;
     }
 
@@ -389,7 +389,7 @@ public class InputReport {
             short rawAccZ = (short) round(clamp((accZ)
                     * accCoeffs[2], MIN_VALUE, MAX_VALUE));
 
-            sensorData[0 + i * 12] = (byte) (rawAccX & 0xFF);
+            sensorData[i * 12] = (byte) (rawAccX & 0xFF);
             sensorData[1 + i * 12] = (byte) (rawAccX >> 8 & 0xFF);
             sensorData[2 + i * 12] = (byte) (rawAccY & 0xFF);
             sensorData[3 + i * 12] = (byte) (rawAccY >> 8 & 0xFF);

@@ -834,7 +834,7 @@ public class SwitchController extends AbstractDevice {
             short rawAccZ = (short) clamp(((isPro ? accY : accZ))
                     * accCoeffs[2], MIN_VALUE, MAX_VALUE);
 
-            sensorData[0 + i * 12] = (byte) (rawAccX & 0xFF);
+            sensorData[i * 12] = (byte) (rawAccX & 0xFF);
             sensorData[1 + i * 12] = (byte) (rawAccX >> 8 & 0xFF);
             sensorData[2 + i * 12] = (byte) (rawAccY & 0xFF);
             sensorData[3 + i * 12] = (byte) (rawAccY >> 8 & 0xFF);
