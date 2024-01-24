@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (BuildConfig.CHECK_UPDATE) {
                 VersionCheckerService versionCheckerService = VersionCheckerClient.getService();
-                versionCheckerService.getVersion().enqueue(new Callback<Version>() {
+                versionCheckerService.getVersion().enqueue(new Callback<>() {
                     @Override
                     public void onResponse(Call<Version> call, Response<Version> response) {
                         Version body = response.body();
