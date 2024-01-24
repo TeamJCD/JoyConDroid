@@ -741,7 +741,7 @@ public class SwitchController extends AbstractDevice {
     private static byte timeByte = 0;
     private byte getTimeByte() {
         long nanoTime = System.nanoTime();
-        return (byte) timeByte++;
+        return timeByte++;
     }
 
     private byte getBatteryReport() {
