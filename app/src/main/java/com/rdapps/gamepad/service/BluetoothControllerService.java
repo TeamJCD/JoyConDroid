@@ -79,7 +79,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     private ExecutorService mBluetoothHidExecutor;
 
     private ScheduledExecutorService timeoutScheduler;
-    private ScheduledFuture hidFuture;
+    private ScheduledFuture<?> hidFuture;
 
     State state;
     boolean appRegistered;
@@ -178,7 +178,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     private void unpairDevice(BluetoothDevice device) {
         try {
             Method m = device.getClass()
-                    .getMethod("removeBond", (Class[]) null);
+                    .getMethod("removeBond", (Class<?>[]) null);
             m.invoke(device, (Object[]) null);
         } catch (Exception e) {
             log(TAG, "Unpair Failed: ", e);

@@ -135,7 +135,7 @@ public class SwitchController extends AbstractDevice {
     private volatile byte[] amiiboBytes;
 
     private ScheduledExecutorService executorService;
-    private ScheduledFuture fullModeSender;
+    private ScheduledFuture<?> fullModeSender;
 
     private Queue<SensorEvent> accelerometerEvents = new LinkedBlockingQueue<>();
     private Queue<SensorEvent> gyroscopeEvents = new LinkedBlockingQueue<>();

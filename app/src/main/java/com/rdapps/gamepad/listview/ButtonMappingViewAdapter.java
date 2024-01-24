@@ -30,7 +30,7 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
     private List<ControllerAction> controllerActionList;
-    private Map<Enum, ControllerAction> actionMap;
+    private Map<Enum<?>, ControllerAction> actionMap;
 
     private Map<JoystickType, ControllerAction> joysticks;
 
