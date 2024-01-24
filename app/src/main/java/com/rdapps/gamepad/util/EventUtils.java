@@ -67,16 +67,14 @@ public class EventUtils {
         // A joystick at rest does not always report an absolute position of
         // (0,0). Use the getFlat() method to determine the range of values
         // bounding the joystick axis center.
-        if (range != null) {
-            final float flat = range.map(InputDevice.MotionRange::getFlat)
-                    .orElse(0f);
-            final float value = event.getAxisValue(axis);
+        final float flat = range.map(InputDevice.MotionRange::getFlat)
+                .orElse(0f);
+        final float value = event.getAxisValue(axis);
 
-            // Ignore axis values that are within the 'flat' region of the
-            // joystick axis center.
-            if (Math.abs(value) > flat) {
-                return value;
-            }
+        // Ignore axis values that are within the 'flat' region of the
+        // joystick axis center.
+        if (Math.abs(value) > flat) {
+            return value;
         }
         return 0;
     }
