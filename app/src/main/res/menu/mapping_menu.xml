@@ -9,6 +9,6 @@
         android:icon="@drawable/ic_reset_settings"
         android:orderInCategory="1"
         android:title="@string/reset_settings"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom" />
 
 </menu>
