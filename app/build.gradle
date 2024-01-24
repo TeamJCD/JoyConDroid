@@ -87,7 +87,16 @@ dependencies {
 
     //Rest API
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+    implementation ('com.squareup.retrofit2:converter-jackson:2.9.0') {
+        constraints {
+            implementation ('com.fasterxml.jackson.core:jackson-databind:2.15.2') {
+                because '2.10.1 is vulnerable'
+            }
+            implementation ('com.squareup.okhttp3:okhttp:4.12.0') {
+                because '3.14.9 is vulnerable'
+            }
+        }
+    }
     implementation 'commons-io:commons-io:2.15.1'
 
     //Color Picker
