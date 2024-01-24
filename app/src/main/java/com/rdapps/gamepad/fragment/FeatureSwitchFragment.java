@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.jaredrummler.android.device.DeviceName;
@@ -34,7 +34,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
     @Setter
     @Getter
     private FeatureSwitchListener featureSwitchListener;
-    private Switch switchController;
+    private SwitchCompat switchController;
     private boolean enabled;
     private TextView textView;
 
