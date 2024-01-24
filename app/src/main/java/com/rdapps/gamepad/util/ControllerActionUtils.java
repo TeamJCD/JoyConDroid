@@ -441,7 +441,7 @@ public class ControllerActionUtils {
         return Optional.ofNullable(PreferenceUtils.getButtonMapping(context))
                 .map(objStr -> {
                     try {
-                        return OBJECT_MAPPER.<List<ControllerAction>>readValue(objStr, new TypeReference<List<ControllerAction>>() {
+                        return OBJECT_MAPPER.readValue(objStr, new TypeReference<List<ControllerAction>>() {
                         });
                     } catch (IOException e) {
                         throw new RuntimeException(e);
