@@ -166,7 +166,7 @@ public class CustomFragment extends ControllerFragment {
             }
 
             FragmentActivity activity = getActivity();
-            if (activity != null && activity instanceof ControllerActivity) {
+            if (activity instanceof ControllerActivity) {
                 ControllerActivity controllerActivity = (ControllerActivity) activity;
                 controllerActivity.sync();
             }
