@@ -146,8 +146,7 @@ public class RightJoyConFragment extends ControllerFragment implements JoyStick.
     @Override
     public void onClick(View v) {
         FragmentActivity activity = getActivity();
-        if (activity instanceof ControllerActivity) {
-            ControllerActivity controllerActivity = (ControllerActivity) activity;
+        if (activity instanceof ControllerActivity controllerActivity) {
             controllerActivity.sync();
         }
     }

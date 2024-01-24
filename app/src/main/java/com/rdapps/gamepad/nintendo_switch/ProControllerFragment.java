@@ -232,8 +232,7 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     @Override
     public void onClick(View v) {
         FragmentActivity activity = getActivity();
-        if (activity instanceof ControllerActivity) {
-            ControllerActivity controllerActivity = (ControllerActivity) activity;
+        if (activity instanceof ControllerActivity controllerActivity) {
             controllerActivity.sync();
         }
     }
