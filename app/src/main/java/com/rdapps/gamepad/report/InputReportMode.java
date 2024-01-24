@@ -25,8 +25,7 @@ public enum InputReportMode {
     }
 
     public static InputReportMode getInputReportMode(byte b) {
-        return Arrays.asList(values())
-                .stream()
+        return Arrays.stream(values())
                 .filter(inputReportMode -> inputReportMode.arg == b)
                 .findAny()
                 .orElse(UNKNOWN);

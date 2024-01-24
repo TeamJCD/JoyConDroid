@@ -20,8 +20,7 @@ public enum OutputReportMode {
     }
 
     public static Optional<OutputReportMode> getReportMode(byte reportId) {
-        return Arrays.asList(values())
-                .stream()
+        return Arrays.stream(values())
                 .filter(mode -> mode.arg == reportId)
                 .findAny();
     }

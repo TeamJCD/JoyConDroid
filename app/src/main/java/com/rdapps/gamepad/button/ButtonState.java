@@ -25,12 +25,10 @@ public class ButtonState {
     public ButtonState(ControllerType type) {
         this.type = type;
         this.buttons = new HashMap<>(
-                Arrays.asList(ButtonEnum.values())
-                        .stream()
+                Arrays.stream(ButtonEnum.values())
                         .collect(Collectors.toMap(Function.identity(), (buttonEnum) -> BUTTON_UP)));
         this.axes = new HashMap<>(
-                Arrays.asList(AxisEnum.values())
-                        .stream()
+                Arrays.stream(AxisEnum.values())
                         .collect(Collectors.toMap(Function.identity(), (axisEnum -> STICK_CENTER))));
     }
 

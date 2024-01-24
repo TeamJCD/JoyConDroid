@@ -49,8 +49,7 @@ public enum SubCommand {
     }
 
     public static SubCommand getSubCommand(byte subCommandId) {
-        return Arrays.asList(values())
-                .stream()
+        return Arrays.stream(values())
                 .filter(subCommand -> subCommand.subCommandId == subCommandId)
                 .findAny()
                 .orElse(UNKNOWN);

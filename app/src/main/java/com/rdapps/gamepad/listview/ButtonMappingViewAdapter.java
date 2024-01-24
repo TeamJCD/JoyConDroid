@@ -149,13 +149,13 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
     public void refresh(List<ControllerAction> controllerActions) {
         controllerActionList = new ArrayList<>();
         actionMap = new HashMap<>();
-        Arrays.asList(ButtonType.values()).stream()
+        Arrays.stream(ButtonType.values())
                 .map(type -> new ControllerAction(type, 0))
                 .forEach(ca -> {
                     controllerActionList.add(ca);
                     actionMap.put(ca.getButton(), ca);
                 });
-        Arrays.asList(JoystickType.values()).stream()
+        Arrays.stream(JoystickType.values())
                 .map(type -> new ControllerAction(type, 0, 0, 0, 0))
                 .forEach(ca -> {
                     controllerActionList.add(ca);
