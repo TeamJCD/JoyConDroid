@@ -30,7 +30,7 @@ import static com.rdapps.gamepad.model.ControllerAction.Type.BUTTON;
 import static com.rdapps.gamepad.model.ControllerAction.Type.JOYSTICK;
 
 public class ControllerActionUtils {
-    public static Map<Integer, String> BUTTON_NAMES = new HashMap();
+    public static Map<Integer, String> BUTTON_NAMES = new HashMap<>();
 
     static {
         BUTTON_NAMES.put(0, "KEYCODE_UNKNOWN");
