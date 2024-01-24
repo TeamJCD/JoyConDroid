@@ -1,5 +1,6 @@
 package com.rdapps.gamepad.fragment;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,6 +20,9 @@ import com.rdapps.gamepad.util.PreferenceUtils;
 
 import java.util.Objects;
 import java.util.Optional;
+
+import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 public class DeviceNameFragment extends Fragment implements ResetableSettingFragment, View.OnClickListener {
 
@@ -61,8 +65,13 @@ public class DeviceNameFragment extends Fragment implements ResetableSettingFrag
         if (originalName.isPresent()) {
             textView.setText(originalName.get());
         } else if (Objects.nonNull(bluetoothAdapter)) {
-            String name = bluetoothAdapter.getName();
-            textView.setText(name);
+            try {
+                String name = bluetoothAdapter.getName();
+                textView.setText(name);
+            } catch (SecurityException ex) {
+                missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", ex);
+            }
         }
     }
 
@@ -80,11 +89,16 @@ public class DeviceNameFragment extends Fragment implements ResetableSettingFrag
         builder.setPositiveButton(getText(R.string.set), (e, w) -> {
             Editable editable = deviceEditText.getText();
             if (Objects.nonNull(editable)) {
-                String deviceName = editable.toString();
-                PreferenceUtils.removeOriginalName(context);
-                PreferenceUtils.saveOriginalName(context, deviceName);
-                bluetoothAdapter.setName(deviceName);
-                setDeviceName();
+                try {
+                    String deviceName = editable.toString();
+                    PreferenceUtils.removeOriginalName(context);
+                    PreferenceUtils.saveOriginalName(context, deviceName);
+                    bluetoothAdapter.setName(deviceName);
+                    setDeviceName();
+                } catch (SecurityException ex) {
+                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
             }
         });
         builder.show();

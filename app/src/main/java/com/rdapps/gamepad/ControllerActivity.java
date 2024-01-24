@@ -1,5 +1,6 @@
 package com.rdapps.gamepad;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
@@ -49,6 +50,7 @@ import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 public class ControllerActivity extends AppCompatActivity {
 
@@ -176,8 +178,13 @@ public class ControllerActivity extends AppCompatActivity {
 
     private void pair() {
         if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableIntent = new Intent(ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableIntent, REQUEST_BT_ENABLE);
+            try {
+                Intent enableIntent = new Intent(ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableIntent, REQUEST_BT_ENABLE);
+            } catch (SecurityException ex) {
+                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", ex);
+            }
         } else {
             setupHIDService();
         }
@@ -241,23 +248,38 @@ public class ControllerActivity extends AppCompatActivity {
 
 
     public void startHIDDeviceDiscovery() {
-        if (mBluetoothAdapter.getScanMode() != SCAN_MODE_CONNECTABLE_DISCOVERABLE && !askingDiscoverable) {
-            startDiscoverable(60);
+        try {
+            if (mBluetoothAdapter.getScanMode() != SCAN_MODE_CONNECTABLE_DISCOVERABLE && !askingDiscoverable) {
+                startDiscoverable(60);
+            }
+        } catch (SecurityException ex) {
+            missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN);
+            log(TAG, "Missing permission", ex);
         }
     }
 
     public void stopHIDDeviceDiscovery() {
-        if (mBluetoothAdapter.getScanMode() == SCAN_MODE_CONNECTABLE_DISCOVERABLE && askingDiscoverable) {
-            startDiscoverable(1);
-            askingDiscoverable = false;
+        try {
+            if (mBluetoothAdapter.getScanMode() == SCAN_MODE_CONNECTABLE_DISCOVERABLE && askingDiscoverable) {
+                startDiscoverable(1);
+                askingDiscoverable = false;
+            }
+        } catch (SecurityException ex) {
+            missingPermission(getApplicationContext(), android.Manifest.permission.BLUETOOTH_SCAN);
+            log(TAG, "Missing permission", ex);
         }
     }
 
     private void startDiscoverable(int duration) {
-        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, duration);
-        startActivityForResult(discoverableIntent, REQUEST_BT_DISCOVERY);
-        askingDiscoverable = true;
+        try {
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, duration);
+            startActivityForResult(discoverableIntent, REQUEST_BT_DISCOVERY);
+            askingDiscoverable = true;
+        } catch (SecurityException ex) {
+            missingPermission(getApplicationContext(), android.Manifest.permission.BLUETOOTH_ADVERTISE);
+            log(TAG, "Missing permission", ex);
+        }
     }
 
     public void sync() {

@@ -10,6 +10,7 @@ import static com.rdapps.gamepad.ControllerActivity.CONTROLLER_TYPE;
 import static com.rdapps.gamepad.UserGuideActivity.PATH;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 import static com.rdapps.gamepad.util.PreferenceUtils.MAC_FAKE_ADDRESS;
 
 import android.bluetooth.BluetoothAdapter;
@@ -345,11 +346,16 @@ public class MainActivity extends AppCompatActivity {
         Optional<BluetoothAdapter> bluetoothAdapter = Optional.ofNullable((BluetoothManager) getSystemService(BLUETOOTH_SERVICE))
                 .map(BluetoothManager::getAdapter);
         if (bluetoothAdapter.isPresent()) {
-            bluetoothAdapter.ifPresent(adapter -> adapter.setName(originalNameOpt.get()));
-            PreferenceUtils.removeOriginalName(this);
-            PreferenceUtils.removeBluetoothAddress(this);
-            PreferenceUtils.removeDoNotAskMacAddress(this);
-            Toast.makeText(this, R.string.bt_config_is_reverted, Toast.LENGTH_LONG).show();
+            try {
+                bluetoothAdapter.get().setName(originalNameOpt.get());
+                PreferenceUtils.removeOriginalName(this);
+                PreferenceUtils.removeBluetoothAddress(this);
+                PreferenceUtils.removeDoNotAskMacAddress(this);
+                Toast.makeText(this, R.string.bt_config_is_reverted, Toast.LENGTH_LONG).show();
+            } catch (SecurityException e) {
+                missingPermission(getApplicationContext(), android.Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", e);
+            }
         } else {
             mBluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(new MainActBBRListener());
             registerReceiver(mBluetoothBroadcastReceiver, new IntentFilter(ACTION_STATE_CHANGED));

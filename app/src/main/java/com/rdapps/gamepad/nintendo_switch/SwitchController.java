@@ -1,5 +1,6 @@
 package com.rdapps.gamepad.nintendo_switch;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
 import android.content.Context;
@@ -96,6 +97,7 @@ import static com.rdapps.gamepad.nx.constant.NXConstants.ZL_ZR_BIT;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 import static com.rdapps.gamepad.util.ByteUtils.toShort;
 import static java.lang.Short.MAX_VALUE;
 import static java.lang.Short.MIN_VALUE;
@@ -151,6 +153,7 @@ public class SwitchController extends AbstractDevice {
 
     public SwitchController(BluetoothControllerService service, ControllerType type) {
         super(
+                service.getApplicationContext(),
                 type.getBTName(),
                 SUBCLASS,
                 HID_NAME,
@@ -1078,7 +1081,12 @@ public class SwitchController extends AbstractDevice {
         BluetoothHidDevice proxy = getProxy();
         BluetoothDevice remoteDevice = getRemoteDevice();
         if (Objects.nonNull(proxy) && Objects.nonNull(remoteDevice)) {
-            return proxy.sendReport(remoteDevice, reportId, data);
+            try {
+                return proxy.sendReport(remoteDevice, reportId, data);
+            } catch (SecurityException ex) {
+                missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", ex);
+            }
         }
         return false;
     }

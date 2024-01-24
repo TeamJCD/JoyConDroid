@@ -1,5 +1,6 @@
 package com.rdapps.gamepad.service;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -46,13 +47,7 @@ import static android.bluetooth.BluetoothProfile.HID_DEVICE;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
-import static com.rdapps.gamepad.toast.ToastHelper.bluetoothNotAvailable;
-import static com.rdapps.gamepad.toast.ToastHelper.cannotSetBluetoothName;
-import static com.rdapps.gamepad.toast.ToastHelper.couldNotRegisterApp;
-import static com.rdapps.gamepad.toast.ToastHelper.deviceConnected;
-import static com.rdapps.gamepad.toast.ToastHelper.deviceDisconnected;
-import static com.rdapps.gamepad.toast.ToastHelper.deviceIsNotCompatible;
-import static com.rdapps.gamepad.toast.ToastHelper.sdpFailed;
+import static com.rdapps.gamepad.toast.ToastHelper.*;
 import static com.rdapps.gamepad.util.ByteUtils.hexStringToByteArray;
 import static com.rdapps.gamepad.util.PreferenceUtils.MAC_FAKE_ADDRESS;
 
@@ -100,21 +95,35 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         return Optional.ofNullable(mBluetoothAdapter)
                 .map(BluetoothAdapter::getBondedDevices)
                 .map(Set::stream)
-                .map(stream -> stream.filter(device -> NINTENDO_SWITCH.equalsIgnoreCase(device.getName())))
+                .map(stream -> stream.filter(device -> {
+                    try {
+                        return NINTENDO_SWITCH.equalsIgnoreCase(device.getName());
+                    } catch (SecurityException e) {
+                        missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                        log(TAG, "Missing permission", e);
+                        return false;
+                    }
+                }))
                 .flatMap(Stream::findFirst);
     }
 
     private boolean setBluetoothAdapterName(String deviceName) {
-        String name = mBluetoothAdapter.getName();
-        if (!Objects.equals(name, deviceName)) {
-            PreferenceUtils.saveOriginalName(getApplicationContext(), name);
-            boolean setNameSuccess = mBluetoothAdapter.setName(deviceName);
-            if (!setNameSuccess) {
-                mainHandler.post(() -> cannotSetBluetoothName(getApplicationContext(), deviceName));
-                return false;
+        try {
+            String name = mBluetoothAdapter.getName();
+            if (!Objects.equals(name, deviceName)) {
+                PreferenceUtils.saveOriginalName(getApplicationContext(), name);
+                boolean setNameSuccess = mBluetoothAdapter.setName(deviceName);
+                if (!setNameSuccess) {
+                    mainHandler.post(() -> cannotSetBluetoothName(getApplicationContext(), deviceName));
+                    return false;
+                }
             }
+            return true;
+        } catch (SecurityException e) {
+            missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+            log(TAG, "Missing permission", e);
+            return false;
         }
-        return true;
     }
 
     private boolean revertBluetoothAdapterName() {
@@ -122,9 +131,16 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         if (!originalNameOpt.isPresent()) {
             return false;
         } else {
-            boolean success = mBluetoothAdapter.setName(originalNameOpt.get());
-            PreferenceUtils.removeOriginalName(getApplicationContext());
-            return success;
+            try {
+                if (mBluetoothAdapter.setName(originalNameOpt.get())) {
+                    PreferenceUtils.removeOriginalName(getApplicationContext());
+                    return true;
+                }
+            } catch (SecurityException e) {
+                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", e);
+            }
+            return false;
         }
     }
 
@@ -382,13 +398,18 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 QOS_DELAY_VARIATION
         );
 
-        mBluetoothHidDevice.registerApp(
-                bluetoothHidDeviceAppSdpSettings,
-                qos,
-                qos,
-                mBluetoothHidExecutor,
-                new Callback()
-        );
+        try {
+            mBluetoothHidDevice.registerApp(
+                    bluetoothHidDeviceAppSdpSettings,
+                    qos,
+                    qos,
+                    mBluetoothHidExecutor,
+                    new Callback()
+            );
+        } catch (SecurityException e) {
+            missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+            log(TAG, "Missing permission", e);
+        }
 
         if (!appRegistered) {
             mainHandler.post(() -> couldNotRegisterApp(getApplicationContext()));
@@ -396,7 +417,12 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     }
 
     private void unregisterApp() {
-        mBluetoothHidDevice.unregisterApp();
+        try {
+            mBluetoothHidDevice.unregisterApp();
+        } catch (SecurityException e) {
+            missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+            log(TAG, "Missing permission", e);
+        }
     }
 
     @Override
@@ -412,7 +438,12 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         log(TAG, "onDestroy");
         if (Objects.nonNull(mBluetoothHidDevice) && Objects.nonNull(mBluetoothAdapter)) {
             revertBluetoothAdapterName();
-            mBluetoothHidDevice.unregisterApp();
+            try {
+                mBluetoothHidDevice.unregisterApp();
+            } catch (SecurityException e) {
+                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", e);
+            }
             mBluetoothAdapter.closeProfileProxy(HID_DEVICE, mBluetoothHidDevice);
         }
     }
@@ -425,17 +456,22 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     public void connect(BluetoothDevice device) {
         if (Objects.nonNull(mBluetoothHidDevice)) {
-            if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
-                if (Objects.nonNull(controllerActivity)) {
-                    controllerActivity.stopHIDDeviceDiscovery();
+            try {
+                if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
+                    if (Objects.nonNull(controllerActivity)) {
+                        controllerActivity.stopHIDDeviceDiscovery();
+                    }
+                    boolean connect = mBluetoothHidDevice.connect(device);
+                    log(TAG, "Connect result: " + connect);
+                } else {
+                    if (Objects.nonNull(controllerActivity)) {
+                        controllerActivity.startHIDDeviceDiscovery();
+                    }
+                    device.createBond();
                 }
-                boolean connect = mBluetoothHidDevice.connect(device);
-                log(TAG, "Connect result: " + connect);
-            } else {
-                if (Objects.nonNull(controllerActivity)) {
-                    controllerActivity.startHIDDeviceDiscovery();
-                }
-                device.createBond();
+            } catch (SecurityException e) {
+                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", e);
             }
         }
     }
@@ -496,15 +532,20 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             appRegistered = registered;
             if (registered) {
                 setBluetoothAdapterName(switchController.getBtName());
-                if (pluggedDevice == null || pluggedDevice.getBondState() == BluetoothDevice.BOND_NONE) {
-                    state = State.DISCOVERY;
-                    if (controllerActivity != null) {
-                        controllerActivity.startHIDDeviceDiscovery();
+                try {
+                    if (pluggedDevice == null || pluggedDevice.getBondState() == BluetoothDevice.BOND_NONE) {
+                        state = State.DISCOVERY;
+                        if (controllerActivity != null) {
+                            controllerActivity.startHIDDeviceDiscovery();
+                        }
+                    } else {
+                        if (NINTENDO_SWITCH.equalsIgnoreCase(pluggedDevice.getName())) {
+                            connect(pluggedDevice);
+                        }
                     }
-                } else {
-                    if (NINTENDO_SWITCH.equalsIgnoreCase(pluggedDevice.getName())) {
-                        connect(pluggedDevice);
-                    }
+                } catch (SecurityException e) {
+                    missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", e);
                 }
             } else if (state == State.STARTING) {
                 registerApp();
@@ -515,7 +556,13 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
         public void onConnectionStateChanged(BluetoothDevice rDevice, int state) {
             log(TAG, "onConnectionStateChanged: device=" + rDevice + " state=" + state);
-            if (!NINTENDO_SWITCH.equalsIgnoreCase(rDevice.getName())) {
+            try {
+                if (!NINTENDO_SWITCH.equalsIgnoreCase(rDevice.getName())) {
+                    return;
+                }
+            } catch (SecurityException e) {
+                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", e);
                 return;
             }
 

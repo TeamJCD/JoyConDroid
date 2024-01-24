@@ -74,4 +74,5 @@ Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
     <string name="enable_amiibo">Amiibo aktivieren</string>
     <string name="custom_ui">Benutzerdefinierte Oberfläche</string>
     <string name="close">Schließen</string>
+    <string name="missingPermission">Fehlende Berechtigung: %s</string>
 </resources>

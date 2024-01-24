@@ -60,6 +60,7 @@ public class JoyControllerBuilder {
         JoyControllerState joyControllerState = new JoyControllerState(getMacBytes());
         joyControllerState.calculateCoeffs(memory);
         JoyController joyController = new JoyController(
+                context,
                 type,
                 memory,
                 buttonsState,

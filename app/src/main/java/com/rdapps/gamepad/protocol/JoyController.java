@@ -1,7 +1,9 @@
 package com.rdapps.gamepad.protocol;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 
@@ -37,6 +39,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 public class JoyController extends AbstractDevice {
     private static final String TAG = JoyController.class.getName();
@@ -94,6 +97,7 @@ public class JoyController extends AbstractDevice {
     private final AtomicBoolean isInFullMode;
 
     JoyController(
+            Context context,
             ControllerType controllerType,
             ControllerMemory controllerMemory,
             ButtonState buttonState,
@@ -103,6 +107,7 @@ public class JoyController extends AbstractDevice {
             JoyControllerState state,
             JoyControllerListener listener) {
         super(
+                context,
                 controllerType.getBTName(),
                 controllerType.getSubClass(),
                 controllerType.getHidName(),
@@ -290,7 +295,12 @@ public class JoyController extends AbstractDevice {
         BluetoothHidDevice proxy = getProxy();
         BluetoothDevice remoteDevice = getRemoteDevice();
         if (Objects.nonNull(proxy) && Objects.nonNull(remoteDevice)) {
-            return proxy.sendReport(remoteDevice, report.getReportId(), report.build());
+            try {
+                return proxy.sendReport(remoteDevice, report.getReportId(), report.build());
+            } catch (SecurityException ex) {
+                missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", ex);
+            }
         } else {
             log(TAG, "Could not send Report: " + report.toString());
             stopFullReportMode();

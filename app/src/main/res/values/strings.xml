@@ -91,4 +91,5 @@
     <string name="clear">Clear</string>
     <string name="device_name">Device Name</string>
     <string name="close">Close</string>
+    <string name="missingPermission">Missing permission: %s</string>
 </resources>
