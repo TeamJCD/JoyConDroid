@@ -3,8 +3,6 @@ package com.rdapps.gamepad.util;
 import android.content.res.AssetFileDescriptor;
 import android.util.Log;
 
-import com.google.android.gms.common.util.Strings;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -33,7 +31,7 @@ public class UnzipUtil {
                 if (ze.isDirectory()) {
                     dirChecker(ze.getName());
                 } else {
-                    if (!Strings.isEmptyOrWhitespace(ze.getName())) {
+                    if (ze.getName() != null && !ze.getName().trim().isEmpty()) {
                         FileOutputStream fout = new FileOutputStream(
                                 location + File.separator + ze.getName());
 
