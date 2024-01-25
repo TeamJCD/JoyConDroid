@@ -71,7 +71,7 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButtonTouchListener buttonTouchListener = new ButtonTouchListener();
+        View.OnTouchListener buttonTouchListener = new ButtonTouchListener();
         sr = view.findViewById(R.id.sr);
         sl = view.findViewById(R.id.sl);
         up = view.findViewById(R.id.up);

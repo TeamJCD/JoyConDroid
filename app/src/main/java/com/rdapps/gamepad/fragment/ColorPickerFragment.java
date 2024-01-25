@@ -19,6 +19,7 @@ import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.util.ByteUtils;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Optional;
 
 import static com.rdapps.gamepad.log.JoyConLog.log;
@@ -36,7 +37,7 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
     private View colorView;
     private TextView textView;
 
-    public static ColorPickerFragment getInstance(ControllerType type, ColorSection section) {
+    public static ColorPickerFragment getInstance(Serializable type, Serializable section) {
         ColorPickerFragment colorPickerFragment = new ColorPickerFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(TYPE, type);

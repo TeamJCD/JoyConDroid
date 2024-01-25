@@ -18,6 +18,7 @@ import com.jaredrummler.android.device.DeviceName;
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.util.PreferenceUtils;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
     private SwitchCompat switchController;
     private boolean enabled;
 
-    public static FeatureSwitchFragment getInstance(FeatureType type) {
+    public static FeatureSwitchFragment getInstance(Serializable type) {
         FeatureSwitchFragment colorPickerFragment = new FeatureSwitchFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(TYPE, type);

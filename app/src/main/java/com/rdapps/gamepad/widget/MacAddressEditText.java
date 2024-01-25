@@ -28,7 +28,7 @@ public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditT
 
     private void init() {
         this.addTextChangedListener(new TextWatcher() {
-            private void setMacEdit(String cleanMac, String formattedMac, int selectionStart, int lengthDiff) {
+            private void setMacEdit(CharSequence cleanMac, String formattedMac, int selectionStart, int lengthDiff) {
                 MacAddressEditText.this.removeTextChangedListener(this);
                 if (cleanMac.length() <= 12) {
                     MacAddressEditText.this.setText(formattedMac);
@@ -81,7 +81,7 @@ public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditT
         return formattedMac;
     }
 
-    private static String formatMacAddress(String cleanMac) {
+    private static String formatMacAddress(CharSequence cleanMac) {
         int groupedCharacters = 0;
         StringBuilder formattedMac = new StringBuilder();
 

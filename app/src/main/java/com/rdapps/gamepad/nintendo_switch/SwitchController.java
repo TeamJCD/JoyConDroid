@@ -24,6 +24,7 @@ import com.rdapps.gamepad.util.PriorityThreadFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.Executors;
@@ -141,8 +142,8 @@ public class SwitchController extends AbstractDevice {
     private final ScheduledExecutorService executorService;
     private ScheduledFuture<?> fullModeSender;
 
-    private final Queue<SensorEvent> accelerometerEvents = new LinkedBlockingQueue<>();
-    private final Queue<SensorEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
+    private final Collection<SensorEvent> accelerometerEvents = new LinkedBlockingQueue<>();
+    private final Collection<SensorEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
 
     private final ControllerType type;
 

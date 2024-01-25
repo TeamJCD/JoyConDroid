@@ -89,7 +89,7 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButtonTouchListener buttonTouchListener = new ButtonTouchListener();
+        View.OnTouchListener buttonTouchListener = new ButtonTouchListener();
         up = view.findViewById(R.id.up);
         down = view.findViewById(R.id.down);
         left = view.findViewById(R.id.left);

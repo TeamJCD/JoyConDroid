@@ -51,6 +51,7 @@ import com.rdapps.gamepad.versionchecker.Version;
 import com.rdapps.gamepad.versionchecker.VersionCheckerClient;
 import com.rdapps.gamepad.versionchecker.VersionCheckerService;
 
+import java.io.Serializable;
 import java.util.*;
 
 import retrofit2.Call;
@@ -320,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showJoyconImpl(ControllerType type) {
+    private void showJoyconImpl(Serializable type) {
         Intent intent = new Intent(this, ControllerActivity.class);
         intent.putExtra(CONTROLLER_TYPE, type);
         startActivity(intent);

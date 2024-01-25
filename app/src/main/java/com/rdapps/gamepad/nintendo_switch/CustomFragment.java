@@ -28,6 +28,7 @@ import com.rdapps.gamepad.button.ButtonEnum;
 import com.rdapps.gamepad.led.LedState;
 import com.rdapps.gamepad.util.ControllerFunctions;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.concurrent.Phaser;
 
@@ -47,7 +48,7 @@ public class CustomFragment extends ControllerFragment {
     private ValueCallback<Uri[]> mUploadMessage;
     private Uri[] results;
 
-    public static CustomFragment getInstance(String url) {
+    public static CustomFragment getInstance(Serializable url) {
         CustomFragment customFragment = new CustomFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(CUSTOM_UI_URL, url);
