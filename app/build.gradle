@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdk 34
-    def VERBOSE = "2"
-    def DEBUG = "3"
-    def INFO = "4"
-    def WARN = "5"
-    def ERROR = "6"
-    def ASSERT = "7"
-    def NONE = "0"
+    final def VERBOSE = "2"
+    final def DEBUG = "3"
+    final def INFO = "4"
+    final def WARN = "5"
+    final def ERROR = "6"
+    final def ASSERT = "7"
+    final def NONE = "0"
 
     defaultConfig {
         applicationId "com.rdapps.gamepad"
