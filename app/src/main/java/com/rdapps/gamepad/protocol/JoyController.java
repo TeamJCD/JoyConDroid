@@ -205,7 +205,8 @@ public class JoyController extends AbstractDevice {
     }
 
     public void setPlayerLights(byte lightsByte) {
-        state.setPlayerLights(lightsByte);
+        byte playerLights = lightsByte;
+        state.setPlayerLights(playerLights);
         if (Objects.nonNull(listener)) {
             LedState[] leds = new LedState[]{
                     LedState.OFF,
@@ -215,12 +216,12 @@ public class JoyController extends AbstractDevice {
             };
 
             int i = 0;
-            while (lightsByte > 0) {
-                if ((lightsByte & 1) == 1) {
+            while (playerLights > 0) {
+                if ((playerLights & 1) == 1) {
                     leds[i % 4] = (i / 4 == 0) ? LedState.ON : LedState.BLINK;
                 }
                 i ++;
-                lightsByte = (byte)(lightsByte >>> 1);
+                playerLights = (byte)(playerLights >>> 1);
             }
 
             listener.setPlayerLights(leds[0], leds[1], leds[2], leds[3]);

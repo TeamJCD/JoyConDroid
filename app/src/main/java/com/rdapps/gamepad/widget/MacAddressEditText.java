@@ -67,18 +67,19 @@ public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditT
     }
 
     private String handleColonDeletion(String enteredMac, String formattedMac, int selectionStart) {
+        String result = formattedMac;
         if (mPreviousMac != null && mPreviousMac.length() > 1) {
             int previousColonCount = colonCount(mPreviousMac);
             int currentColonCount = colonCount(enteredMac);
 
             if (currentColonCount < previousColonCount) {
-                formattedMac = formattedMac.substring(0, selectionStart - 1) + formattedMac.substring(selectionStart);
-                String cleanMac = clearNonMacCharacters(formattedMac);
-                formattedMac = formatMacAddress(cleanMac);
+                result = result.substring(0, selectionStart - 1) + result.substring(selectionStart);
+                String cleanMac = clearNonMacCharacters(result);
+                result = formatMacAddress(cleanMac);
             }
         }
 
-        return formattedMac;
+        return result;
     }
 
     private static String formatMacAddress(CharSequence cleanMac) {

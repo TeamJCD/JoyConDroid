@@ -43,20 +43,21 @@ public class CustomUIViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (Objects.isNull(convertView)) {
-            convertView = layoutInflater.inflate(R.layout.custom_ui_option_layout, parent, false);
+        View view = convertView;
+        if (Objects.isNull(view)) {
+            view = layoutInflater.inflate(R.layout.custom_ui_option_layout, parent, false);
         }
 
         CustomUIItem customUIItem = customUIItems.get(position);
 
         if (Objects.isNull(customUIItem)) {
-            return convertView;
+            return view;
         }
 
-        TextView nameView = convertView.findViewById(R.id.customUIName);
+        TextView nameView = view.findViewById(R.id.customUIName);
         nameView.setText(customUIItem.getName());
 
-        ImageView imageView = convertView.findViewById(R.id.customUIIcon);
+        ImageView imageView = view.findViewById(R.id.customUIIcon);
 
         int icon = R.drawable.ic_left_joycon_icon_black;
         if (Objects.nonNull(customUIItem.getType())) {
@@ -68,7 +69,7 @@ public class CustomUIViewAdapter extends BaseAdapter {
         }
         imageView.setImageResource(icon);
 
-        return convertView;
+        return view;
     }
 
     public void setItems(List<CustomUIItem> customUIItems) {
