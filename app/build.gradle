@@ -2,13 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdk 34
-    final def VERBOSE = "2"
-    final def DEBUG = "3"
-    final def INFO = "4"
-    final def WARN = "5"
-    final def ERROR = "6"
-    final def ASSERT = "7"
-    final def NONE = "0"
+    // NONE: 0, VERBOSE: 2, DEBUG: 3, INFO: 4, WARN: 5, ERROR: 6, ASSERT: 7
+    final def logLevelDefault = "2"
+    final def logLevelApk = "0"
+    final def logLevelRelease = "0"
+    final def logLevelVm = "0"
 
     defaultConfig {
         applicationId "com.rdapps.gamepad"
@@ -18,7 +16,7 @@ android {
         versionName "1.0.91.2"
         resValue "string", "version_name", versionName
         buildConfigField  'boolean', 'CHECK_UPDATE', 'false'
-        buildConfigField  'int', 'LOG_LEVEL', VERBOSE
+        buildConfigField  'int', 'LOG_LEVEL', logLevelDefault
         buildConfigField  'byte[]', 'DEBUG_INPUT', '{0x21, 0x31, 0x30}'
         buildConfigField  'byte[]', 'DEBUG_OUTPUT', '{0x11, 0x01}'
         buildConfigField  'boolean', 'VM', 'false'
@@ -30,19 +28,19 @@ android {
             buildConfigField 'boolean', 'VM', 'true'
         }
         apk {
-            buildConfigField 'int', 'LOG_LEVEL', NONE
+            buildConfigField 'int', 'LOG_LEVEL', logLevelApk
             buildConfigField 'boolean', 'CHECK_UPDATE', 'true'
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
-            buildConfigField 'int', 'LOG_LEVEL', NONE
+            buildConfigField 'int', 'LOG_LEVEL', logLevelRelease
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         vm {
             minifyEnabled true
-            buildConfigField 'int', 'LOG_LEVEL', NONE
+            buildConfigField 'int', 'LOG_LEVEL', logLevelVm
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'boolean', 'VM', 'true'
         }
