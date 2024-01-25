@@ -18,8 +18,8 @@
         <item>
             <![CDATA[
             Cette application nécessite <b>Android 9 (P) ou plus</b>. Elle utilise la spécification HID qui n\'a pas été inclue
-			dans tous les <b>Systèmes d\'Exploitation (OS)</b> par les fabricants. Vous pouvez vérifier la compatibilité via
-			<a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
+            dans tous les <b>Systèmes d\'Exploitation (OS)</b> par les fabricants. Vous pouvez vérifier la compatibilité via
+            <a href="https://play.google.com/store/apps/details?id=com.rdapps.bluetoothhidtester">
             Bluetooth HID Profile Tester</a>.
             ]]>
         </item>
@@ -27,7 +27,7 @@
             <![CDATA[
             Si votre OS ne possède pas la spécification HID, rien d\'autre qu\'une <b>mise à jour système</b> ne peut vous la donner, mise à jour
             qui ne peut être fournie que par <b>le fabricant de l\'appareil</b>. Si vous voulez vraiment utiliser cette application, vous
-			pouvez remplacer votre OS par <a href="https://lineageos.org/">Lineage OS</a>.
+            pouvez remplacer votre OS par <a href="https://lineageos.org/">Lineage OS</a>.
             ]]>
         </item>
         <item>
@@ -35,13 +35,13 @@
             <b>Joy-Con Droid</b> est convoité par beaucoup d\'utilisateurs et n\'a pour l\'instant causé aucun problème irréversible.
             Il peut arriver que la Switch plante, mais un simple redémarrage corrige le problème.
             Toutefois, utilisez l\'application <b>Joy-Con Droid</b> à vos risques et périls. L\'application <b>Joy-Con Droid</b> est fournie
-			sans garantie.
+            sans garantie.
             ]]>
         </item>
         <item>
             <![CDATA[
             "La manette ne cesse de se déconnecter quand l\'écran Changer le style/ordre est quitté." est un problème récurrent mais
-			il n\'y a pas encore de patch. Toutefois, il y a un moyen de contourner le problème:
+            il n\'y a pas encore de patch. Toutefois, il y a un moyen de contourner le problème:
             <ol>
                 <li>Allez sur l\'écran Changer le style/ordre.</li>
                 <li>Attendez pour la requête de synchronisation Bluetooth mais <b>N\'ACCEPTEZ PAS!</b></li>
@@ -54,12 +54,12 @@
         <item>
             <![CDATA[
             Si <b>Joy-Con Droid</b> n\'obtient pas de requête de synchronisation Bluetooth malgré que vous soyez sur l\'écran <b>Changer le style/ordre</b>,
-			vous devez procéder à plusieurs vérifications. Vérifiez que votre appareil ait été renommé en des noms appropriés pour la 
-			synchronisation, comme Joy-Con (R), Joy-Con (L), or Pro Controller.
+            vous devez procéder à plusieurs vérifications. Vérifiez que votre appareil ait été renommé en des noms appropriés pour la
+            synchronisation, comme Joy-Con (R), Joy-Con (L), or Pro Controller.
             Si votre appareil est correctement renommé, fermez l\'application et appuyez sur la notification pour l\'arrêter entièrement.
-			Sur la Switch, allez dans Paramètres, Manettes & capteurs puis choisissez Interrompre la communication sans fil avec les manettes.
+            Sur la Switch, allez dans Paramètres, Manettes & capteurs puis choisissez Interrompre la communication sans fil avec les manettes.
             Sur votre téléphone, désactivez le Bluetooth (il est préférable de redémarrer votre téléphone). Une fois avoir réalisé toutes ces étapes, 
-			ouvrez l\'écran <b>Changer le style/ordre</b> puis ouvrez <b>Joy-Con Droid</b> et recommencez les étapes de connexion.
+            ouvrez l\'écran <b>Changer le style/ordre</b> puis ouvrez <b>Joy-Con Droid</b> et recommencez les étapes de connexion.
             ]]>
         </item>
         <item>
@@ -72,7 +72,7 @@
             L\'application <b>Joy-Con Droid</b> a été testé sur les Switch allant jusqu\'à la version <b>9.0.0</b>. Il n\'est pas garanti que
             <b>Joy-Con Droid</b> continuera de fonctionner sur des versions plus récentes.
             Vérifiez toujours sur l\'application <b>Joy-Con Droid</b> pour voir la dernière version supportée avant de mettre à jour votre console
-			Switch.
+            Switch.
             ]]>
         </item>
         <item>
@@ -93,8 +93,8 @@
         <item>
             <![CDATA[
             Les <b>Joy-Cons et la manette pro</b> envoient leur adresse MAC à la <b>Switch</b>. Cette information est utilisée pour se reconnecter,
-			mais sur <b>le système d\'exploitation Android</b> il n\'est pas possible d\'obtenir l\'adresse MAC d\'un appareil. C\'est donc à l\'utilisateur que revient
-			la décision de fournir son adresse MAC pour améliorer la connexion.
+            mais sur <b>le système d\'exploitation Android</b> il n\'est pas possible d\'obtenir l\'adresse MAC d\'un appareil. C\'est donc à l\'utilisateur que revient
+            la décision de fournir son adresse MAC pour améliorer la connexion.
             ]]>
         </item>
         <item>
