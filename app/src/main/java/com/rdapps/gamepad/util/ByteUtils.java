@@ -80,7 +80,7 @@ public class ByteUtils {
         if (Objects.isNull(arr)) {
             return null;
         }
-        ArrayList<Byte> arrayList = new ArrayList<>();
+        List<Byte> arrayList = new ArrayList<>();
         for (byte b : arr) {
             arrayList.add(b);
         }

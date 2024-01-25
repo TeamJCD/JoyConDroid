@@ -130,7 +130,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     }
 
     private void remapJoystick(ControllerAction controllerAction) {
-        ArrayList<ControllerAction> newActions = new ArrayList<>(controllerActions);
+        List<ControllerAction> newActions = new ArrayList<>(controllerActions);
         for (ControllerAction ca : controllerActions) {
             if (ca.getJoystick() == controllerAction.getJoystick()) {
                 newActions.remove(ca);
@@ -151,7 +151,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     }
 
     private void remap(ButtonType buttonType, int keyValue) {
-        ArrayList<ControllerAction> newActions = new ArrayList<>(controllerActions);
+        List<ControllerAction> newActions = new ArrayList<>(controllerActions);
         for (ControllerAction controllerAction : controllerActions) {
             if (controllerAction.getKey() == keyValue) {
                 newActions.remove(controllerAction);
@@ -167,7 +167,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     }
 
     private void remap(ButtonType buttonType, int axisValue, int axisDirection) {
-        ArrayList<ControllerAction> newActions = new ArrayList<>(controllerActions);
+        List<ControllerAction> newActions = new ArrayList<>(controllerActions);
         for (ControllerAction controllerAction : controllerActions) {
             if (controllerAction.getType() == AXIS &&
                     controllerAction.getXAxis() == axisValue &&

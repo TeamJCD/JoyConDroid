@@ -93,7 +93,7 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
     }
 
     public List<CustomUIItem> getCustomUIs() {
-        ArrayList<CustomUIItem> customUIItems = new ArrayList<>();
+        List<CustomUIItem> customUIItems = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,

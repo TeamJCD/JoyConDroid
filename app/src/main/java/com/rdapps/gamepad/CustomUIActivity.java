@@ -84,7 +84,7 @@ public class CustomUIActivity extends AppCompatActivity implements Callback<List
     public void onResponse(Call<List<CustomUIItem>> call, Response<List<CustomUIItem>> response) {
         List<CustomUIItem> customUIItems = response.body();
         if (customUIItems != null) {
-            ArrayList<CustomUIItem> allUis = new ArrayList<>(customUIItems);
+            List<CustomUIItem> allUis = new ArrayList<>(customUIItems);
             try (CustomUIDBHandler customUIDBHandler = new CustomUIDBHandler(this)) {
                 allUis.addAll(customUIDBHandler.getCustomUIs());
             }
