@@ -14,7 +14,8 @@ import static com.rdapps.gamepad.report.InputReportMode.STANDARD_FULL_MODE;
 
 /**
  * https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/bluetooth_hid_subcommands_notes.md#subcommand-0x03-set-input-report-mode
- * //TODO x31 input report has all zeroes for IR/NFC data if a 11 output report with subcmd 03 00/01/02/03 was not sent before.
+ * TODO x31 input report has all zeroes for IR/NFC data if a 11 output report with subcmd 03 00/01/02/03 was not sent
+ *  before.
  */
 class RequestInputReportModeHandler implements SubCommandHandler {
     private final static String TAG = RequestInputReportModeHandler.class.getName();

@@ -94,7 +94,8 @@ public class CustomFragment extends ControllerFragment {
             }
 
             @Override
-            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
+                                             WebChromeClient.FileChooserParams fileChooserParams) {
                 // Double check that we don't have any existing callbacks
                 if (mUploadMessage != null) {
                     mUploadMessage.onReceiveValue(null);

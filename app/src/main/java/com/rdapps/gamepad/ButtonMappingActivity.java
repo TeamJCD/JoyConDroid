@@ -38,7 +38,8 @@ import static com.rdapps.gamepad.util.ControllerActionUtils.BUTTON_NAMES;
 import static com.rdapps.gamepad.util.ControllerActionUtils.CONTROLLER_ACTIONS;
 import static com.rdapps.gamepad.util.ControllerActionUtils.getControllerActions;
 
-public class ButtonMappingActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, ButtonMappingAlertDialog.DialogEventListener {
+public class ButtonMappingActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,
+        ButtonMappingAlertDialog.DialogEventListener {
 
     private ButtonMappingViewAdapter adapter;
     private ButtonMappingAlertDialog alertDialog;

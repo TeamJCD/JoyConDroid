@@ -111,7 +111,11 @@ public class SwitchController extends AbstractDevice {
     private static final String HID_NAME = "Wireless Gamepad";
     private static final String HID_DESCRIPTION = "Gamepad";
     private static final String HID_PROVIDER = "Nintendo";
-    private static final String DESCRIPTOR = "05010905a1010601ff8521092175089530810285300930750895308102853109317508966901810285320932750896690181028533093375089669018102853f05091901291015002501750195108102050109391500250775049501814205097504950181010501093009310933093416000027ffff00007510950481020601ff85010901750895309102851009107508953091028511091175089530910285120912750895309102c0";
+    private static final String DESCRIPTOR
+            = "05010905a1010601ff85210921750895308102853009307508953081028531093175089669018102853209327508966901810285"
+            + "33093375089669018102853f05091901291015002501750195108102050109391500250775049501814205097504950181010501"
+            + "093009310933093416000027ffff00007510950481020601ff850109017508953091028510091075089530910285110911750895"
+            + "30910285120912750895309102c0";
 
 
     private static final long WAIT_BEFORE_HANDSHAKE_MS = 1000;
@@ -436,7 +440,8 @@ public class SwitchController extends AbstractDevice {
 
     @Override
     public void onInterruptData(BluetoothDevice rDevice, byte reportId, byte[] data) {
-        Log.v(TAG, "Interrupt Data Report Id: " + ByteUtils.encodeHexString(reportId) + " data: " + Hex.bytesToStringUppercase(data));
+        Log.v(TAG, "Interrupt Data Report Id: " + ByteUtils.encodeHexString(reportId) + " data: "
+                + Hex.bytesToStringUppercase(data));
 
         if (reportId == REQUEST_RUMBLE_AND_SUBCOMMAND) {
             handleRumbleAndSubcommand(data);
@@ -977,7 +982,8 @@ public class SwitchController extends AbstractDevice {
                 System.arraycopy(bytes, 0, buffer, 3, bytes.length);
                 System.arraycopy(amiiboBytes, 0, buffer, 3 + bytes.length, 3);
                 System.arraycopy(amiiboBytes, 4, buffer, 6 + bytes.length, 4);
-                byte[] bytes2 = Hex.stringToBytes("000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000");
+                byte[] bytes2 = Hex.stringToBytes(
+                        "000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000");
                 System.arraycopy(bytes2, 0, buffer, 10 + bytes.length, bytes2.length);
                 System.arraycopy(amiiboBytes, 0, buffer, 10 + bytes.length + bytes2.length, 245);
                 mcuMode.setAction(MCUMode.Action.READ_TAG_2);
@@ -1070,7 +1076,8 @@ public class SwitchController extends AbstractDevice {
     }
 
     public boolean sendReport(int reportId, byte[] data) {
-        Log.v(TAG, "Sent Data Report Id: " + ByteUtils.encodeHexString((byte) reportId) + " data: " + Hex.bytesToStringUppercase(data));
+        Log.v(TAG, "Sent Data Report Id: " + ByteUtils.encodeHexString((byte) reportId) + " data: "
+                + Hex.bytesToStringUppercase(data));
         BluetoothHidDevice proxy = getProxy();
         BluetoothDevice remoteDevice = getRemoteDevice();
         if (Objects.nonNull(proxy) && Objects.nonNull(remoteDevice)) {

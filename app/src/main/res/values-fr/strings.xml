@@ -19,11 +19,15 @@
     <string name="pro_controller">Manette Pro</string>
     <string name="info_and_legal">Informations juridiques</string>
     <string name="accept">Accepter</string>
-    <string name="bt_name_not_set">Le nom du périphérique Bluetooth n\'a pas pu être changé. Il doit être changé manuellement pour %1$s</string>
+    <string name="bt_name_not_set">Le nom du périphérique Bluetooth n\'a pas pu être changé. Il doit être changé
+        manuellement pour %1$s
+    </string>
     <string name="bt_sdp_failed">Les paramètres SDP ont échouées, contactez le développeur.</string>
     <string name="bt_register_failed">Le Bluetooth n\'a pas pu répertorier l\'application</string>
     <string name="disconnect_controller">Déconnecter la manette</string>
-    <string name="device_is_not_compatible">Il est possible que votre appareil ne soit pas compatible avec l\'application. Contactez le développeur ou votre fabricant.</string>
+    <string name="device_is_not_compatible">Il est possible que votre appareil ne soit pas compatible avec
+        l\'application. Contactez le développeur ou votre fabricant.
+    </string>
     <string name="ok">OK</string>
     <string name="custom_left_joycon">Customiser l\'interface du Joy-Con Gauche</string>
     <string name="custom_ui_selection">Customer les interfaces</string>
@@ -41,7 +45,8 @@
     <string name="joystick_mapping_completed">Voulez vous enregistrer le mappage des touches?</string>
     <string name="save">Enregistrer</string>
     <string name="redo">Refaire</string>
-    <string name="file_permission_is_required">Une permission est nécessaire pour obtenir la liste des fichiers.</string>
+    <string name="file_permission_is_required">Une permission est nécessaire pour obtenir la liste des fichiers.
+    </string>
     <string name="save_button">Enregistrer</string>
     <string name="button_mappings_saves">Le mappage des boutons a été enregistré.</string>
     <string name="frequently_asked_questions">Foire aux questions</string>
@@ -50,7 +55,8 @@
     <string name="set">Définir</string>
     <string name="incorrect_mac_address">Adresse Mac incorrecte</string>
     <string name="never_ask_again">Ne plus jamais demander</string>
-    <string name="push_axis_same_direction_to_map_to_button">Pousser %s vers la même direction pour assigner à %s</string>
+    <string name="push_axis_same_direction_to_map_to_button">Pousser %s vers la même direction pour assigner à %s
+    </string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">Couleur de la coque de la manette Pro:</string>

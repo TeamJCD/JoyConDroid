@@ -23,7 +23,9 @@
     <string name="bt_sdp_failed">SDP Ayarları başarısız oldu, geliştiriciyle iletişime geç.</string>
     <string name="bt_register_failed">Bluetooth uygulamayı kaydedemedi</string>
     <string name="disconnect_controller">Kontrolcünün Bağlantısını Kes</string>
-    <string name="device_is_not_compatible">Cihazın bu uygulama ile uyumlu olmayabilir. Geliştirici veya imalatçıyla iletişime geç.</string>
+    <string name="device_is_not_compatible">Cihazın bu uygulama ile uyumlu olmayabilir. Geliştirici veya imalatçıyla
+        iletişime geç.
+    </string>
     <string name="ok">Tamam</string>
     <string name="custom_left_joycon">Özel Sol JoyCon Arayüzü</string>
     <string name="custom_ui_selection">Özel Arayüz Seç</string>
@@ -69,8 +71,10 @@
 
     <string name="purchase_pending">Ödeme beklemede, ödeme onaylanınca uygulamayı yeniden başlat.</string>
     <string name="acknowledgement_failed">Onay Başarıız</string>
-    <string name="mtu_warning_title">MTU Boyut Uyarısı </string>
-    <string name="mtu_warning_text">Teknik limitler sebebiyle NFC Fonksiyonu şu an yalnızca Samsung cihazlarında çalışıyor. Cihazında Amiibo desteği olmayabilir.</string>
+    <string name="mtu_warning_title">MTU Boyut Uyarısı</string>
+    <string name="mtu_warning_text">Teknik limitler sebebiyle NFC Fonksiyonu şu an yalnızca Samsung cihazlarında
+        çalışıyor. Cihazında Amiibo desteği olmayabilir.
+    </string>
     <string name="continue_option">Devam Et</string>
     <string name="amiibo_experimental_title">Uyarı</string>
     <string name="amiibo_experimental_text">NFC Fonksiyonu deneyseldir ve çalışmayabilir.</string>

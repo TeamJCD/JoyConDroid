@@ -24,7 +24,8 @@ import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 
-public class FeatureSwitchFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, ResettableSettingFragment {
+public class FeatureSwitchFragment extends Fragment implements CompoundButton.OnCheckedChangeListener,
+        ResettableSettingFragment {
 
     private static String TAG = FeatureSwitchFragment.class.getName();
 

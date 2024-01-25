@@ -20,11 +20,15 @@
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Info en Legaal</string>
     <string name="accept">Accepteren</string>
-    <string name="bt_name_not_set">Bluetooth apparaat naam kan niet veranderd worden. veranderingen moetn handmatig veranderd worden. %1$s</string>
+    <string name="bt_name_not_set">Bluetooth apparaat naam kan niet veranderd worden. veranderingen moetn handmatig
+        veranderd worden. %1$s
+    </string>
     <string name="bt_sdp_failed">SDP Instellingen gefaald, neem contact op met de developer.</string>
     <string name="bt_register_failed">Bluetooth kan de applicatie niet registreren</string>
     <string name="disconnect_controller">Controller verbinding verbroken.</string>
-    <string name="device_is_not_compatible">Jouwn apparaat is mogelijk niet verenigbaar met deze app. Neem contact op met de developer of fabrikant.</string>
+    <string name="device_is_not_compatible">Jouwn apparaat is mogelijk niet verenigbaar met deze app. Neem contact op
+        met de developer of fabrikant.
+    </string>
     <string name="ok">Oke</string>
     <string name="custom_left_joycon">Custom Linker JoyCon UI</string>
     <string name="custom_ui_selection">Selecteer Custom UI</string>
@@ -52,7 +56,8 @@
     <string name="set">zet</string>
     <string name="incorrect_mac_address">Incorrecte Mac Address</string>
     <string name="never_ask_again">Nooit meer vragen</string>
-    <string name="push_axis_same_direction_to_map_to_button">druk% s naar dezelfde richting om toe te wijzen aan% s</string>
+    <string name="push_axis_same_direction_to_map_to_button">druk% s naar dezelfde richting om toe te wijzen aan% s
+    </string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">ProController lichaam kleur:</string>
@@ -67,7 +72,9 @@
     <string name="enable_gyroscope">Gyroscope inschakelen</string>
     <string name="enable_amiibo">Amiibo inschakelen</string>
 
-    <string name="purchase_pending">Aankoop is in behandeling zodra de aankoop is goedgekeurd, start de applicatie opnieuw.</string>
-    <string name="acknowledgement_failed"> Bevestiging mislukt.</string>
+    <string name="purchase_pending">Aankoop is in behandeling zodra de aankoop is goedgekeurd, start de applicatie
+        opnieuw.
+    </string>
+    <string name="acknowledgement_failed">Bevestiging mislukt.</string>
 
 </resources>

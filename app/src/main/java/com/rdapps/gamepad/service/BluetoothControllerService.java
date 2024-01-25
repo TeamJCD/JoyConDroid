@@ -51,7 +51,8 @@ import static com.rdapps.gamepad.toast.ToastHelper.*;
 import static com.rdapps.gamepad.util.ByteUtils.hexStringToByteArray;
 import static com.rdapps.gamepad.util.PreferenceUtils.MAC_FAKE_ADDRESS;
 
-public class BluetoothControllerService extends Service implements BluetoothProfile.ServiceListener, JoyControllerListener {
+public class BluetoothControllerService extends Service implements BluetoothProfile.ServiceListener,
+        JoyControllerListener {
 
     private static final int HID_PROFILE_TIME_OUT_SECONDS = 10;
 
@@ -161,7 +162,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         byte[] macAddr = new byte[6];
         rand.nextBytes(macAddr);
 
-        macAddr[0] = (byte) (macAddr[0] & (byte) 254);  //zeroing last 2 bytes to make it unicast and locally adminstrated
+        //zeroing last 2 bytes to make it unicast and locally adminstrated
+        macAddr[0] = (byte) (macAddr[0] & (byte) 254);
 
         StringBuilder sb = new StringBuilder(18);
         for (byte b : macAddr) {
@@ -224,7 +226,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                     this,
                     HID_DEVICE
             );
-            hidFuture = timeoutScheduler.schedule(this::checkHIDProfile, HID_PROFILE_TIME_OUT_SECONDS, TimeUnit.SECONDS);
+            hidFuture = timeoutScheduler.schedule(this::checkHIDProfile, HID_PROFILE_TIME_OUT_SECONDS,
+                    TimeUnit.SECONDS);
         }
 
         startForeground();
@@ -293,7 +296,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 .setContentTitle(contentTitle)
                 .setContentText(getText(R.string.disconnect_controller))
                 .setCategory(Notification.CATEGORY_SERVICE)
-                .setContentIntent(PendingIntent.getService(getApplicationContext(), 0, closeIntent, PendingIntent.FLAG_IMMUTABLE))
+                .setContentIntent(PendingIntent.getService(getApplicationContext(), 0, closeIntent,
+                        PendingIntent.FLAG_IMMUTABLE))
                 .build();
     }
 

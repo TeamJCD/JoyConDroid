@@ -32,7 +32,8 @@ import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
 
-public class CustomUIActivity extends AppCompatActivity implements Callback<List<CustomUIItem>>, AdapterView.OnItemClickListener {
+public class CustomUIActivity extends AppCompatActivity implements Callback<List<CustomUIItem>>,
+        AdapterView.OnItemClickListener {
 
 
     private static final String TAG = CustomUIActivity.class.getName();

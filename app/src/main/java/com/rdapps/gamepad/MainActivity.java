@@ -133,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton(R.string.later, (dialog, which) -> {
         });
         builder.setPositiveButton(R.string.update, (dialog, which) -> {
-            String url = "https://github.com/YouTubePlays/JoyConDroid/releases/download/" + version + "/joycon-droid.apk";
+            String url = "https://github.com/YouTubePlays/JoyConDroid/releases/download/" + version
+                    + "/joycon-droid.apk";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
@@ -146,13 +147,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             Arrays.stream(RUNTIME_PERMISSIONS_S)
-                    .filter(permission -> ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
+                    .filter(p ->
+                            ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED)
                     .forEach(permissions::add);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             Arrays.stream(RUNTIME_PERMISSIONS_T)
-                    .filter(permission -> ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
+                    .filter(p ->
+                            ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED)
                     .forEach(permissions::add);
         }
 
@@ -342,7 +345,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Optional<BluetoothAdapter> bluetoothAdapter = Optional.ofNullable((BluetoothManager) getSystemService(BLUETOOTH_SERVICE))
+        Optional<BluetoothAdapter> bluetoothAdapter = Optional.ofNullable(
+                (BluetoothManager) getSystemService(BLUETOOTH_SERVICE))
                 .map(BluetoothManager::getAdapter);
         if (bluetoothAdapter.isPresent()) {
             try {

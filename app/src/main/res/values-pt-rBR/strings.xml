@@ -6,7 +6,9 @@
     <string name="bt_config_was_not_changed">As configurações do Bluetooth não foram modificadas.</string>
     <string name="bt_enable_canceled">Ocorreu um erro ao habilitar o Bluetooth.</string>
     <string name="bt_discovery_canceled">Ocorreu um erro ao iniciar a procura no Bluetooth.</string>
-    <string name="bt_name_not_set">O nome do dispositivo Bluetooth não pode ser alterado, tem que ser definido manualmente para %1$s</string>
+    <string name="bt_name_not_set">O nome do dispositivo Bluetooth não pode ser alterado, tem que ser definido
+        manualmente para %1$s
+    </string>
     <string name="bt_not_available">O Bluetooth não está disponível</string>
     <string name="sl_label">SL</string>
     <string name="sr_label">SR</string>
@@ -16,7 +18,9 @@
     <string name="could_not_pair">Não foi possível parear automaticamente</string>
     <string name="custom_left_joycon">Customizar o Layout do JoyCon Esquerdo</string>
     <string name="custom_ui_selection">Selecionar o Layout Customizado</string>
-    <string name="device_is_not_compatible">Seu dispositivo pode não ser compatível com este aplicativo. Entre em contato com o desenvolvedor ou fabricante.</string>
+    <string name="device_is_not_compatible">Seu dispositivo pode não ser compatível com este aplicativo. Entre em
+        contato com o desenvolvedor ou fabricante.
+    </string>
     <string name="disconnect_controller">Controle Desconectado</string>
     <string name="disconnected_from_switch">Dispositivo desconectado do Switch</string>
     <string name="do_not_show_at_the_start_up">Não exibir guia ao iniciar o aplicativo</string>
@@ -51,29 +55,31 @@
     <string name="settings">Configurações</string>
     <string name="set">Determinar</string>
     <string name="set_bt_address">Digite o endereço MAC do Bluetooth para melhorar a conexão</string>
-    <string name = "push_axis_same_direction_to_map_to_button"> Pressione %s na mesma direção para mapear para %s </string>
+    <string name="push_axis_same_direction_to_map_to_button">Pressione %s na mesma direção para mapear para %s</string>
 
     <!-- Colors -->
-    <string name = "pro_controller_body_color"> Cor do Pro Controller: </string>
-    <string name = "pro_controller_button_color"> Cor do botão do Pro Controller: </string>
-    <string name = "left_joycon_body_color"> Cor do JoyCon esquerdo: </string>
-    <string name = "left_joycon_button_color"> Cor do botão do JoyCon esquerdo: </string>
-    <string name = "right_joycon_body_color"> Cor do JoyCon direito: </string>
-    <string name = "right_joycon_button_color"> Cor do botão do JoyCon direito: </string>
-    <string name = "color_settings"> Configurações de Cores </string>
-    <string name = "feature_settings"> Configurações de Recursos </string>
-    <string name = "enable_accelerometer"> Ativar Acelerômetro </string>
-    <string name = "enable_gyroscope"> Ativar Giroscópio </string>
-    <string name = "enable_amiibo"> Ativar Amiibo </string>
+    <string name="pro_controller_body_color">Cor do Pro Controller:</string>
+    <string name="pro_controller_button_color">Cor do botão do Pro Controller:</string>
+    <string name="left_joycon_body_color">Cor do JoyCon esquerdo:</string>
+    <string name="left_joycon_button_color">Cor do botão do JoyCon esquerdo:</string>
+    <string name="right_joycon_body_color">Cor do JoyCon direito:</string>
+    <string name="right_joycon_button_color">Cor do botão do JoyCon direito:</string>
+    <string name="color_settings">Configurações de Cores</string>
+    <string name="feature_settings">Configurações de Recursos</string>
+    <string name="enable_accelerometer">Ativar Acelerômetro</string>
+    <string name="enable_gyroscope">Ativar Giroscópio</string>
+    <string name="enable_amiibo">Ativar Amiibo</string>
     <string name="custom_ui">Layout Customizado</string>
 
     <string name="purchase_pending">Acompra está pendente, uma vez comprado reinicie o aplicativo.</string>
-    <string name="acknowledgement_failed"> Falha de reconhecimento</string>
-    <string name="mtu_warning_title"> Aviso do valor MTU</string>
-    <string name="mtu_warning_text"> A funcionalidade de NFC está atualmente funcionando em apenas dispositivos Samsung por conta de restrições técnicas. O seu dispositivo pode não suportar a funcinalidade do Amiibo.</string>
-    <string name="continue_option"> Continuar </string>
+    <string name="acknowledgement_failed">Falha de reconhecimento</string>
+    <string name="mtu_warning_title">Aviso do valor MTU</string>
+    <string name="mtu_warning_text">A funcionalidade de NFC está atualmente funcionando em apenas dispositivos Samsung
+        por conta de restrições técnicas. O seu dispositivo pode não suportar a funcinalidade do Amiibo.
+    </string>
+    <string name="continue_option">Continuar</string>
     <string name="amiibo_experimental_title">Atenção</string>
-    <string name="amiibo_experimental_text"> A funcionalidade de NFC é esperimental e pode não funcionar.</string>
+    <string name="amiibo_experimental_text">A funcionalidade de NFC é esperimental e pode não funcionar.</string>
     <string name="amiibo_file_preset">Arquivo binário de NFC configurado</string>
     <string name="amiibo_file_cannot_be">Antenção! Não foi possivel configurar o diretório do arquivo binário.</string>
     <string name="enable_haptic_feedback">Habilitar feedback háptico</string>
