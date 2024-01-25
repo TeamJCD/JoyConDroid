@@ -360,22 +360,22 @@ public class RightJoyConFragment extends ControllerFragment implements JoyStick.
             if (led1 == LedState.BLINK) {
                 Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led1.setBackground(drawable);
-                ((AnimationDrawable) drawable).run();
+                ((Runnable) drawable).run();
             }
             if (led2 == LedState.BLINK) {
                 Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led2.setBackground(drawable);
-                ((AnimationDrawable) drawable).run();
+                ((Runnable) drawable).run();
             }
             if (led3 == LedState.BLINK) {
                 Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led3.setBackground(drawable);
-                ((AnimationDrawable) drawable).run();
+                ((Runnable) drawable).run();
             }
             if (led4 == LedState.BLINK) {
                 Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led4.setBackground(drawable);
-                ((AnimationDrawable) drawable).run();
+                ((Runnable) drawable).run();
             }
         }
     }
