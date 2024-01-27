@@ -3,10 +3,6 @@
     <string name="bt_not_available">Bluetooth no esta disponible.</string>
     <string name="bt_enable_canceled">Ocurrio un error mientras se activaba bluetooth.</string>
     <string name="bt_discovery_canceled">Ocurrio un error mientras se iniciaba el descubrimiento Bluetooth.</string>
-    <string name="could_not_pair">No se puede emparejar automaticamente.</string>
-    <string name="pair_with_switch">Emparejar con Switch.</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">Se ha emparejado el dispositivo con la Switch.</string>
     <string name="disconnected_from_switch">Se ha desconectado el dispositivo de la Switch.</string>
     <string name="left_joycon">Joycon izquierdo</string>
@@ -14,7 +10,6 @@
     <string name="revert_bluetooth">Revertir configuracion Bluetooth</string>
     <string name="bt_config_is_reverted">La configuracion Bluetooth ha sido revertida!</string>
     <string name="bt_config_was_not_changed">La configuracion Bluetooth no ha sido modificada.</string>
-    <string name="do_not_show_at_the_start_up">No mostrar la guia al iniciar.</string>
     <string name="right_joycon">Joycon derecho</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Informacion y Legal</string>
@@ -29,7 +24,6 @@
         al desarrollador o al manufacturador.
     </string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">UI personalizada del joycon izquierdo</string>
     <string name="custom_ui_selection">Seleccionar UI personalizada</string>
     <string name="map_buttons">Mapear botones</string>
     <string name="settings">Opciones</string>
@@ -45,7 +39,6 @@
     <string name="joystick_mapping_completed">¿Desea guardar el mapeado del joystick?</string>
     <string name="save">Guardar</string>
     <string name="redo">Rehacer</string>
-    <string name="file_permission_is_required">Se nececitan permisos para obtener la lista de archivos</string>
     <string name="save_button">Guardar</string>
     <string name="button_mappings_saves">El mapeado de los botones ha sido guardado</string>
     <string name="frequently_asked_questions">Preguntas frecuentes</string>

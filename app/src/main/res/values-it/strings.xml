@@ -3,10 +3,6 @@
     <string name="bt_not_available">Bluetooth non disponibile</string>
     <string name="bt_enable_canceled">C\'è stato un errore nell\'attivazione del Bluetooth.</string>
     <string name="bt_discovery_canceled">C\'è stato un errore durante l\'attivazione della ricerca Bluetooth.</string>
-    <string name="could_not_pair">Non è stato possibile l\'accoppiamento automatico</string>
-    <string name="pair_with_switch">Accoppia Switch</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">Dispositivo connesso alla Switch</string>
     <string name="disconnected_from_switch">Dispositivo disconnesso dalla Switch</string>
     <string name="left_joycon">JoyCon Sinistro</string>
@@ -14,7 +10,6 @@
     <string name="revert_bluetooth">Reimposta Configurazione Bluetooth</string>
     <string name="bt_config_is_reverted">La Configurazione Bluetooth è stata reimpostata!</string>
     <string name="bt_config_was_not_changed">La Configurazione Bluetooth non è stata modificata.</string>
-    <string name="do_not_show_at_the_start_up">Non mostrare la guida all\'avvio</string>
     <string name="right_joycon">JoyCon Destro</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Info And Legal</string>
@@ -29,7 +24,6 @@
         Contatta lo sviluppatore o il produttore.
     </string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">UI JoyCon Sinistro personalizzata</string>
     <string name="custom_ui_selection">Seleziona UI personalizzata</string>
     <string name="custom_ui">UI personalizzata</string>
     <string name="map_buttons">Mappa Pulsanti</string>
@@ -46,7 +40,6 @@
     <string name="joystick_mapping_completed">Vuoi salvare la mappatura del joystick?</string>
     <string name="save">Salva</string>
     <string name="redo">Rifai</string>
-    <string name="file_permission_is_required">È richiesto il permesso per ottenere la lista dei file.</string>
     <string name="save_button">Salva</string>
     <string name="button_mappings_saves">Le mappature dei pulsanti sono state salvate.</string>
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
@@ -70,10 +63,6 @@
     <string name="enable_gyroscope">Attiva Giroscopio</string>
     <string name="enable_amiibo">Attiva NFC (sperimentale)</string>
 
-    <string name="purchase_pending">L\'acquisto è in fase di approvazione. Una volta approvato riavvia
-        l\'applicazione.
-    </string>
-    <string name="acknowledgement_failed">Acknowledgement Failed</string>
     <string name="mtu_warning_title">Avviso Dimensione MTU</string>
     <string name="mtu_warning_text">La funzionalità NFC funziona attualmente solo su dispositivi Samsung a causa di
         limiti tecnici. Il tuo dispositivo potrebbe non supportare Amiibo.

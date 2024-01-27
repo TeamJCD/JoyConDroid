@@ -3,10 +3,6 @@
     <string name="bt_not_available">Bluetooth mevcut değil</string>
     <string name="bt_enable_canceled">Bluetooth etkinleştirilirken hata meydana geldi.</string>
     <string name="bt_discovery_canceled">Bluetooth keşif modu etkinleştirilirken hata meydana geldi.</string>
-    <string name="could_not_pair">Otomatik olarak eşleştirilemedi</string>
-    <string name="pair_with_switch">Switch\'i Eşleştir</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">Cihaz Switch\'e bağlandı</string>
     <string name="disconnected_from_switch">Cihazın Switch\'ten bağlantısı kesildi</string>
     <string name="left_joycon">Sol JoyCon</string>
@@ -14,7 +10,6 @@
     <string name="revert_bluetooth">Bluetooth Konfigürasyonunu Geri Al</string>
     <string name="bt_config_is_reverted">Bluetooth Konfigürasyonu geri alındı!</string>
     <string name="bt_config_was_not_changed">Bluetooth Konfigürasyonu modifiye edilmedi.</string>
-    <string name="do_not_show_at_the_start_up">Başlangıçta rehberi gösterme</string>
     <string name="right_joycon">Sağ JoyCon</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">>Bilgi Ve Yasal Detaylar</string>
@@ -27,7 +22,6 @@
         iletişime geç.
     </string>
     <string name="ok">Tamam</string>
-    <string name="custom_left_joycon">Özel Sol JoyCon Arayüzü</string>
     <string name="custom_ui_selection">Özel Arayüz Seç</string>
     <string name="custom_ui">Özel Arayüz</string>
     <string name="map_buttons">Tuşları Ata</string>
@@ -44,7 +38,6 @@
     <string name="joystick_mapping_completed">Analog atamasını kaydetmek istiyor musun?</string>
     <string name="save">Kaydet</string>
     <string name="redo">Yeniden Yap</string>
-    <string name="file_permission_is_required">Dosya listesini göstermek için izin gerekli.</string>
     <string name="save_button">Kaydet</string>
     <string name="button_mappings_saves">Tuş atamaları kaydedildi.</string>
     <string name="frequently_asked_questions">Sık Sorulan Sorular</string>
@@ -69,8 +62,6 @@
     <string name="enable_gyroscope">Cayroskopu Etkinleştir</string>
     <string name="enable_amiibo">NFC\'yi Etkinleştir (Deneysel)</string>
 
-    <string name="purchase_pending">Ödeme beklemede, ödeme onaylanınca uygulamayı yeniden başlat.</string>
-    <string name="acknowledgement_failed">Onay Başarıız</string>
     <string name="mtu_warning_title">MTU Boyut Uyarısı</string>
     <string name="mtu_warning_text">Teknik limitler sebebiyle NFC Fonksiyonu şu an yalnızca Samsung cihazlarında
         çalışıyor. Cihazında Amiibo desteği olmayabilir.

@@ -3,10 +3,6 @@
     <string name="bt_not_available">Bluetooth is not available</string>
     <string name="bt_enable_canceled">Error occurred while enabling Bluetooth.</string>
     <string name="bt_discovery_canceled">Error occurred while starting Bluetooth discovery.</string>
-    <string name="could_not_pair">Could not pair automatically</string>
-    <string name="pair_with_switch">Pair Switch</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">Device connected to Switch</string>
     <string name="disconnected_from_switch">Device disconnected from Switch</string>
     <string name="left_joycon">Left JoyCon</string>
@@ -14,7 +10,6 @@
     <string name="revert_bluetooth">Revert Bluetooth Configuration</string>
     <string name="bt_config_is_reverted">Bluetooth Configuration is reverted!</string>
     <string name="bt_config_was_not_changed">Bluetooth Configuration is not modified.</string>
-    <string name="do_not_show_at_the_start_up">Don\'t show guide at the start up</string>
     <string name="right_joycon">Right JoyCon</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Info And Legal</string>
@@ -28,7 +23,6 @@
         developer or manufacturer.
     </string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">Custom Left JoyCon UI</string>
     <string name="custom_ui_selection">Select Custom UI</string>
     <string name="custom_ui">Custom UI</string>
     <string name="map_buttons">Map Buttons</string>
@@ -45,7 +39,6 @@
     <string name="joystick_mapping_completed">Do you want to save joystick mapping?</string>
     <string name="save">Save</string>
     <string name="redo">Redo</string>
-    <string name="file_permission_is_required">Permission is required for getting list of files.</string>
     <string name="save_button">Save</string>
     <string name="button_mappings_saves">Button mappings have been saved.</string>
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
@@ -70,8 +63,6 @@
     <string name="enable_gyroscope">Enable Gyroscope</string>
     <string name="enable_amiibo">Enable NFC (Experimental)</string>
 
-    <string name="purchase_pending">Purchase is pending once purchase is approved restart the application.</string>
-    <string name="acknowledgement_failed">Acknowledgement Failed</string>
     <string name="mtu_warning_title">MTU Size Warning</string>
     <string name="mtu_warning_text">NFC Functionality is currently only working on Samsung devices due to technical
         restrictions. Your device might not support Amiibo.

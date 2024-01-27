@@ -3,10 +3,6 @@
     <string name="bt_not_available">Bluetooth không có sẵn</string>
     <string name="bt_enable_canceled">Có lỗi xảy ra khi bật Bluetooth.</string>
     <string name="bt_discovery_canceled">Có lỗi xảy ra khi tìm kiếm thiết bị Bluetooth.</string>
-    <string name="could_not_pair">Không thể kết nối tự động</string>
-    <string name="pair_with_switch">Kết nối Switch</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">Thiết bị đã kết nối với Switch</string>
     <string name="disconnected_from_switch">Thiết bị đã ngắt kết nối với Switch</string>
     <string name="left_joycon">JoyCon trái</string>
@@ -14,7 +10,6 @@
     <string name="revert_bluetooth">Đặt lại các cài đặt Bluetooth</string>
     <string name="bt_config_is_reverted">Các cài đặt Bluetooth đã được đặt lại!</string>
     <string name="bt_config_was_not_changed">Các cài đặt Bluetooth chưa thay đổi.</string>
-    <string name="do_not_show_at_the_start_up">Đừng hiện hướng dẫn khi khởi động</string>
     <string name="right_joycon">JoyCon phải</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Thông tin và Pháp lý</string>
@@ -27,7 +22,6 @@
         triển hoặc nhà sản xuất thiết bị.
     </string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">Tùy chỉnh giao diện JoyCon trái</string>
     <string name="custom_ui_selection">Chọn giao diện tùy chỉnh</string>
     <string name="custom_ui">Tùy chỉnh giao diện</string>
     <string name="map_buttons">Map Buttons</string>
@@ -44,7 +38,6 @@
     <string name="joystick_mapping_completed">Bạn có muốn lưu joystick mapping?</string>
     <string name="save">Lưu</string>
     <string name="redo">Redo</string>
-    <string name="file_permission_is_required">Cần được cấp quyền để hiển thị danh sách tập tin.</string>
     <string name="save_button">Lưu</string>
     <string name="button_mappings_saves">Button mappings đã được lưu.</string>
     <string name="frequently_asked_questions">Câu hỏi thường được hỏi nhiều</string>
@@ -68,9 +61,6 @@
     <string name="enable_gyroscope">Bật con quay hồi chuyển (Gyroscope)</string>
     <string name="enable_amiibo">Bật NFC (thử nghiệm)</string>
 
-    <string name="purchase_pending">Thanh toán đang được xử lý, khởi động lại ứng dụng sau khi xử lý thành công.
-    </string>
-    <string name="acknowledgement_failed">Acknowledgement Failed</string>
     <string name="mtu_warning_title">Lưu ý kích cỡ MTU</string>
     <string name="mtu_warning_text">Chức năng NFC hiện tải chỉ hoạt động với thiết bị Samsung do có hỗ trợ phần cứng.
         Thiết bị của bạn có thể không hỗ trợ Amiibo.

@@ -3,10 +3,6 @@
     <string name="bt_not_available">蓝牙不可用</string>
     <string name="bt_enable_canceled">打开蓝牙出错</string>
     <string name="bt_discovery_canceled">启用蓝牙发现出错</string>
-    <string name="could_not_pair">无法自动配对</string>
-    <string name="pair_with_switch">配对Switch</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">连接到了Switch</string>
     <string name="disconnected_from_switch">Switch连接断开了</string>
     <string name="left_joycon">左JoyCon</string>
@@ -14,7 +10,6 @@
     <string name="revert_bluetooth">恢复蓝牙默认配置</string>
     <string name="bt_config_is_reverted">成功恢复蓝牙默认配置</string>
     <string name="bt_config_was_not_changed">蓝牙配置未修改</string>
-    <string name="do_not_show_at_the_start_up">启动不显示指南</string>
     <string name="right_joycon">右JoyCon</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">信息和授权</string>
@@ -25,7 +20,6 @@
     <string name="disconnect_controller">断开手柄</string>
     <string name="device_is_not_compatible">你的设备不支持这个APP,请联系开发者或者供应商.</string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">自定义左JoyCon UI</string>
     <string name="custom_ui_selection">选择自定义UI</string>
     <string name="map_buttons">重映射按键</string>
     <string name="settings">设置</string>
@@ -41,7 +35,6 @@
     <string name="joystick_mapping_completed">要保存当前手柄映射吗?</string>
     <string name="save">保存</string>
     <string name="redo">撤销</string>
-    <string name="file_permission_is_required">需要获取文件权限.</string>
     <string name="save_button">保存</string>
     <string name="button_mappings_saves">按键映射已保存.</string>
     <string name="frequently_asked_questions">常见问题</string>

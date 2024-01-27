@@ -3,10 +3,6 @@
     <string name="bt_not_available">Bluetooth ist nicht verfügbar/aktiviert.</string>
     <string name="bt_enable_canceled">Konnte nicht Verbinden mit der Switch.</string>
     <string name="bt_discovery_canceled">Ein Fehler ist bei der Suche nach der Switch Konsole aufgetreten.</string>
-    <string name="could_not_pair">Konnte nicht automatisch koppeln.</string>
-    <string name="pair_with_switch">Wollen sie mit der Switch verbinden</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">Mit der Switch verbunden!</string>
     <string name="disconnected_from_switch">Die Verbindung mit der Switch wurde getrennt.</string>
     <string name="left_joycon">Linker Joy-Con</string>
@@ -14,7 +10,6 @@
     <string name="revert_bluetooth">Bluetooth-Konfiguration wiederherstellen</string>
     <string name="bt_config_is_reverted">Die Bluetooth-Konfiguration wurde wiederhergestellt.</string>
     <string name="bt_config_was_not_changed">Die Bluetooth-Konfiguration wurde nicht verändert.</string>
-    <string name="do_not_show_at_the_start_up">Anleitung nicht mehr beim Starten der App anzeigen</string>
     <string name="right_joycon">Rechter Joy-Con</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Infos und Rechtshinweise</string>
@@ -31,7 +26,6 @@
         Dein Gerät ist möglicherweise nicht mit dieser App kompatibel. Kontaktiere den Entwickler oder den Hersteller.
     </string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">Benutzerdefinierte Oberfläche für linken Joy-Con</string>
     <string name="custom_ui_selection">Benutzerdefinierte Oberfläche</string>
     <string name="map_buttons">Tasten belegen</string>
     <string name="unknown">Unbekannt</string>
@@ -47,9 +41,6 @@
     <string name="joystick_mapping_completed">Joystick-Belegung speichern?</string>
     <string name="save">Speichern</string>
     <string name="redo">Nochmal</string>
-    <string name="file_permission_is_required">
-        Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
-    </string>
     <string name="save_button">Speichern</string>
     <string name="button_mappings_saves">Tastenbelegung gespeichert!</string>
     <string name="frequently_asked_questions">Häufig gestellte Fragen</string>

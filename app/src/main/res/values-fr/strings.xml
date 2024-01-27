@@ -3,10 +3,6 @@
     <string name="bt_not_available">Le Bluetooth n\'est pas activé.</string>
     <string name="bt_enable_canceled">Une erreur est survenue pendant l\'activation du Bluetooth.</string>
     <string name="bt_discovery_canceled">Une erreur est survenue pendant la recherche Bluetooth.</string>
-    <string name="could_not_pair">La synchronisation automatique a échoué</string>
-    <string name="pair_with_switch">Synchroniser la Switch</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">Périphérique connecté à la Switch</string>
     <string name="disconnected_from_switch">Périphérique déconnecté de la Switch</string>
     <string name="left_joycon">Joy-Con Gauche</string>
@@ -14,7 +10,6 @@
     <string name="revert_bluetooth">Réinitialiser les paramètres Bluetooth</string>
     <string name="bt_config_is_reverted">La configuration Bluetooth a été réinitalisée!</string>
     <string name="bt_config_was_not_changed">La configuration Bluetooth n\'a pas été modifié.</string>
-    <string name="do_not_show_at_the_start_up">Ne plus afficher le guide au démarrage</string>
     <string name="right_joycon">Joy-Con Droit</string>
     <string name="pro_controller">Manette Pro</string>
     <string name="info_and_legal">Informations juridiques</string>
@@ -29,7 +24,6 @@
         l\'application. Contactez le développeur ou votre fabricant.
     </string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">Customiser l\'interface du Joy-Con Gauche</string>
     <string name="custom_ui_selection">Customer les interfaces</string>
     <string name="map_buttons">Mapper les boutons</string>
     <string name="settings">Paramètres</string>
@@ -45,8 +39,6 @@
     <string name="joystick_mapping_completed">Voulez vous enregistrer le mappage des touches?</string>
     <string name="save">Enregistrer</string>
     <string name="redo">Refaire</string>
-    <string name="file_permission_is_required">Une permission est nécessaire pour obtenir la liste des fichiers.
-    </string>
     <string name="save_button">Enregistrer</string>
     <string name="button_mappings_saves">Le mappage des boutons a été enregistré.</string>
     <string name="frequently_asked_questions">Foire aux questions</string>
