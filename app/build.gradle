@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.freefair.android-lombok'
 
 android {
     compileSdk 34
@@ -79,9 +80,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    //Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     //Rest API
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

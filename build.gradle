@@ -5,9 +5,11 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2.0'
+        classpath 'io.freefair.gradle:android-gradle-plugins:8.2.1'
     }
 }
 
