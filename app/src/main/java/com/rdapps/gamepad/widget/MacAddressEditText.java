@@ -5,6 +5,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
+import java.util.Locale;
+
 /**
  * Modified version of <a href="https://github.com/r-cohen/macaddress-edittext">Mac Address EditText</a>
  */
@@ -47,7 +49,7 @@ public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditT
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String enteredMac = MacAddressEditText.this.getText().toString().toUpperCase();
+                String enteredMac = MacAddressEditText.this.getText().toString().toUpperCase(Locale.ROOT);
                 String cleanMac = clearNonMacCharacters(enteredMac);
 
                 int selectionStart = MacAddressEditText.this.getSelectionStart();

@@ -20,6 +20,7 @@ import com.rdapps.gamepad.util.ByteUtils;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.Optional;
 
 import static com.rdapps.gamepad.log.JoyConLog.log;
@@ -102,7 +103,7 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
             ControllerType controllerType = Optional.ofNullable(type)
                     .map(t -> {
                         try {
-                            return ControllerType.valueOf(t.toUpperCase());
+                            return ControllerType.valueOf(t.toUpperCase(Locale.ROOT));
                         } catch (Exception e) {
                             return null;
                         }
@@ -112,7 +113,7 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
             ColorSection sectionEnum = Optional.ofNullable(section)
                     .map(s -> {
                         try {
-                            return ColorSection.valueOf(s.toUpperCase());
+                            return ColorSection.valueOf(s.toUpperCase(Locale.ROOT));
                         } catch (Exception e) {
                             return null;
                         }

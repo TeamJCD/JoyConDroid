@@ -19,6 +19,7 @@ import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.util.PreferenceUtils;
 
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -91,7 +92,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
             FeatureType featureType = Optional.ofNullable(type)
                     .map(t -> {
                         try {
-                            return FeatureType.valueOf(t.toUpperCase());
+                            return FeatureType.valueOf(t.toUpperCase(Locale.ROOT));
                         } catch (Exception e) {
                             return null;
                         }

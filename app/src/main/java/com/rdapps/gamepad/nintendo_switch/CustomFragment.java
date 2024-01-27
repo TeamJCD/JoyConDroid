@@ -29,6 +29,7 @@ import com.rdapps.gamepad.led.LedState;
 import com.rdapps.gamepad.util.ControllerFunctions;
 
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.Phaser;
 
@@ -89,7 +90,7 @@ public class CustomFragment extends ControllerFragment {
 
             @Override
             public boolean onConsoleMessage(ConsoleMessage cm) {
-                log("CONTENT", String.format("%s @ %d: %s",
+                log("CONTENT", String.format(Locale.ROOT, "%s @ %d: %s",
                         cm.message(), cm.lineNumber(), cm.sourceId()));
                 return true;
             }

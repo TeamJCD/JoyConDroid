@@ -59,7 +59,7 @@ public class UserGuideActivity extends AppCompatActivity {
 
             @Override
             public boolean onConsoleMessage(ConsoleMessage cm) {
-                log("CONTENT", String.format("%s @ %d: %s",
+                log("CONTENT", String.format(Locale.ROOT, "%s @ %d: %s",
                         cm.message(), cm.lineNumber(), cm.sourceId()));
                 return true;
             }
