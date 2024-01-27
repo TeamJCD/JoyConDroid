@@ -44,10 +44,10 @@
     <string name="save_button">Speichern</string>
     <string name="button_mappings_saves">Tastenbelegung gespeichert!</string>
     <string name="frequently_asked_questions">Häufig gestellte Fragen</string>
-    <string name="set_bt_address">Bluetooth Mac-Addresse für bessere Verbindung eingeben</string>
+    <string name="set_bt_address">Bluetooth Mac-Adresse für bessere Verbindung eingeben</string>
     <string name="later">Später</string>
     <string name="set">Einstellen</string>
-    <string name="incorrect_mac_address">Inkorrekte Mac-Addresse!</string>
+    <string name="incorrect_mac_address">Inkorrekte Mac-Adresse!</string>
     <string name="never_ask_again">Nicht mehr fragen</string>
     <string name="push_axis_same_direction_to_map_to_button">Drücke %s in die gleiche Richtung um auf %s zu belegen
     </string>
