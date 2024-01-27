@@ -356,9 +356,11 @@ public class MainActivity extends AppCompatActivity {
                 PreferenceUtils.removeBluetoothAddress(this);
                 PreferenceUtils.removeDoNotAskMacAddress(this);
                 Toast.makeText(this, R.string.bt_config_is_reverted, Toast.LENGTH_LONG).show();
-            } catch (SecurityException e) {
-                missingPermission(getApplicationContext(), android.Manifest.permission.BLUETOOTH_CONNECT);
-                log(TAG, "Missing permission", e);
+            } catch (SecurityException ex) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(getApplicationContext(), BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
             }
         } else {
             mBluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(new MainActBBRListener());

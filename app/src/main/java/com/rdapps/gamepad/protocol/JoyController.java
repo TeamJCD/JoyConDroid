@@ -7,6 +7,7 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 
+import android.os.Build;
 import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.BuildConfig;
 import com.rdapps.gamepad.amiibo.AmiiboConfig;
@@ -300,8 +301,10 @@ public class JoyController extends AbstractDevice {
             try {
                 return proxy.sendReport(remoteDevice, report.getReportId(), report.build());
             } catch (SecurityException ex) {
-                missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
-                log(TAG, "Missing permission", ex);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
             }
         } else {
             log(TAG, "Could not send Report: " + report.toString());

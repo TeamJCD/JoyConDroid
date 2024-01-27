@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import static android.bluetooth.BluetoothAdapter.ACTION_DISCOVERY_FINISHED;
 import static android.bluetooth.BluetoothAdapter.ACTION_DISCOVERY_STARTED;
@@ -68,9 +69,11 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
                             && bondState == BluetoothDevice.BOND_BONDED) {
                         listener.onBonded(device);
                     }
-                } catch (SecurityException e) {
-                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
-                    log(TAG, "Missing permission", e);
+                } catch (SecurityException ex) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                        log(TAG, "Missing permission", ex);
+                    }
                 }
                 break;
             default:

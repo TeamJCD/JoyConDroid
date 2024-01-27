@@ -3,6 +3,7 @@ package com.rdapps.gamepad.fragment;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.AttributeSet;
@@ -69,8 +70,10 @@ public class DeviceNameFragment extends Fragment implements ResettableSettingFra
                 String name = bluetoothAdapter.getName();
                 textView.setText(name);
             } catch (SecurityException ex) {
-                missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
-                log(TAG, "Missing permission", ex);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
             }
         }
     }
@@ -96,8 +99,10 @@ public class DeviceNameFragment extends Fragment implements ResettableSettingFra
                     bluetoothAdapter.setName(deviceName);
                     setDeviceName();
                 } catch (SecurityException ex) {
-                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
-                    log(TAG, "Missing permission", ex);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                        log(TAG, "Missing permission", ex);
+                    }
                 }
             }
         });

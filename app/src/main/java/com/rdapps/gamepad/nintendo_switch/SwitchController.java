@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothHidDevice;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
+import android.os.Build;
 import android.os.Process;
 import android.util.Log;
 
@@ -1085,8 +1086,10 @@ public class SwitchController extends AbstractDevice {
             try {
                 return proxy.sendReport(remoteDevice, reportId, data);
             } catch (SecurityException ex) {
-                missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
-                log(TAG, "Missing permission", ex);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
             }
         }
         return false;

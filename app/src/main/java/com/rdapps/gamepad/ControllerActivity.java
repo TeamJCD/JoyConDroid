@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.KeyEvent;
@@ -182,8 +183,10 @@ public class ControllerActivity extends AppCompatActivity {
                 Intent enableIntent = new Intent(ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableIntent, REQUEST_BT_ENABLE);
             } catch (SecurityException ex) {
-                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
-                log(TAG, "Missing permission", ex);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
             }
         } else {
             setupHIDService();
@@ -253,8 +256,10 @@ public class ControllerActivity extends AppCompatActivity {
                 startDiscoverable(60);
             }
         } catch (SecurityException ex) {
-            missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN);
-            log(TAG, "Missing permission", ex);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN);
+                log(TAG, "Missing permission", ex);
+            }
         }
     }
 
@@ -265,8 +270,10 @@ public class ControllerActivity extends AppCompatActivity {
                 askingDiscoverable = false;
             }
         } catch (SecurityException ex) {
-            missingPermission(getApplicationContext(), android.Manifest.permission.BLUETOOTH_SCAN);
-            log(TAG, "Missing permission", ex);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN);
+                log(TAG, "Missing permission", ex);
+            }
         }
     }
 
@@ -277,8 +284,10 @@ public class ControllerActivity extends AppCompatActivity {
             startActivityForResult(discoverableIntent, REQUEST_BT_DISCOVERY);
             askingDiscoverable = true;
         } catch (SecurityException ex) {
-            missingPermission(getApplicationContext(), android.Manifest.permission.BLUETOOTH_ADVERTISE);
-            log(TAG, "Missing permission", ex);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_ADVERTISE);
+                log(TAG, "Missing permission", ex);
+            }
         }
     }
 
