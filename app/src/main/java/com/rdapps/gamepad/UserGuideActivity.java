@@ -1,5 +1,6 @@
 package com.rdapps.gamepad;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ public class UserGuideActivity extends AppCompatActivity {
     public static final String PATH = "PATH";
 
     @Override
+    @SuppressLint("SetJavaScriptEnabled")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

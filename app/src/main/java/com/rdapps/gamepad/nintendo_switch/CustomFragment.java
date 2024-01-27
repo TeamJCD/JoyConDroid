@@ -1,5 +1,6 @@
 package com.rdapps.gamepad.nintendo_switch;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -68,6 +69,7 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
+    @SuppressLint("SetJavaScriptEnabled")
     public void onViewCreated(View view, Bundle savedInstanceState) {
         this.url = getArguments().getString(CUSTOM_UI_URL);
         super.onViewCreated(view, savedInstanceState);
