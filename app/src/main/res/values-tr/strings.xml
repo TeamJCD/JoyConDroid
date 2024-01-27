@@ -41,7 +41,6 @@
     <string name="save_button">Kaydet</string>
     <string name="button_mappings_saves">Tuş atamaları kaydedildi.</string>
     <string name="frequently_asked_questions">Sık Sorulan Sorular</string>
-    <string name="discord" translatable="false">Discord</string>
     <string name="set_bt_address">Daha iyi bağlantı için Bluetooth Mac Adresini girin</string>
     <string name="later">Sonra</string>
     <string name="set">Ayarla</string>
