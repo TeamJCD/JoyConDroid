@@ -63,10 +63,12 @@ public class JoystickMappingActivity extends AppCompatActivity {
         instructionView = findViewById(R.id.instruction);
         resultView = findViewById(R.id.result);
 
-        instructionView.setText(
-                joystickType == RIGHT_JOYSTICK ?
-                        R.string.push_right_joystick_up :
-                        R.string.push_left_joystick_up);
+        final int instructionText = joystickType == RIGHT_JOYSTICK ?
+                R.string.push_right_joystick_up :
+                R.string.push_left_joystick_up;
+
+        instructionView.setText(instructionText);
+        imageView.setContentDescription(getString(instructionText));
 
         state = State.Y;
         resultAction = new ControllerAction(joystickType, -1, 0, -1, 0);
