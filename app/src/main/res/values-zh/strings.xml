@@ -25,11 +25,11 @@
     <string name="settings">设置</string>
     <string name="unknown">未知</string>
     <string name="press_a_button_to_remap">按一个按键来重映射 %s</string>
-    <string name="repress_to_map">按相同按键来映射%s 到 %s</string>
+    <string name="repress_to_map">按相同按键来映射%1$s 到 %2$s</string>
     <string name="reset_settings">重置配置</string>
     <string name="push_right_joystick_up">右摇杆上推</string>
     <string name="push_left_joystick_up">左摇杆上推</string>
-    <string name="axis_registered">%s 轴注册到 %s</string>
+    <string name="axis_registered">%1$s 轴注册到 %2$s</string>
     <string name="push_right_joystick_right">右摇杆右推</string>
     <string name="push_left_joystick_right">左摇杆右推</string>
     <string name="joystick_mapping_completed">要保存当前手柄映射吗?</string>
@@ -43,7 +43,7 @@
     <string name="set">设置</string>
     <string name="incorrect_mac_address">非法MAC地址</string>
     <string name="never_ask_again">不再询问</string>
-    <string name="push_axis_same_direction_to_map_to_button">按%s 相同方向来映射到 %s</string>
+    <string name="push_axis_same_direction_to_map_to_button">按%1$s 相同方向来映射到 %2$s</string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">ProController机身颜色:</string>

@@ -28,11 +28,11 @@
     <string name="settings">Ayarlar</string>
     <string name="unknown">Bilinmiyor</string>
     <string name="press_a_button_to_remap">%s tuşunu yeniden atamak için bir tuşa bas</string>
-    <string name="repress_to_map">%s tuşunu %s tuşuna atamak için aynı tuşa bas</string>
+    <string name="repress_to_map">%1$s tuşunu %2$s tuşuna atamak için aynı tuşa bas</string>
     <string name="reset_settings">Ayarları Sıfırla</string>
     <string name="push_right_joystick_up">Sağ analoğu yukarı it</string>
     <string name="push_left_joystick_up">Sol analoğu yukarı it</string>
-    <string name="axis_registered">%s ekseni %s atandı</string>
+    <string name="axis_registered">%1$s ekseni %2$s atandı</string>
     <string name="push_right_joystick_right">Sağ analoğu sağa it</string>
     <string name="push_left_joystick_right">Sol analoğu sağa it</string>
     <string name="joystick_mapping_completed">Analog atamasını kaydetmek istiyor musun?</string>
@@ -46,7 +46,7 @@
     <string name="set">Ayarla</string>
     <string name="incorrect_mac_address">Yanlış Mac Adresi</string>
     <string name="never_ask_again">Bir Daha Sorma</string>
-    <string name="push_axis_same_direction_to_map_to_button">Aynı yöne %s it %s ayarlamak için</string>
+    <string name="push_axis_same_direction_to_map_to_button">Aynı yöne %1$s it %2$s ayarlamak için</string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">ProController Gövde Rengi:</string>

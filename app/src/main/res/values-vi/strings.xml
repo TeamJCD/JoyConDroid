@@ -28,11 +28,11 @@
     <string name="settings">Cài đặt</string>
     <string name="unknown">Không biết</string>
     <string name="press_a_button_to_remap">Bấm một nút để remap %s</string>
-    <string name="repress_to_map">Bấm lại để map %s thành %s</string>
+    <string name="repress_to_map">Bấm lại để map %1$s thành %2$s</string>
     <string name="reset_settings">Khôi phục cài đặt</string>
     <string name="push_right_joystick_up">Đẩy joystick phải lên</string>
     <string name="push_left_joystick_up">Đẩy joystick trái lên</string>
-    <string name="axis_registered">%s axis được đăng kí là %s</string>
+    <string name="axis_registered">%1$s axis được đăng kí là %2$s</string>
     <string name="push_right_joystick_right">Đẩy joystick phải sang phải</string>
     <string name="push_left_joystick_right">Đẩy joystick trái sang phải</string>
     <string name="joystick_mapping_completed">Bạn có muốn lưu joystick mapping?</string>
@@ -46,7 +46,7 @@
     <string name="set">Đặt</string>
     <string name="incorrect_mac_address">Địa chỉ MAC sai</string>
     <string name="never_ask_again">Đừng hỏi lại</string>
-    <string name="push_axis_same_direction_to_map_to_button">Đẩy %s về cùng một hướng để map thành %s</string>
+    <string name="push_axis_same_direction_to_map_to_button">Đẩy %1$s về cùng một hướng để map thành %2$s</string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">Màu thân Pro Controller:</string>

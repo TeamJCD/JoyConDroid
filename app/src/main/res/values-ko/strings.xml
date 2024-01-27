@@ -26,11 +26,11 @@
     <string name="settings">설정</string>
     <string name="unknown">알 수 없음</string>
     <string name="press_a_button_to_remap">%s 기능을 매핑할 버튼을 눌러주세요.</string>
-    <string name="repress_to_map">%s 기능을 %s 버튼에 매핑하려면 동일한 버튼을 다시 한 번 눌러주세요.</string>
+    <string name="repress_to_map">%1$s 기능을 %2$s 버튼에 매핑하려면 동일한 버튼을 다시 한 번 눌러주세요.</string>
     <string name="reset_settings">설정 초기화</string>
     <string name="push_right_joystick_up">오른쪽 조이스틱을 위로 움직여주세요</string>
     <string name="push_left_joystick_up">왼쪽 조이스틱을 위로 움직여주세요</string>
-    <string name="axis_registered">%s 축이 %s 버튼에 매핑되었습니다.</string>
+    <string name="axis_registered">%1$s 축이 %2$s 버튼에 매핑되었습니다.</string>
     <string name="push_right_joystick_right">오른쪽 조이스틱을 오른쪽으로 움직여주세요</string>
     <string name="push_left_joystick_right">왼쪽 조이스틱을 오른쪽으로 움직여주세요</string>
     <string name="joystick_mapping_completed">조이스틱 매핑을 저장하시겠습니까?</string>
@@ -44,7 +44,7 @@
     <string name="set">설정하기</string>
     <string name="incorrect_mac_address">올바르지 않은 MAC 주소입니다.</string>
     <string name="never_ask_again">다시 묻지 말아주세요</string>
-    <string name="push_axis_same_direction_to_map_to_button">%s축을 %s 버튼에 매핑하려면 동일한 방향으로 다시 한 번 움직여주세요.</string>
+    <string name="push_axis_same_direction_to_map_to_button">%1$s축을 %2$s 버튼에 매핑하려면 동일한 방향으로 다시 한 번 움직여주세요.</string>
 
     <string name="pro_controller_body_color">Pro 컨트롤러 몸통 색:</string>
     <string name="pro_controller_button_color">Pro 컨트롤러 버튼 색:</string>

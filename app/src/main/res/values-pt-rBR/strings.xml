@@ -29,9 +29,9 @@
     <string name="unknown">Desconhecer</string>
     <string name="map_buttons">Mapear botões</string>
     <string name="press_a_button_to_remap">Pressione um botão para remapear %s</string>
-    <string name="repress_to_map">Pressione o mesmo botão para mapear %s para %s</string>
+    <string name="repress_to_map">Pressione o mesmo botão para mapear %1$s para %2$s</string>
     <string name="reset_settings">Redefinir Configurações</string>
-    <string name="axis_registered">%s axis registrado para %s</string>
+    <string name="axis_registered">%1$s axis registrado para %2$s</string>
     <string name="button_mappings_saves">Os mapeamentos de botões foram salvos.</string>
     <string name="joystick_mapping_completed">"Deseja salvar o mapeamento do joystick? "</string>
     <string name="push_left_joystick_right">Mover joystick direito para direita</string>
@@ -48,7 +48,7 @@
     <string name="settings">Configurações</string>
     <string name="set">Determinar</string>
     <string name="set_bt_address">Digite o endereço MAC do Bluetooth para melhorar a conexão</string>
-    <string name="push_axis_same_direction_to_map_to_button">Pressione %s na mesma direção para mapear para %s</string>
+    <string name="push_axis_same_direction_to_map_to_button">Pressione %1$s na mesma direção para mapear para %2$s</string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">Cor do Pro Controller:</string>

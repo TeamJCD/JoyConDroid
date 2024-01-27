@@ -30,11 +30,11 @@
     <string name="settings">Impostazioni</string>
     <string name="unknown">Sconosciuto</string>
     <string name="press_a_button_to_remap">Premi un pulsante per rimappare %s</string>
-    <string name="repress_to_map">Premi lo stesso pulsante per rimappare %s su %s</string>
+    <string name="repress_to_map">Premi lo stesso pulsante per rimappare %1$s su %2$s</string>
     <string name="reset_settings">Resetta Impostazioni</string>
     <string name="push_right_joystick_up">Tira su la levetta destra</string>
     <string name="push_left_joystick_up">Tira su la levetta sinistra</string>
-    <string name="axis_registered">asse %s registrato su %s</string>
+    <string name="axis_registered">asse %1$s registrato su %2$s</string>
     <string name="push_right_joystick_right">Tira a destra la levetta destra</string>
     <string name="push_left_joystick_right">Tira a sinistra la levetta sinistra</string>
     <string name="joystick_mapping_completed">Vuoi salvare la mappatura del joystick?</string>
@@ -48,7 +48,7 @@
     <string name="set">Imposta</string>
     <string name="incorrect_mac_address">MAC Address non corretto</string>
     <string name="never_ask_again">Non chiedere più</string>
-    <string name="push_axis_same_direction_to_map_to_button">Tira %s nella stessa direzione per mappare su %s</string>
+    <string name="push_axis_same_direction_to_map_to_button">Tira %1$s nella stessa direzione per mappare su %2$s</string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">Colore Corpo ProController:</string>

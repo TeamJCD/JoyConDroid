@@ -31,11 +31,11 @@
     <string name="unknown">Unbekannt</string>
     <string name="settings">Einstellungen</string>
     <string name="press_a_button_to_remap">Drücke A zum Umbelegen von %s</string>
-    <string name="repress_to_map">Drücke denselben Knopf um %s auf %s zu legen</string>
+    <string name="repress_to_map">Drücke denselben Knopf um %1$s auf %2$s zu legen</string>
     <string name="reset_settings">Einstellungen zurücksetzen</string>
     <string name="push_right_joystick_up">Drücke den rechten Stick nach oben</string>
     <string name="push_left_joystick_up">Drücke den linken Stick nach oben</string>
-    <string name="axis_registered">Achse von %s auf %s registriert</string>
+    <string name="axis_registered">Achse von %1$s auf %2$s registriert</string>
     <string name="push_right_joystick_right">Drücke den rechten Stick nach rechts</string>
     <string name="push_left_joystick_right">Drücke den linken Stick nach rechts</string>
     <string name="joystick_mapping_completed">Joystick-Belegung speichern?</string>
@@ -49,7 +49,7 @@
     <string name="set">Einstellen</string>
     <string name="incorrect_mac_address">Inkorrekte Mac-Adresse!</string>
     <string name="never_ask_again">Nicht mehr fragen</string>
-    <string name="push_axis_same_direction_to_map_to_button">Drücke %s in die gleiche Richtung um auf %s zu belegen
+    <string name="push_axis_same_direction_to_map_to_button">Drücke %1$s in die gleiche Richtung um auf %2$s zu belegen
     </string>
 
     <!-- Colors -->

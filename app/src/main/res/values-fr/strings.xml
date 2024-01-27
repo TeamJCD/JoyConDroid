@@ -29,11 +29,11 @@
     <string name="settings">Paramètres</string>
     <string name="unknown">Inconnu</string>
     <string name="press_a_button_to_remap">Sélectionnez un bouton à mapper %s</string>
-    <string name="repress_to_map">Appuyez le même bouton pour mapper %s à %s</string>
+    <string name="repress_to_map">Appuyez le même bouton pour mapper %1$s à %2$s</string>
     <string name="reset_settings">Réinitialiser les paramètres</string>
     <string name="push_right_joystick_up">Poussez le joystick droit vers le haut</string>
     <string name="push_left_joystick_up">Poussez le joystick gauche vers le haut</string>
-    <string name="axis_registered">L\'axe %s a été assigné à %s</string>
+    <string name="axis_registered">L\'axe %1$s a été assigné à %2$s</string>
     <string name="push_right_joystick_right">Poussez le joystick droit vers la droite</string>
     <string name="push_left_joystick_right">Poussez le joystick gauche vers la droite</string>
     <string name="joystick_mapping_completed">Voulez vous enregistrer le mappage des touches?</string>
@@ -47,7 +47,7 @@
     <string name="set">Définir</string>
     <string name="incorrect_mac_address">Adresse Mac incorrecte</string>
     <string name="never_ask_again">Ne plus jamais demander</string>
-    <string name="push_axis_same_direction_to_map_to_button">Pousser %s vers la même direction pour assigner à %s
+    <string name="push_axis_same_direction_to_map_to_button">Pousser %1$s vers la même direction pour assigner à %2$s
     </string>
 
     <!-- Colors -->

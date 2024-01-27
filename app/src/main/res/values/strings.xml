@@ -29,11 +29,11 @@
     <string name="settings">Settings</string>
     <string name="unknown">Unknown</string>
     <string name="press_a_button_to_remap">Press a button to remap %s</string>
-    <string name="repress_to_map">Press same button to map %s to %s</string>
+    <string name="repress_to_map">Press same button to map %1$s to %2$s</string>
     <string name="reset_settings">Reset Settings</string>
     <string name="push_right_joystick_up">Push right joystick up</string>
     <string name="push_left_joystick_up">Push left joystick up</string>
-    <string name="axis_registered">%s axis registered to %s</string>
+    <string name="axis_registered">%1$s axis registered to %2$s</string>
     <string name="push_right_joystick_right">Push right joystick right</string>
     <string name="push_left_joystick_right">Push left joystick right</string>
     <string name="joystick_mapping_completed">Do you want to save joystick mapping?</string>
@@ -48,7 +48,7 @@
     <string name="set">Set</string>
     <string name="incorrect_mac_address">Incorrect Mac Address</string>
     <string name="never_ask_again">Never Ask Again</string>
-    <string name="push_axis_same_direction_to_map_to_button">Push %s to same direction to map to %s</string>
+    <string name="push_axis_same_direction_to_map_to_button">Push %1$s to same direction to map to %2$s</string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">ProController Body Color:</string>

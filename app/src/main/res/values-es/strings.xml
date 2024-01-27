@@ -29,11 +29,11 @@
     <string name="settings">Opciones</string>
     <string name="unknown">Desconocido</string>
     <string name="press_a_button_to_remap">Presione un boton para remapear %s.</string>
-    <string name="repress_to_map">Presione el mismo boton para mapear %s a %s.</string>
+    <string name="repress_to_map">Presione el mismo boton para mapear %1$s a %2$s.</string>
     <string name="reset_settings">Reiniciar opciones.</string>
     <string name="push_right_joystick_up">incline la palanca derecha hacia arriba.</string>
     <string name="push_left_joystick_up">incline la palanca izquierda hacia arriba.</string>
-    <string name="axis_registered">%s axis registrada como %s.</string>
+    <string name="axis_registered">%1$s axis registrada como %2$s.</string>
     <string name="push_right_joystick_right">Incline la palanca derecha hacia la derecha.</string>
     <string name="push_left_joystick_right">Incline la palanca izquierda hacia la derecha.</string>
     <string name="joystick_mapping_completed">¿Desea guardar el mapeado del joystick?</string>
@@ -47,7 +47,7 @@
     <string name="set">Establecer</string>
     <string name="incorrect_mac_address">Direccion MAC incorrecta</string>
     <string name="never_ask_again">No volver a preguntarme</string>
-    <string name="push_axis_same_direction_to_map_to_button">Incline %s a la misma direccion para mapear %s</string>
+    <string name="push_axis_same_direction_to_map_to_button">Incline %1$s a la misma direccion para mapear %2$s</string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">Color del cuerpo del Pro Controller:</string>
