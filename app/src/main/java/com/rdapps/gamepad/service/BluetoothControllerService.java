@@ -1,6 +1,7 @@
 package com.rdapps.gamepad.service;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -150,6 +151,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         return false;
     }
 
+    @SuppressLint("HardwareIds")
     private String getBluetoothMacAddress() {
         String address = mBluetoothAdapter.getAddress();
 
