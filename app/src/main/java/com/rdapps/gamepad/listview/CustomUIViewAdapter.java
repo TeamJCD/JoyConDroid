@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rdapps.gamepad.R;
@@ -57,8 +56,6 @@ public class CustomUIViewAdapter extends BaseAdapter {
         TextView nameView = view.findViewById(R.id.customUIName);
         nameView.setText(customUIItem.getName());
 
-        ImageView imageView = view.findViewById(R.id.customUIIcon);
-
         int icon = R.drawable.ic_left_joycon_icon_black;
         if (Objects.nonNull(customUIItem.getType())) {
             icon = switch (customUIItem.getType()) {
@@ -67,7 +64,7 @@ public class CustomUIViewAdapter extends BaseAdapter {
                 case PRO_CONTROLLER -> R.drawable.ic_procontroller_icon_black;
             };
         }
-        imageView.setImageResource(icon);
+        nameView.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
 
         return view;
     }
