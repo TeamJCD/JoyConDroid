@@ -101,6 +101,8 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
             Bundle bundle = new Bundle();
             bundle.putSerializable(TYPE, featureType);
             setArguments(bundle);
+
+            typedArray.recycle();
         }
     }
 

@@ -123,6 +123,8 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
             bundle.putSerializable(TYPE, controllerType);
             bundle.putSerializable(SECTION, sectionEnum);
             setArguments(bundle);
+
+            typedArray.recycle();
         }
     }
 

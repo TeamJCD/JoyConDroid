@@ -85,6 +85,7 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
             customUIItem.setVersion(version);
             customUIItem.setAppVersion(appVersion);
             customUIItem.setUrl(authority);
+            cursor.close();
             db.close();
             return customUIItem;
         } else {
@@ -117,6 +118,7 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
             customUIItem.setUrl(authority);
             customUIItems.add(customUIItem);
         }
+        cursor.close();
         db.close();
         return customUIItems;
     }
