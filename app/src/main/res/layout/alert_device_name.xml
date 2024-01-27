@@ -12,5 +12,6 @@
         android:hint="@string/device_name"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:inputType="text" />
 </LinearLayout>
