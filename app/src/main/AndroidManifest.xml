@@ -35,6 +35,8 @@
                 android:configChanges="orientation|keyboardHidden"
                 android:screenOrientation="portrait"
                 android:exported="true">
+                android:exported="true"
+                tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -44,32 +46,39 @@
             android:name=".ControllerActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name=".InfoAndLegalActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".CustomUIActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ButtonMappingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".JoystickMappingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".UserGuideActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <activity android:name=".RegisterUIActivity" android:exported="false">
             <intent-filter>
