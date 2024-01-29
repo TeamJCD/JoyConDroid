@@ -1,6 +1,7 @@
 package com.rdapps.gamepad.fragment;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -130,7 +131,10 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        ColorPickerDialog colorPickerDialog = ColorPickerDialog.createColorPickerDialog(getContext());
+        int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        ColorPickerDialog colorPickerDialog = ColorPickerDialog.createColorPickerDialog(getContext(),
+                nightModeFlags == Configuration.UI_MODE_NIGHT_YES ?
+                        ColorPickerDialog.DARK_THEME : ColorPickerDialog.LIGHT_THEME);
         colorPickerDialog.setTitle(textView.getText());
         colorPickerDialog.setOnColorPickedListener((color, hexVal) -> {
             if (eeprom != null) {

@@ -5,18 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
-    tools:context="com.rdapps.gamepad.CustomUIActivity">
+    tools:context=".CustomUIActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mainMenuToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
         app:logo="@drawable/ic_procontroller_icon"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
         app:title="@string/custom_ui_selection"
         app:titleMarginStart="32dp" />
 
@@ -25,10 +23,8 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:indeterminate="true"
-        android:indeterminateOnly="true"
-        android:indeterminateTint="@color/blue" />
+        android:indeterminateOnly="true" />
 
     <ListView
         android:id="@+id/customUIList"

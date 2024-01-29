@@ -17,13 +17,11 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/unknown"
-            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:drawablePadding="5dp"
-            app:drawableStartCompat="@drawable/ic_left_joycon_icon_black" />
+            app:drawableStartCompat="@drawable/ic_left_joycon_icon" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey" />
+        android:layout_height="1dp" />
 </LinearLayout>

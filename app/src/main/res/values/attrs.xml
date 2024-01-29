@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="colorCustomBrandBlue" format="color" />
+    <attr name="colorCustomBrandRed" format="color" />
+    <attr name="colorCustomLauncherBackground" format="color" />
+    <attr name="colorCustomFocused" format="color" />
+    <attr name="colorCustomPressed" format="color" />
+    <attr name="colorCustomReleased" format="color" />
     <declare-styleable name="JoyStick">
         <attr name="padColor" format="color" />
+        <attr name="buttonBorderColor" format="color" />
         <attr name="buttonColor" format="color" />
         <attr name="stayPut" format="boolean" />
         <attr name="percentage" format="integer" />

@@ -8,11 +8,9 @@
         android:id="@+id/deviceEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorHeader"
         android:hint="@string/device_name"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:textColor="@color/black"
         android:inputType="text"
         android:autofillHints="name, username" />
 </LinearLayout>

@@ -56,12 +56,12 @@ public class CustomUIViewAdapter extends BaseAdapter {
         TextView nameView = view.findViewById(R.id.customUIName);
         nameView.setText(customUIItem.getName());
 
-        int icon = R.drawable.ic_left_joycon_icon_black;
+        int icon = R.drawable.ic_left_joycon_icon;
         if (Objects.nonNull(customUIItem.getType())) {
             icon = switch (customUIItem.getType()) {
-                case RIGHT_JOYCON -> R.drawable.ic_right_joycon_icon_black;
-                case LEFT_JOYCON -> R.drawable.ic_left_joycon_icon_black;
-                case PRO_CONTROLLER -> R.drawable.ic_procontroller_icon_black;
+                case RIGHT_JOYCON -> R.drawable.ic_right_joycon_icon;
+                case LEFT_JOYCON -> R.drawable.ic_left_joycon_icon;
+                case PRO_CONTROLLER -> R.drawable.ic_procontroller_icon;
             };
         }
         nameView.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);

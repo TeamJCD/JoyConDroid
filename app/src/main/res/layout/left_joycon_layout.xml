@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue"
-    android:orientation="vertical">
-
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:baselineAligned="false"
+              android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:orientation="vertical">
 
-            <include
+        <include
                 layout="@layout/led_layout_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="19">
 
-                <Button
+            <ImageButton
                     android:id="@+id/zl"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -42,9 +35,11 @@
                     app:layout_constraintDimensionRatio="H,5:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="ZL"
+                    tools:ignore="HardcodedText"/>
 
-                <Button
+            <ImageButton
                     android:id="@+id/l"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -57,9 +52,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/zl" />
+                    app:layout_constraintTop_toBottomOf="@+id/zl"
+                    android:contentDescription="L"
+                    tools:ignore="HardcodedText"/>
 
-                <LinearLayout
+            <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="16dp"
@@ -70,12 +67,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1">
 
-                        <com.erz.joysticklibrary.JoyStick
+                    <com.erz.joysticklibrary.JoyStick
                             android:id="@+id/joy"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
@@ -85,36 +82,36 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:padColor="@color/dark_blue"
-                            app:percentage="50" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:padColor="@color/custom_brand_blue"
+                            app:percentage="50"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1">
 
-                        <include
+                    <include
                             layout="@layout/direction_pad_layout"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             app:layout_constraintDimensionRatio="H,1:1"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:layout_constraintStart_toStartOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </LinearLayout>
+            </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:orientation="vertical">
 
-            <Button
+        <ImageButton
                 android:id="@+id/minus"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -126,9 +123,11 @@
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="Minus"
+                tools:ignore="HardcodedText"/>
 
-            <Button
+        <ImageButton
                 android:id="@+id/sr"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -136,14 +135,16 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_sr"
+                android:background="@drawable/ic_sr_left"
                 app:layout_constraintBottom_toTopOf="@+id/capture"
                 app:layout_constraintDimensionRatio="H,1:2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sync" />
+                app:layout_constraintTop_toBottomOf="@+id/sync"
+                android:contentDescription="SR"
+                tools:ignore="HardcodedText"/>
 
-            <Button
+        <ImageButton
                 android:id="@+id/sync"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -151,14 +152,16 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_sync"
+                android:background="@drawable/ic_sync_left"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="Sync"
+                tools:ignore="HardcodedText"/>
 
-            <Button
+        <ImageButton
                 android:id="@+id/sl"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -166,14 +169,16 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_sl"
+                android:background="@drawable/ic_sl_left"
                 app:layout_constraintBottom_toTopOf="@+id/sync"
                 app:layout_constraintDimensionRatio="H,1:2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/minus" />
+                app:layout_constraintTop_toBottomOf="@+id/minus"
+                android:contentDescription="SL"
+                tools:ignore="HardcodedText"/>
 
-            <Button
+        <ImageButton
                 android:id="@+id/capture"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -185,8 +190,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="Capture"
+                tools:ignore="HardcodedText"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

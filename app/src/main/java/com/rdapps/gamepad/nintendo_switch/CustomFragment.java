@@ -17,8 +17,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 
+import android.widget.ImageButton;
 import androidx.fragment.app.FragmentActivity;
 
 import com.erz.joysticklibrary.JoyStick;
@@ -388,77 +388,77 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public Button getSR() {
+    public ImageButton getSR() {
         return null;
     }
 
     @Override
-    public Button getSL() {
+    public ImageButton getSL() {
         return null;
     }
 
     @Override
-    public Button getUp() {
+    public ImageButton getUp() {
         return null;
     }
 
     @Override
-    public Button getDown() {
+    public ImageButton getDown() {
         return null;
     }
 
     @Override
-    public Button getLeft() {
+    public ImageButton getLeft() {
         return null;
     }
 
     @Override
-    public Button getRight() {
+    public ImageButton getRight() {
         return null;
     }
 
     @Override
-    public Button getZL() {
+    public ImageButton getZL() {
         return null;
     }
 
     @Override
-    public Button getZR() {
+    public ImageButton getZR() {
         return null;
     }
 
     @Override
-    public Button getL() {
+    public ImageButton getL() {
         return null;
     }
 
     @Override
-    public Button getR() {
+    public ImageButton getR() {
         return null;
     }
 
     @Override
-    public Button getMinus() {
+    public ImageButton getMinus() {
         return null;
     }
 
     @Override
-    public Button getPlus() {
+    public ImageButton getPlus() {
         return null;
     }
 
     @Override
-    public Button getHome() {
+    public ImageButton getHome() {
         return null;
     }
 
     @Override
-    public Button getCapture() {
+    public ImageButton getCapture() {
         return null;
     }
 
     @Override
-    public Button getSync() {
+    public ImageButton getSync() {
         return null;
     }
 
@@ -473,22 +473,22 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public Button getA() {
+    public ImageButton getA() {
         return null;
     }
 
     @Override
-    public Button getB() {
+    public ImageButton getB() {
         return null;
     }
 
     @Override
-    public Button getX() {
+    public ImageButton getX() {
         return null;
     }
 
     @Override
-    public Button getY() {
+    public ImageButton getY() {
         return null;
     }
 

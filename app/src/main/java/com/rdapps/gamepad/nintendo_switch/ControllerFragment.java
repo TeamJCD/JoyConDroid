@@ -9,8 +9,8 @@ import android.os.Vibrator;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.Button;
 
+import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
 
 import com.erz.joysticklibrary.JoyStick;
@@ -138,43 +138,43 @@ public abstract class ControllerFragment extends Fragment {
     }
 
 
-    public abstract Button getA();
+    public abstract ImageButton getA();
 
-    public abstract Button getB();
+    public abstract ImageButton getB();
 
-    public abstract Button getX();
+    public abstract ImageButton getX();
 
-    public abstract Button getY();
+    public abstract ImageButton getY();
 
-    public abstract Button getSL();
+    public abstract ImageButton getSL();
 
-    public abstract Button getSR();
+    public abstract ImageButton getSR();
 
-    public abstract Button getL();
+    public abstract ImageButton getL();
 
-    public abstract Button getR();
+    public abstract ImageButton getR();
 
-    public abstract Button getZL();
+    public abstract ImageButton getZL();
 
-    public abstract Button getZR();
+    public abstract ImageButton getZR();
 
-    public abstract Button getMinus();
+    public abstract ImageButton getMinus();
 
-    public abstract Button getPlus();
+    public abstract ImageButton getPlus();
 
-    public abstract Button getHome();
+    public abstract ImageButton getHome();
 
-    public abstract Button getCapture();
+    public abstract ImageButton getCapture();
 
-    public abstract Button getLeft();
+    public abstract ImageButton getLeft();
 
-    public abstract Button getRight();
+    public abstract ImageButton getRight();
 
-    public abstract Button getUp();
+    public abstract ImageButton getUp();
 
-    public abstract Button getDown();
+    public abstract ImageButton getDown();
 
-    public abstract Button getSync();
+    public abstract ImageButton getSync();
 
     public abstract JoyStick getLeftJoyStick();
 
@@ -232,7 +232,7 @@ public abstract class ControllerFragment extends Fragment {
         };
     }
 
-    private static boolean dispatchEvent(Button button, MotionEvent event) {
+    private static boolean dispatchEvent(ImageButton button, MotionEvent event) {
         return Optional.ofNullable(button)
                 .map(b -> b.dispatchTouchEvent(event))
                 .orElse(false);

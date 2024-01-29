@@ -4,12 +4,12 @@
     android:viewportWidth="29.535"
     android:viewportHeight="29.535">
     <path
-        android:fillColor="@color/switch_logo"
+        android:fillColor="?attr/colorOnBackground"
         android:pathData="M14.768,0C6.611,0 0,6.609 0,14.768c0,8.155 6.611,14.767 14.768,14.767c8.154,0 14.766,-6.612 14.766,-14.767C29.534,6.609 22.923,0 14.768,0zM14.768,27.126c-6.83,0 -12.361,-5.532 -12.361,-12.359c0,-6.828 5.531,-12.362 12.361,-12.362c6.824,0 12.359,5.535 12.359,12.362C27.128,21.594 21.592,27.126 14.768,27.126z" />
     <path
-        android:fillColor="@color/switch_logo"
+        android:fillColor="?attr/colorOnBackground"
         android:pathData="M16.83,11.143l-4.151,0l0,0.007l-1.545,0l0,2.413l1.545,0l0,8.618l-1.64,0l0,2.306l1.64,0l0,0.016l4.151,0l0,-0.016l1.358,0l0,-2.306l-1.358,0z" />
     <path
-        android:fillColor="@color/switch_logo"
+        android:fillColor="?attr/colorOnBackground"
         android:pathData="M14.726,9.504c1.395,0 2.24,-0.928 2.24,-2.077c-0.027,-1.172 -0.846,-2.072 -2.184,-2.072c-1.336,0 -2.211,0.899 -2.211,2.072C12.57,8.576 13.417,9.504 14.726,9.504z" />
 </vector>

@@ -1,15 +1,14 @@
 package com.rdapps.gamepad.nintendo_switch;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import android.widget.ImageButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -47,23 +46,23 @@ import static com.rdapps.gamepad.vibrator.VibrationPattern.STICK_RELEASE;
 
 public class ProControllerFragment extends ControllerFragment implements View.OnClickListener {
 
-    private Button up;
-    private Button down;
-    private Button left;
-    private Button right;
-    private Button zl;
-    private Button l;
-    private Button minus;
-    private Button capture;
-    private Button x;
-    private Button y;
-    private Button a;
-    private Button b;
-    private Button zr;
-    private Button r;
-    private Button plus;
-    private Button home;
-    private Button sync;
+    private ImageButton up;
+    private ImageButton down;
+    private ImageButton left;
+    private ImageButton right;
+    private ImageButton zl;
+    private ImageButton l;
+    private ImageButton minus;
+    private ImageButton capture;
+    private ImageButton x;
+    private ImageButton y;
+    private ImageButton a;
+    private ImageButton b;
+    private ImageButton zr;
+    private ImageButton r;
+    private ImageButton plus;
+    private ImageButton home;
+    private ImageButton sync;
 
     private JoyStick leftJoyStick;
     private JoyStick rightJoyStick;
@@ -175,7 +174,7 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         }
 
         device.setButton(LEFT_STICK_BUTTON, pressed ? BUTTON_DOWN : BUTTON_UP);
-        leftJoyStick.setPadColor(getContext().getColor(pressed ? R.color.pressed : R.color.dark_grey));
+        leftJoyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_blue));
         leftJoyStick.invalidate();
         return true;
     }
@@ -219,7 +218,7 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         }
 
         device.setButton(ButtonEnum.RIGHT_STICK_BUTTON, pressed ? BUTTON_DOWN : BUTTON_UP);
-        rightJoyStick.setPadColor(getContext().getColor(pressed ? R.color.pressed : R.color.dark_grey));
+        rightJoyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_red));
         rightJoyStick.invalidate();
         return true;
     }
@@ -296,97 +295,97 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     }
 
     @Override
-    public Button getUp() {
+    public ImageButton getUp() {
         return up;
     }
 
     @Override
-    public Button getDown() {
+    public ImageButton getDown() {
         return down;
     }
 
     @Override
-    public Button getLeft() {
+    public ImageButton getLeft() {
         return left;
     }
 
     @Override
-    public Button getRight() {
+    public ImageButton getRight() {
         return right;
     }
 
     @Override
-    public Button getZL() {
+    public ImageButton getZL() {
         return zl;
     }
 
     @Override
-    public Button getL() {
+    public ImageButton getL() {
         return l;
     }
 
     @Override
-    public Button getMinus() {
+    public ImageButton getMinus() {
         return minus;
     }
 
     @Override
-    public Button getCapture() {
+    public ImageButton getCapture() {
         return capture;
     }
 
     @Override
-    public Button getX() {
+    public ImageButton getX() {
         return x;
     }
 
     @Override
-    public Button getY() {
+    public ImageButton getY() {
         return y;
     }
 
     @Override
-    public Button getSL() {
+    public ImageButton getSL() {
         return null;
     }
 
     @Override
-    public Button getSR() {
+    public ImageButton getSR() {
         return null;
     }
 
     @Override
-    public Button getA() {
+    public ImageButton getA() {
         return a;
     }
 
     @Override
-    public Button getB() {
+    public ImageButton getB() {
         return b;
     }
 
     @Override
-    public Button getZR() {
+    public ImageButton getZR() {
         return zr;
     }
 
     @Override
-    public Button getR() {
+    public ImageButton getR() {
         return r;
     }
 
     @Override
-    public Button getPlus() {
+    public ImageButton getPlus() {
         return plus;
     }
 
     @Override
-    public Button getHome() {
+    public ImageButton getHome() {
         return home;
     }
 
     @Override
-    public Button getSync() {
+    public ImageButton getSync() {
         return sync;
     }
 
