@@ -55,6 +55,7 @@ android {
     }
     namespace 'com.rdapps.gamepad'
     lint {
+        disable 'VectorPath'
         abortOnError false
     }
     buildFeatures {
