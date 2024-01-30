@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Version> call, Response<Version> response) {
                         Version body = response.body();
-                        if (!BuildConfig.VERSION_NAME.equalsIgnoreCase(body.getVersion())) {
+                        if (body.getVersionCode() != null && BuildConfig.VERSION_CODE < body.getVersionCode()) {
                             showUpdateDialog(body.getVersion());
                         }
                     }

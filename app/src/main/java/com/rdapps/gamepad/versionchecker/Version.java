@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Version {
     private String version;
+    private Integer versionCode;
 }
