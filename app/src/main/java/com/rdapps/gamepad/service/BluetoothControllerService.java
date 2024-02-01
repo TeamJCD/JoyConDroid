@@ -284,16 +284,16 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         closeIntent.setAction(INTENT_DISCONNECT);
 
         String contentTitle = getString(R.string.left_joycon);
-        int smallIcon = R.drawable.ic_left_joycon_icon;
+        int smallIcon = R.drawable.ic_left_joycon_icon_notification;
 
         switch (type) {
             case RIGHT_JOYCON:
                 contentTitle = getString(R.string.right_joycon);
-                smallIcon = R.drawable.ic_right_joycon_icon;
+                smallIcon = R.drawable.ic_right_joycon_icon_notification;
                 break;
             case PRO_CONTROLLER:
                 contentTitle = getString(R.string.pro_controller);
-                smallIcon = R.drawable.ic_procontroller_icon;
+                smallIcon = R.drawable.ic_procontroller_icon_notification;
                 break;
             default:
                 break;
