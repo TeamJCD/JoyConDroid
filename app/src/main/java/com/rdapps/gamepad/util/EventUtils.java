@@ -39,20 +39,22 @@ public class EventUtils {
     }
 
     public static MotionEvent getJoyStickEvent(float x, float y, float radius, float centerX, float centerY) {
-        if (Float.compare(x, 0) == 0 && Float.compare(y, 0) == 0) {
+        float motionX = x;
+        float motionY = y;
+        if (Float.compare(motionX, 0) == 0 && Float.compare(motionY, 0) == 0) {
             return getTouchEvent(MotionEvent.ACTION_CANCEL);
         } else {
             long downTime = SystemClock.uptimeMillis();
             long eventTime = SystemClock.uptimeMillis() + 100;
-            x = x * radius + centerX;
-            y = y * radius + centerY;
+            motionX = motionX * radius + centerX;
+            motionY = motionY * radius + centerY;
             int metaState = 0;
             return MotionEvent.obtain(
                     downTime,
                     eventTime,
                     MotionEvent.ACTION_MOVE,
-                    x,
-                    y,
+                    motionX,
+                    motionY,
                     metaState
             );
         }
@@ -67,16 +69,14 @@ public class EventUtils {
         // A joystick at rest does not always report an absolute position of
         // (0,0). Use the getFlat() method to determine the range of values
         // bounding the joystick axis center.
-        if (range != null) {
-            final float flat = range.map(InputDevice.MotionRange::getFlat)
-                    .orElse(0f);
-            final float value = event.getAxisValue(axis);
+        final float flat = range.map(InputDevice.MotionRange::getFlat)
+                .orElse(0f);
+        final float value = event.getAxisValue(axis);
 
-            // Ignore axis values that are within the 'flat' region of the
-            // joystick axis center.
-            if (Math.abs(value) > flat) {
-                return value;
-            }
+        // Ignore axis values that are within the 'flat' region of the
+        // joystick axis center.
+        if (Math.abs(value) > flat) {
+            return value;
         }
         return 0;
     }

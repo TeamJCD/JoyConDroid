@@ -11,11 +11,7 @@ import com.rdapps.gamepad.device.JoystickType;
 import com.rdapps.gamepad.model.ControllerAction;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -30,7 +26,7 @@ import static com.rdapps.gamepad.model.ControllerAction.Type.BUTTON;
 import static com.rdapps.gamepad.model.ControllerAction.Type.JOYSTICK;
 
 public class ControllerActionUtils {
-    public static Map<Integer, String> BUTTON_NAMES = new HashMap();
+    public static final Map<Integer, String> BUTTON_NAMES = new HashMap<>();
 
     static {
         BUTTON_NAMES.put(0, "KEYCODE_UNKNOWN");
@@ -321,7 +317,7 @@ public class ControllerActionUtils {
         BUTTON_NAMES.put(285, "KEYCODE_REFRESH");
     }
 
-    public static Map<Integer, String> AXIS_NAMES = new HashMap<>();
+    public static final Map<Integer, String> AXIS_NAMES = new HashMap<>();
 
     static {
         AXIS_NAMES.put(AXIS_X, "AXIS_X");
@@ -407,7 +403,7 @@ public class ControllerActionUtils {
         return getButtonMapping(getControllerActions(context));
     }
 
-    public static Map<Integer, ButtonType> getButtonMapping(List<ControllerAction> controllerActions) {
+    public static Map<Integer, ButtonType> getButtonMapping(Collection<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == BUTTON)
@@ -418,7 +414,7 @@ public class ControllerActionUtils {
         return getAxisMapping(getControllerActions(context));
     }
 
-    public static Map<Pair<Integer, Integer>, ButtonType> getAxisMapping(List<ControllerAction> controllerActions) {
+    public static Map<Pair<Integer, Integer>, ButtonType> getAxisMapping(Collection<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == AXIS)
@@ -430,7 +426,7 @@ public class ControllerActionUtils {
         return getJoystickMapping(getControllerActions(context));
     }
 
-    public static Map<JoystickType, ControllerAction> getJoystickMapping(List<ControllerAction> controllerActions) {
+    public static Map<JoystickType, ControllerAction> getJoystickMapping(Collection<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == JOYSTICK)
@@ -441,7 +437,7 @@ public class ControllerActionUtils {
         return Optional.ofNullable(PreferenceUtils.getButtonMapping(context))
                 .map(objStr -> {
                     try {
-                        return OBJECT_MAPPER.<List<ControllerAction>>readValue(objStr, new TypeReference<List<ControllerAction>>() {
+                        return OBJECT_MAPPER.readValue(objStr, new TypeReference<List<ControllerAction>>() {
                         });
                     } catch (IOException e) {
                         throw new RuntimeException(e);

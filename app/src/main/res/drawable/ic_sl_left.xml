@@ -4,18 +4,18 @@
     android:viewportWidth="51"
     android:viewportHeight="102">
     <path
-        android:fillColor="@color/button_bg"
+        android:fillColor="@color/button_bg_blue"
         android:pathData="M23,3L28,3A20,20 0,0 1,48 23L48,78A20,20 0,0 1,28 98L23,98A20,20 0,0 1,3 78L3,23A20,20 0,0 1,23 3z"
         android:strokeWidth="6"
-        android:strokeColor="@color/border" />
+        android:strokeColor="#000" />
     <path
         android:fillAlpha="1"
-        android:fillColor="@color/border"
+        android:fillColor="#000"
         android:pathData="m22.006,35.463 l0.328,3.375q-1.699,0.305 -2.496,1.23 -0.797,0.938 -0.797,2.52 0,1.676 0.703,2.52 0.715,0.855 1.664,0.855 0.609,0 1.031,-0.363 0.434,-0.352 0.75,-1.242 0.211,-0.609 0.75,-2.777 0.691,-2.789 1.699,-3.914 1.418,-1.582 3.457,-1.582 1.313,0 2.449,0.738 1.148,0.75 1.746,2.145 0.598,1.406 0.598,3.387 0,3.234 -1.418,4.863 -1.418,1.641 -3.785,1.723l-0.152,-3.469q1.324,-0.223 1.898,-0.961 0.586,-0.727 0.586,-2.191 0,-1.512 -0.621,-2.367 -0.398,-0.551 -1.066,-0.551 -0.609,0 -1.043,0.516 -0.551,0.656 -1.148,3.188 -0.598,2.531 -1.242,3.738 -0.633,1.219 -1.746,1.898 -1.102,0.691 -2.73,0.691 -1.477,0 -2.766,-0.82 -1.289,-0.82 -1.922,-2.32 -0.621,-1.5 -0.621,-3.738 0,-3.258 1.5,-5.004 1.512,-1.746 4.395,-2.086z"
-        android:strokeColor="@color/border" />
+        android:strokeColor="#000" />
     <path
         android:fillAlpha="1"
-        android:fillColor="@color/border"
+        android:fillColor="#000"
         android:pathData="m16.416,52.443h17.039v3.469H19.311v8.625h-2.895z"
-        android:strokeColor="@color/border" />
+        android:strokeColor="#000" />
 </vector>

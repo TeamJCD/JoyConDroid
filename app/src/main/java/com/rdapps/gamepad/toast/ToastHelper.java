@@ -1,11 +1,15 @@
 package com.rdapps.gamepad.toast;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.widget.Toast;
 
 import com.rdapps.gamepad.R;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+
 public class ToastHelper {
+    private static final String TAG = ToastHelper.class.getName();
 
     public static void bluetoothNotAvailable(Context context) {
         Toast.makeText(
@@ -77,6 +81,20 @@ public class ToastHelper {
                 R.string.invalid_intent,
                 Toast.LENGTH_LONG
         ).show();
+    }
+
+    public static void missingPermission(Context context, String permName) {
+        try {
+            Toast.makeText(
+                    context,
+                    context.getString(R.string.missingPermission,
+                            context.getPackageManager().getPermissionInfo(permName, 0)
+                                    .loadLabel(context.getPackageManager())),
+                    Toast.LENGTH_LONG
+            ).show();
+        } catch (PackageManager.NameNotFoundException e) {
+            log(TAG, "Permission name not found", e);
+        }
     }
 
     public static void uiLoaded(Context context) {

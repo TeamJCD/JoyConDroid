@@ -1,7 +1,9 @@
 package com.rdapps.gamepad.fragment;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.AttributeSet;
@@ -20,9 +22,12 @@ import com.rdapps.gamepad.util.PreferenceUtils;
 import java.util.Objects;
 import java.util.Optional;
 
-public class DeviceNameFragment extends Fragment implements ResetableSettingFragment, View.OnClickListener {
+import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
-    private static String TAG = DeviceNameFragment.class.getName();
+public class DeviceNameFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
+
+    private static final String TAG = DeviceNameFragment.class.getName();
 
 
     private TextView textView;
@@ -61,8 +66,15 @@ public class DeviceNameFragment extends Fragment implements ResetableSettingFrag
         if (originalName.isPresent()) {
             textView.setText(originalName.get());
         } else if (Objects.nonNull(bluetoothAdapter)) {
-            String name = bluetoothAdapter.getName();
-            textView.setText(name);
+            try {
+                String name = bluetoothAdapter.getName();
+                textView.setText(name);
+            } catch (SecurityException ex) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
+            }
         }
     }
 
@@ -80,11 +92,18 @@ public class DeviceNameFragment extends Fragment implements ResetableSettingFrag
         builder.setPositiveButton(getText(R.string.set), (e, w) -> {
             Editable editable = deviceEditText.getText();
             if (Objects.nonNull(editable)) {
-                String deviceName = editable.toString();
-                PreferenceUtils.removeOriginalName(context);
-                PreferenceUtils.saveOriginalName(context, deviceName);
-                bluetoothAdapter.setName(deviceName);
-                setDeviceName();
+                try {
+                    String deviceName = editable.toString();
+                    PreferenceUtils.removeOriginalName(context);
+                    PreferenceUtils.saveOriginalName(context, deviceName);
+                    bluetoothAdapter.setName(deviceName);
+                    setDeviceName();
+                } catch (SecurityException ex) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                        log(TAG, "Missing permission", ex);
+                    }
+                }
             }
         });
         builder.show();

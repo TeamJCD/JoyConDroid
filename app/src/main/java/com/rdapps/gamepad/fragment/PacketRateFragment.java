@@ -16,7 +16,7 @@ import com.rdapps.gamepad.util.PreferenceUtils;
 
 import java.util.Objects;
 
-public class PacketRateFragment extends Fragment implements ResetableSettingFragment, SeekBar.OnSeekBarChangeListener {
+public class PacketRateFragment extends Fragment implements ResettableSettingFragment, SeekBar.OnSeekBarChangeListener {
 
     private static String TAG = PacketRateFragment.class.getName();
 

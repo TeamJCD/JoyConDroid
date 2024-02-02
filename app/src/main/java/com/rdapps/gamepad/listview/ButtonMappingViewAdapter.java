@@ -22,16 +22,15 @@ import java.util.Optional;
 
 import static com.rdapps.gamepad.model.ControllerAction.Type.AXIS;
 import static com.rdapps.gamepad.model.ControllerAction.Type.BUTTON;
-import static com.rdapps.gamepad.model.ControllerAction.Type.JOYSTICK;
 import static com.rdapps.gamepad.util.ControllerActionUtils.AXIS_NAMES;
 import static com.rdapps.gamepad.util.ControllerActionUtils.BUTTON_NAMES;
 import static com.rdapps.gamepad.util.ControllerActionUtils.getJoystickMapping;
 
 public class ButtonMappingViewAdapter extends BaseAdapter {
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
     private List<ControllerAction> controllerActionList;
-    private Map<Enum, ControllerAction> actionMap;
+    private Map<Enum<?>, ControllerAction> actionMap;
 
     private Map<JoystickType, ControllerAction> joysticks;
 
@@ -68,26 +67,26 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
         ControllerAction action = getItem(position);
-        if (Objects.isNull(convertView)) {
+        if (Objects.isNull(view)) {
             int layout = R.layout.stick_mapping;
             if (action.getType() == BUTTON) {
                 layout = R.layout.button_mapping;
             }
-            convertView = layoutInflater.inflate(layout, parent, false);
+            view = layoutInflater.inflate(layout, parent, false);
         }
 
-        ControllerAction controllerAction = action;
-        if (Objects.isNull(controllerAction)) {
-            return convertView;
+        if (Objects.isNull(action)) {
+            return view;
         }
 
 
-        if (controllerAction.getType() == BUTTON) {
-            TextView nameView = convertView.findViewById(R.id.buttonName);
-            TextView valueView = convertView.findViewById(R.id.buttonValue);
+        if (action.getType() == BUTTON) {
+            TextView nameView = view.findViewById(R.id.buttonName);
+            TextView valueView = view.findViewById(R.id.buttonValue);
 
-            ButtonType buttonType = controllerAction.getButton();
+            ButtonType buttonType = action.getButton();
             Integer keyValue = actionMap.get(buttonType).getKey();
             String keyName = Optional.ofNullable(keyValue)
                     .map(BUTTON_NAMES::get)
@@ -99,30 +98,30 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
             } else {
                 valueView.setText(R.string.unknown);
             }
-        } else if (controllerAction.getType() == AXIS) {
-            TextView nameView = convertView.findViewById(R.id.stickName);
-            TextView xValueView = convertView.findViewById(R.id.stickXValue);
-            TextView yValueView = convertView.findViewById(R.id.stickYValue);
+        } else if (action.getType() == AXIS) {
+            TextView nameView = view.findViewById(R.id.stickName);
+            TextView xValueView = view.findViewById(R.id.stickXValue);
+            TextView yValueView = view.findViewById(R.id.stickYValue);
 
-            ButtonType buttonType = controllerAction.getButton();
+            ButtonType buttonType = action.getButton();
             Integer axisValue = actionMap.get(buttonType).getXAxis();
             String axisName = Optional.ofNullable(axisValue)
                     .map(AXIS_NAMES::get)
                     .orElse(null);
 
             nameView.setText(buttonType.name());
-            yValueView.setText(String.valueOf(controllerAction.getXDirection()));
+            yValueView.setText(String.valueOf(action.getXDirection()));
             if (Objects.nonNull(axisName)) {
                 xValueView.setText(axisName);
             } else {
                 xValueView.setText(R.string.unknown);
             }
         } else {
-            TextView nameView = convertView.findViewById(R.id.stickName);
-            TextView xValueView = convertView.findViewById(R.id.stickXValue);
-            TextView yValueView = convertView.findViewById(R.id.stickYValue);
+            TextView nameView = view.findViewById(R.id.stickName);
+            TextView xValueView = view.findViewById(R.id.stickXValue);
+            TextView yValueView = view.findViewById(R.id.stickYValue);
 
-            JoystickType joystick = controllerAction.getJoystick();
+            JoystickType joystick = action.getJoystick();
             nameView.setText(joystick.name());
             ControllerAction ca = joysticks.get(joystick);
 
@@ -145,19 +144,19 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
             }
         }
 
-        return convertView;
+        return view;
     }
 
     public void refresh(List<ControllerAction> controllerActions) {
         controllerActionList = new ArrayList<>();
         actionMap = new HashMap<>();
-        Arrays.asList(ButtonType.values()).stream()
+        Arrays.stream(ButtonType.values())
                 .map(type -> new ControllerAction(type, 0))
                 .forEach(ca -> {
                     controllerActionList.add(ca);
                     actionMap.put(ca.getButton(), ca);
                 });
-        Arrays.asList(JoystickType.values()).stream()
+        Arrays.stream(JoystickType.values())
                 .map(type -> new ControllerAction(type, 0, 0, 0, 0))
                 .forEach(ca -> {
                     controllerActionList.add(ca);

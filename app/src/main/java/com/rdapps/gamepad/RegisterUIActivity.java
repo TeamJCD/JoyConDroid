@@ -59,55 +59,56 @@ public class RegisterUIActivity extends Activity {
                                 parent.mkdir();
                             }
 
-                            CustomUIDBHandler customUIDBHandler = new CustomUIDBHandler(this);
-                            for (int i = 0; i < count; i++) {
-                                query.moveToPosition(i);
+                            try (CustomUIDBHandler customUIDBHandler = new CustomUIDBHandler(this)) {
+                                for (int i = 0; i < count; i++) {
+                                    query.moveToPosition(i);
 
-                                String id = query.getString(0);
-                                String name = query.getString(1);
-                                String type = query.getString(2);
-                                int version = query.getInt(3);
-                                String entry = query.getString(4);
-                                int appVersion = query.getInt(5);
-                                File folder = new File(parent, name + "_" + id);
-                                String path = Uri.fromFile(new File(folder, entry)).toString();
+                                    String id = query.getString(0);
+                                    String name = query.getString(1);
+                                    String type = query.getString(2);
+                                    int version = query.getInt(3);
+                                    String entry = query.getString(4);
+                                    int appVersion = query.getInt(5);
+                                    File folder = new File(parent, name + "_" + id);
+                                    String path = Uri.fromFile(new File(folder, entry)).toString();
 
-                                CustomUIItem customUI = customUIDBHandler.getCustomUI(path, id);
-                                if (Objects.nonNull(customUI)) {
-                                    int oldVersion = customUI.getVersion();
-                                    if (oldVersion >= version) {
-                                        ToastHelper.uiHasNewerVersion(this);
+                                    CustomUIItem customUI = customUIDBHandler.getCustomUI(path, id);
+                                    if (Objects.nonNull(customUI)) {
+                                        int oldVersion = customUI.getVersion();
+                                        if (oldVersion >= version) {
+                                            ToastHelper.uiHasNewerVersion(this);
+                                            finish();
+                                            return;
+                                        } else {
+                                            customUIDBHandler.deleteCustomUI(path, id);
+                                            FileUtils.deleteDirectory(folder);
+                                            folder.mkdir();
+                                        }
+                                    }
+
+                                    Uri uri = content.buildUpon()
+                                            .appendQueryParameter(ID, id)
+                                            .appendQueryParameter(NAME, name)
+                                            .appendQueryParameter(TYPE, type)
+                                            .appendQueryParameter(VERSION, Integer.toString(version))
+                                            .appendQueryParameter(APP_VERSION, Integer.toString(appVersion))
+                                            .appendQueryParameter(ENTRY, entry)
+                                            .build();
+
+                                    AssetFileDescriptor uiBundle = getContentResolver()
+                                            .openAssetFileDescriptor(uri, "r");
+
+                                    if (Objects.isNull(uiBundle)) {
+                                        ToastHelper.uiIsNotFound(this);
                                         finish();
                                         return;
-                                    } else {
-                                        customUIDBHandler.deleteCustomUI(path, id);
-                                        FileUtils.deleteDirectory(folder);
-                                        folder.mkdir();
                                     }
+
+
+                                    UnzipUtil unzipUtil = new UnzipUtil(uiBundle, folder.getAbsolutePath());
+                                    unzipUtil.unzip();
+                                    customUIDBHandler.insertUI(path, id, name, type, version, appVersion);
                                 }
-
-                                Uri uri = content.buildUpon()
-                                        .appendQueryParameter(ID, id)
-                                        .appendQueryParameter(NAME, name)
-                                        .appendQueryParameter(TYPE, type)
-                                        .appendQueryParameter(VERSION, Integer.toString(version))
-                                        .appendQueryParameter(APP_VERSION, Integer.toString(appVersion))
-                                        .appendQueryParameter(ENTRY, entry)
-                                        .build();
-
-                                AssetFileDescriptor uiBundle = getContentResolver()
-                                        .openAssetFileDescriptor(uri, "r");
-
-                                if (Objects.isNull(uiBundle)) {
-                                    ToastHelper.uiIsNotFound(this);
-                                    finish();
-                                    return;
-                                }
-
-
-                                UnzipUtil unzipUtil = new UnzipUtil(uiBundle, folder.getAbsolutePath());
-                                unzipUtil.unzip();
-                                customUIDBHandler.insertUI(path, id, name, type, version, appVersion);
                             }
 
                             ToastHelper.uiLoaded(this);

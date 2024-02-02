@@ -5,16 +5,16 @@
     android:viewportHeight="200">
     <path
         android:fillAlpha="1"
-        android:fillColor="@color/button_bg"
+        android:fillColor="@color/button_bg_blue"
         android:pathData="M100,190.909a90.909,90.909 81.317,1 0,0 -181.818a90.909,90.909 81.317,1 0,0 181.818z"
         android:strokeWidth="18.1818161"
         android:strokeAlpha="1"
-        android:strokeColor="@color/border" />
+        android:strokeColor="#000" />
     <path
         android:fillAlpha="0.94117647"
-        android:fillColor="@color/border"
+        android:fillColor="#000"
         android:pathData="M128.307,83.227 L114.531,107.812 100.755,132.396 86.352,108.173 71.949,83.95l28.179,-0.362z"
         android:strokeWidth="20"
         android:strokeAlpha="1"
-        android:strokeColor="@color/border" />
+        android:strokeColor="#000" />
 </vector>

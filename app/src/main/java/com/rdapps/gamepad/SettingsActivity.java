@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.rdapps.gamepad.fragment.FeatureSwitchFragment;
-import com.rdapps.gamepad.fragment.ResetableSettingFragment;
+import com.rdapps.gamepad.fragment.ResettableSettingFragment;
 import com.rdapps.gamepad.util.PreferenceUtils;
 
 import java.util.List;
@@ -55,21 +55,20 @@ public class SettingsActivity extends AppCompatActivity implements FeatureSwitch
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.action_reset:
-                reset();
-                return true;
-            default:
-                return false;
+        if (id == R.id.action_reset) {
+            reset();
+            return true;
         }
+
+        return false;
     }
 
     private void reset() {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         List<Fragment> fragments = supportFragmentManager.getFragments();
         for (Fragment fragment : fragments) {
-            if (fragment instanceof ResetableSettingFragment) {
-                ((ResetableSettingFragment) fragment).reset();
+            if (fragment instanceof ResettableSettingFragment) {
+                ((ResettableSettingFragment) fragment).reset();
             }
         }
     }

@@ -23,8 +23,7 @@
             android:layout_weight="0.8"
             android:gravity="center_vertical"
             android:text="@string/unknown"
-            android:textColor="@android:color/black"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
@@ -35,8 +34,7 @@
             android:layout_weight="0.6"
             android:gravity="center_vertical"
             android:text="@string/unknown"
-            android:textColor="@android:color/black"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/stickYValue"
@@ -46,13 +44,11 @@
             android:layout_weight="0.6"
             android:gravity="center_vertical"
             android:text="@string/unknown"
-            android:textColor="@android:color/black"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey" />
+        android:layout_height="1dp" />
 </LinearLayout>

@@ -23,7 +23,7 @@ public class InputHandler {
 
     private static final int HANDSHAKE_COUNT = 3;
 
-    private JoyController joyController;
+    private final JoyController joyController;
 
     public InputHandler(JoyController joyController) {
         this.joyController = joyController;

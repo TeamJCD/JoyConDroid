@@ -1,10 +1,13 @@
 package com.rdapps.gamepad.protocol;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 
+import android.os.Build;
 import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.BuildConfig;
 import com.rdapps.gamepad.amiibo.AmiiboConfig;
@@ -37,6 +40,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 public class JoyController extends AbstractDevice {
     private static final String TAG = JoyController.class.getName();
@@ -46,23 +50,23 @@ public class JoyController extends AbstractDevice {
 
     //Memory
     @Getter
-    private ControllerMemory controllerMemory;
+    private final ControllerMemory controllerMemory;
 
     //Button State
     @Getter
-    private ButtonState buttonState;
+    private final ButtonState buttonState;
 
     //Amiibo
     @Getter
-    private AmiiboConfig amiiboConfig;
+    private final AmiiboConfig amiiboConfig;
 
     //Executor Service
     @Getter
-    private ScheduledExecutorService executorService;
+    private final ScheduledExecutorService executorService;
     private ScheduledFuture<?> scheduledFuture;
 
     //Config
-    private JoyControllerConfig controllerConfig;
+    private final JoyControllerConfig controllerConfig;
 
     //Output Handler
     @Setter
@@ -76,12 +80,12 @@ public class JoyController extends AbstractDevice {
 
     //State
     @Getter
-    private JoyControllerState state;
+    private final JoyControllerState state;
 
     @Getter
-    private Queue<AccelerometerEvent> accelerometerEvents = new LinkedBlockingQueue<>();
+    private final Queue<AccelerometerEvent> accelerometerEvents = new LinkedBlockingQueue<>();
     @Getter
-    private Queue<GyroscopeEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
+    private final Queue<GyroscopeEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
 
     @Getter
     @Setter
@@ -94,6 +98,7 @@ public class JoyController extends AbstractDevice {
     private final AtomicBoolean isInFullMode;
 
     JoyController(
+            Context context,
             ControllerType controllerType,
             ControllerMemory controllerMemory,
             ButtonState buttonState,
@@ -103,6 +108,7 @@ public class JoyController extends AbstractDevice {
             JoyControllerState state,
             JoyControllerListener listener) {
         super(
+                context,
                 controllerType.getBTName(),
                 controllerType.getSubClass(),
                 controllerType.getHidName(),
@@ -178,7 +184,7 @@ public class JoyController extends AbstractDevice {
                 ControllerType controllerType = getControllerType();
                 long delay = getDelay();
                 long endTime = System.nanoTime();
-                long wait = ((startTime + delay) - endTime)/1000_000l;
+                long wait = ((startTime + delay) - endTime)/ 1000_000L;
                 if (wait > 0) {
                     ThreadUtil.safeSleep((int) wait);
                 }
@@ -200,7 +206,8 @@ public class JoyController extends AbstractDevice {
     }
 
     public void setPlayerLights(byte lightsByte) {
-        state.setPlayerLights(lightsByte);
+        byte playerLights = lightsByte;
+        state.setPlayerLights(playerLights);
         if (Objects.nonNull(listener)) {
             LedState[] leds = new LedState[]{
                     LedState.OFF,
@@ -210,12 +217,12 @@ public class JoyController extends AbstractDevice {
             };
 
             int i = 0;
-            while (lightsByte > 0) {
-                if ((lightsByte & 1) == 1) {
+            while (playerLights > 0) {
+                if ((playerLights & 1) == 1) {
                     leds[i % 4] = (i / 4 == 0) ? LedState.ON : LedState.BLINK;
                 }
                 i ++;
-                lightsByte = (byte)(lightsByte >>> 1);
+                playerLights = (byte)(playerLights >>> 1);
             }
 
             listener.setPlayerLights(leds[0], leds[1], leds[2], leds[3]);
@@ -249,7 +256,8 @@ public class JoyController extends AbstractDevice {
 
     @Override
     public void onInterruptData(BluetoothDevice rDevice, byte reportId, byte[] data) {
-        //log(TAG, "Interrupt Data Report Id: " + ByteUtils.encodeHexString(reportId) + " data: " + Hex.bytesToStringUppercase(data));
+        //log(TAG, "Interrupt Data Report ID: " + ByteUtils.encodeHexString(reportId) + " data: "
+        //        + Hex.bytesToStringUppercase(data));
         OutputReport outputReport = new OutputReport(reportId, data);
         if (ByteUtils.asList(BuildConfig.DEBUG_OUTPUT).contains(outputReport.getReportId())) {
             log(TAG, outputReport.toString());
@@ -290,7 +298,14 @@ public class JoyController extends AbstractDevice {
         BluetoothHidDevice proxy = getProxy();
         BluetoothDevice remoteDevice = getRemoteDevice();
         if (Objects.nonNull(proxy) && Objects.nonNull(remoteDevice)) {
-            return proxy.sendReport(remoteDevice, report.getReportId(), report.build());
+            try {
+                return proxy.sendReport(remoteDevice, report.getReportId(), report.build());
+            } catch (SecurityException ex) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
+            }
         } else {
             log(TAG, "Could not send Report: " + report.toString());
             stopFullReportMode();

@@ -13,15 +13,14 @@ public enum OutputReportMode {
     REQUEST_NFC_IR_MCU_DATA(0x11),
     UNKNOWN(0x12);
 
-    private byte arg;
+    private final byte arg;
 
     OutputReportMode(int arg) {
         this.arg = (byte) arg;
     }
 
     public static Optional<OutputReportMode> getReportMode(byte reportId) {
-        return Arrays.asList(values())
-                .stream()
+        return Arrays.stream(values())
                 .filter(mode -> mode.arg == reportId)
                 .findAny();
     }

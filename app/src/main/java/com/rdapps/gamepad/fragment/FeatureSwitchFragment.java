@@ -8,37 +8,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.jaredrummler.android.device.DeviceName;
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.util.PreferenceUtils;
 
+import java.io.Serializable;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class FeatureSwitchFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, ResetableSettingFragment {
+public class FeatureSwitchFragment extends Fragment implements CompoundButton.OnCheckedChangeListener,
+        ResettableSettingFragment {
 
     private static String TAG = FeatureSwitchFragment.class.getName();
 
-    private static String TYPE = "TYPE";
+    private static final String TYPE = "TYPE";
 
     private FeatureType type;
     @Setter
     @Getter
     private FeatureSwitchListener featureSwitchListener;
-    private Switch switchController;
+    private SwitchCompat switchController;
     private boolean enabled;
-    private TextView textView;
 
-    public static FeatureSwitchFragment getInstance(FeatureType type) {
+    public static FeatureSwitchFragment getInstance(Serializable type) {
         FeatureSwitchFragment colorPickerFragment = new FeatureSwitchFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(TYPE, type);
@@ -52,7 +54,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
         Bundle arguments = getArguments();
         type = (FeatureType) arguments.getSerializable(TYPE);
 
-        textView = view.findViewById(R.id.controllerTextView);
+        TextView textView = view.findViewById(R.id.controllerTextView);
         switchController = view.findViewById(R.id.featureSwitch);
         switchController.setOnCheckedChangeListener(this);
         enabled = false;
@@ -90,7 +92,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
             FeatureType featureType = Optional.ofNullable(type)
                     .map(t -> {
                         try {
-                            return FeatureType.valueOf(t.toUpperCase());
+                            return FeatureType.valueOf(t.toUpperCase(Locale.ROOT));
                         } catch (Exception e) {
                             return null;
                         }
@@ -99,6 +101,8 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
             Bundle bundle = new Bundle();
             bundle.putSerializable(TYPE, featureType);
             setArguments(bundle);
+
+            typedArray.recycle();
         }
     }
 
@@ -157,9 +161,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
         builder.setTitle(R.string.mtu_warning_title);
         builder.setMessage(R.string.mtu_warning_text);
         builder.setPositiveButton(R.string.continue_option, (dialog, i) -> showAmiiboExperimentalWarning());
-        builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> {
-            switchController.setChecked(false);
-        });
+        builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> switchController.setChecked(false));
         builder.setOnCancelListener((dialogInterface -> switchController.setChecked(false)));
         builder.create().show();
     }

@@ -1,6 +1,7 @@
 package com.rdapps.gamepad.fragment;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -19,16 +20,18 @@ import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.util.ByteUtils;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.Locale;
 import java.util.Optional;
 
 import static com.rdapps.gamepad.log.JoyConLog.log;
 
-public class ColorPickerFragment extends Fragment implements View.OnClickListener, ResetableSettingFragment {
+public class ColorPickerFragment extends Fragment implements View.OnClickListener, ResettableSettingFragment {
 
-    private static String TAG = ColorPickerFragment.class.getName();
+    private static final String TAG = ColorPickerFragment.class.getName();
 
-    private static String TYPE = "TYPE";
-    private static String SECTION = "SECTION";
+    private static final String TYPE = "TYPE";
+    private static final String SECTION = "SECTION";
 
     private ControllerType type;
     private ColorSection section;
@@ -36,7 +39,7 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
     private View colorView;
     private TextView textView;
 
-    public static ColorPickerFragment getInstance(ControllerType type, ColorSection section) {
+    public static ColorPickerFragment getInstance(Serializable type, Serializable section) {
         ColorPickerFragment colorPickerFragment = new ColorPickerFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(TYPE, type);
@@ -101,7 +104,7 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
             ControllerType controllerType = Optional.ofNullable(type)
                     .map(t -> {
                         try {
-                            return ControllerType.valueOf(t.toUpperCase());
+                            return ControllerType.valueOf(t.toUpperCase(Locale.ROOT));
                         } catch (Exception e) {
                             return null;
                         }
@@ -111,7 +114,7 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
             ColorSection sectionEnum = Optional.ofNullable(section)
                     .map(s -> {
                         try {
-                            return ColorSection.valueOf(s.toUpperCase());
+                            return ColorSection.valueOf(s.toUpperCase(Locale.ROOT));
                         } catch (Exception e) {
                             return null;
                         }
@@ -121,12 +124,17 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
             bundle.putSerializable(TYPE, controllerType);
             bundle.putSerializable(SECTION, sectionEnum);
             setArguments(bundle);
+
+            typedArray.recycle();
         }
     }
 
     @Override
     public void onClick(View v) {
-        ColorPickerDialog colorPickerDialog = ColorPickerDialog.createColorPickerDialog(getContext());
+        int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        ColorPickerDialog colorPickerDialog = ColorPickerDialog.createColorPickerDialog(getContext(),
+                nightModeFlags == Configuration.UI_MODE_NIGHT_YES ?
+                        ColorPickerDialog.DARK_THEME : ColorPickerDialog.LIGHT_THEME);
         colorPickerDialog.setTitle(textView.getText());
         colorPickerDialog.setOnColorPickedListener((color, hexVal) -> {
             if (eeprom != null) {

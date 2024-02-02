@@ -1,9 +1,11 @@
 package com.rdapps.gamepad.service;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import static android.bluetooth.BluetoothAdapter.ACTION_DISCOVERY_FINISHED;
 import static android.bluetooth.BluetoothAdapter.ACTION_DISCOVERY_STARTED;
@@ -16,11 +18,12 @@ import static android.bluetooth.BluetoothDevice.ACTION_FOUND;
 import static android.bluetooth.BluetoothDevice.ACTION_PAIRING_REQUEST;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.service.BluetoothControllerService.NINTENDO_SWITCH;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 public class BluetoothBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = BluetoothBroadcastReceiver.class.getName();
 
-    private BBRListener listener;
+    private final BBRListener listener;
 
     public BluetoothBroadcastReceiver(BBRListener listener) {
         this.listener = listener;
@@ -56,18 +59,25 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
             case ACTION_PAIRING_REQUEST:
                 break;
             case ACTION_BOND_STATE_CHANGED:
-                int bondState = intent.getExtras().getInt(BluetoothDevice.EXTRA_BOND_STATE);
-                log(TAG, "Bond State: " + bondState);
-                device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                log(TAG, "Device: " + device);
+                try {
+                    int bondState = intent.getExtras().getInt(BluetoothDevice.EXTRA_BOND_STATE);
+                    log(TAG, "Bond State: " + bondState);
+                    device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    log(TAG, "Device: " + device);
 
-                if (NINTENDO_SWITCH.equalsIgnoreCase(device.getName())
-                        && bondState == BluetoothDevice.BOND_BONDED) {
-                    listener.onBonded(device);
+                    if (NINTENDO_SWITCH.equalsIgnoreCase(device.getName())
+                            && bondState == BluetoothDevice.BOND_BONDED) {
+                        listener.onBonded(device);
+                    }
+                } catch (SecurityException ex) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                        log(TAG, "Missing permission", ex);
+                    }
                 }
                 break;
             default:
-                listener.unknowAction(context, intent);
+                listener.unknownAction(context, intent);
                 break;
         }
     }
@@ -82,10 +92,14 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
         }
 
         public void deviceFound(BluetoothDevice device) {
-            log(TAG, "Device Found Address: " + device.getAddress() + " Name:" + device.getName());
+            try {
+                log(TAG, "Device Found Address: " + device.getAddress() + " Name:" + device.getName());
+            } catch (SecurityException e) {
+                log(TAG, "Missing permission", e);
+            }
         }
 
-        public void unknowAction(Context context, Intent intent) {
+        public void unknownAction(Context context, Intent intent) {
             log(TAG, "Unknown Action");
         }
 
@@ -98,11 +112,19 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
         }
 
         public void onPairingRequest(BluetoothDevice pairingDevice, int variant) {
-            log(TAG, "Pairing device :" + pairingDevice.getName() + " Variant: " + variant);
+            try {
+                log(TAG, "Pairing device :" + pairingDevice.getName() + " Variant: " + variant);
+            }catch (SecurityException e) {
+                log(TAG, "Missing permission", e);
+            }
         }
 
         public void onBonded(BluetoothDevice device) {
-            log(TAG, "Bonded device :" + device.getName());
+            try {
+                log(TAG, "Bonded device :" + device.getName());
+            } catch (SecurityException e) {
+                log(TAG, "Missing permission", e);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package com.rdapps.gamepad.device;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
+import android.content.Context;
 import android.hardware.SensorEventListener;
 
 import lombok.Getter;
@@ -11,6 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class AbstractDevice implements SensorEventListener {
+    protected Context context;
+
     private String btName;
     private byte subclass;
     private String hidName;
@@ -23,16 +26,23 @@ public abstract class AbstractDevice implements SensorEventListener {
 
     private BluetoothHidDevice proxy;
 
+    @Setter
+    @Getter
     private boolean accelerometerEnabled;
+    @Setter
+    @Getter
     private boolean gyroscopeEnabled;
 
     public AbstractDevice(
+            Context context,
             String btName,
             byte subclass,
             String hidName,
             String hidDescription,
             String hidProvider,
             String hidDescriptor) {
+        this.context = context;
+
         this.btName = btName;
         this.subclass = subclass;
         this.hidName = hidName;
@@ -65,25 +75,9 @@ public abstract class AbstractDevice implements SensorEventListener {
 
     public abstract void stop();
 
-    public void setAccelerometerEnabled(boolean enabled) {
-        this.accelerometerEnabled = enabled;
-    }
-
-    public void setGyroscopeEnabled(boolean enabled) {
-        this.gyroscopeEnabled = enabled;
-    }
-
     public void setMotionControlsEnabled(boolean enabled) {
         setAccelerometerEnabled(enabled);
         setGyroscopeEnabled(enabled);
-    }
-
-    public boolean isAccelerometerEnabled() {
-        return accelerometerEnabled;
-    }
-
-    public boolean isGyroscopeEnabled() {
-        return gyroscopeEnabled;
     }
 
     public boolean isMotionControlsEnabled() {

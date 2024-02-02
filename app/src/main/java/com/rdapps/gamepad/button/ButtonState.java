@@ -20,17 +20,15 @@ public class ButtonState {
 
     private ControllerType type;
     private Map<ButtonEnum, Integer> buttons;
-    private Map<AxisEnum, Integer> axises;
+    private Map<AxisEnum, Integer> axes;
 
     public ButtonState(ControllerType type) {
         this.type = type;
         this.buttons = new HashMap<>(
-                Arrays.asList(ButtonEnum.values())
-                        .stream()
+                Arrays.stream(ButtonEnum.values())
                         .collect(Collectors.toMap(Function.identity(), (buttonEnum) -> BUTTON_UP)));
-        this.axises = new HashMap<>(
-                Arrays.asList(AxisEnum.values())
-                        .stream()
+        this.axes = new HashMap<>(
+                Arrays.stream(AxisEnum.values())
                         .collect(Collectors.toMap(Function.identity(), (axisEnum -> STICK_CENTER))));
     }
 
@@ -43,10 +41,10 @@ public class ButtonState {
     }
 
     public void setAxis(AxisEnum axis, int value) {
-        axises.put(axis, value);
+        axes.put(axis, value);
     }
 
     public int getAxis(AxisEnum axis) {
-        return axises.getOrDefault(axis, STICK_CENTER);
+        return axes.getOrDefault(axis, STICK_CENTER);
     }
 }

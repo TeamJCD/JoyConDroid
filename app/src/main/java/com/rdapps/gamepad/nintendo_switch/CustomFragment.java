@@ -1,7 +1,8 @@
 package com.rdapps.gamepad.nintendo_switch;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,8 +17,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 
+import android.widget.ImageButton;
 import androidx.fragment.app.FragmentActivity;
 
 import com.erz.joysticklibrary.JoyStick;
@@ -28,10 +29,12 @@ import com.rdapps.gamepad.button.ButtonEnum;
 import com.rdapps.gamepad.led.LedState;
 import com.rdapps.gamepad.util.ControllerFunctions;
 
-import java.io.File;
+import java.io.Serializable;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.Phaser;
 
+import static android.app.Activity.RESULT_OK;
 import static com.rdapps.gamepad.ControllerActivity.CUSTOM_UI_URL;
 import static com.rdapps.gamepad.button.ButtonState.BUTTON_DOWN;
 import static com.rdapps.gamepad.button.ButtonState.BUTTON_UP;
@@ -47,7 +50,7 @@ public class CustomFragment extends ControllerFragment {
     private ValueCallback<Uri[]> mUploadMessage;
     private Uri[] results;
 
-    public static CustomFragment getInstance(String url) {
+    public static CustomFragment getInstance(Serializable url) {
         CustomFragment customFragment = new CustomFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(CUSTOM_UI_URL, url);
@@ -66,6 +69,7 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
+    @SuppressLint("SetJavaScriptEnabled")
     public void onViewCreated(View view, Bundle savedInstanceState) {
         this.url = getArguments().getString(CUSTOM_UI_URL);
         super.onViewCreated(view, savedInstanceState);
@@ -75,8 +79,6 @@ public class CustomFragment extends ControllerFragment {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
-        webSettings.setAppCachePath(getActivity().getApplicationContext().getCacheDir().getAbsolutePath());
-        webSettings.setAppCacheEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.loadUrl(url);
@@ -90,20 +92,21 @@ public class CustomFragment extends ControllerFragment {
 
             @Override
             public boolean onConsoleMessage(ConsoleMessage cm) {
-                log("CONTENT", String.format("%s @ %d: %s",
+                log("CONTENT", String.format(Locale.ROOT, "%s @ %d: %s",
                         cm.message(), cm.lineNumber(), cm.sourceId()));
                 return true;
             }
 
             @Override
-            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
+                                             WebChromeClient.FileChooserParams fileChooserParams) {
                 // Double check that we don't have any existing callbacks
                 if (mUploadMessage != null) {
                     mUploadMessage.onReceiveValue(null);
                 }
                 mUploadMessage = filePathCallback;
 
-                openFileSelectionDialog();
+                openFileSelectionDialog(false);
 
                 return true;
             }
@@ -112,14 +115,12 @@ public class CustomFragment extends ControllerFragment {
         webView.addJavascriptInterface(new JoyConJSInterface(), "joyconJS");
         webView.addJavascriptInterface(new ControllerFunctions(
                 webView,
-                () -> {
-                    webView.loadUrl(url);
-                }
+                () -> webView.loadUrl(url)
         ), "Controller");
     }
 
     private class JoyConJSInterface {
-        private Phaser phaser = new Phaser(1);
+        private final Phaser phaser = new Phaser(1);
 
         @JavascriptInterface
         public void onUp(boolean pressed) {
@@ -168,8 +169,7 @@ public class CustomFragment extends ControllerFragment {
             }
 
             FragmentActivity activity = getActivity();
-            if (activity != null && activity instanceof ControllerActivity) {
-                ControllerActivity controllerActivity = (ControllerActivity) activity;
+            if (activity instanceof ControllerActivity controllerActivity) {
                 controllerActivity.sync();
             }
         }
@@ -378,11 +378,6 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public boolean setLeftStickPress(boolean pressed) {
         return true;
     }
@@ -393,77 +388,77 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public Button getSR() {
+    public ImageButton getSR() {
         return null;
     }
 
     @Override
-    public Button getSL() {
+    public ImageButton getSL() {
         return null;
     }
 
     @Override
-    public Button getUp() {
+    public ImageButton getUp() {
         return null;
     }
 
     @Override
-    public Button getDown() {
+    public ImageButton getDown() {
         return null;
     }
 
     @Override
-    public Button getLeft() {
+    public ImageButton getLeft() {
         return null;
     }
 
     @Override
-    public Button getRight() {
+    public ImageButton getRight() {
         return null;
     }
 
     @Override
-    public Button getZL() {
+    public ImageButton getZL() {
         return null;
     }
 
     @Override
-    public Button getZR() {
+    public ImageButton getZR() {
         return null;
     }
 
     @Override
-    public Button getL() {
+    public ImageButton getL() {
         return null;
     }
 
     @Override
-    public Button getR() {
+    public ImageButton getR() {
         return null;
     }
 
     @Override
-    public Button getMinus() {
+    public ImageButton getMinus() {
         return null;
     }
 
     @Override
-    public Button getPlus() {
+    public ImageButton getPlus() {
         return null;
     }
 
     @Override
-    public Button getHome() {
+    public ImageButton getHome() {
         return null;
     }
 
     @Override
-    public Button getCapture() {
+    public ImageButton getCapture() {
         return null;
     }
 
     @Override
-    public Button getSync() {
+    public ImageButton getSync() {
         return null;
     }
 
@@ -478,22 +473,22 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public Button getA() {
+    public ImageButton getA() {
         return null;
     }
 
     @Override
-    public Button getB() {
+    public ImageButton getB() {
         return null;
     }
 
     @Override
-    public Button getX() {
+    public ImageButton getX() {
         return null;
     }
 
     @Override
-    public Button getY() {
+    public ImageButton getY() {
         return null;
     }
 
@@ -503,45 +498,19 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public void onSelectedFilePaths(String[] files) {
-        results = new Uri[files.length];
-        for (int i = 0; i < files.length; i++) {
-            String filePath = new File(files[i]).getAbsolutePath();
-            if (!filePath.startsWith("file://")) {
-                filePath = "file://" + filePath;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SELECT_FILE && resultCode == RESULT_OK) {
+            Uri[] results = new Uri[1];
+            if (data != null) {
+                Context context = getContext();
+                results[0] = data.getData();
+                log(LOG_TAG, "file uri: " + results[0]);
             }
-            results[i] = Uri.parse(filePath);
-            log(LOG_TAG, "file path: " + filePath);
-            log(LOG_TAG, "file uri: " + String.valueOf(results[i]));
+            mUploadMessage.onReceiveValue(results);
+            mUploadMessage = null;
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
-        mUploadMessage.onReceiveValue(results);
-        mUploadMessage = null;
-    }
-
-    @Override
-    public void onFileSelectorCanceled(DialogInterface dialog) {
-        if (null != mUploadMessage) {
-            if (null != results && results.length >= 1) {
-                mUploadMessage.onReceiveValue(results);
-            } else {
-                mUploadMessage.onReceiveValue(null);
-            }
-        }
-        mUploadMessage = null;
-        this.dialog = null;
-    }
-
-    @Override
-    public void onFileSelectorDismissed(DialogInterface dialog) {
-        if (null != mUploadMessage) {
-            if (null != results && results.length >= 1) {
-                mUploadMessage.onReceiveValue(results);
-            } else {
-                mUploadMessage.onReceiveValue(null);
-            }
-        }
-        mUploadMessage = null;
-        this.dialog = null;
     }
 
     @Override

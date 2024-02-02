@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import lombok.Getter;
 
+@Getter
 public enum SubCommand {
     /**
      * https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/bluetooth_hid_subcommands_notes.md
@@ -38,10 +39,8 @@ public enum SubCommand {
     //TODO .... BUNCH OF THINGS
     ;
 
-    @Getter
-    private byte subCommandId;
-    @Getter
-    private SubCommandHandler handler;
+    private final byte subCommandId;
+    private final SubCommandHandler handler;
 
     SubCommand(int subCommandId, SubCommandHandler handler) {
         this.subCommandId = (byte) subCommandId;
@@ -49,8 +48,7 @@ public enum SubCommand {
     }
 
     public static SubCommand getSubCommand(byte subCommandId) {
-        return Arrays.asList(values())
-                .stream()
+        return Arrays.stream(values())
                 .filter(subCommand -> subCommand.subCommandId == subCommandId)
                 .findAny()
                 .orElse(UNKNOWN);

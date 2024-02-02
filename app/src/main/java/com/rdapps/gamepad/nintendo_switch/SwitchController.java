@@ -1,10 +1,12 @@
 package com.rdapps.gamepad.nintendo_switch;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
+import android.os.Build;
 import android.os.Process;
 import android.util.Log;
 
@@ -23,6 +25,7 @@ import com.rdapps.gamepad.util.PriorityThreadFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.Executors;
@@ -32,6 +35,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import lombok.Data;
+import lombok.Setter;
 
 import static androidx.core.math.MathUtils.clamp;
 import static com.rdapps.gamepad.log.JoyConLog.log;
@@ -96,6 +100,7 @@ import static com.rdapps.gamepad.nx.constant.NXConstants.ZL_ZR_BIT;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 import static com.rdapps.gamepad.util.ByteUtils.toShort;
 import static java.lang.Short.MAX_VALUE;
 import static java.lang.Short.MIN_VALUE;
@@ -108,7 +113,11 @@ public class SwitchController extends AbstractDevice {
     private static final String HID_NAME = "Wireless Gamepad";
     private static final String HID_DESCRIPTION = "Gamepad";
     private static final String HID_PROVIDER = "Nintendo";
-    private static final String DESCRIPTOR = "05010905a1010601ff8521092175089530810285300930750895308102853109317508966901810285320932750896690181028533093375089669018102853f05091901291015002501750195108102050109391500250775049501814205097504950181010501093009310933093416000027ffff00007510950481020601ff85010901750895309102851009107508953091028511091175089530910285120912750895309102c0";
+    private static final String DESCRIPTOR
+            = "05010905a1010601ff85210921750895308102853009307508953081028531093175089669018102853209327508966901810285"
+            + "33093375089669018102853f05091901291015002501750195108102050109391500250775049501814205097504950181010501"
+            + "093009310933093416000027ffff00007510950481020601ff850109017508953091028510091075089530910285110911750895"
+            + "30910285120912750895309102c0";
 
 
     private static final long WAIT_BEFORE_HANDSHAKE_MS = 1000;
@@ -118,32 +127,28 @@ public class SwitchController extends AbstractDevice {
 
     private static final float G = 9.80665f;
     private float[] accCoeffs;
-    private short[] accOffset;
     private float[] gyrCoeffs;
     private short[] gyrOffset;
 
     private SPIMemory eeprom;
-    private ButtonStates buttonStates;
-    private BluetoothControllerService service;
-    private boolean amiiboEnabled;
+    private final ButtonStates buttonStates;
+    private final BluetoothControllerService service;
+    private final boolean amiiboEnabled;
     private volatile InputMode inputMode;
-    private volatile MCUMode mcuMode;
+    private final MCUMode mcuMode;
 
+    @Setter
     private volatile byte[] amiiboBytes;
 
-    private ScheduledExecutorService executorService;
-    private ScheduledFuture fullModeSender;
+    private final ScheduledExecutorService executorService;
+    private ScheduledFuture<?> fullModeSender;
 
-    private Queue<SensorEvent> accelerometerEvents = new LinkedBlockingQueue<>();
-    private Queue<SensorEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
+    private final Collection<SensorEvent> accelerometerEvents = new LinkedBlockingQueue<>();
+    private final Collection<SensorEvent> gyroscopeEvents = new LinkedBlockingQueue<>();
 
-    private ControllerType type;
+    private final ControllerType type;
 
     private Callback notificationCallBack;
-
-    public void setAmiiboBytes(byte[] bytes) {
-        amiiboBytes = bytes;
-    }
 
     public interface Callback {
         void notifyBeforePackage();
@@ -151,6 +156,7 @@ public class SwitchController extends AbstractDevice {
 
     public SwitchController(BluetoothControllerService service, ControllerType type) {
         super(
+                service.getApplicationContext(),
                 type.getBTName(),
                 SUBCLASS,
                 HID_NAME,
@@ -195,7 +201,7 @@ public class SwitchController extends AbstractDevice {
         gyrCoeffs = new float[3];
 
         byte[] motionCalibration = eeprom.read(0x8026, 26);
-        accOffset = new short[3];
+        short[] accOffset = new short[3];
         int[] calAccCoef = new int[3];
         gyrOffset = new short[3];
         int[] calGyrCoef = new int[3];
@@ -436,7 +442,8 @@ public class SwitchController extends AbstractDevice {
 
     @Override
     public void onInterruptData(BluetoothDevice rDevice, byte reportId, byte[] data) {
-        Log.v(TAG, "Interrupt Data Report Id: " + ByteUtils.encodeHexString(reportId) + " data: " + Hex.bytesToStringUppercase(data));
+        Log.v(TAG, "Interrupt Data Report Id: " + ByteUtils.encodeHexString(reportId) + " data: "
+                + Hex.bytesToStringUppercase(data));
 
         if (reportId == REQUEST_RUMBLE_AND_SUBCOMMAND) {
             handleRumbleAndSubcommand(data);
@@ -739,14 +746,12 @@ public class SwitchController extends AbstractDevice {
     private static byte timeByte = 0;
     private byte getTimeByte() {
         long nanoTime = System.nanoTime();
-        return (byte) timeByte++;
+        return timeByte++;
     }
 
     private byte getBatteryReport() {
-        /**
-         * TODO: Currently returning battery is full all the time
-         * Might be improved to return correct battery level
-         */
+        // TODO: Currently returning battery is full all the time
+        // Might be improved to return correct battery level
         byte batteryReport = (byte) 0x90; //Battery level. 8=full, 6=medium, 4=low, 2=critical, 0=empty. LSB=Charging.
         if (type != PRO_CONTROLLER) {
             batteryReport = (byte) (batteryReport | 0x0E);
@@ -758,15 +763,13 @@ public class SwitchController extends AbstractDevice {
     }
 
     private byte getVibratorData() {
-        /**
-         * TODO: Currently returning fake vibrator setting
-         * might return real values depending on the device
-         */
+        // TODO: Currently returning fake vibrator setting
+        // might return real values depending on the device
         return (byte) 0xB0;
     }
 
-    float[] accs = new float[3 * 3];
-    float[] gyrs = new float[3 * 3];
+    final float[] accs = new float[3 * 3];
+    final float[] gyrs = new float[3 * 3];
 
     private synchronized byte[] getSensorData() {
         int multiplier = 1;
@@ -834,7 +837,7 @@ public class SwitchController extends AbstractDevice {
             short rawAccZ = (short) clamp(((isPro ? accY : accZ))
                     * accCoeffs[2], MIN_VALUE, MAX_VALUE);
 
-            sensorData[0 + i * 12] = (byte) (rawAccX & 0xFF);
+            sensorData[i * 12] = (byte) (rawAccX & 0xFF);
             sensorData[1 + i * 12] = (byte) (rawAccX >> 8 & 0xFF);
             sensorData[2 + i * 12] = (byte) (rawAccY & 0xFF);
             sensorData[3 + i * 12] = (byte) (rawAccY >> 8 & 0xFF);
@@ -904,7 +907,7 @@ public class SwitchController extends AbstractDevice {
         }
         //Unknown
         buffer[index + 10] = 0x01;
-        //If 01, colors in SPI are used. Otherwise default ones.
+        //If 01, colors in SPI are used. Otherwise, default ones.
         //  buffer[index + 11] = 0x01;
         buffer[index + 11] = eeprom.read(0x601B, 1)[0];
         ;
@@ -981,7 +984,8 @@ public class SwitchController extends AbstractDevice {
                 System.arraycopy(bytes, 0, buffer, 3, bytes.length);
                 System.arraycopy(amiiboBytes, 0, buffer, 3 + bytes.length, 3);
                 System.arraycopy(amiiboBytes, 4, buffer, 6 + bytes.length, 4);
-                byte[] bytes2 = Hex.stringToBytes("000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000");
+                byte[] bytes2 = Hex.stringToBytes(
+                        "000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000");
                 System.arraycopy(bytes2, 0, buffer, 10 + bytes.length, bytes2.length);
                 System.arraycopy(amiiboBytes, 0, buffer, 10 + bytes.length + bytes2.length, 245);
                 mcuMode.setAction(MCUMode.Action.READ_TAG_2);
@@ -1074,11 +1078,19 @@ public class SwitchController extends AbstractDevice {
     }
 
     public boolean sendReport(int reportId, byte[] data) {
-        Log.v(TAG, "Sent Data Report Id: " + ByteUtils.encodeHexString((byte) reportId) + " data: " + Hex.bytesToStringUppercase(data));
+        Log.v(TAG, "Sent Data Report Id: " + ByteUtils.encodeHexString((byte) reportId) + " data: "
+                + Hex.bytesToStringUppercase(data));
         BluetoothHidDevice proxy = getProxy();
         BluetoothDevice remoteDevice = getRemoteDevice();
         if (Objects.nonNull(proxy) && Objects.nonNull(remoteDevice)) {
-            return proxy.sendReport(remoteDevice, reportId, data);
+            try {
+                return proxy.sendReport(remoteDevice, reportId, data);
+            } catch (SecurityException ex) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(context, Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
+            }
         }
         return false;
     }

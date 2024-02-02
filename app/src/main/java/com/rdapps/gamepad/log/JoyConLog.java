@@ -12,8 +12,8 @@ import static android.util.Log.VERBOSE;
 import static android.util.Log.WARN;
 
 public class JoyConLog {
-    private static String PREFIX = "JoyCon Droid-";
-    private static int LOG_LEVEL = BuildConfig.LOG_LEVEL;
+    private static final String PREFIX = "JoyCon Droid-";
+    private static final int LOG_LEVEL = BuildConfig.LOG_LEVEL;
 
     public static void log(String tag, String message, Throwable tr) {
         switch (LOG_LEVEL) {
@@ -45,25 +45,25 @@ public class JoyConLog {
     }
 
     public static void log(String tag, String message, boolean sendLog) {
-        tag = PREFIX + tag;
+        String logTag = PREFIX + tag;
         switch (LOG_LEVEL) {
             case VERBOSE:
-                Log.v(tag, message);
+                Log.v(logTag, message);
                 break;
             case DEBUG:
-                log(tag, message);
+                log(logTag, message);
                 break;
             case INFO:
-                Log.i(tag, message);
+                Log.i(logTag, message);
                 break;
             case WARN:
-                Log.w(tag, message);
+                Log.w(logTag, message);
                 break;
             case ERROR:
-                Log.e(tag, message);
+                Log.e(logTag, message);
                 break;
             case ASSERT:
-                Log.wtf(tag, message);
+                Log.wtf(logTag, message);
                 break;
             default:
                 break;

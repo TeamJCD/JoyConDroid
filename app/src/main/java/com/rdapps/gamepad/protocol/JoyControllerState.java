@@ -3,6 +3,7 @@ package com.rdapps.gamepad.protocol;
 import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.battery.BatteryData;
 import com.rdapps.gamepad.memory.ControllerMemory;
+import com.rdapps.gamepad.memory.SPIMemory;
 import com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu;
 import com.rdapps.gamepad.report.InputReportMode;
 import com.rdapps.gamepad.vibrator.VibratorData;
@@ -10,6 +11,7 @@ import com.rdapps.gamepad.vibrator.VibratorData;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.report.InputReportMode.NFC_IR_MODE;
@@ -22,32 +24,38 @@ public class JoyControllerState {
 
     private static final double G = 9.8f;
 
-    private AtomicInteger timeByte = new AtomicInteger(0);
+    private final AtomicInteger timeByte = new AtomicInteger(0);
 
     @Getter
     private InputReportMode inputReportMode = SIMPLE_HID;
 
     @Getter
-    private BatteryData batteryData = new BatteryData(true, (float) 1.0);
+    private final BatteryData batteryData = new BatteryData(true, (float) 1.0);
 
+    @Setter
     @Getter
     private byte playerLights = 0;
 
+    @Setter
     @Getter
     private boolean axisSensorEnabled = false;
 
+    @Setter
     @Getter
     private boolean vibrationEnabled = false;
 
     /**
      * TODO implement this
      */
+    @Setter
     @Getter
     private VibratorData vibratorData = new VibratorData();
 
+    @Setter
     @Getter
     private byte[] macBytes;
 
+    @Setter
     @Getter
     private NfcIrMcu nfcIrMcu = new NfcIrMcu();
 
@@ -64,7 +72,7 @@ public class JoyControllerState {
         this.macBytes = macBytes;
     }
 
-    public void calculateCoeffs(ControllerMemory memory) {
+    public void calculateCoeffs(SPIMemory memory) {
         accCoeffs = new double[3];
         gyrCoeffs = new double[3];
         accOffset = new int[3];
@@ -116,30 +124,6 @@ public class JoyControllerState {
             nfcIrMcu.setMcuState(NfcIrMcu.MCUState.NOT_INITIALIZED);
             nfcIrMcu.setAction(NfcIrMcu.Action.NON);
         }
-    }
-
-    public void setPlayerLights(byte playerLights) {
-        this.playerLights = playerLights;
-    }
-
-    public void setAxisSensorEnabled(boolean axisSensorEnabled) {
-        this.axisSensorEnabled = axisSensorEnabled;
-    }
-
-    public void setVibrationEnabled(boolean vibrationEnabled) {
-        this.vibrationEnabled = vibrationEnabled;
-    }
-
-    public void setVibratorData(VibratorData vibratorData) {
-        this.vibratorData = vibratorData;
-    }
-
-    public void setMacBytes(byte[] macBytes) {
-        this.macBytes = macBytes;
-    }
-
-    public void setNfcIrMcu(NfcIrMcu nfcIrMcu) {
-        this.nfcIrMcu = nfcIrMcu;
     }
 
 }

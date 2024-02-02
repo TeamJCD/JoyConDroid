@@ -1,5 +1,6 @@
 package com.rdapps.gamepad;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -29,10 +30,11 @@ public class InfoAndLegalActivity extends AppCompatActivity {
 
     private static final String TAG = InfoAndLegalActivity.class.getName();
 
-    private AtomicBoolean errored = new AtomicBoolean(false);
+    private final AtomicBoolean errored = new AtomicBoolean(false);
 
 
     @Override
+    @SuppressLint("SetJavaScriptEnabled")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -47,8 +49,6 @@ public class InfoAndLegalActivity extends AppCompatActivity {
         Locale aDefault = Locale.getDefault();
         log("Locale", "Locale:" + aDefault.toString());
         webSettings.setMediaPlaybackRequiresUserGesture(false);
-        webSettings.setAppCachePath(this.getApplicationContext().getCacheDir().getAbsolutePath());
-        webSettings.setAppCacheEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal");
@@ -69,7 +69,7 @@ public class InfoAndLegalActivity extends AppCompatActivity {
 
             @Override
             public boolean onConsoleMessage(ConsoleMessage cm) {
-                log("CONTENT", String.format("%s @ %d: %s",
+                log("CONTENT", String.format(Locale.ROOT, "%s @ %d: %s",
                         cm.message(), cm.lineNumber(), cm.sourceId()));
                 return true;
             }
@@ -77,9 +77,7 @@ public class InfoAndLegalActivity extends AppCompatActivity {
 
         webView.addJavascriptInterface(new ControllerFunctions(
                 webView,
-                () -> {
-                    webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal");
-                }
+                () -> webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal")
         ), "Controller");
     }
 

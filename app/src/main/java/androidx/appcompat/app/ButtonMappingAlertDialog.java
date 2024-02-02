@@ -36,7 +36,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
      * Construct an AlertDialog that uses an explicit theme.  The actual style
      * that an AlertDialog uses is a private implementation, however you can
      * here supply either the name of an attribute in the theme from which
-     * to get the dialog's style (such as {@link R.attr#alertDialogTheme}.
+     * to get the dialog's style (such as {@link android.R.attr#alertDialogTheme}).
      */
     protected ButtonMappingAlertDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, resolveDialogTheme(context, themeResId));
@@ -87,13 +87,13 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * The specified theme resource ({@code themeResId}) is applied on top
          * of the parent {@code context}'s theme. It may be specified as a
          * style resource containing a fully-populated theme, such as
-         * {@link R.style#Theme_AppCompat_Dialog}, to replace all
+         * {@link android.R.style#Theme_Material_Dialog}, to replace all
          * attributes in the parent {@code context}'s theme including primary
          * and accent colors.
          * <p>
          * To preserve attributes such as primary and accent colors, the
          * {@code themeResId} may instead be specified as an overlay theme such
-         * as {@link R.style#ThemeOverlay_AppCompat_Dialog}. This will
+         * as {@link android.R.style#ThemeOverlay_Material_Dialog}. This will
          * override only the window attributes necessary to style the alert
          * window as a dialog.
          * <p>
@@ -457,7 +457,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *
          * @param itemsId      the resource id of an array i.e. R.array.foo
          * @param checkedItems specifies which items are checked. It should be null in which case no
-         *                     items are checked. If non null it must be exactly the same length as the array of
+         *                     items are checked. If non-null it must be exactly the same length as the array of
          *                     items.
          * @param listener     notified when an item on the list is clicked. The dialog will not be
          *                     dismissed when an item is clicked. It will only be dismissed if clicked on a
@@ -482,7 +482,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *
          * @param items        the text of the items to be displayed in the list.
          * @param checkedItems specifies which items are checked. It should be null in which case no
-         *                     items are checked. If non null it must be exactly the same length as the array of
+         *                     items are checked. If non-null it must be exactly the same length as the array of
          *                     items.
          * @param listener     notified when an item on the list is clicked. The dialog will not be
          *                     dismissed when an item is clicked. It will only be dismissed if clicked on a
@@ -702,7 +702,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
 
         /**
          * Sets the Dialog to use the inverse background, regardless of what the
-         * contents is.
+         * contents are.
          *
          * @param useInverseBackground Whether to use the inverse background
          * @return This Builder object to allow for chaining of calls to set methods

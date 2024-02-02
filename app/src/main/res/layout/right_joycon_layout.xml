@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/red"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:baselineAligned="false"
+              android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:orientation="vertical">
 
-            <Button
+        <ImageButton
                 android:id="@+id/plus"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -31,9 +24,11 @@
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="Plus"
+                tools:ignore="HardcodedText"/>
 
-            <Button
+        <ImageButton
                 android:id="@+id/sl"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -41,16 +36,18 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_sl"
+                android:background="@drawable/ic_sl_right"
                 android:scaleX="-1"
                 android:scaleY="-1"
                 app:layout_constraintBottom_toTopOf="@+id/home"
                 app:layout_constraintDimensionRatio="H,1:2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sync" />
+                app:layout_constraintTop_toBottomOf="@+id/sync"
+                android:contentDescription="SL"
+                tools:ignore="HardcodedText"/>
 
-            <Button
+        <ImageButton
                 android:id="@+id/sync"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -58,14 +55,16 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_sync"
+                android:background="@drawable/ic_sync_right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="Sync"
+                tools:ignore="HardcodedText"/>
 
-            <Button
+        <ImageButton
                 android:id="@+id/sr"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -73,16 +72,18 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_sr"
+                android:background="@drawable/ic_sr_right"
                 android:scaleX="-1"
                 android:scaleY="-1"
                 app:layout_constraintBottom_toTopOf="@+id/sync"
                 app:layout_constraintDimensionRatio="H,1:2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plus" />
+                app:layout_constraintTop_toBottomOf="@+id/plus"
+                android:contentDescription="SR"
+                tools:ignore="HardcodedText"/>
 
-            <Button
+        <ImageButton
                 android:id="@+id/home"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -95,28 +96,29 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="Home"
+                tools:ignore="HardcodedText"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+    <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:orientation="vertical">
 
-            <include
-                android:id="@+id/include"
+        <include
                 layout="@layout/led_layout_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="19">
 
-                <Button
+            <ImageButton
                     android:id="@+id/zr"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -128,9 +130,11 @@
                     app:layout_constraintDimensionRatio="H,5:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="ZR"
+                    tools:ignore="HardcodedText"/>
 
-                <Button
+            <ImageButton
                     android:id="@+id/r"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -143,9 +147,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/zr" />
+                    app:layout_constraintTop_toBottomOf="@+id/zr"
+                    android:contentDescription="R"
+                    tools:ignore="HardcodedText"/>
 
-                <LinearLayout
+            <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="16dp"
@@ -156,27 +162,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/r">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1">
 
-                        <include
-                            android:id="@+id/include"
+                    <include
                             layout="@layout/button_pad_layout"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             app:layout_constraintDimensionRatio="H,1:1"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:layout_constraintStart_toStartOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1">
 
-                        <com.erz.joysticklibrary.JoyStick
+                    <com.erz.joysticklibrary.JoyStick
                             android:id="@+id/joy"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
@@ -186,14 +191,12 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:padColor="@color/dark_red"
-                            app:percentage="50" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:padColor="@color/custom_brand_red"
+                            app:percentage="50"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </LinearLayout>
+            </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
 </LinearLayout>

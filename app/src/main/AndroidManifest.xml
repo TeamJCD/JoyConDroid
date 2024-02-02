@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.rdapps.gamepad">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <permission android:name="com.rdapps.gamepad.READ" />
+
+    <uses-feature android:name="android.hardware.bluetooth" android:required="true" />
+
+    <!-- Request legacy Bluetooth permissions on older devices -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation"
+                     tools:targetApi="s" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.rdapps.gamepad.READ" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".JoyConDroidApplication"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+                android:name=".MainActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:screenOrientation="portrait"
+                android:exported="true"
+                tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,34 +47,41 @@
             android:name=".ControllerActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name=".InfoAndLegalActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".CustomUIActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ButtonMappingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".JoystickMappingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".UserGuideActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
-        <activity android:name=".RegisterUIActivity">
+        <activity android:name=".RegisterUIActivity" android:exported="false">
             <intent-filter>
                 <action android:name="com.rdapps.gamepad.registerui" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -62,24 +90,12 @@
 
         <service
             android:name=".service.BluetoothControllerService"
+            android:foregroundServiceType="connectedDevice"
             android:exported="false" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-
-    <permission android:name="com.rdapps.gamepad.READ" />
-    <uses-permission android:name="com.rdapps.gamepad.READ" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"
-        tools:ignore="ProtectedPermissions" />
 
 </manifest>

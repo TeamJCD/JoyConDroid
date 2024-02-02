@@ -1,5 +1,6 @@
 package com.rdapps.gamepad;
 
+import static android.Manifest.permission.*;
 import static android.bluetooth.BluetoothAdapter.ACTION_STATE_CHANGED;
 import static android.bluetooth.BluetoothAdapter.STATE_OFF;
 import static android.bluetooth.BluetoothAdapter.STATE_ON;
@@ -9,29 +10,34 @@ import static com.rdapps.gamepad.ControllerActivity.CONTROLLER_TYPE;
 import static com.rdapps.gamepad.UserGuideActivity.PATH;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 import static com.rdapps.gamepad.util.PreferenceUtils.MAC_FAKE_ADDRESS;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -45,8 +51,8 @@ import com.rdapps.gamepad.versionchecker.Version;
 import com.rdapps.gamepad.versionchecker.VersionCheckerClient;
 import com.rdapps.gamepad.versionchecker.VersionCheckerService;
 
-import java.util.Objects;
-import java.util.Optional;
+import java.io.Serializable;
+import java.util.*;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
 
     private static final int LEGAL_CODE = 1;
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private static final String[] RUNTIME_PERMISSIONS_S
+            = new String[] { BLUETOOTH_ADVERTISE, BLUETOOTH_CONNECT, BLUETOOTH_SCAN };
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private static final String[] RUNTIME_PERMISSIONS_T
+            = new String[] { POST_NOTIFICATIONS };
 
     private BluetoothBroadcastReceiver mBluetoothBroadcastReceiver;
 
@@ -85,24 +99,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (PreferenceUtils.isAdsRemoved(this)) {
-            Button remove_ad = findViewById(R.id.menu_remove_ad);
-            remove_ad.setBackgroundResource(R.drawable.ic_menu_pro_controller);
-            remove_ad.setText(R.string.custom_ui);
-        }
-
         checkUpdate();
+        checkPermissions();
     }
 
     private void checkUpdate() {
         try {
             if (BuildConfig.CHECK_UPDATE) {
                 VersionCheckerService versionCheckerService = VersionCheckerClient.getService();
-                versionCheckerService.getVersion().enqueue(new Callback<Version>() {
+                versionCheckerService.getVersion().enqueue(new Callback<>() {
                     @Override
                     public void onResponse(Call<Version> call, Response<Version> response) {
                         Version body = response.body();
-                        if (!BuildConfig.VERSION_NAME.equalsIgnoreCase(body.getVersion())) {
+                        if (body.getVersionCode() != null && BuildConfig.VERSION_CODE < body.getVersionCode()) {
                             showUpdateDialog(body.getVersion());
                         }
                     }
@@ -125,12 +134,35 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton(R.string.later, (dialog, which) -> {
         });
         builder.setPositiveButton(R.string.update, (dialog, which) -> {
-            String url = "https://github.com/YouTubePlays/JoyConDroid/releases/download/" + version + "/joycon-droid.apk";
+            String url = "https://github.com/YouTubePlays/JoyConDroid/releases/download/" + version
+                    + "/joycon-droid.apk";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
         });
         builder.create().show();
+    }
+
+    private void checkPermissions() {
+        List<String> permissions = new ArrayList<>();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Arrays.stream(RUNTIME_PERMISSIONS_S)
+                    .filter(p ->
+                            ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED)
+                    .forEach(permissions::add);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Arrays.stream(RUNTIME_PERMISSIONS_T)
+                    .filter(p ->
+                            ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED)
+                    .forEach(permissions::add);
+        }
+
+        if (!permissions.isEmpty()) {
+            ActivityCompat.requestPermissions(this, permissions.toArray(new String[0]), 2);
+        }
     }
 
     @Override
@@ -146,36 +178,32 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        switch (id) {
-            case R.id.action_user_guide:
-                showGuide();
-                return true;
-            case R.id.action_revert_bluetooth:
-                revertBTConfig();
-                return true;
-            case R.id.action_info:
-                showInfoAndLegal();
-                return true;
-            case R.id.action_custom_left_joycon:
-                showCustomUI();
-                return true;
-            case R.id.action_button_mapping:
-                showButtonMapping();
-                return true;
-            case R.id.action_settings:
-                showSettings();
-                return true;
-            case R.id.action_faq:
-                showFAQ();
-                return true;
-            case R.id.action_discord:
-                showDiscord();
-                return true;
-            default:
-                break;
+        if (id == R.id.action_user_guide) {
+            showGuide();
+            return true;
+        } else if (id == R.id.action_revert_bluetooth) {
+            revertBTConfig();
+            return true;
+        } else if (id == R.id.action_info) {
+            showInfoAndLegal();
+            return true;
+        } else if (id == R.id.action_custom_left_joycon) {
+            showCustomUI();
+            return true;
+        } else if (id == R.id.action_button_mapping) {
+            showButtonMapping();
+            return true;
+        } else if (id == R.id.action_settings) {
+            showSettings();
+            return true;
+        } else if (id == R.id.action_faq) {
+            showFAQ();
+            return true;
+        } else if (id == R.id.action_discord) {
+            showDiscord();
+            return true;
         }
 
 
@@ -254,6 +282,10 @@ public class MainActivity extends AppCompatActivity {
         showController(ControllerType.PRO_CONTROLLER);
     }
 
+    public void showCustomUi(View v) {
+        showCustomUI();
+    }
+
     private void showController(ControllerType type) {
         String bluetoothAddress = PreferenceUtils.getBluetoothAddress(this);
         boolean ask = PreferenceUtils.shouldAskMacAddress(this);
@@ -289,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showJoyconImpl(ControllerType type) {
+    private void showJoyconImpl(Serializable type) {
         Intent intent = new Intent(this, ControllerActivity.class);
         intent.putExtra(CONTROLLER_TYPE, type);
         startActivity(intent);
@@ -314,14 +346,22 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Optional<BluetoothAdapter> bluetoothAdapter = Optional.ofNullable((BluetoothManager) getSystemService(BLUETOOTH_SERVICE))
+        Optional<BluetoothAdapter> bluetoothAdapter = Optional.ofNullable(
+                (BluetoothManager) getSystemService(BLUETOOTH_SERVICE))
                 .map(BluetoothManager::getAdapter);
         if (bluetoothAdapter.isPresent()) {
-            bluetoothAdapter.ifPresent(adapter -> adapter.setName(originalNameOpt.get()));
-            PreferenceUtils.removeOriginalName(this);
-            PreferenceUtils.removeBluetoothAddress(this);
-            PreferenceUtils.removeDoNotAskMacAddress(this);
-            Toast.makeText(this, R.string.bt_config_is_reverted, Toast.LENGTH_LONG).show();
+            try {
+                bluetoothAdapter.get().setName(originalNameOpt.get());
+                PreferenceUtils.removeOriginalName(this);
+                PreferenceUtils.removeBluetoothAddress(this);
+                PreferenceUtils.removeDoNotAskMacAddress(this);
+                Toast.makeText(this, R.string.bt_config_is_reverted, Toast.LENGTH_LONG).show();
+            } catch (SecurityException ex) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(getApplicationContext(), BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
+            }
         } else {
             mBluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(new MainActBBRListener());
             registerReceiver(mBluetoothBroadcastReceiver, new IntentFilter(ACTION_STATE_CHANGED));

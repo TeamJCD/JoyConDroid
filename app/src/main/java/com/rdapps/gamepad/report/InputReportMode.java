@@ -18,15 +18,14 @@ public enum InputReportMode {
     SIMPLE_HID(0x3F),
     UNKNOWN(0xFF);
 
-    private byte arg;
+    private final byte arg;
 
     InputReportMode(int arg) {
         this.arg = (byte) arg;
     }
 
     public static InputReportMode getInputReportMode(byte b) {
-        return Arrays.asList(values())
-                .stream()
+        return Arrays.stream(values())
                 .filter(inputReportMode -> inputReportMode.arg == b)
                 .findAny()
                 .orElse(UNKNOWN);

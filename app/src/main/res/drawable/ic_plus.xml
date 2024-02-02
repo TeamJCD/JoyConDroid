@@ -5,19 +5,19 @@
     android:viewportHeight="200">
     <path
         android:fillAlpha="1"
-        android:fillColor="@color/button_bg"
+        android:fillColor="@color/button_bg_red"
         android:pathData="M37.01,16.704L162.99,16.704C168.923,16.704 174.619,19.063 178.814,23.258C183.009,27.453 185.368,33.149 185.368,39.082L185.368,160.918C185.368,166.851 183.009,172.547 178.814,176.742C174.619,180.937 168.923,183.296 162.99,183.296L37.01,183.296C31.077,183.296 25.381,180.937 21.186,176.742C16.991,172.547 14.632,166.851 14.632,160.918L14.632,39.082C14.632,33.149 16.991,27.453 21.186,23.258C25.381,19.063 31.077,16.704 37.01,16.704Z"
         android:strokeWidth="6.63049793"
-        android:strokeColor="@color/border"
+        android:strokeColor="#000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
-        android:fillColor="@color/border"
+        android:fillColor="#000"
         android:pathData="M38.768,78.833L161.232,78.833L161.232,121.166L38.768,121.166Z"
         android:strokeWidth="2"
         android:strokeAlpha="0.94117647" />
     <path
-        android:fillColor="@color/border"
+        android:fillColor="#000"
         android:pathData="M78.834,161.232V38.768h42.333V161.232Z"
         android:strokeWidth="2"
         android:strokeAlpha="0.94117647" />

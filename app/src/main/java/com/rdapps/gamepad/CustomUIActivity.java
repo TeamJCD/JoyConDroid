@@ -32,22 +32,20 @@ import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
 
-public class CustomUIActivity extends AppCompatActivity implements Callback<List<CustomUIItem>>, AdapterView.OnItemClickListener {
+public class CustomUIActivity extends AppCompatActivity implements Callback<List<CustomUIItem>>,
+        AdapterView.OnItemClickListener {
 
 
     private static final String TAG = CustomUIActivity.class.getName();
 
-    private ListView customUIView;
     private CustomUIViewAdapter customUIViewAdapter;
-
-    private CustomUIService customUIService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_ui);
 
-        customUIView = findViewById(R.id.customUIList);
+        ListView customUIView = findViewById(R.id.customUIList);
         customUIViewAdapter = new CustomUIViewAdapter(this);
         customUIView.setAdapter(customUIViewAdapter);
         customUIView.setClickable(true);
@@ -55,7 +53,7 @@ public class CustomUIActivity extends AppCompatActivity implements Callback<List
 
         customUIViewAdapter.setItems(new ArrayList<>());
 
-        customUIService = CustomUIClient.getService();
+        CustomUIService customUIService = CustomUIClient.getService();
         Call<List<CustomUIItem>> customUIs = customUIService.getCustomUIs();
         customUIs.enqueue(this);
     }
@@ -86,8 +84,10 @@ public class CustomUIActivity extends AppCompatActivity implements Callback<List
     public void onResponse(Call<List<CustomUIItem>> call, Response<List<CustomUIItem>> response) {
         List<CustomUIItem> customUIItems = response.body();
         if (customUIItems != null) {
-            ArrayList<CustomUIItem> allUis = new ArrayList<>(customUIItems);
-            allUis.addAll(new CustomUIDBHandler(this).getCustomUIs());
+            List<CustomUIItem> allUis = new ArrayList<>(customUIItems);
+            try (CustomUIDBHandler customUIDBHandler = new CustomUIDBHandler(this)) {
+                allUis.addAll(customUIDBHandler.getCustomUIs());
+            }
 
             List<CustomUIItem> filtered = allUis.stream()
                     .filter(item -> item.getAppVersion() <= BuildConfig.VERSION_CODE)

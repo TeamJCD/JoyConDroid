@@ -1,15 +1,14 @@
 package com.rdapps.gamepad.nintendo_switch;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import android.widget.ImageButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -42,17 +41,17 @@ import static com.rdapps.gamepad.vibrator.VibrationPattern.STICK_RELEASE;
 
 public class RightJoyConFragment extends ControllerFragment implements JoyStick.JoyStickListener, View.OnClickListener {
 
-    private Button sr;
-    private Button sl;
-    private Button x;
-    private Button y;
-    private Button a;
-    private Button b;
-    private Button zr;
-    private Button r;
-    private Button plus;
-    private Button home;
-    private Button sync;
+    private ImageButton sr;
+    private ImageButton sl;
+    private ImageButton x;
+    private ImageButton y;
+    private ImageButton a;
+    private ImageButton b;
+    private ImageButton zr;
+    private ImageButton r;
+    private ImageButton plus;
+    private ImageButton home;
+    private ImageButton sync;
 
     private View led1;
     private View led2;
@@ -76,7 +75,7 @@ public class RightJoyConFragment extends ControllerFragment implements JoyStick.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButtonTouchListener buttonTouchListener = new ButtonTouchListener();
+        View.OnTouchListener buttonTouchListener = new ButtonTouchListener();
         sr = view.findViewById(R.id.sr);
         sl = view.findViewById(R.id.sl);
         a = view.findViewById(R.id.a);
@@ -107,11 +106,6 @@ public class RightJoyConFragment extends ControllerFragment implements JoyStick.
         plus.setOnTouchListener(buttonTouchListener);
         joyStick.setListener(this);
         sync.setOnClickListener(this);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     @Override
@@ -146,8 +140,7 @@ public class RightJoyConFragment extends ControllerFragment implements JoyStick.
     @Override
     public void onClick(View v) {
         FragmentActivity activity = getActivity();
-        if (activity instanceof ControllerActivity) {
-            ControllerActivity controllerActivity = (ControllerActivity) activity;
+        if (activity instanceof ControllerActivity controllerActivity) {
             controllerActivity.sync();
         }
     }
@@ -165,7 +158,7 @@ public class RightJoyConFragment extends ControllerFragment implements JoyStick.
         }
 
         device.setButton(RIGHT_STICK_BUTTON, pressed ? DOWN : UP);
-        joyStick.setPadColor(getContext().getColor(pressed ? R.color.pressed : R.color.dark_red));
+        joyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_red));
         joyStick.invalidate();
         return true;
     }
@@ -222,97 +215,97 @@ public class RightJoyConFragment extends ControllerFragment implements JoyStick.
     }
 
     @Override
-    public Button getSR() {
+    public ImageButton getSR() {
         return sr;
     }
 
     @Override
-    public Button getL() {
+    public ImageButton getL() {
         return null;
     }
 
     @Override
-    public Button getSL() {
+    public ImageButton getSL() {
         return sl;
     }
 
     @Override
-    public Button getX() {
+    public ImageButton getX() {
         return x;
     }
 
     @Override
-    public Button getY() {
+    public ImageButton getY() {
         return y;
     }
 
     @Override
-    public Button getA() {
+    public ImageButton getA() {
         return a;
     }
 
     @Override
-    public Button getB() {
+    public ImageButton getB() {
         return b;
     }
 
     @Override
-    public Button getZR() {
+    public ImageButton getZR() {
         return zr;
     }
 
     @Override
-    public Button getMinus() {
+    public ImageButton getMinus() {
         return null;
     }
 
     @Override
-    public Button getR() {
+    public ImageButton getR() {
         return r;
     }
 
     @Override
-    public Button getZL() {
+    public ImageButton getZL() {
         return null;
     }
 
     @Override
-    public Button getPlus() {
+    public ImageButton getPlus() {
         return plus;
     }
 
     @Override
-    public Button getHome() {
+    public ImageButton getHome() {
         return home;
     }
 
     @Override
-    public Button getCapture() {
+    public ImageButton getCapture() {
         return null;
     }
 
     @Override
-    public Button getLeft() {
+    public ImageButton getLeft() {
         return null;
     }
 
     @Override
-    public Button getRight() {
+    public ImageButton getRight() {
         return null;
     }
 
     @Override
-    public Button getUp() {
+    public ImageButton getUp() {
         return null;
     }
 
     @Override
-    public Button getDown() {
+    public ImageButton getDown() {
         return null;
     }
 
     @Override
-    public Button getSync() {
+    public ImageButton getSync() {
         return sync;
     }
 
@@ -366,22 +359,22 @@ public class RightJoyConFragment extends ControllerFragment implements JoyStick.
             if (led1 == LedState.BLINK) {
                 Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led1.setBackground(drawable);
-                ((AnimationDrawable) drawable).run();
+                ((Runnable) drawable).run();
             }
             if (led2 == LedState.BLINK) {
                 Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led2.setBackground(drawable);
-                ((AnimationDrawable) drawable).run();
+                ((Runnable) drawable).run();
             }
             if (led3 == LedState.BLINK) {
                 Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led3.setBackground(drawable);
-                ((AnimationDrawable) drawable).run();
+                ((Runnable) drawable).run();
             }
             if (led4 == LedState.BLINK) {
                 Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led4.setBackground(drawable);
-                ((AnimationDrawable) drawable).run();
+                ((Runnable) drawable).run();
             }
         }
     }

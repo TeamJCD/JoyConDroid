@@ -21,8 +21,6 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import static com.rdapps.gamepad.log.JoyConLog.log;
-
 public class JoyControllerBuilder {
 
     private static final String TAG = JoyControllerBuilder.class.getName();
@@ -31,7 +29,7 @@ public class JoyControllerBuilder {
         return new JoyControllerBuilder(context);
     }
 
-    private Context context;
+    private final Context context;
     private ControllerType type;
     private ControllerMemory memory;
     private ButtonState buttonsState;
@@ -60,6 +58,7 @@ public class JoyControllerBuilder {
         JoyControllerState joyControllerState = new JoyControllerState(getMacBytes());
         joyControllerState.calculateCoeffs(memory);
         JoyController joyController = new JoyController(
+                context,
                 type,
                 memory,
                 buttonsState,
@@ -95,7 +94,7 @@ public class JoyControllerBuilder {
         return this;
     }
 
-    public JoyControllerBuilder setlocalMacAddress(String localMacAddress) {
+    public JoyControllerBuilder setLocalMacAddress(String localMacAddress) {
         this.localMacAddress = localMacAddress;
         return this;
     }

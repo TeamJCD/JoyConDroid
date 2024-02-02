@@ -18,8 +18,7 @@
         android:id="@+id/navigation_drawer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start|left"
-        app:itemTextColor="@color/black"
+        android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/main_drawer_menu"
         android:theme="@style/MenuTextAppearance"/>

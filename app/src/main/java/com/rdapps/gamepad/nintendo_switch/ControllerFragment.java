@@ -1,27 +1,19 @@
 package com.rdapps.gamepad.nintendo_switch;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.os.Environment;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.Button;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import com.erz.joysticklibrary.JoyStick;
-import com.github.angads25.filepicker.model.DialogConfigs;
-import com.github.angads25.filepicker.model.DialogProperties;
-import com.github.angads25.filepicker.view.FilePickerDialog;
-import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.device.ButtonType;
 import com.rdapps.gamepad.device.JoystickType;
 import com.rdapps.gamepad.led.LedState;
@@ -31,15 +23,16 @@ import com.rdapps.gamepad.util.Pair;
 import com.rdapps.gamepad.util.PreferenceUtils;
 import com.rdapps.gamepad.vibrator.VibrationPattern;
 
+import lombok.Setter;
 import org.apache.commons.io.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import static android.app.Activity.RESULT_OK;
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN;
 import static android.view.KeyEvent.KEYCODE_DPAD_LEFT;
 import static android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
@@ -53,19 +46,20 @@ import static com.rdapps.gamepad.util.EventUtils.getTouchDownEvent;
 import static com.rdapps.gamepad.util.EventUtils.getTouchUpEvent;
 
 public abstract class ControllerFragment extends Fragment {
+    public static final int REQUEST_SELECT_FILE = 1;
 
     private Context context;
     private SensorManager sensorManager;
     private Sensor senAccelerometer;
     private Sensor senGyroscope;
 
+    @Setter
     protected JoyController device;
 
     private Map<Integer, ButtonType> buttonMap;
     private Map<Pair<Integer, Integer>, ButtonType> axisMap;
     private Map<JoystickType, ControllerAction> joystickMap;
 
-    protected FilePickerDialog dialog;
     protected Boolean hapticFeedBackEnabled;
     protected Vibrator vibrator;
 
@@ -144,47 +138,43 @@ public abstract class ControllerFragment extends Fragment {
     }
 
 
-    public void setDevice(JoyController device) {
-        this.device = device;
-    }
+    public abstract ImageButton getA();
 
-    public abstract Button getA();
+    public abstract ImageButton getB();
 
-    public abstract Button getB();
+    public abstract ImageButton getX();
 
-    public abstract Button getX();
+    public abstract ImageButton getY();
 
-    public abstract Button getY();
+    public abstract ImageButton getSL();
 
-    public abstract Button getSL();
+    public abstract ImageButton getSR();
 
-    public abstract Button getSR();
+    public abstract ImageButton getL();
 
-    public abstract Button getL();
+    public abstract ImageButton getR();
 
-    public abstract Button getR();
+    public abstract ImageButton getZL();
 
-    public abstract Button getZL();
+    public abstract ImageButton getZR();
 
-    public abstract Button getZR();
+    public abstract ImageButton getMinus();
 
-    public abstract Button getMinus();
+    public abstract ImageButton getPlus();
 
-    public abstract Button getPlus();
+    public abstract ImageButton getHome();
 
-    public abstract Button getHome();
+    public abstract ImageButton getCapture();
 
-    public abstract Button getCapture();
+    public abstract ImageButton getLeft();
 
-    public abstract Button getLeft();
+    public abstract ImageButton getRight();
 
-    public abstract Button getRight();
+    public abstract ImageButton getUp();
 
-    public abstract Button getUp();
+    public abstract ImageButton getDown();
 
-    public abstract Button getDown();
-
-    public abstract Button getSync();
+    public abstract ImageButton getSync();
 
     public abstract JoyStick getLeftJoyStick();
 
@@ -216,57 +206,33 @@ public abstract class ControllerFragment extends Fragment {
     }
 
     private boolean dispatchButton(KeyEvent keyEvent, MotionEvent event, ButtonType buttonType) {
-        switch (buttonType) {
-            case LEFT:
-                return dispatchEvent(getLeft(), event);
-            case RIGHT:
-                return dispatchEvent(getRight(), event);
-            case UP:
-                return dispatchEvent(getUp(), event);
-            case DOWN:
-                return dispatchEvent(getDown(), event);
-            case B:
-                return dispatchEvent(getB(), event);
-            case A:
-                return dispatchEvent(getA(), event);
-            case Y:
-                return dispatchEvent(getY(), event);
-            case X:
-                return dispatchEvent(getX(), event);
-            case R:
-                return dispatchEvent(getR(), event);
-            case ZR:
-                return dispatchEvent(getZR(), event);
-            case RIGHT_SR:
-            case LEFT_SR:
-                return dispatchEvent(getSR(), event);
-            case L:
-                return dispatchEvent(getL(), event);
-            case ZL:
-                return dispatchEvent(getZL(), event);
-            case RIGHT_SL:
-            case LEFT_SL:
-                return dispatchEvent(getSL(), event);
-            case PLUS:
-                return dispatchEvent(getPlus(), event);
-            case MINUS:
-                return dispatchEvent(getMinus(), event);
-            case HOME:
-                return dispatchEvent(getHome(), event);
-            case CAPTURE:
-                return dispatchEvent(getCapture(), event);
-            case LEFT_STICK:
-                return setLeftStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
-            case RIGHT_STICK:
-                return setRightStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
-            case SYNC:
-                return dispatchEvent(getSync(), event);
-            default:
-                return false;
-        }
+        return switch (buttonType) {
+            case LEFT -> dispatchEvent(getLeft(), event);
+            case RIGHT -> dispatchEvent(getRight(), event);
+            case UP -> dispatchEvent(getUp(), event);
+            case DOWN -> dispatchEvent(getDown(), event);
+            case B -> dispatchEvent(getB(), event);
+            case A -> dispatchEvent(getA(), event);
+            case Y -> dispatchEvent(getY(), event);
+            case X -> dispatchEvent(getX(), event);
+            case R -> dispatchEvent(getR(), event);
+            case ZR -> dispatchEvent(getZR(), event);
+            case RIGHT_SR, LEFT_SR -> dispatchEvent(getSR(), event);
+            case L -> dispatchEvent(getL(), event);
+            case ZL -> dispatchEvent(getZL(), event);
+            case RIGHT_SL, LEFT_SL -> dispatchEvent(getSL(), event);
+            case PLUS -> dispatchEvent(getPlus(), event);
+            case MINUS -> dispatchEvent(getMinus(), event);
+            case HOME -> dispatchEvent(getHome(), event);
+            case CAPTURE -> dispatchEvent(getCapture(), event);
+            case LEFT_STICK -> setLeftStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
+            case RIGHT_STICK -> setRightStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
+            case SYNC -> dispatchEvent(getSync(), event);
+            default -> false;
+        };
     }
 
-    private static boolean dispatchEvent(Button button, MotionEvent event) {
+    private static boolean dispatchEvent(ImageButton button, MotionEvent event) {
         return Optional.ofNullable(button)
                 .map(b -> b.dispatchTouchEvent(event))
                 .orElse(false);
@@ -286,8 +252,10 @@ public abstract class ControllerFragment extends Fragment {
         float rightStickX = 0;
         float rightStickY = 0;
         if (rightJoystickAction != null) {
-            rightStickX = (reverse ? -1 : 1) * getCenteredAxis(motionEvent, device, reverse ? rightJoystickAction.getYAxis() : rightJoystickAction.getXAxis());
-            rightStickY = getCenteredAxis(motionEvent, device, reverse ? rightJoystickAction.getXAxis() : rightJoystickAction.getYAxis());
+            rightStickX = (reverse ? -1 : 1) * getCenteredAxis(motionEvent, device,
+                    reverse ? rightJoystickAction.getYAxis() : rightJoystickAction.getXAxis());
+            rightStickY = getCenteredAxis(motionEvent, device,
+                    reverse ? rightJoystickAction.getXAxis() : rightJoystickAction.getYAxis());
             rightStickX = rightStickX * rightJoystickAction.getXDirection();
             rightStickY = rightStickY * rightJoystickAction.getYDirection() * -1;
         }
@@ -295,8 +263,10 @@ public abstract class ControllerFragment extends Fragment {
         float leftStickX = 0;
         float leftStickY = 0;
         if (leftJoystickAction != null) {
-            leftStickX = (reverse ? -1 : 1) * getCenteredAxis(motionEvent, device, reverse ? leftJoystickAction.getYAxis() : leftJoystickAction.getXAxis());
-            leftStickY = getCenteredAxis(motionEvent, device, reverse ? leftJoystickAction.getXAxis() : leftJoystickAction.getYAxis());
+            leftStickX = (reverse ? -1 : 1) * getCenteredAxis(motionEvent, device,
+                    reverse ? leftJoystickAction.getYAxis() : leftJoystickAction.getXAxis());
+            leftStickY = getCenteredAxis(motionEvent, device,
+                    reverse ? leftJoystickAction.getXAxis() : leftJoystickAction.getYAxis());
             leftStickX = leftStickX * leftJoystickAction.getXDirection();
             leftStickY = leftStickY * leftJoystickAction.getYDirection() * -1;
         }
@@ -468,90 +438,36 @@ public abstract class ControllerFragment extends Fragment {
     public void showAmiiboPicker() {
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case FilePickerDialog.EXTERNAL_READ_PERMISSION_GRANT: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (dialog == null) {
-                        openFileSelectionDialog();
-                    }
-                } else {
-                    //Permission has not been granted. Notify the user.
-                    Toast.makeText(getContext(), getText(R.string.file_permission_is_required), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
     protected void vibrate(VibrationPattern vibrationPattern) {
-        getVibrator().ifPresent(v -> {
-            v.vibrate(vibrationPattern.getVibrationEffect());
-        });
+        getVibrator().ifPresent(v -> v.vibrate(vibrationPattern.getVibrationEffect()));
     }
 
     protected void openFileSelectionDialog() {
-        Context context = getContext();
-        FragmentActivity activity = getActivity();
-        if ((null != dialog && dialog.isShowing()) ||
-                context == null ||
-                activity == null ||
-                activity.isFinishing()
-        ) {
-            //dialog.dismiss();
-            return;
-        }
-
-        //Create a DialogProperties object.
-        DialogProperties properties = new DialogProperties();
-        String amiiboFilePath = PreferenceUtils.getAmiiboFilePath(context);
-        if (Objects.nonNull(amiiboFilePath)) {
-            File file = new File(amiiboFilePath);
-            File folder = file.getParentFile();
-            if (folder.exists() && folder.isDirectory()) {
-                properties.root = folder;
-            }
-        } else {
-            properties.root = Environment.getExternalStorageDirectory();
-        }
-
-
-        //Instantiate FilePickerDialog with Context and DialogProperties.
-        dialog = new FilePickerDialog(getContext(), properties);
-        dialog.setTitle("Select a File");
-        dialog.setPositiveBtnName("Select");
-        dialog.setNegativeBtnName("Cancel");
-        //properties.selection_mode = DialogConfigs.MULTI_MODE; // for multiple files
-        properties.selection_mode = DialogConfigs.SINGLE_MODE; // for single file
-        properties.selection_type = DialogConfigs.FILE_SELECT;
-
-        //Method handle selected files.
-        dialog.setDialogSelectionListener(this::onSelectedFilePaths);
-        dialog.setOnCancelListener(this::onFileSelectorCanceled);
-        dialog.setOnDismissListener(this::onFileSelectorDismissed);
-
-        dialog.show();
+        openFileSelectionDialog(true);
     }
 
-    public void onSelectedFilePaths(String[] files) {
-        if (files.length > 0 || Objects.nonNull(device)) {
-            String file = files[0];
-            try {
-                byte[] bytes = IOUtils.toByteArray(new FileInputStream(file));
-                PreferenceUtils.setAmiiboFilePath(context, file);
-                device.setAmiiboBytes(bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
+    protected void openFileSelectionDialog(boolean binaryOnly) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType(binaryOnly ? "application/octet-stream" : "*/*");
+
+        startActivityForResult(intent, REQUEST_SELECT_FILE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SELECT_FILE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Context context = getContext();
+                Uri uri = data.getData();
+                try (InputStream is = context.getContentResolver().openInputStream(uri)) {
+                    byte[] bytes = IOUtils.toByteArray(is);
+                    PreferenceUtils.setAmiiboFileName(context, uri);
+                    device.setAmiiboBytes(bytes);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-    }
-
-    public void onFileSelectorCanceled(DialogInterface dialog) {
-        this.dialog = null;
-    }
-
-    public void onFileSelectorDismissed(DialogInterface dialog) {
-        this.dialog = null;
     }
 
     public abstract void setPlayerLights(LedState led1, LedState led2, LedState led3, LedState led4);

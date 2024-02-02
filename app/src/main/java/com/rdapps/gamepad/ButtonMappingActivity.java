@@ -38,9 +38,9 @@ import static com.rdapps.gamepad.util.ControllerActionUtils.BUTTON_NAMES;
 import static com.rdapps.gamepad.util.ControllerActionUtils.CONTROLLER_ACTIONS;
 import static com.rdapps.gamepad.util.ControllerActionUtils.getControllerActions;
 
-public class ButtonMappingActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, ButtonMappingAlertDialog.DialogEventListener {
+public class ButtonMappingActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,
+        ButtonMappingAlertDialog.DialogEventListener {
 
-    private ListView listView;
     private ButtonMappingViewAdapter adapter;
     private ButtonMappingAlertDialog alertDialog;
     private ButtonType buttonType;
@@ -60,7 +60,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
 
         controllerActions = getControllerActions(this);
 
-        listView = findViewById(R.id.button_mappings);
+        ListView listView = findViewById(R.id.button_mappings);
         adapter = new ButtonMappingViewAdapter(this, controllerActions);
         listView.setAdapter(adapter);
         listView.setClickable(true);
@@ -70,7 +70,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
         axisDirection = 0;
 
         Button saveButton = findViewById(R.id.save_button);
-        saveButton.setText(R.string.save_button_with_ads);
+        saveButton.setText(R.string.save_button);
     }
 
     @Override
@@ -83,15 +83,14 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.action_reset:
-                //ControllerActionUtils.setControllerActions(this, null);
-                controllerActions = CONTROLLER_ACTIONS;
-                Optional.ofNullable(adapter).ifPresent(adapter -> adapter.refresh(controllerActions));
-                return true;
-            default:
-                return false;
+        if (id == R.id.action_reset) {
+            //ControllerActionUtils.setControllerActions(this, null);
+            controllerActions = CONTROLLER_ACTIONS;
+            Optional.ofNullable(adapter).ifPresent(adapter -> adapter.refresh(controllerActions));
+            return true;
         }
+
+        return false;
     }
 
     @Override
@@ -125,11 +124,13 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
             if (controllerAction.isPresent()) {
                 remapJoystick(controllerAction.get());
             }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
     private void remapJoystick(ControllerAction controllerAction) {
-        ArrayList<ControllerAction> newActions = new ArrayList(controllerActions);
+        List<ControllerAction> newActions = new ArrayList<>(controllerActions);
         for (ControllerAction ca : controllerActions) {
             if (ca.getJoystick() == controllerAction.getJoystick()) {
                 newActions.remove(ca);
@@ -150,7 +151,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     }
 
     private void remap(ButtonType buttonType, int keyValue) {
-        ArrayList<ControllerAction> newActions = new ArrayList(controllerActions);
+        List<ControllerAction> newActions = new ArrayList<>(controllerActions);
         for (ControllerAction controllerAction : controllerActions) {
             if (controllerAction.getKey() == keyValue) {
                 newActions.remove(controllerAction);
@@ -166,7 +167,7 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     }
 
     private void remap(ButtonType buttonType, int axisValue, int axisDirection) {
-        ArrayList<ControllerAction> newActions = new ArrayList(controllerActions);
+        List<ControllerAction> newActions = new ArrayList<>(controllerActions);
         for (ControllerAction controllerAction : controllerActions) {
             if (controllerAction.getType() == AXIS &&
                     controllerAction.getXAxis() == axisValue &&

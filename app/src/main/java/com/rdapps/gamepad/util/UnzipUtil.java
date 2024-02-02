@@ -3,8 +3,6 @@ package com.rdapps.gamepad.util;
 import android.content.res.AssetFileDescriptor;
 import android.util.Log;
 
-import com.google.android.gms.common.util.Strings;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,8 +10,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class UnzipUtil {
-    private AssetFileDescriptor zipFile;
-    private String location;
+    private final AssetFileDescriptor zipFile;
+    private final String location;
 
     public UnzipUtil(AssetFileDescriptor zipFile, String location) {
         this.zipFile = zipFile;
@@ -33,7 +31,7 @@ public class UnzipUtil {
                 if (ze.isDirectory()) {
                     dirChecker(ze.getName());
                 } else {
-                    if (!Strings.isEmptyOrWhitespace(ze.getName())) {
+                    if (ze.getName() != null && !ze.getName().trim().isEmpty()) {
                         FileOutputStream fout = new FileOutputStream(
                                 location + File.separator + ze.getName());
 

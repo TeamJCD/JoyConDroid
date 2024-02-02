@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     body {font-family: Arial, Helvetica, sans-serif; text-align: center;}
-    button {background-color: #f44336; color: white; padding: 10px;}
+    button {background-color: #f44336; color: white; padding: 10px; font-size: 1.5em;}
     </style>
     <script type="text/javascript">
     function retry() {
         Controller.retry();
     }
     </script>
+    <title>Error</title>
 </head>
 <body>
 <h1>Could not fetch the resources online!</h1>
 <p>Please make sure you are connected to Internet.</p>
-<button onclick="retry()"><h2>Retry</h2></button>
+<button onclick="retry()">Retry</button>
 <br/>
 <p>Contact Developer If Error Persists</p>
 </body>

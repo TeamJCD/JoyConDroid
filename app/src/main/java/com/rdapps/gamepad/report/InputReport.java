@@ -99,16 +99,15 @@ import static java.lang.Short.MIN_VALUE;
 public class InputReport {
     private static final String TAG = InputReport.class.getName();
 
+    @Getter
     public enum Type {
         SIMPLE_HID_REPORT(0x3F, 11),
         STANDARD_FULL_REPORT(0x30, 48),
         SUBCOMMAND_REPLY_REPORT(0x21, 48),
         NFC_IR_REPORT(0x31, 48 + 313);
 
-        @Getter
-        private byte reportId;
-        @Getter
-        private int reportSize;
+        private final byte reportId;
+        private final int reportSize;
 
         Type(int reportId, int reportSize) {
             this.reportId = (byte) reportId;
@@ -293,7 +292,7 @@ public class InputReport {
         byte batteryByte = 0;
         // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/bluetooth_hid_notes.md#standard-input-report-format
         batteryByte |= (byte) ((round(batteryData.getBatteryLevel() * 4) * 2) << 4);
-        batteryByte |= batteryData.isCharging() ? 0x10 : 0x00;
+        batteryByte |= (byte) (batteryData.isCharging() ? 0x10 : 0x00);
         buffer[1] |= batteryByte;
     }
 
@@ -390,7 +389,7 @@ public class InputReport {
             short rawAccZ = (short) round(clamp((accZ)
                     * accCoeffs[2], MIN_VALUE, MAX_VALUE));
 
-            sensorData[0 + i * 12] = (byte) (rawAccX & 0xFF);
+            sensorData[i * 12] = (byte) (rawAccX & 0xFF);
             sensorData[1 + i * 12] = (byte) (rawAccX >> 8 & 0xFF);
             sensorData[2 + i * 12] = (byte) (rawAccY & 0xFF);
             sensorData[3 + i * 12] = (byte) (rawAccY >> 8 & 0xFF);
@@ -544,12 +543,18 @@ public class InputReport {
 
         //3A0007
         if (nfcIrMcu.getAction() == READ_TAG) {
-            //010001310200000001020007047C7CD24D5D80000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000047C7C8CD24D5D8042480FE0F110FFEEA5CA9C005EB54F12E8C19C8F3162CE257F60A48A17CC628C2FB68C88991647679421AF5D36EE8CBA7C68AB0EAFDBEBBD907BA6B16FE63225F2B6A3833D36A95EE1FDC35000030000003701020512C4130EBD1509F563F799C8513F15AFA4DD5D41AA85ECF77329E218EBD0D9243F51EB1D8B1E647A420999AD0C56A71F192947F5230FDFCAC06D103D5316A4D9089372C0815B96E1DCF2A7F3CE6330543F5123E34EB844DCC8C6963A114E92AB5F17F076E88ACFB30D8716839F059DFE04D9DBE04FD38FE6CD052ED7D9A0981372C19E9982189A12F028E5C8AEDDF9C79900B0202183EC8673,
+            //010001310200000001020007047C7CD24D5D80000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D08
+            //7AE803003B3C7778860000047C7C8CD24D5D8042480FE0F110FFEEA5CA9C005EB54F12E8C19C8F3162CE257F60A48A17CC628C2FB6
+            //8C88991647679421AF5D36EE8CBA7C68AB0EAFDBEBBD907BA6B16FE63225F2B6A3833D36A95EE1FDC35000030000003701020512C4
+            //130EBD1509F563F799C8513F15AFA4DD5D41AA85ECF77329E218EBD0D9243F51EB1D8B1E647A420999AD0C56A71F192947F5230FDF
+            //CAC06D103D5316A4D9089372C0815B96E1DCF2A7F3CE6330543F5123E34EB844DCC8C6963A114E92AB5F17F076E88ACFB30D871683
+            //9F059DFE04D9DBE04FD38FE6CD052ED7D9A0981372C19E9982189A12F028E5C8AEDDF9C79900B0202183EC8673,
             byte[] bytes = Hex.stringToBytes("010001310200000001020007");
             System.arraycopy(bytes, 0, buffer, 51, bytes.length);
             System.arraycopy(amiiboBytes, 0, buffer, 51 + bytes.length, 3);
             System.arraycopy(amiiboBytes, 4, buffer, 51 + 3 + bytes.length, 4);
-            byte[] bytes2 = Hex.stringToBytes("000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000");
+            byte[] bytes2 = Hex.stringToBytes(
+                    "000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000");
             System.arraycopy(bytes2, 0, buffer, 58 + bytes.length, bytes2.length);
             System.arraycopy(amiiboBytes, 0, buffer, 58 + bytes.length + bytes2.length, 245);
             nfcIrMcu.setAction(READ_TAG_2);

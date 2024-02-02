@@ -6,8 +6,6 @@ import android.graphics.Color;
 
 import com.google.android.gms.common.util.Hex;
 
-import org.apache.commons.io.HexDump;
-
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -68,7 +66,7 @@ public class ByteUtils {
         }
     }
 
-    public static byte[] hexStringToByteArray(String s) {
+    public static byte[] hexStringToByteArray(CharSequence s) {
         int len = s.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
@@ -82,7 +80,7 @@ public class ByteUtils {
         if (Objects.isNull(arr)) {
             return null;
         }
-        ArrayList<Byte> arrayList = new ArrayList<>();
+        List<Byte> arrayList = new ArrayList<>();
         for (byte b : arr) {
             arrayList.add(b);
         }

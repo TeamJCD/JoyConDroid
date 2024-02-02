@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/joycon_red"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+              tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mainMenuToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:logo="@drawable/ic_procontroller_icon"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="@string/app_name"
-        app:titleMarginStart="32dp" />
+            android:id="@+id/mainMenuToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            app:logo="@drawable/ic_procontroller_icon"
+            app:popupTheme="@style/ThemeOverlay.Material3.DynamicColors.DayNight"
+            app:title="@string/app_name"
+            app:titleMarginStart="32dp"/>
 
     <include
-        layout="@layout/menu_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+            layout="@layout/menu_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
 </LinearLayout>

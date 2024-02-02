@@ -3,65 +3,54 @@
     <string name="bt_not_available">Bluetooth ist nicht verfügbar/aktiviert.</string>
     <string name="bt_enable_canceled">Konnte nicht Verbinden mit der Switch.</string>
     <string name="bt_discovery_canceled">Ein Fehler ist bei der Suche nach der Switch Konsole aufgetreten.</string>
-    <string name="could_not_pair"> Konnte nicht automatisch koppeln.</string>
-    <string name="pair_with_switch">Wollen sie mit der Switch verbinden</string>
-    <string name="sl_label">SL</string>
-    <string name="sr_label">SR</string>
     <string name="connected_to_switch">Mit der Switch verbunden!</string>
     <string name="disconnected_from_switch">Die Verbindung mit der Switch wurde getrennt.</string>
     <string name="left_joycon">Linker Joy-Con</string>
     <string name="user_guide">Anleitung</string>
-    <string name="remove_ads">Werbung entfernen</string>
     <string name="revert_bluetooth">Bluetooth-Konfiguration wiederherstellen</string>
     <string name="bt_config_is_reverted">Die Bluetooth-Konfiguration wurde wiederhergestellt.</string>
     <string name="bt_config_was_not_changed">Die Bluetooth-Konfiguration wurde nicht verändert.</string>
-    <string name="ads_removed">Werbung entfernt. Starte die App neu!</string>
-    <string name="ads_not_removed">Werbung konnte nicht entfernt werden!</string>
-    <string name="do_not_show_at_the_start_up">Anleitung nicht mehr beim Starten der App anzeigen</string>
     <string name="right_joycon">Rechter Joy-Con</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Infos und Rechtshinweise</string>
     <string name="accept">Annehmen</string>
     <string name="bt_name_not_set">
-Bluetooth-Name konnte nicht geändert werden, er muss manuell geändert werden zu: %1$s
-</string>
+        Bluetooth-Name konnte nicht geändert werden, er muss manuell geändert werden zu: %1$s
+    </string>
     <string name="bt_sdp_failed">
-SDP-Einstellungen fehlgeschlagen, kontaktiere den Entwickler.
-</string>
+        SDP-Einstellungen fehlgeschlagen, kontaktiere den Entwickler.
+    </string>
     <string name="bt_register_failed">Bluetooth konnte die Anwendung nicht registrieren!</string>
     <string name="disconnect_controller">Controller-Verbindung trennen</string>
     <string name="device_is_not_compatible">
-Dein Gerät ist möglicherweise nicht mit dieser App kompatibel. Kontaktiere den Entwickler oder den Hersteller.
-</string>
+        Dein Gerät ist möglicherweise nicht mit dieser App kompatibel. Kontaktiere den Entwickler oder den Hersteller.
+    </string>
     <string name="ok">OK</string>
-    <string name="custom_left_joycon">Benutzerdefinierte Oberfläche für linken Joy-Con</string>
     <string name="custom_ui_selection">Benutzerdefinierte Oberfläche</string>
     <string name="map_buttons">Tasten belegen</string>
     <string name="unknown">Unbekannt</string>
     <string name="settings">Einstellungen</string>
     <string name="press_a_button_to_remap">Drücke A zum Umbelegen von %s</string>
-    <string name="repress_to_map">Drücke denselben Knopf um %s auf %s zu legen</string>
+    <string name="repress_to_map">Drücke denselben Knopf um %1$s auf %2$s zu legen</string>
     <string name="reset_settings">Einstellungen zurücksetzen</string>
     <string name="push_right_joystick_up">Drücke den rechten Stick nach oben</string>
     <string name="push_left_joystick_up">Drücke den linken Stick nach oben</string>
-    <string name="axis_registered">Achse von %s auf %s registriert</string>
+    <string name="axis_registered">Achse von %1$s auf %2$s registriert</string>
     <string name="push_right_joystick_right">Drücke den rechten Stick nach rechts</string>
     <string name="push_left_joystick_right">Drücke den linken Stick nach rechts</string>
     <string name="joystick_mapping_completed">Joystick-Belegung speichern?</string>
     <string name="save">Speichern</string>
     <string name="redo">Nochmal</string>
-    <string name="file_permission_is_required">
-Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
-</string>
-    <string name="save_button_with_ads">Speichern (Nach der Werbung)</string>
+    <string name="save_button">Speichern</string>
     <string name="button_mappings_saves">Tastenbelegung gespeichert!</string>
     <string name="frequently_asked_questions">Häufig gestellte Fragen</string>
-    <string name="set_bt_address">Bluetooth Mac-Addresse für bessere Verbindung eingeben</string>
+    <string name="set_bt_address">Bluetooth Mac-Adresse für bessere Verbindung eingeben</string>
     <string name="later">Später</string>
     <string name="set">Einstellen</string>
-    <string name="incorrect_mac_address">Inkorrekte Mac-Addresse!</string>
+    <string name="incorrect_mac_address">Inkorrekte Mac-Adresse!</string>
     <string name="never_ask_again">Nicht mehr fragen</string>
-    <string name="push_axis_same_direction_to_map_to_button">Drücke %s in die gleiche Richtung um auf %s zu belegen</string>
+    <string name="push_axis_same_direction_to_map_to_button">Drücke %1$s in die gleiche Richtung um auf %2$s zu belegen
+    </string>
 
     <!-- Colors -->
     <string name="pro_controller_body_color">ProController: Gehäusefarbe:</string>
@@ -76,4 +65,6 @@ Eine Genehmigung ist nötig, um eine Liste der Dateien anzuzeigen.
     <string name="enable_gyroscope">Gyroskop aktivieren</string>
     <string name="enable_amiibo">Amiibo aktivieren</string>
     <string name="custom_ui">Benutzerdefinierte Oberfläche</string>
+    <string name="close">Schließen</string>
+    <string name="missingPermission">Fehlende Berechtigung: %s</string>
 </resources>
