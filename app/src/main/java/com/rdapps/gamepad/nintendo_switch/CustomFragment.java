@@ -106,7 +106,7 @@ public class CustomFragment extends ControllerFragment {
                 }
                 mUploadMessage = filePathCallback;
 
-                openFileSelectionDialog();
+                openFileSelectionDialog(false);
 
                 return true;
             }
