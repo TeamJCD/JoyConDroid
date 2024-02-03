@@ -1,27 +1,5 @@
 package com.rdapps.gamepad.report;
 
-import com.google.android.gms.common.util.Hex;
-import com.rdapps.gamepad.amiibo.AmiiboConfig;
-import com.rdapps.gamepad.battery.BatteryData;
-import com.rdapps.gamepad.button.ButtonState;
-import com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu;
-import com.rdapps.gamepad.protocol.ControllerType;
-import com.rdapps.gamepad.protocol.JoyController;
-import com.rdapps.gamepad.protocol.JoyControllerState;
-import com.rdapps.gamepad.sensor.AccelerometerEvent;
-import com.rdapps.gamepad.sensor.GyroscopeEvent;
-import com.rdapps.gamepad.util.ByteUtils;
-import com.rdapps.gamepad.vibrator.VibratorData;
-
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Queue;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import lombok.Data;
-import lombok.Getter;
-
 import static androidx.core.math.MathUtils.clamp;
 import static com.rdapps.gamepad.button.AxisEnum.LEFT_STICK_X;
 import static com.rdapps.gamepad.button.AxisEnum.LEFT_STICK_Y;
@@ -94,6 +72,26 @@ import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
 import static java.lang.Math.round;
 import static java.lang.Short.MAX_VALUE;
 import static java.lang.Short.MIN_VALUE;
+
+import com.google.android.gms.common.util.Hex;
+import com.rdapps.gamepad.amiibo.AmiiboConfig;
+import com.rdapps.gamepad.battery.BatteryData;
+import com.rdapps.gamepad.button.ButtonState;
+import com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu;
+import com.rdapps.gamepad.protocol.ControllerType;
+import com.rdapps.gamepad.protocol.JoyController;
+import com.rdapps.gamepad.protocol.JoyControllerState;
+import com.rdapps.gamepad.sensor.AccelerometerEvent;
+import com.rdapps.gamepad.sensor.GyroscopeEvent;
+import com.rdapps.gamepad.util.ByteUtils;
+import com.rdapps.gamepad.vibrator.VibratorData;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Queue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class InputReport {
@@ -247,8 +245,10 @@ public class InputReport {
         //Button status shared
         buffer[index + 1] |= buttonState.getButton(MINUS) == 0 ? 0 : FULL_MINUS_BIT;
         buffer[index + 1] |= buttonState.getButton(PLUS) == 0 ? 0 : FULL_PLUS_BIT;
-        buffer[index + 1] |= buttonState.getButton(RIGHT_STICK_BUTTON) == 0 ? 0 : FULL_RIGHT_STICK_BIT;
-        buffer[index + 1] |= buttonState.getButton(LEFT_STICK_BUTTON) == 0 ? 0 : FULL_LEFT_STICK_BIT;
+        buffer[index + 1] |= buttonState.getButton(RIGHT_STICK_BUTTON) == 0
+                ? 0 : FULL_RIGHT_STICK_BIT;
+        buffer[index + 1] |= buttonState.getButton(LEFT_STICK_BUTTON) == 0
+                ? 0 : FULL_LEFT_STICK_BIT;
         buffer[index + 1] |= buttonState.getButton(HOME) == 0 ? 0 : FULL_HOME_BIT;
         buffer[index + 1] |= buttonState.getButton(CAPTURE) == 0 ? 0 : FULL_CAPTURE_BIT;
 
@@ -315,7 +315,7 @@ public class InputReport {
         Arrays.fill(gyrs, 0);
 
         ControllerType controllerType = controller.getControllerType();
-        JoyControllerState state = controller.getState();
+        final JoyControllerState state = controller.getState();
         Queue<AccelerometerEvent> accelerometerEvents = controller.getAccelerometerEvents();
         Queue<GyroscopeEvent> gyroscopeEvents = controller.getGyroscopeEvents();
         int multiplier = 1;
@@ -328,7 +328,7 @@ public class InputReport {
         Arrays.fill(sensorData, (byte) 0);
 
         AccelerometerEvent[] accEvents = accelerometerEvents.toArray(new AccelerometerEvent[]{});
-        GyroscopeEvent[] gyrEvents = gyroscopeEvents.toArray(new GyroscopeEvent[]{});
+        final GyroscopeEvent[] gyrEvents = gyroscopeEvents.toArray(new GyroscopeEvent[]{});
         accelerometerEvents.clear();
         gyroscopeEvents.clear();
 
@@ -381,12 +381,14 @@ public class InputReport {
         short[] gyrOffset = state.getGyrOffset();
 
         for (int i = 0; i < 3; i++) {
-            float accX = multiplier * accs[i * 3], accY = accs[i * 3 + 1], accZ = multiplier * accs[i * 3 + 2];
+            float accX = multiplier * accs[i * 3];
+            float accY = accs[i * 3 + 1];
+            float accZ = multiplier * accs[i * 3 + 2];
             short rawAccX = (short) round(clamp(((isPro ? accX : accY))
                     * accCoeffs[0], MIN_VALUE, MAX_VALUE));
             short rawAccY = (short) round(clamp((isPro ? accY : -accX)
                     * accCoeffs[1], MIN_VALUE, MAX_VALUE));
-            short rawAccZ = (short) round(clamp((accZ)
+            final short rawAccZ = (short) round(clamp((accZ)
                     * accCoeffs[2], MIN_VALUE, MAX_VALUE));
 
             sensorData[i * 12] = (byte) (rawAccX & 0xFF);
@@ -396,12 +398,14 @@ public class InputReport {
             sensorData[4 + i * 12] = (byte) (rawAccZ & 0xFF);
             sensorData[5 + i * 12] = (byte) (rawAccZ >> 8 & 0xFF);
 
-            float gyrX = multiplier * gyrs[i * 3], gyrY = gyrs[i * 3 + 1], gyrZ = multiplier * gyrs[i * 3 + 2];
+            float gyrX = multiplier * gyrs[i * 3];
+            float gyrY = gyrs[i * 3 + 1];
+            float gyrZ = multiplier * gyrs[i * 3 + 2];
             short rawGyrX = (short) round(clamp((isPro ? gyrX : gyrY)
                     * gyrCoeffs[0] + gyrOffset[0], MIN_VALUE, MAX_VALUE));
             short rawGyrY = (short) round(clamp((isPro ? gyrY : -gyrX)
                     * gyrCoeffs[1] + gyrOffset[1], MIN_VALUE, MAX_VALUE));
-            short rawGyrZ = (short) round(clamp(gyrZ
+            final short rawGyrZ = (short) round(clamp(gyrZ
                     * gyrCoeffs[2] + gyrOffset[2], MIN_VALUE, MAX_VALUE));
 
 
@@ -416,7 +420,7 @@ public class InputReport {
         System.arraycopy(sensorData, 0, buffer, 12, 36);
     }
 
-    public void fillNFCIRData(JoyController controller) {
+    public void fillNfcIrData(JoyController controller) {
         JoyControllerState state = controller.getState();
         NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
         NfcIrMcu.Action action = nfcIrMcu.getAction();
@@ -425,7 +429,7 @@ public class InputReport {
                 buffer[48] = (byte) 0xFF;
                 break;
             case REQUEST_STATUS:
-                fillNFCIRStatus(state);
+                fillNfcIrStatus(state);
                 break;
             case START_TAG_DISCOVERY:
             case START_TAG_DISCOVERY_AUTO_MOVE:
@@ -441,7 +445,7 @@ public class InputReport {
             case READ_TAG_FINISHED:
                 fillReadFinished(controller);
                 break;
-
+            default:
         }
 
         buffer[buffer.length - 1] = ByteUtils.crc8(Arrays.copyOfRange(buffer, 48, buffer.length));
@@ -464,7 +468,7 @@ public class InputReport {
         System.arraycopy(amiiboBytes, 4, buffer, 53 + 3 + bytes.length, 4);
     }
 
-    private void fillNFCIRStatus(JoyControllerState state) {
+    private void fillNfcIrStatus(JoyControllerState state) {
         NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
         buffer[48] = 0x01;
         buffer[49] = 0x00;
@@ -543,25 +547,28 @@ public class InputReport {
 
         //3A0007
         if (nfcIrMcu.getAction() == READ_TAG) {
-            //010001310200000001020007047C7CD24D5D80000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D08
-            //7AE803003B3C7778860000047C7C8CD24D5D8042480FE0F110FFEEA5CA9C005EB54F12E8C19C8F3162CE257F60A48A17CC628C2FB6
-            //8C88991647679421AF5D36EE8CBA7C68AB0EAFDBEBBD907BA6B16FE63225F2B6A3833D36A95EE1FDC35000030000003701020512C4
-            //130EBD1509F563F799C8513F15AFA4DD5D41AA85ECF77329E218EBD0D9243F51EB1D8B1E647A420999AD0C56A71F192947F5230FDF
-            //CAC06D103D5316A4D9089372C0815B96E1DCF2A7F3CE6330543F5123E34EB844DCC8C6963A114E92AB5F17F076E88ACFB30D871683
-            //9F059DFE04D9DBE04FD38FE6CD052ED7D9A0981372C19E9982189A12F028E5C8AEDDF9C79900B0202183EC8673,
+            //010001310200000001020007047C7CD24D5D80000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1
+            //CE44CC75EAFB27094D087AE803003B3C7778860000047C7C8CD24D5D8042480FE0F110FFEEA5CA9C005EB5
+            //4F12E8C19C8F3162CE257F60A48A17CC628C2FB68C88991647679421AF5D36EE8CBA7C68AB0EAFDBEBBD90
+            //7BA6B16FE63225F2B6A3833D36A95EE1FDC35000030000003701020512C4130EBD1509F563F799C8513F15
+            //AFA4DD5D41AA85ECF77329E218EBD0D9243F51EB1D8B1E647A420999AD0C56A71F192947F5230FDFCAC06D
+            //103D5316A4D9089372C0815B96E1DCF2A7F3CE6330543F5123E34EB844DCC8C6963A114E92AB5F17F076E8
+            //8ACFB30D8716839F059DFE04D9DBE04FD38FE6CD052ED7D9A0981372C19E9982189A12F028E5C8AEDDF9C7
+            //9900B0202183EC8673,
             byte[] bytes = Hex.stringToBytes("010001310200000001020007");
             System.arraycopy(bytes, 0, buffer, 51, bytes.length);
             System.arraycopy(amiiboBytes, 0, buffer, 51 + bytes.length, 3);
             System.arraycopy(amiiboBytes, 4, buffer, 51 + 3 + bytes.length, 4);
-            byte[] bytes2 = Hex.stringToBytes(
-                    "000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000");
+            byte[] bytes2 = Hex.stringToBytes("000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44"
+                    + "CC75EAFB27094D087AE803003B3C7778860000");
             System.arraycopy(bytes2, 0, buffer, 58 + bytes.length, bytes2.length);
             System.arraycopy(amiiboBytes, 0, buffer, 58 + bytes.length + bytes2.length, 245);
             nfcIrMcu.setAction(READ_TAG_2);
         } else {
             byte[] bytes = Hex.stringToBytes("02000927");
             System.arraycopy(bytes, 0, buffer, 51, bytes.length);
-            System.arraycopy(amiiboBytes, 0xF5, buffer, 51 + bytes.length, amiiboBytes.length - 0xF5);
+            System.arraycopy(
+                    amiiboBytes, 0xF5, buffer, 51 + bytes.length, amiiboBytes.length - 0xF5);
             nfcIrMcu.setAction(READ_TAG_FINISHED);
         }
     }
@@ -579,7 +586,7 @@ public class InputReport {
     }
 
     public String toString() {
-        return "InputReport: " + ByteUtils.encodeHexString(getReportId()) +
-                " Data: " + Hex.bytesToStringUppercase(build());
+        return "InputReport: " + ByteUtils.encodeHexString(getReportId())
+                + " Data: " + Hex.bytesToStringUppercase(build());
     }
 }

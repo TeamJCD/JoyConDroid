@@ -1,29 +1,5 @@
 package com.rdapps.gamepad;
 
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.rdapps.gamepad.customui.CustomUIClient;
-import com.rdapps.gamepad.customui.CustomUIService;
-import com.rdapps.gamepad.listview.CustomUIViewAdapter;
-import com.rdapps.gamepad.model.CustomUIItem;
-import com.rdapps.gamepad.protocol.ControllerType;
-import com.rdapps.gamepad.sql.CustomUIDBHandler;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import static com.rdapps.gamepad.ControllerActivity.CONTROLLER_TYPE;
 import static com.rdapps.gamepad.ControllerActivity.CUSTOM_UI;
 import static com.rdapps.gamepad.ControllerActivity.CUSTOM_UI_URL;
@@ -32,30 +8,50 @@ import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
 
-public class CustomUIActivity extends AppCompatActivity implements Callback<List<CustomUIItem>>,
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import androidx.appcompat.app.AppCompatActivity;
+import com.rdapps.gamepad.customui.CustomUiClient;
+import com.rdapps.gamepad.customui.CustomUiService;
+import com.rdapps.gamepad.listview.CustomUiViewAdapter;
+import com.rdapps.gamepad.model.CustomUiItem;
+import com.rdapps.gamepad.protocol.ControllerType;
+import com.rdapps.gamepad.sql.CustomUiDbHandler;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class CustomUiActivity extends AppCompatActivity implements Callback<List<CustomUiItem>>,
         AdapterView.OnItemClickListener {
 
 
-    private static final String TAG = CustomUIActivity.class.getName();
+    private static final String TAG = CustomUiActivity.class.getName();
 
-    private CustomUIViewAdapter customUIViewAdapter;
+    private CustomUiViewAdapter customUiViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_ui);
 
-        ListView customUIView = findViewById(R.id.customUIList);
-        customUIViewAdapter = new CustomUIViewAdapter(this);
-        customUIView.setAdapter(customUIViewAdapter);
-        customUIView.setClickable(true);
-        customUIView.setOnItemClickListener(this);
+        ListView customUiView = findViewById(R.id.customUIList);
+        customUiViewAdapter = new CustomUiViewAdapter(this);
+        customUiView.setAdapter(customUiViewAdapter);
+        customUiView.setClickable(true);
+        customUiView.setOnItemClickListener(this);
 
-        customUIViewAdapter.setItems(new ArrayList<>());
+        customUiViewAdapter.setItems(new ArrayList<>());
 
-        CustomUIService customUIService = CustomUIClient.getService();
-        Call<List<CustomUIItem>> customUIs = customUIService.getCustomUIs();
-        customUIs.enqueue(this);
+        CustomUiService customUiService = CustomUiClient.getService();
+        Call<List<CustomUiItem>> customUis = customUiService.getCustomUis();
+        customUis.enqueue(this);
     }
 
 
@@ -81,24 +77,24 @@ public class CustomUIActivity extends AppCompatActivity implements Callback<List
     }
 
     @Override
-    public void onResponse(Call<List<CustomUIItem>> call, Response<List<CustomUIItem>> response) {
-        List<CustomUIItem> customUIItems = response.body();
-        if (customUIItems != null) {
-            List<CustomUIItem> allUis = new ArrayList<>(customUIItems);
-            try (CustomUIDBHandler customUIDBHandler = new CustomUIDBHandler(this)) {
-                allUis.addAll(customUIDBHandler.getCustomUIs());
+    public void onResponse(Call<List<CustomUiItem>> call, Response<List<CustomUiItem>> response) {
+        List<CustomUiItem> customUiItems = response.body();
+        if (customUiItems != null) {
+            List<CustomUiItem> allUis = new ArrayList<>(customUiItems);
+            try (CustomUiDbHandler customUIDBHandler = new CustomUiDbHandler(this)) {
+                allUis.addAll(customUIDBHandler.getCustomUis());
             }
 
-            List<CustomUIItem> filtered = allUis.stream()
+            List<CustomUiItem> filtered = allUis.stream()
                     .filter(item -> item.getAppVersion() <= BuildConfig.VERSION_CODE)
                     .collect(Collectors.toList());
-            customUIViewAdapter.setItems(filtered);
+            customUiViewAdapter.setItems(filtered);
         }
         hideProgressBar();
     }
 
     @Override
-    public void onFailure(Call<List<CustomUIItem>> call, Throwable t) {
+    public void onFailure(Call<List<CustomUiItem>> call, Throwable t) {
         log(TAG, t.getMessage());
         hideProgressBar();
     }
@@ -109,8 +105,8 @@ public class CustomUIActivity extends AppCompatActivity implements Callback<List
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        CustomUIViewAdapter adapter = (CustomUIViewAdapter) parent.getAdapter();
-        CustomUIItem item = adapter.getItem(position);
+        CustomUiViewAdapter adapter = (CustomUiViewAdapter) parent.getAdapter();
+        CustomUiItem item = adapter.getItem(position);
         ControllerType type = item.getType();
         ControllerType controllerType = LEFT_JOYCON;
         if (type == ControllerType.RIGHT_JOYCON) {

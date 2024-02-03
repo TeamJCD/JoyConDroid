@@ -3,14 +3,14 @@ package com.rdapps.gamepad.customui;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class CustomUIClient {
+public class CustomUiClient {
     private static final String BASE_URL = "http://joycondroid.youtubeplays.com";
 
     private static Retrofit retrofit = null;
-    private static CustomUIService service = null;
+    private static CustomUiService service = null;
 
 
-    public static synchronized CustomUIService getService() {
+    public static synchronized CustomUiService getService() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -18,7 +18,7 @@ public class CustomUIClient {
                     .build();
         }
         if (service == null) {
-            service = retrofit.create(CustomUIService.class);
+            service = retrofit.create(CustomUiService.class);
         }
         return service;
     }

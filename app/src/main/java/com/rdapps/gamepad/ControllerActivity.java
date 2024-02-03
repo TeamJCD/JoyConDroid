@@ -62,9 +62,9 @@ public class ControllerActivity extends AppCompatActivity {
 
     private static final String TAG = ControllerActivity.class.getName();
 
-    private BluetoothAdapter mBluetoothAdapter;
+    private BluetoothAdapter bluetoothAdapter;
 
-    private BluetoothBroadcastReceiver mBluetoothBroadcastReceiver;
+    private BluetoothBroadcastReceiver bluetoothBroadcastReceiver;
     private ControllerFragment controllerFragment;
     private ControllerType controllerType;
 
@@ -98,7 +98,7 @@ public class ControllerActivity extends AppCompatActivity {
 
         //Initialize Bluetooth Adapter
         initializeBluetooth();
-        if (Objects.isNull(mBluetoothAdapter)) {
+        if (Objects.isNull(bluetoothAdapter)) {
             ToastHelper.bluetoothNotAvailable(getApplicationContext());
             finish();
             return;
@@ -128,14 +128,14 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
     private void initializeBluetooth() {
-        this.mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
-        mBluetoothBroadcastReceiver =
+        bluetoothBroadcastReceiver =
                 new BluetoothBroadcastReceiver(new BluetoothBroadcastReceiverListener());
-        registerReceiver(mBluetoothBroadcastReceiver, intentFilter);
+        registerReceiver(bluetoothBroadcastReceiver, intentFilter);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class ControllerActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        if (Objects.isNull(mBluetoothAdapter)) {
+        if (Objects.isNull(bluetoothAdapter)) {
             return;
         }
         pair();
@@ -166,17 +166,17 @@ public class ControllerActivity extends AppCompatActivity {
             isBound = false;
         }
 
-        if (Objects.isNull(mBluetoothAdapter)) {
+        if (Objects.isNull(bluetoothAdapter)) {
             return;
         }
 
-        if (Objects.nonNull(mBluetoothBroadcastReceiver)) {
-            unregisterReceiver(mBluetoothBroadcastReceiver);
+        if (Objects.nonNull(bluetoothBroadcastReceiver)) {
+            unregisterReceiver(bluetoothBroadcastReceiver);
         }
     }
 
     private void pair() {
-        if (!mBluetoothAdapter.isEnabled()) {
+        if (!bluetoothAdapter.isEnabled()) {
             try {
                 Intent enableIntent = new Intent(ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableIntent, REQUEST_BT_ENABLE);
@@ -254,7 +254,7 @@ public class ControllerActivity extends AppCompatActivity {
 
     public void startHidDeviceDiscovery() {
         try {
-            if (mBluetoothAdapter.getScanMode() != SCAN_MODE_CONNECTABLE_DISCOVERABLE
+            if (bluetoothAdapter.getScanMode() != SCAN_MODE_CONNECTABLE_DISCOVERABLE
                     && !askingDiscoverable) {
                 startDiscoverable(60);
             }
@@ -268,7 +268,7 @@ public class ControllerActivity extends AppCompatActivity {
 
     public void stopHidDeviceDiscovery() {
         try {
-            if (mBluetoothAdapter.getScanMode() == SCAN_MODE_CONNECTABLE_DISCOVERABLE
+            if (bluetoothAdapter.getScanMode() == SCAN_MODE_CONNECTABLE_DISCOVERABLE
                     && askingDiscoverable) {
                 startDiscoverable(1);
                 askingDiscoverable = false;

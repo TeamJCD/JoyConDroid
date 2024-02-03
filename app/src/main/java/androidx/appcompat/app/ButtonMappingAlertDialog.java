@@ -63,13 +63,13 @@ public class ButtonMappingAlertDialog extends AlertDialog {
 
     public static class Builder {
         private final AlertController.AlertParams params;
-        private final int mTheme;
+        private final int theme;
 
         /**
          * Creates a builder for an alert dialog that uses the default alert
          * dialog theme.
-         * <p>
-         * The default alert dialog theme is defined by
+         *
+         * <p>The default alert dialog theme is defined by
          * {@link android.R.attr#alertDialogTheme} within the parent
          * {@code context}'s theme.
          *
@@ -82,21 +82,21 @@ public class ButtonMappingAlertDialog extends AlertDialog {
         /**
          * Creates a builder for an alert dialog that uses an explicit theme
          * resource.
-         * <p>
-         * The specified theme resource ({@code themeResId}) is applied on top
+         *
+         * <p>The specified theme resource ({@code themeResId}) is applied on top
          * of the parent {@code context}'s theme. It may be specified as a
          * style resource containing a fully-populated theme, such as
          * {@link android.R.style#Theme_Material_Dialog}, to replace all
          * attributes in the parent {@code context}'s theme including primary
          * and accent colors.
-         * <p>
-         * To preserve attributes such as primary and accent colors, the
+         *
+         * <p>To preserve attributes such as primary and accent colors, the
          * {@code themeResId} may instead be specified as an overlay theme such
          * as {@link android.R.style#ThemeOverlay_Material_Dialog}. This will
          * override only the window attributes necessary to style the alert
          * window as a dialog.
-         * <p>
-         * Alternatively, the {@code themeResId} may be specified as {@code 0}
+         *
+         * <p>Alternatively, the {@code themeResId} may be specified as {@code 0}
          * to use the parent {@code context}'s resolved value for
          * {@link android.R.attr#alertDialogTheme}.
          *
@@ -108,7 +108,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
         public Builder(@NonNull Context context, @StyleRes int themeResId) {
             params = new AlertController.AlertParams(new ContextThemeWrapper(
                     context, resolveDialogTheme(context, themeResId)));
-            mTheme = themeResId;
+            theme = themeResId;
         }
 
         /**
@@ -146,13 +146,13 @@ public class ButtonMappingAlertDialog extends AlertDialog {
 
         /**
          * Set the title using the custom view {@code customTitleView}.
-         * <p>
-         * The methods {@link #setTitle(int)} and {@link #setIcon(int)} should
+         *
+         * <p>The methods {@link #setTitle(int)} and {@link #setIcon(int)} should
          * be sufficient for most titles, but this is provided if the title
          * needs more customization. Using this will replace the title and icon
          * set via the other methods.
-         * <p>
-         * <strong>Note:</strong> To ensure consistent styling, the custom view
+         *
+         * <p><strong>Note:</strong> To ensure consistent styling, the custom view
          * should be inflated or constructed using the alert dialog's themed
          * context obtained via {@link #getContext()}.
          *
@@ -186,8 +186,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
 
         /**
          * Set the resource id of the {@link Drawable} to be used in the title.
-         * <p>
-         * Takes precedence over values set using {@link #setIcon(Drawable)}.
+         *
+         * <p>Takes precedence over values set using {@link #setIcon(Drawable)}.
          *
          * @return This Builder object to allow for chaining of calls to set methods
          */
@@ -198,8 +198,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
 
         /**
          * Set the {@link Drawable} to be used in the title.
-         * <p>
-         * <strong>Note:</strong> To ensure consistent styling, the drawable
+         *
+         * <p><strong>Note:</strong> To ensure consistent styling, the drawable
          * should be inflated or constructed using the alert dialog's themed
          * context obtained via {@link #getContext()}.
          *
@@ -213,8 +213,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
         /**
          * Set an icon as supplied by a theme attribute. e.g.
          * {@link android.R.attr#alertDialogIcon}.
-         * <p>
-         * Takes precedence over values set using {@link #setIcon(int)} or
+         *
+         * <p>Takes precedence over values set using {@link #setIcon(int)} or
          * {@link #setIcon(Drawable)}.
          *
          * @param attrId ID of a theme attribute that points to a drawable resource.
@@ -629,7 +629,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *
          * @param listener the listener to be invoked
          * @return this Builder object to allow for chaining of calls to set methods
-         * @see AdapterView#setOnItemSelectedListener(android.widget.AdapterView.OnItemSelectedListener)
+         * @see AdapterView#setOnItemSelectedListener(
+         *     android.widget.AdapterView.OnItemSelectedListener)
          */
         public Builder setOnItemSelectedListener(
                 final AdapterView.OnItemSelectedListener listener) {
@@ -642,8 +643,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * resource will be inflated, adding all top-level views to the screen.
          *
          * @param layoutResId Resource ID to be inflated.
-         * @return this Builder object to allow for chaining of calls to set
-         * methods
+         * @return this Builder object to allow for chaining of calls to set methods
          */
         public Builder setView(int layoutResId) {
             params.mView = null;
@@ -654,17 +654,16 @@ public class ButtonMappingAlertDialog extends AlertDialog {
 
         /**
          * Sets a custom view to be the contents of the alert dialog.
-         * <p>
-         * When using a pre-Holo theme, if the supplied view is an instance of
+         *
+         * <p>When using a pre-Holo theme, if the supplied view is an instance of
          * a {@link ListView} then the light background will be used.
-         * <p>
-         * <strong>Note:</strong> To ensure consistent styling, the custom view
+         *
+         * <p><strong>Note:</strong> To ensure consistent styling, the custom view
          * should be inflated or constructed using the alert dialog's themed
          * context obtained via {@link #getContext()}.
          *
          * @param view the view to use as the contents of the alert dialog
-         * @return this Builder object to allow for chaining of calls to set
-         * methods
+         * @return this Builder object to allow for chaining of calls to set methods
          */
         public Builder setView(View view) {
             params.mView = view;
@@ -678,6 +677,9 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * spacing to appear around that view. If the supplied view is an
          * instance of a {@link ListView} the light background will be used.
          *
+         * <p>This is currently hidden because it seems like people should just
+         * be able to put padding around the view.
+         *
          * @param view              The view to use as the contents of the Dialog.
          * @param viewSpacingLeft   Spacing between the left edge of the view and
          *                          the dialog frame
@@ -687,12 +689,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *                          and the dialog frame
          * @param viewSpacingBottom Spacing between the bottom edge of the view
          *                          and the dialog frame
-         * @return This Builder object to allow for chaining of calls to set
-         * methods
-         * <p>
-         * <p>
-         * This is currently hidden because it seems like people should just
-         * be able to put padding around the view.
+         * @return This Builder object to allow for chaining of calls to set methods
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
@@ -715,9 +712,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *
          * @param useInverseBackground Whether to use the inverse background
          * @return This Builder object to allow for chaining of calls to set methods
-         * @deprecated This flag is only used for pre-Material themes. Instead,
-         * specify the window background using on the alert dialog
-         * theme.
+         * @deprecated This flag is only used for pre-Material themes. Instead, specify the window
+         *             background using on the alert dialog theme.
          */
         @Deprecated
         public Builder setInverseBackgroundForced(boolean useInverseBackground) {
@@ -736,10 +732,9 @@ public class ButtonMappingAlertDialog extends AlertDialog {
 
 
         /**
-         * Creates an {@link AlertDialog} with the arguments supplied to this
-         * builder.
-         * <p>
-         * Calling this method does not display the dialog. If no additional
+         * Creates an {@link AlertDialog} with the arguments supplied to this builder.
+         *
+         * <p>Calling this method does not display the dialog. If no additional
          * processing is needed, {@link #show()} may be called instead to both
          * create and display the dialog.
          */
@@ -747,7 +742,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
             // We can't use Dialog's 3-arg constructor with the createThemeContextWrapper param,
             // so we always have to re-set the theme
             final ButtonMappingAlertDialog dialog =
-                    new ButtonMappingAlertDialog(params.mContext, mTheme);
+                    new ButtonMappingAlertDialog(params.mContext, theme);
             params.apply(dialog.mAlert);
             dialog.setCancelable(params.mCancelable);
             if (params.mCancelable) {
@@ -764,8 +759,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
         /**
          * Creates an {@link AlertDialog} with the arguments supplied to this
          * builder and immediately displays the dialog.
-         * <p>
-         * Calling this method is functionally identical to:
+         *
+         * <p>Calling this method is functionally identical to:
          * <pre>
          *     AlertDialog dialog = builder.create();
          *     dialog.show();

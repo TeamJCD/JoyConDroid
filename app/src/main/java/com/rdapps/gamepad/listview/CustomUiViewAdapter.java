@@ -6,33 +6,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.rdapps.gamepad.R;
-import com.rdapps.gamepad.model.CustomUIItem;
-
+import com.rdapps.gamepad.model.CustomUiItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CustomUIViewAdapter extends BaseAdapter {
+public class CustomUiViewAdapter extends BaseAdapter {
 
     private final LayoutInflater layoutInflater;
-    private List<CustomUIItem> customUIItems;
+    private List<CustomUiItem> customUiItems;
 
 
-    public CustomUIViewAdapter(Context aContext) {
-        this.customUIItems = new ArrayList<>();
-        this.layoutInflater = LayoutInflater.from(aContext);
+    public CustomUiViewAdapter(Context context) {
+        this.customUiItems = new ArrayList<>();
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return customUIItems.size();
+        return customUiItems.size();
     }
 
     @Override
-    public CustomUIItem getItem(int position) {
-        return customUIItems.get(position);
+    public CustomUiItem getItem(int position) {
+        return customUiItems.get(position);
     }
 
     @Override
@@ -47,18 +45,18 @@ public class CustomUIViewAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.custom_ui_option_layout, parent, false);
         }
 
-        CustomUIItem customUIItem = customUIItems.get(position);
+        CustomUiItem customUiItem = customUiItems.get(position);
 
-        if (Objects.isNull(customUIItem)) {
+        if (Objects.isNull(customUiItem)) {
             return view;
         }
 
         TextView nameView = view.findViewById(R.id.customUIName);
-        nameView.setText(customUIItem.getName());
+        nameView.setText(customUiItem.getName());
 
         int icon = R.drawable.ic_left_joycon_icon;
-        if (Objects.nonNull(customUIItem.getType())) {
-            icon = switch (customUIItem.getType()) {
+        if (Objects.nonNull(customUiItem.getType())) {
+            icon = switch (customUiItem.getType()) {
                 case RIGHT_JOYCON -> R.drawable.ic_right_joycon_icon;
                 case LEFT_JOYCON -> R.drawable.ic_left_joycon_icon;
                 case PRO_CONTROLLER -> R.drawable.ic_procontroller_icon;
@@ -69,8 +67,8 @@ public class CustomUIViewAdapter extends BaseAdapter {
         return view;
     }
 
-    public void setItems(List<CustomUIItem> customUIItems) {
-        this.customUIItems = customUIItems;
+    public void setItems(List<CustomUiItem> customUiItems) {
+        this.customUiItems = customUiItems;
         notifyDataSetChanged();
     }
 }

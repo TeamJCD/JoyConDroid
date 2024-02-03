@@ -1,6 +1,6 @@
 package com.rdapps.gamepad.memory;
 
-public interface SPIMemory {
+public interface SpiMemory {
     byte[] read(int location, int length);
     void write(int location, byte[] data);
 }

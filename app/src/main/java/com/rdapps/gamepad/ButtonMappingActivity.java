@@ -164,8 +164,8 @@ public class ButtonMappingActivity extends AppCompatActivity
     private void remap(ButtonType buttonType, int axisValue, int axisDirection) {
         List<ControllerAction> newActions = new ArrayList<>(controllerActions);
         for (ControllerAction controllerAction : controllerActions) {
-            if (controllerAction.getType() == AXIS && controllerAction.getXAxis() == axisValue
-                    && controllerAction.getXDirection() == axisDirection) {
+            if (controllerAction.getType() == AXIS && controllerAction.getAxisX() == axisValue
+                    && controllerAction.getDirectionX() == axisDirection) {
                 newActions.remove(controllerAction);
             }
             if (controllerAction.getButton() == buttonType) {

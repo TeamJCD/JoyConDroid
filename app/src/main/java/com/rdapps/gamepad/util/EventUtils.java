@@ -3,7 +3,6 @@ package com.rdapps.gamepad.util;
 import android.os.SystemClock;
 import android.view.InputDevice;
 import android.view.MotionEvent;
-
 import java.util.Optional;
 
 public class EventUtils {
@@ -33,12 +32,13 @@ public class EventUtils {
     }
 
     public static boolean isGamePadSource(int source) {
-//        return ((source & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) ||
-//                ((source & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK);
+        // return ((source & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) ||
+        //         ((source & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK);
         return true;
     }
 
-    public static MotionEvent getJoyStickEvent(float x, float y, float radius, float centerX, float centerY) {
+    public static MotionEvent getJoyStickEvent(
+            float x, float y, float radius, float centerX, float centerY) {
         float motionX = x;
         float motionY = y;
         if (Float.compare(motionX, 0) == 0 && Float.compare(motionY, 0) == 0) {

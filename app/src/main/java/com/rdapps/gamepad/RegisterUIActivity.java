@@ -8,8 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.rdapps.gamepad.log.JoyConLog;
-import com.rdapps.gamepad.model.CustomUIItem;
-import com.rdapps.gamepad.sql.CustomUIDBHandler;
+import com.rdapps.gamepad.model.CustomUiItem;
+import com.rdapps.gamepad.sql.CustomUiDbHandler;
 import com.rdapps.gamepad.toast.ToastHelper;
 import com.rdapps.gamepad.util.UnzipUtil;
 
@@ -59,7 +59,7 @@ public class RegisterUIActivity extends Activity {
                                 parent.mkdir();
                             }
 
-                            try (CustomUIDBHandler customUIDBHandler = new CustomUIDBHandler(this)) {
+                            try (CustomUiDbHandler customUIDBHandler = new CustomUiDbHandler(this)) {
                                 for (int i = 0; i < count; i++) {
                                     query.moveToPosition(i);
 
@@ -72,7 +72,7 @@ public class RegisterUIActivity extends Activity {
                                     File folder = new File(parent, name + "_" + id);
                                     String path = Uri.fromFile(new File(folder, entry)).toString();
 
-                                    CustomUIItem customUI = customUIDBHandler.getCustomUI(path, id);
+                                    CustomUiItem customUI = customUIDBHandler.getCustomUi(path, id);
                                     if (Objects.nonNull(customUI)) {
                                         int oldVersion = customUI.getVersion();
                                         if (oldVersion >= version) {
@@ -80,7 +80,7 @@ public class RegisterUIActivity extends Activity {
                                             finish();
                                             return;
                                         } else {
-                                            customUIDBHandler.deleteCustomUI(path, id);
+                                            customUIDBHandler.deleteCustomUi(path, id);
                                             FileUtils.deleteDirectory(folder);
                                             folder.mkdir();
                                         }
@@ -107,7 +107,7 @@ public class RegisterUIActivity extends Activity {
 
                                     UnzipUtil unzipUtil = new UnzipUtil(uiBundle, folder.getAbsolutePath());
                                     unzipUtil.unzip();
-                                    customUIDBHandler.insertUI(path, id, name, type, version, appVersion);
+                                    customUIDBHandler.insertUi(path, id, name, type, version, appVersion);
                                 }
                             }
 

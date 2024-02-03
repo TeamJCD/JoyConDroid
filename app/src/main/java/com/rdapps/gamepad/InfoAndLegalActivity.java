@@ -1,5 +1,7 @@
 package com.rdapps.gamepad;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -12,16 +14,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.rdapps.gamepad.util.ControllerFunctions;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import static com.rdapps.gamepad.log.JoyConLog.log;
 
 public class InfoAndLegalActivity extends AppCompatActivity {
 
@@ -46,8 +43,8 @@ public class InfoAndLegalActivity extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        Locale aDefault = Locale.getDefault();
-        log("Locale", "Locale:" + aDefault.toString());
+        Locale defaultLocale = Locale.getDefault();
+        log("Locale", "Locale:" + defaultLocale);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
@@ -60,7 +57,8 @@ public class InfoAndLegalActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            public void onReceivedError(
+                    WebView view, WebResourceRequest request, WebResourceError error) {
                 errored.set(true);
                 webView.loadUrl("file:///android_asset/error.html");
             }

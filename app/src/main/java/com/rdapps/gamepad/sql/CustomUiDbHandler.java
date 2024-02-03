@@ -5,14 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.rdapps.gamepad.model.CustomUIItem;
+import com.rdapps.gamepad.model.CustomUiItem;
 import com.rdapps.gamepad.protocol.ControllerType;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomUIDBHandler extends SQLiteOpenHelper {
+public class CustomUiDbHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "customUI.db";
     public static final String TABLE_NAME = "CustomUI";
@@ -25,13 +23,13 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_PATH = "CustomUIPath";
 
 
-    public CustomUIDBHandler(Context context) {
+    public CustomUiDbHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+        String createTable = "CREATE TABLE " + TABLE_NAME + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_UI_ID + " TEXT,"
                 + COLUMN_NAME + " TEXT,"
@@ -39,7 +37,7 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
                 + COLUMN_VERSION + " INTEGER,"
                 + COLUMN_APP_VERSION + " INTEGER,"
                 + COLUMN_PATH + " TEXT" + ")";
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(createTable);
     }
 
     @Override
@@ -47,10 +45,10 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
 
     }
 
-    public void insertUI(
+    public void insertUi(
             String authorityPath, String id, String name, String type,
             Integer version, Integer appVersion) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        final SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_PATH, authorityPath);
         contentValues.put(COLUMN_UI_ID, id);
@@ -62,11 +60,12 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public CustomUIItem getCustomUI(String authorityPath, String id) {
+    public CustomUiItem getCustomUi(String authorityPath, String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                new String[]{COLUMN_PATH, COLUMN_NAME, COLUMN_TYPE, COLUMN_VERSION, COLUMN_APP_VERSION},
+                new String[]{
+                        COLUMN_PATH, COLUMN_NAME, COLUMN_TYPE, COLUMN_VERSION, COLUMN_APP_VERSION },
                 COLUMN_PATH + "=? AND " + COLUMN_UI_ID + "=?",
                 new String[]{authorityPath, id},
                 null,
@@ -79,26 +78,27 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
             String type = cursor.getString(2);
             int version = cursor.getInt(3);
             int appVersion = cursor.getInt(4);
-            CustomUIItem customUIItem = new CustomUIItem();
-            customUIItem.setName(name);
-            customUIItem.setType(ControllerType.valueOf(type));
-            customUIItem.setVersion(version);
-            customUIItem.setAppVersion(appVersion);
-            customUIItem.setUrl(authority);
+            CustomUiItem customUiItem = new CustomUiItem();
+            customUiItem.setName(name);
+            customUiItem.setType(ControllerType.valueOf(type));
+            customUiItem.setVersion(version);
+            customUiItem.setAppVersion(appVersion);
+            customUiItem.setUrl(authority);
             cursor.close();
             db.close();
-            return customUIItem;
+            return customUiItem;
         } else {
             return null;
         }
     }
 
-    public List<CustomUIItem> getCustomUIs() {
-        List<CustomUIItem> customUIItems = new ArrayList<>();
+    public List<CustomUiItem> getCustomUis() {
+        List<CustomUiItem> customUiItems = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                new String[]{COLUMN_PATH, COLUMN_NAME, COLUMN_TYPE, COLUMN_VERSION, COLUMN_APP_VERSION},
+                new String[]{
+                        COLUMN_PATH, COLUMN_NAME, COLUMN_TYPE, COLUMN_VERSION, COLUMN_APP_VERSION },
                 null,
                 null,
                 null,
@@ -110,20 +110,20 @@ public class CustomUIDBHandler extends SQLiteOpenHelper {
             String type = cursor.getString(2);
             int version = cursor.getInt(3);
             int appVersion = cursor.getInt(4);
-            CustomUIItem customUIItem = new CustomUIItem();
-            customUIItem.setName(name);
-            customUIItem.setType(ControllerType.valueOf(type));
-            customUIItem.setVersion(version);
-            customUIItem.setAppVersion(appVersion);
-            customUIItem.setUrl(authority);
-            customUIItems.add(customUIItem);
+            CustomUiItem customUiItem = new CustomUiItem();
+            customUiItem.setName(name);
+            customUiItem.setType(ControllerType.valueOf(type));
+            customUiItem.setVersion(version);
+            customUiItem.setAppVersion(appVersion);
+            customUiItem.setUrl(authority);
+            customUiItems.add(customUiItem);
         }
         cursor.close();
         db.close();
-        return customUIItems;
+        return customUiItems;
     }
 
-    public void deleteCustomUI(String path, String id) {
+    public void deleteCustomUi(String path, String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME,
                 COLUMN_PATH + "=? AND " + COLUMN_UI_ID + "=?",

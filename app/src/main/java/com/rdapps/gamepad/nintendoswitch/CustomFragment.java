@@ -1,5 +1,11 @@
 package com.rdapps.gamepad.nintendoswitch;
 
+import static android.app.Activity.RESULT_OK;
+import static com.rdapps.gamepad.ControllerActivity.CUSTOM_UI_URL;
+import static com.rdapps.gamepad.button.ButtonState.BUTTON_DOWN;
+import static com.rdapps.gamepad.button.ButtonState.BUTTON_UP;
+import static com.rdapps.gamepad.log.JoyConLog.log;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +23,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import android.widget.ImageButton;
 import androidx.fragment.app.FragmentActivity;
-
 import com.erz.joysticklibrary.JoyStick;
 import com.rdapps.gamepad.ControllerActivity;
 import com.rdapps.gamepad.R;
@@ -28,17 +32,10 @@ import com.rdapps.gamepad.button.AxisEnum;
 import com.rdapps.gamepad.button.ButtonEnum;
 import com.rdapps.gamepad.led.LedState;
 import com.rdapps.gamepad.util.ControllerFunctions;
-
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.Phaser;
-
-import static android.app.Activity.RESULT_OK;
-import static com.rdapps.gamepad.ControllerActivity.CUSTOM_UI_URL;
-import static com.rdapps.gamepad.button.ButtonState.BUTTON_DOWN;
-import static com.rdapps.gamepad.button.ButtonState.BUTTON_UP;
-import static com.rdapps.gamepad.log.JoyConLog.log;
 
 public class CustomFragment extends ControllerFragment {
     private static final String LOG_TAG = CustomFragment.class.getName();
@@ -47,7 +44,7 @@ public class CustomFragment extends ControllerFragment {
 
     private WebView webView;
 
-    private ValueCallback<Uri[]> mUploadMessage;
+    private ValueCallback<Uri[]> uploadMessage;
     private Uri[] results;
 
     public static CustomFragment getInstance(Serializable url) {
@@ -84,7 +81,8 @@ public class CustomFragment extends ControllerFragment {
         webView.loadUrl(url);
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            public void onReceivedError(
+                    WebView view, WebResourceRequest request, WebResourceError error) {
                 webView.loadUrl("file:///android_asset/error.html");
             }
         });
@@ -101,10 +99,10 @@ public class CustomFragment extends ControllerFragment {
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
                                              WebChromeClient.FileChooserParams fileChooserParams) {
                 // Double check that we don't have any existing callbacks
-                if (mUploadMessage != null) {
-                    mUploadMessage.onReceiveValue(null);
+                if (uploadMessage != null) {
+                    uploadMessage.onReceiveValue(null);
                 }
-                mUploadMessage = filePathCallback;
+                uploadMessage = filePathCallback;
 
                 openFileSelectionDialog(false);
 
@@ -112,14 +110,14 @@ public class CustomFragment extends ControllerFragment {
             }
         });
 
-        webView.addJavascriptInterface(new JoyConJSInterface(), "joyconJS");
+        webView.addJavascriptInterface(new JoyConJsInterface(), "joyconJS");
         webView.addJavascriptInterface(new ControllerFunctions(
                 webView,
                 () -> webView.loadUrl(url)
         ), "Controller");
     }
 
-    private class JoyConJSInterface {
+    private class JoyConJsInterface {
         private final Phaser phaser = new Phaser(1);
 
         @JavascriptInterface
@@ -143,12 +141,12 @@ public class CustomFragment extends ControllerFragment {
         }
 
         @JavascriptInterface
-        public void onLeftSL(boolean pressed) {
+        public void onLeftSl(boolean pressed) {
             onButton(ButtonEnum.LEFT_SL, pressed);
         }
 
         @JavascriptInterface
-        public void onLeftSR(boolean pressed) {
+        public void onLeftSr(boolean pressed) {
             onButton(ButtonEnum.LEFT_SR, pressed);
         }
 
@@ -180,7 +178,7 @@ public class CustomFragment extends ControllerFragment {
         }
 
         @JavascriptInterface
-        public void onZL(boolean pressed) {
+        public void onZl(boolean pressed) {
             onButton(ButtonEnum.ZL, pressed);
         }
 
@@ -227,12 +225,12 @@ public class CustomFragment extends ControllerFragment {
         }
 
         @JavascriptInterface
-        public void onRightSL(boolean pressed) {
+        public void onRightSl(boolean pressed) {
             onButton(ButtonEnum.RIGHT_SL, pressed);
         }
 
         @JavascriptInterface
-        public void onRightSR(boolean pressed) {
+        public void onRightSr(boolean pressed) {
             onButton(ButtonEnum.RIGHT_SR, pressed);
         }
 
@@ -274,7 +272,7 @@ public class CustomFragment extends ControllerFragment {
         }
 
         @JavascriptInterface
-        public void onZR(boolean pressed) {
+        public void onZr(boolean pressed) {
             onButton(ButtonEnum.ZR, pressed);
         }
 
@@ -316,8 +314,7 @@ public class CustomFragment extends ControllerFragment {
 
         @JavascriptInterface
         public void setAccelerometerEnabled(boolean enabled) {
-            if (Objects.nonNull(device) &&
-                    device.isAccelerometerEnabled() != enabled) {
+            if (Objects.nonNull(device) && device.isAccelerometerEnabled() != enabled) {
                 device.setAccelerometerEnabled(enabled);
                 if (enabled) {
                     registerAccelerometerListener();
@@ -329,8 +326,7 @@ public class CustomFragment extends ControllerFragment {
 
         @JavascriptInterface
         public void setGyroscopeEnabled(boolean enabled) {
-            if (Objects.nonNull(device) &&
-                    device.isGyroscopeEnabled() != enabled) {
+            if (Objects.nonNull(device) && device.isGyroscopeEnabled() != enabled) {
                 device.setGyroscopeEnabled(enabled);
                 if (enabled) {
                     registerGyroscopeListener();
@@ -506,8 +502,8 @@ public class CustomFragment extends ControllerFragment {
                 results[0] = data.getData();
                 log(LOG_TAG, "file uri: " + results[0]);
             }
-            mUploadMessage.onReceiveValue(results);
-            mUploadMessage = null;
+            uploadMessage.onReceiveValue(results);
+            uploadMessage = null;
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

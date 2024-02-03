@@ -1,5 +1,8 @@
 package com.rdapps.gamepad.fragment;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
+
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -12,20 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.rdapps.gamepad.log.JoyConLog.log;
-import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
-
-public class DeviceNameFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
+public class DeviceNameFragment extends Fragment
+        implements ResettableSettingFragment, View.OnClickListener {
 
     private static final String TAG = DeviceNameFragment.class.getName();
 
@@ -42,7 +40,8 @@ public class DeviceNameFragment extends Fragment implements ResettableSettingFra
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.component_file_selector, container, false);
         ((TextView) view.findViewById(R.id.title)).setText(R.string.device_name);
         textView = view.findViewById(R.id.selected_file_path);
@@ -81,7 +80,8 @@ public class DeviceNameFragment extends Fragment implements ResettableSettingFra
     @Override
     public void onClick(View v) {
         Context context = getContext();
-        if (Objects.isNull(context) || Objects.isNull(textView) || Objects.isNull(bluetoothAdapter)) {
+        if (Objects.isNull(context) || Objects.isNull(textView)
+                || Objects.isNull(bluetoothAdapter)) {
             return;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

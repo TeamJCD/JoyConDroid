@@ -13,9 +13,9 @@ import android.util.Log;
 import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.device.AbstractDevice;
 import com.rdapps.gamepad.log.JoyConLog;
-import com.rdapps.gamepad.memory.FileSPIMemory;
+import com.rdapps.gamepad.memory.FileSpiMemory;
 import com.rdapps.gamepad.memory.RAFSPIMemory;
-import com.rdapps.gamepad.memory.SPIMemory;
+import com.rdapps.gamepad.memory.SpiMemory;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.service.BluetoothControllerService;
 import com.rdapps.gamepad.util.ByteUtils;
@@ -129,7 +129,7 @@ public class SwitchController extends AbstractDevice {
     private float[] gyrCoeffs;
     private short[] gyrOffset;
 
-    private SPIMemory eeprom;
+    private SpiMemory eeprom;
     private final ButtonStates buttonStates;
     private final BluetoothControllerService service;
     private final boolean amiiboEnabled;
@@ -156,7 +156,7 @@ public class SwitchController extends AbstractDevice {
     public SwitchController(BluetoothControllerService service, ControllerType type) {
         super(
                 service.getApplicationContext(),
-                type.getBTName(),
+                type.getBtName(),
                 SUBCLASS,
                 HID_NAME,
                 HID_DESCRIPTION,
@@ -170,12 +170,12 @@ public class SwitchController extends AbstractDevice {
 
         Context context = service.getApplicationContext();
         try {
-            String btName = type.getBTName();
+            String btName = type.getBtName();
             this.eeprom = new RAFSPIMemory(context, btName, type.getMemoryResource());
         } catch (Exception e) {
             Log.e(TAG, "RAFEEPROM Failed.", e);
             try {
-                this.eeprom = new FileSPIMemory(context, type.getMemoryResource());
+                this.eeprom = new FileSpiMemory(context, type.getMemoryResource());
             } catch (IOException ex) {
                 JoyConLog.log(TAG, "File PROM exception", e);
             }
@@ -425,22 +425,22 @@ public class SwitchController extends AbstractDevice {
     }
 
     @Override
-    public void onGetReport(BluetoothDevice rDevice, byte type, byte id, int bufferSize) {
+    public void onGetReport(BluetoothDevice device, byte type, byte id, int bufferSize) {
         Log.w(TAG, "Get Report Type: " + type + " Id: " + id + " bufferSize: " + bufferSize);
     }
 
     @Override
-    public void onSetReport(BluetoothDevice rDevice, byte type, byte id, byte[] data) {
+    public void onSetReport(BluetoothDevice device, byte type, byte id, byte[] data) {
         Log.w(TAG, "Set Report Type: " + type + " Id: " + id + " data: " + Hex.bytesToStringUppercase(data));
     }
 
     @Override
-    public void onSetProtocol(BluetoothDevice rDevice, byte protocol) {
+    public void onSetProtocol(BluetoothDevice device, byte protocol) {
         Log.w(TAG, "Set Protocol Protocol: " + ByteUtils.encodeHexString(protocol));
     }
 
     @Override
-    public void onInterruptData(BluetoothDevice rDevice, byte reportId, byte[] data) {
+    public void onInterruptData(BluetoothDevice device, byte reportId, byte[] data) {
         Log.v(TAG, "Interrupt Data Report Id: " + ByteUtils.encodeHexString(reportId) + " data: "
                 + Hex.bytesToStringUppercase(data));
 

@@ -1,11 +1,11 @@
 package com.rdapps.gamepad.util;
 
+import static android.provider.OpenableColumns.DISPLAY_NAME;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import lombok.experimental.UtilityClass;
-
-import static android.provider.OpenableColumns.DISPLAY_NAME;
 
 @UtilityClass
 public class FileUtils {

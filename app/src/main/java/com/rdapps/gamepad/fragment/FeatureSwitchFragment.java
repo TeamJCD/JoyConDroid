@@ -9,25 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
-
 import com.jaredrummler.android.device.DeviceName;
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class FeatureSwitchFragment extends Fragment implements CompoundButton.OnCheckedChangeListener,
-        ResettableSettingFragment {
+public class FeatureSwitchFragment extends Fragment
+        implements CompoundButton.OnCheckedChangeListener, ResettableSettingFragment {
 
     private static String TAG = FeatureSwitchFragment.class.getName();
 
@@ -49,7 +45,8 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.component_feature_switch, container, false);
         Bundle arguments = getArguments();
         type = (FeatureType) arguments.getSerializable(TYPE);
@@ -86,7 +83,8 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
     @Override
     public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(context, attrs, savedInstanceState);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FeatureSwitchFragment);
+        TypedArray typedArray =
+                context.obtainStyledAttributes(attrs, R.styleable.FeatureSwitchFragment);
         if (typedArray != null) {
             String type = typedArray.getString(R.styleable.FeatureSwitchFragment_feature_type);
             FeatureType featureType = Optional.ofNullable(type)
@@ -127,21 +125,22 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
                     DeviceName.with(getContext()).request((info, error) -> {
                         if (Objects.nonNull(info)) {
                             String manufacturer = info.manufacturer;  // "Samsung"
-//                            String name = info.marketName;            // "Galaxy S8+"
-//                            String model = info.model;                // "SM-G955W"
-//                            String codename = info.codename;          // "dream2qltecan"
-//                            String deviceName = info.getName();       // "Galaxy S8+"
+                            // String name = info.marketName;            // "Galaxy S8+"
+                            // String model = info.model;                // "SM-G955W"
+                            // String codename = info.codename;          // "dream2qltecan"
+                            // String deviceName = info.getName();       // "Galaxy S8+"
 
                             if (!"Samsung".equalsIgnoreCase(manufacturer)) {
-                                showMTUSizeWarning();
+                                showMtuSizeWarning();
                             } else {
                                 showAmiiboExperimentalWarning();
                             }
                         } else {
-                            showMTUSizeWarning();
+                            showMtuSizeWarning();
                         }
                     });
                 }
+                break;
             default:
                 return;
         }
@@ -152,7 +151,7 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
         }
     }
 
-    public void showMTUSizeWarning() {
+    public void showMtuSizeWarning() {
         Context context = getContext();
         if (Objects.isNull(context)) {
             return;
@@ -160,8 +159,10 @@ public class FeatureSwitchFragment extends Fragment implements CompoundButton.On
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.mtu_warning_title);
         builder.setMessage(R.string.mtu_warning_text);
-        builder.setPositiveButton(R.string.continue_option, (dialog, i) -> showAmiiboExperimentalWarning());
-        builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> switchController.setChecked(false));
+        builder.setPositiveButton(R.string.continue_option, (dialog, i) ->
+                showAmiiboExperimentalWarning());
+        builder.setNegativeButton(android.R.string.cancel, (dialog, i) ->
+                switchController.setChecked(false));
         builder.setOnCancelListener((dialogInterface -> switchController.setChecked(false)));
         builder.create().show();
     }

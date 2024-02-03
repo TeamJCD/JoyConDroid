@@ -1,19 +1,17 @@
 package com.rdapps.gamepad.memory;
 
 import android.content.Context;
-
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import org.apache.commons.io.IOUtils;
 
-public class FileSPIMemory implements SPIMemory {
-    private static final String TAG = FileSPIMemory.class.getName();
+public class FileSpiMemory implements SpiMemory {
+    private static final String TAG = FileSpiMemory.class.getName();
 
     private byte[] bytes;
 
-    public FileSPIMemory(Context context, int rawResource) throws IOException {
+    public FileSpiMemory(Context context, int rawResource) throws IOException {
         try (InputStream resourceAsStream = context.getResources().openRawResource(rawResource)) {
             bytes = IOUtils.toByteArray(resourceAsStream);
         }

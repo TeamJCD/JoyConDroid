@@ -31,7 +31,7 @@ public enum SubCommand {
     SET_PLAYER_LIGHTS(0x30, new SetPlayerLightsHandler()),
     GET_PLAYER_LIGHTS(0x31, new GetPlayerLightsHandler()),
     //SET_HOME_LIGHT(0x38),
-    ENABLE_IMU_6_AXIS_SENSOR(0x40, new EnableIMU6AxisSensorHandler()),
+    ENABLE_IMU_6_AXIS_SENSOR(0x40, new EnableImu6AxisSensorHandler()),
     SET_IMU_6_AXIS_SENSITIVITY(0x41, new SetIMU6AxisSensitivityHandler()),
     //WRITE_TO_IMU_REGISTERS(0x42),
     //READ_FROM_IMU_REGISTERS(0x43),

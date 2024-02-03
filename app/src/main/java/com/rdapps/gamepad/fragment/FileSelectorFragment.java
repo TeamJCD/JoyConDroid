@@ -1,5 +1,7 @@
 package com.rdapps.gamepad.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,21 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
-
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
-import static android.app.Activity.RESULT_OK;
-
-public class FileSelectorFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
+public class FileSelectorFragment extends Fragment
+        implements ResettableSettingFragment, View.OnClickListener {
 
     private static String TAG = FileSelectorFragment.class.getName();
 
@@ -42,7 +39,8 @@ public class FileSelectorFragment extends Fragment implements ResettableSettingF
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.component_file_selector, container, false);
         ((TextView) view.findViewById(R.id.title)).setText(R.string.amiibo_bin_path);
         textView = view.findViewById(R.id.selected_file_path);

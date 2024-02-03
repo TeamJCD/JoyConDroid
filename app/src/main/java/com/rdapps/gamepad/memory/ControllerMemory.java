@@ -2,13 +2,13 @@ package com.rdapps.gamepad.memory;
 
 import com.rdapps.gamepad.util.ByteUtils;
 
-public class ControllerMemory implements SPIMemory {
-    private final SPIMemory delegate;
+public class ControllerMemory implements SpiMemory {
+    private final SpiMemory delegate;
 
     private static final int BODY_LOCATION = 0x6050;
     private static final int BUTTON_LOCATION = 0x6053;
 
-    public ControllerMemory(SPIMemory delegate) {
+    public ControllerMemory(SpiMemory delegate) {
         this.delegate = delegate;
     }
 

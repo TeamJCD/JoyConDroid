@@ -32,9 +32,9 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
 
     private Map<JoystickType, ControllerAction> joysticks;
 
-    public ButtonMappingViewAdapter(Context aContext, List<ControllerAction> controllerActions) {
+    public ButtonMappingViewAdapter(Context context, List<ControllerAction> controllerActions) {
         this.refresh(controllerActions);
-        this.layoutInflater = LayoutInflater.from(aContext);
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -98,47 +98,47 @@ public class ButtonMappingViewAdapter extends BaseAdapter {
             }
         } else if (action.getType() == AXIS) {
             TextView nameView = view.findViewById(R.id.stickName);
-            TextView xValueView = view.findViewById(R.id.stickXValue);
-            TextView yValueView = view.findViewById(R.id.stickYValue);
+            TextView valueViewX = view.findViewById(R.id.stickXValue);
+            TextView valueViewY = view.findViewById(R.id.stickYValue);
 
             ButtonType buttonType = action.getButton();
-            Integer axisValue = actionMap.get(buttonType).getXAxis();
+            Integer axisValue = actionMap.get(buttonType).getAxisX();
             String axisName = Optional.ofNullable(axisValue)
                     .map(AXIS_NAMES::get)
                     .orElse(null);
 
             nameView.setText(buttonType.name());
-            yValueView.setText(String.valueOf(action.getXDirection()));
+            valueViewY.setText(String.valueOf(action.getDirectionX()));
             if (Objects.nonNull(axisName)) {
-                xValueView.setText(axisName);
+                valueViewX.setText(axisName);
             } else {
-                xValueView.setText(R.string.unknown);
+                valueViewX.setText(R.string.unknown);
             }
         } else {
             TextView nameView = view.findViewById(R.id.stickName);
-            TextView xValueView = view.findViewById(R.id.stickXValue);
-            TextView yValueView = view.findViewById(R.id.stickYValue);
+            TextView valueViewX = view.findViewById(R.id.stickXValue);
+            TextView valueViewY = view.findViewById(R.id.stickYValue);
 
             JoystickType joystick = action.getJoystick();
             nameView.setText(joystick.name());
             ControllerAction ca = joysticks.get(joystick);
 
             if (Objects.nonNull(ca)) {
-                String xAxisName = AXIS_NAMES.get(ca.getXAxis());
-                if (Objects.nonNull(xAxisName)) {
-                    xValueView.setText(xAxisName);
+                String axisNameX = AXIS_NAMES.get(ca.getAxisX());
+                if (Objects.nonNull(axisNameX)) {
+                    valueViewX.setText(axisNameX);
                 } else {
-                    xValueView.setText(R.string.unknown);
+                    valueViewX.setText(R.string.unknown);
                 }
-                String yAxisName = AXIS_NAMES.get(ca.getYAxis());
-                if (Objects.nonNull(yAxisName)) {
-                    yValueView.setText(yAxisName);
+                String axisNameY = AXIS_NAMES.get(ca.getAxisY());
+                if (Objects.nonNull(axisNameY)) {
+                    valueViewY.setText(axisNameY);
                 } else {
-                    yValueView.setText(R.string.unknown);
+                    valueViewY.setText(R.string.unknown);
                 }
             } else {
-                xValueView.setText(R.string.unknown);
-                yValueView.setText(R.string.unknown);
+                valueViewX.setText(R.string.unknown);
+                valueViewY.setText(R.string.unknown);
             }
         }
 

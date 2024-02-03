@@ -14,7 +14,7 @@ import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.util.PreferenceUtils.hasFile;
 import static com.rdapps.gamepad.util.PreferenceUtils.setFile;
 
-public class RAFSPIMemory implements SPIMemory {
+public class RAFSPIMemory implements SpiMemory {
     private static final String TAG = RAFSPIMemory.class.getName();
 
     private RandomAccessFile randomAccessFile;

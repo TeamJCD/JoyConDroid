@@ -508,7 +508,7 @@ public class ControllerActionUtils {
                 .stream()
                 .filter(ca -> ca.getType() == AXIS)
                 .map(ca ->
-                        new Pair<>(new Pair<>(ca.getXAxis(), ca.getXDirection()), ca.getButton()))
+                        new Pair<>(new Pair<>(ca.getAxisX(), ca.getDirectionX()), ca.getButton()))
                 .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
     }
 

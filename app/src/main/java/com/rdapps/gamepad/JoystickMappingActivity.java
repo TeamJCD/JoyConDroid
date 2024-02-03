@@ -99,12 +99,12 @@ public class JoystickMappingActivity extends AppCompatActivity {
                                     R.string.push_right_joystick_right :
                                     R.string.push_left_joystick_right);
                     state = State.X;
-                    resultAction.setYAxis(axis);
-                    resultAction.setYDirection(maxedAxis);
-                } else if (state == State.X && axis != resultAction.getYAxis()) {
+                    resultAction.setAxisY(axis);
+                    resultAction.setDirectionY(maxedAxis);
+                } else if (state == State.X && axis != resultAction.getAxisY()) {
                     resultView.setText(this.getString(R.string.axis_registered, "X", axisEntry.getValue()));
-                    resultAction.setXAxis(axis);
-                    resultAction.setXDirection(maxedAxis);
+                    resultAction.setAxisX(axis);
+                    resultAction.setDirectionX(maxedAxis);
                     new AlertDialog.Builder(this)
                             .setMessage(R.string.joystick_mapping_completed)
                             .setPositiveButton(R.string.save, this::onSave)

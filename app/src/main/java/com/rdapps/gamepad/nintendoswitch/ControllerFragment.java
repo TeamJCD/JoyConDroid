@@ -249,22 +249,22 @@ public abstract class ControllerFragment extends Fragment {
         float rightStickY = 0;
         if (rightJoystickAction != null) {
             rightStickX = (reverse ? -1 : 1) * getCenteredAxis(motionEvent, device,
-                    reverse ? rightJoystickAction.getYAxis() : rightJoystickAction.getXAxis());
+                    reverse ? rightJoystickAction.getAxisY() : rightJoystickAction.getAxisX());
             rightStickY = getCenteredAxis(motionEvent, device,
-                    reverse ? rightJoystickAction.getXAxis() : rightJoystickAction.getYAxis());
-            rightStickX = rightStickX * rightJoystickAction.getXDirection();
-            rightStickY = rightStickY * rightJoystickAction.getYDirection() * -1;
+                    reverse ? rightJoystickAction.getAxisX() : rightJoystickAction.getAxisY());
+            rightStickX = rightStickX * rightJoystickAction.getDirectionX();
+            rightStickY = rightStickY * rightJoystickAction.getDirectionY() * -1;
         }
 
         float leftStickX = 0;
         float leftStickY = 0;
         if (leftJoystickAction != null) {
             leftStickX = (reverse ? -1 : 1) * getCenteredAxis(motionEvent, device,
-                    reverse ? leftJoystickAction.getYAxis() : leftJoystickAction.getXAxis());
+                    reverse ? leftJoystickAction.getAxisY() : leftJoystickAction.getAxisX());
             leftStickY = getCenteredAxis(motionEvent, device,
-                    reverse ? leftJoystickAction.getXAxis() : leftJoystickAction.getYAxis());
-            leftStickX = leftStickX * leftJoystickAction.getXDirection();
-            leftStickY = leftStickY * leftJoystickAction.getYDirection() * -1;
+                    reverse ? leftJoystickAction.getAxisX() : leftJoystickAction.getAxisY());
+            leftStickX = leftStickX * leftJoystickAction.getDirectionX();
+            leftStickY = leftStickY * leftJoystickAction.getDirectionY() * -1;
         }
 
         JoyStick leftJoyStick = getLeftJoyStick();

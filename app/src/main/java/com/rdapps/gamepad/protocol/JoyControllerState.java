@@ -2,8 +2,7 @@ package com.rdapps.gamepad.protocol;
 
 import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.battery.BatteryData;
-import com.rdapps.gamepad.memory.ControllerMemory;
-import com.rdapps.gamepad.memory.SPIMemory;
+import com.rdapps.gamepad.memory.SpiMemory;
 import com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu;
 import com.rdapps.gamepad.report.InputReportMode;
 import com.rdapps.gamepad.vibrator.VibratorData;
@@ -72,7 +71,7 @@ public class JoyControllerState {
         this.macBytes = macBytes;
     }
 
-    public void calculateCoeffs(SPIMemory memory) {
+    public void calculateCoeffs(SpiMemory memory) {
         accCoeffs = new double[3];
         gyrCoeffs = new double[3];
         accOffset = new int[3];

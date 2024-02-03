@@ -55,7 +55,7 @@ public class ColorPickerFragment extends Fragment
         section = (ColorSection) arguments.getSerializable(SECTION);
         try {
             eeprom = new ControllerMemory(
-                    new RAFSPIMemory(getContext(), type.getBTName(), type.getMemoryResource()));
+                    new RAFSPIMemory(getContext(), type.getBtName(), type.getMemoryResource()));
         } catch (IOException e) {
             log(TAG, "EEPROM could not load.", e);
         }

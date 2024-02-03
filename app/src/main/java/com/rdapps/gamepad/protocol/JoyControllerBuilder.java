@@ -9,10 +9,10 @@ import com.rdapps.gamepad.command.handler.InputHandler;
 import com.rdapps.gamepad.command.handler.OutputHandler;
 import com.rdapps.gamepad.log.JoyConLog;
 import com.rdapps.gamepad.memory.ControllerMemory;
-import com.rdapps.gamepad.memory.DummySPIMemory;
-import com.rdapps.gamepad.memory.FileSPIMemory;
+import com.rdapps.gamepad.memory.DummySpiMemory;
+import com.rdapps.gamepad.memory.FileSpiMemory;
 import com.rdapps.gamepad.memory.RAFSPIMemory;
-import com.rdapps.gamepad.memory.SPIMemory;
+import com.rdapps.gamepad.memory.SpiMemory;
 import com.rdapps.gamepad.util.MacUtils;
 import com.rdapps.gamepad.util.PriorityThreadFactory;
 
@@ -105,7 +105,7 @@ public class JoyControllerBuilder {
     }
 
     private void createMemory() {
-        SPIMemory memory = null;
+        SpiMemory memory = null;
         try {
             memory = createRAFSPIMemory();
         } catch (IOException e) {
@@ -121,21 +121,21 @@ public class JoyControllerBuilder {
         }
 
         if (Objects.isNull(memory)) {
-            memory = new DummySPIMemory();
+            memory = new DummySpiMemory();
         }
 
         this.memory = new ControllerMemory(memory);
     }
 
     private RAFSPIMemory createRAFSPIMemory() throws IOException {
-        String bluetoothName = type.getBTName();
+        String bluetoothName = type.getBtName();
         int memoryResource = type.getMemoryResource();
         return new RAFSPIMemory(context, bluetoothName, memoryResource);
     }
 
-    private FileSPIMemory createFileMemory() throws IOException {
+    private FileSpiMemory createFileMemory() throws IOException {
         int memoryResource = type.getMemoryResource();
-        return new FileSPIMemory(context, memoryResource);
+        return new FileSpiMemory(context, memoryResource);
     }
 
     private void createButtonsState() {

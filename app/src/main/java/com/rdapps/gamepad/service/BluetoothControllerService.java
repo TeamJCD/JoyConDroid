@@ -81,9 +81,9 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     private final Object registerLock = new Object();
 
-    private BluetoothAdapter mBluetoothAdapter;
-    private BluetoothHidDevice mBluetoothHidDevice;
-    private ExecutorService mBluetoothHidExecutor;
+    private BluetoothAdapter bluetoothAdapter;
+    private BluetoothHidDevice bluetoothHidDevice;
+    private ExecutorService bluetoothHidExecutor;
 
     private ScheduledExecutorService timeoutScheduler;
     private ScheduledFuture<?> hidFuture;
@@ -99,7 +99,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
 
     private Optional<BluetoothDevice> getConnectedNintendoSwitch() {
-        return Optional.ofNullable(mBluetoothAdapter)
+        return Optional.ofNullable(bluetoothAdapter)
                 .map(BluetoothAdapter::getBondedDevices)
                 .map(Set::stream)
                 .map(stream -> stream.filter(device -> {
@@ -119,10 +119,10 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     private boolean setBluetoothAdapterName(String deviceName) {
         try {
-            String name = mBluetoothAdapter.getName();
+            String name = bluetoothAdapter.getName();
             if (!Objects.equals(name, deviceName)) {
                 PreferenceUtils.saveOriginalName(getApplicationContext(), name);
-                boolean setNameSuccess = mBluetoothAdapter.setName(deviceName);
+                boolean setNameSuccess = bluetoothAdapter.setName(deviceName);
                 if (!setNameSuccess) {
                     mainHandler.post(() ->
                             cannotSetBluetoothName(getApplicationContext(), deviceName));
@@ -143,7 +143,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         Optional<String> originalNameOpt = PreferenceUtils.getOriginalName(getApplicationContext());
         if (originalNameOpt.isPresent()) {
             try {
-                if (mBluetoothAdapter.setName(originalNameOpt.get())) {
+                if (bluetoothAdapter.setName(originalNameOpt.get())) {
                     PreferenceUtils.removeOriginalName(getApplicationContext());
                     return true;
                 }
@@ -160,7 +160,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     @SuppressLint("HardwareIds")
     private String getBluetoothMacAddress() {
-        String address = mBluetoothAdapter.getAddress();
+        String address = bluetoothAdapter.getAddress();
 
         if (Objects.isNull(address)) {
             address = PreferenceUtils.getBluetoothAddress(getApplicationContext());
@@ -227,18 +227,18 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         serviceConnected = false;
         deviceConnected = false;
         state = State.INITIAL;
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         //this.getClass().getMethod("setBluetoothClass", new Class[]{}).invoke(this);
-        mBluetoothHidExecutor = Executors.newCachedThreadPool();
-        mBluetoothHidDevice = null;
+        bluetoothHidExecutor = Executors.newCachedThreadPool();
+        bluetoothHidDevice = null;
         timeoutScheduler = Executors.newScheduledThreadPool(1);
         mainHandler = new Handler(getApplicationContext().getMainLooper());
 
-        if (Objects.isNull(mBluetoothAdapter)) {
+        if (Objects.isNull(bluetoothAdapter)) {
             bluetoothNotAvailable(getApplicationContext());
         } else {
-            mBluetoothAdapter.getProfileProxy(
+            bluetoothAdapter.getProfileProxy(
                     getApplicationContext(),
                     this,
                     HID_DEVICE
@@ -252,7 +252,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     private void checkHidProfile() {
         try {
-            if (Objects.isNull(mBluetoothHidDevice)) {
+            if (Objects.isNull(bluetoothHidDevice)) {
                 mainHandler.post(() -> {
                     try {
                         if (controllerActivity != null) {
@@ -379,7 +379,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                     .setListener(this)
                     .build();
 
-            if (Objects.nonNull(mBluetoothHidDevice)) {
+            if (Objects.nonNull(bluetoothHidDevice)) {
                 if (!appRegistered) {
                     registerApp();
                 } else {
@@ -417,11 +417,11 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         );
 
         try {
-            mBluetoothHidDevice.registerApp(
+            bluetoothHidDevice.registerApp(
                     bluetoothHidDeviceAppSdpSettings,
                     qos,
                     qos,
-                    mBluetoothHidExecutor,
+                    bluetoothHidExecutor,
                     new Callback()
             );
         } catch (SecurityException ex) {
@@ -438,7 +438,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     private void unregisterApp() {
         try {
-            mBluetoothHidDevice.unregisterApp();
+            bluetoothHidDevice.unregisterApp();
         } catch (SecurityException ex) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
@@ -451,18 +451,18 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     public void onDestroy() {
         state = State.DESTROYING;
 
-        NotificationManager mNotificationManager = (NotificationManager)
+        NotificationManager notificationManager = (NotificationManager)
                 getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.cancel(NOTIFICATION_ID);
+        notificationManager.cancel(NOTIFICATION_ID);
 
         if (Objects.nonNull(switchController)) {
             switchController.stop();
         }
         log(TAG, "onDestroy");
-        if (Objects.nonNull(mBluetoothHidDevice) && Objects.nonNull(mBluetoothAdapter)) {
+        if (Objects.nonNull(bluetoothHidDevice) && Objects.nonNull(bluetoothAdapter)) {
             revertBluetoothAdapterName();
             try {
-                mBluetoothHidDevice.unregisterApp();
+                bluetoothHidDevice.unregisterApp();
             } catch (SecurityException ex) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     missingPermission(getApplicationContext(),
@@ -470,7 +470,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                     log(TAG, "Missing permission", ex);
                 }
             }
-            mBluetoothAdapter.closeProfileProxy(HID_DEVICE, mBluetoothHidDevice);
+            bluetoothAdapter.closeProfileProxy(HID_DEVICE, bluetoothHidDevice);
         }
     }
 
@@ -481,13 +481,13 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     }
 
     public void connect(BluetoothDevice device) {
-        if (Objects.nonNull(mBluetoothHidDevice)) {
+        if (Objects.nonNull(bluetoothHidDevice)) {
             try {
                 if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
                     if (Objects.nonNull(controllerActivity)) {
                         controllerActivity.stopHidDeviceDiscovery();
                     }
-                    boolean connect = mBluetoothHidDevice.connect(device);
+                    boolean connect = bluetoothHidDevice.connect(device);
                     log(TAG, "Connect result: " + connect);
                 } else {
                     if (Objects.nonNull(controllerActivity)) {
@@ -525,7 +525,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             synchronized (registerLock) {
                 cancelHidCheck();
                 serviceConnected = true;
-                mBluetoothHidDevice = (BluetoothHidDevice) proxy;
+                bluetoothHidDevice = (BluetoothHidDevice) proxy;
                 if (Objects.nonNull(switchController)) {
                     registerApp();
                 }
@@ -541,7 +541,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     private class Callback extends BluetoothHidDevice.Callback {
         private void devicePlugged(BluetoothDevice pluggedDevice) {
-            switchController.setProxy(mBluetoothHidDevice);
+            switchController.setProxy(bluetoothHidDevice);
             switchController.setRemoteDevice(pluggedDevice);
             if (Objects.nonNull(controllerActivity)) {
                 controllerActivity.stopHidDeviceDiscovery();
@@ -583,14 +583,14 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             } else if (state == State.STARTING) {
                 registerApp();
             } else if (state == State.DESTROYING) {
-                mBluetoothHidExecutor.shutdown();
+                bluetoothHidExecutor.shutdown();
             }
         }
 
-        public void onConnectionStateChanged(BluetoothDevice rDevice, int state) {
-            log(TAG, "onConnectionStateChanged: device=" + rDevice + " state=" + state);
+        public void onConnectionStateChanged(BluetoothDevice device, int state) {
+            log(TAG, "onConnectionStateChanged: device=" + device + " state=" + state);
             try {
-                if (!NINTENDO_SWITCH.equalsIgnoreCase(rDevice.getName())) {
+                if (!NINTENDO_SWITCH.equalsIgnoreCase(device.getName())) {
                     return;
                 }
             } catch (SecurityException ex) {
@@ -605,18 +605,18 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             if (BluetoothAdapter.STATE_CONNECTED == state) {
                 deviceConnected = true;
                 BluetoothControllerService.this.state = State.CONNECTED;
-                devicePlugged(rDevice);
+                devicePlugged(device);
                 mainHandler.post(() -> deviceConnected(getApplicationContext()));
             } else if (BluetoothAdapter.STATE_DISCONNECTED == state) {
                 deviceConnected = false;
                 BluetoothControllerService.this.state = State.DISCONNECTED;
-                unpairDevice(rDevice);
-                deviceUnplugged(rDevice);
+                unpairDevice(device);
+                deviceUnplugged(device);
                 mainHandler.post(() -> deviceDisconnected(getApplicationContext()));
             }
         }
 
-        public void onGetReport(BluetoothDevice rDevice, byte type, byte id, int bufferSize) {
+        public void onGetReport(BluetoothDevice device, byte type, byte id, int bufferSize) {
             log(
                     TAG,
                     "onGetReport: device="
@@ -628,32 +628,32 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                             + " bufferSize="
                             + bufferSize);
             if (!switchController.isConnected()) {
-                switchController.setRemoteDevice(rDevice);
+                switchController.setRemoteDevice(device);
             }
-            switchController.onGetReport(rDevice, type, id, bufferSize);
+            switchController.onGetReport(device, type, id, bufferSize);
         }
 
-        public void onSetReport(BluetoothDevice rDevice, byte type, byte id, byte[] data) {
+        public void onSetReport(BluetoothDevice device, byte type, byte id, byte[] data) {
             log(TAG, "onSetReport: device=" + switchController + " type=" + type + " id=" + id);
             if (!switchController.isConnected()) {
-                switchController.setRemoteDevice(rDevice);
+                switchController.setRemoteDevice(device);
             }
-            switchController.onSetReport(rDevice, type, id, data);
+            switchController.onSetReport(device, type, id, data);
         }
 
-        public void onSetProtocol(BluetoothDevice rDevice, byte protocol) {
+        public void onSetProtocol(BluetoothDevice device, byte protocol) {
             log(TAG, "onSetProtocol: device=" + switchController + " protocol=" + protocol);
             if (!switchController.isConnected()) {
-                switchController.setRemoteDevice(rDevice);
+                switchController.setRemoteDevice(device);
             }
-            switchController.onSetProtocol(rDevice, protocol);
+            switchController.onSetProtocol(device, protocol);
         }
 
-        public void onInterruptData(BluetoothDevice rDevice, byte reportId, byte[] data) {
+        public void onInterruptData(BluetoothDevice device, byte reportId, byte[] data) {
             if (!switchController.isConnected()) {
-                switchController.setRemoteDevice(rDevice);
+                switchController.setRemoteDevice(device);
             }
-            switchController.onInterruptData(rDevice, reportId, data);
+            switchController.onInterruptData(device, reportId, data);
         }
 
         public void onVirtualCableUnplug(BluetoothDevice device) {

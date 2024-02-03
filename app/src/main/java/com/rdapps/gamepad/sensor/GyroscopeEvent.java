@@ -2,7 +2,6 @@ package com.rdapps.gamepad.sensor;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-
 import lombok.Data;
 
 @Data

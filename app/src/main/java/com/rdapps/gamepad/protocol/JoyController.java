@@ -109,7 +109,7 @@ public class JoyController extends AbstractDevice {
             JoyControllerListener listener) {
         super(
                 context,
-                controllerType.getBTName(),
+                controllerType.getBtName(),
                 controllerType.getSubClass(),
                 controllerType.getHidName(),
                 controllerType.getHidDescription(),
@@ -240,22 +240,22 @@ public class JoyController extends AbstractDevice {
     }
 
     @Override
-    public void onGetReport(BluetoothDevice rDevice, byte type, byte id, int bufferSize) {
+    public void onGetReport(BluetoothDevice device, byte type, byte id, int bufferSize) {
         log(TAG, "Get Report Type: " + type + " Id: " + id + " bufferSize: " + bufferSize, true);
     }
 
     @Override
-    public void onSetReport(BluetoothDevice rDevice, byte type, byte id, byte[] data) {
+    public void onSetReport(BluetoothDevice device, byte type, byte id, byte[] data) {
         log(TAG, "Set Report Type: " + type + " Id: " + id + " data: " + Hex.bytesToStringUppercase(data), true);
     }
 
     @Override
-    public void onSetProtocol(BluetoothDevice rDevice, byte protocol) {
+    public void onSetProtocol(BluetoothDevice device, byte protocol) {
         log(TAG, "Set Protocol Protocol: " + ByteUtils.encodeHexString(protocol), true);
     }
 
     @Override
-    public void onInterruptData(BluetoothDevice rDevice, byte reportId, byte[] data) {
+    public void onInterruptData(BluetoothDevice device, byte reportId, byte[] data) {
         //log(TAG, "Interrupt Data Report ID: " + ByteUtils.encodeHexString(reportId) + " data: "
         //        + Hex.bytesToStringUppercase(data));
         OutputReport outputReport = new OutputReport(reportId, data);

@@ -1,14 +1,12 @@
 package com.rdapps.gamepad.customui;
 
-import com.rdapps.gamepad.model.CustomUIItem;
-
+import com.rdapps.gamepad.model.CustomUiItem;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface CustomUIService {
+public interface CustomUiService {
 
     @GET("/")
-    Call<List<CustomUIItem>> getCustomUIs();
+    Call<List<CustomUiItem>> getCustomUis();
 }

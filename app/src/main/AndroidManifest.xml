@@ -56,7 +56,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".CustomUIActivity"
+            android:name=".CustomUiActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

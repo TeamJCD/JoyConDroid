@@ -1,15 +1,5 @@
 package com.rdapps.gamepad.command.handler;
 
-import com.rdapps.gamepad.button.ButtonState;
-import com.rdapps.gamepad.protocol.Callback;
-import com.rdapps.gamepad.protocol.ControllerType;
-import com.rdapps.gamepad.protocol.JoyController;
-import com.rdapps.gamepad.protocol.JoyControllerState;
-import com.rdapps.gamepad.report.InputReport;
-import com.rdapps.gamepad.report.InputReportMode;
-
-import java.util.Objects;
-
 import static com.rdapps.gamepad.report.InputReport.Type.NFC_IR_REPORT;
 import static com.rdapps.gamepad.report.InputReport.Type.SIMPLE_HID_REPORT;
 import static com.rdapps.gamepad.report.InputReport.Type.STANDARD_FULL_REPORT;
@@ -17,6 +7,15 @@ import static com.rdapps.gamepad.report.InputReportMode.NFC_IR_MODE;
 import static com.rdapps.gamepad.report.InputReportMode.SIMPLE_HID;
 import static com.rdapps.gamepad.report.InputReportMode.STANDARD_FULL_MODE;
 import static com.rdapps.gamepad.util.ThreadUtil.safeSleep;
+
+import com.rdapps.gamepad.button.ButtonState;
+import com.rdapps.gamepad.protocol.Callback;
+import com.rdapps.gamepad.protocol.ControllerType;
+import com.rdapps.gamepad.protocol.JoyController;
+import com.rdapps.gamepad.protocol.JoyControllerState;
+import com.rdapps.gamepad.report.InputReport;
+import com.rdapps.gamepad.report.InputReportMode;
+import java.util.Objects;
 
 public class InputHandler {
     private static final String TAG = InputHandler.class.getName();
@@ -33,17 +32,14 @@ public class InputHandler {
         boolean connected = joyController.isConnected();
         InputReportMode inputReportMode = joyController.getState().getInputReportMode();
         int tryCount = 0;
-        while (inputReportMode == SIMPLE_HID &&
-                connected &&
-                tryCount < HANDSHAKE_COUNT
-        ) {
-            sendSimpleHIDReport();
+        while (inputReportMode == SIMPLE_HID && connected && tryCount < HANDSHAKE_COUNT) {
+            sendSimpleHidReport();
             safeSleep(100);
             tryCount++;
         }
     }
 
-    public void sendSimpleHIDReport() {
+    public void sendSimpleHidReport() {
         InputReport inputReport = new InputReport(SIMPLE_HID_REPORT);
         ControllerType controllerType = joyController.getControllerType();
         inputReport.fillShortButtonReport(
@@ -58,10 +54,7 @@ public class InputHandler {
         ControllerType controllerType = joyController.getControllerType();
         InputReportMode inputReportMode = state.getInputReportMode();
         InputReport inputReport = new InputReport(
-                inputReportMode == NFC_IR_MODE ?
-                        NFC_IR_REPORT :
-                        STANDARD_FULL_REPORT
-        );
+                inputReportMode == NFC_IR_MODE ? NFC_IR_REPORT : STANDARD_FULL_REPORT);
         inputReport.fillTime(state);
         inputReport.fillBattery(state);
         inputReport.fillConnectionInfo(state);
@@ -70,7 +63,7 @@ public class InputHandler {
         inputReport.fillSensorData(joyController);
 
         if (inputReportMode == NFC_IR_MODE) {
-            inputReport.fillNFCIRData(joyController);
+            inputReport.fillNfcIrData(joyController);
         }
         return joyController.sendReport(inputReport);
     }

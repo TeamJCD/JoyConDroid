@@ -62,13 +62,13 @@ public abstract class AbstractDevice implements SensorEventListener {
         return remoteDevice != null;
     }
 
-    public abstract void onGetReport(BluetoothDevice rDevice, byte type, byte id, int bufferSize);
+    public abstract void onGetReport(BluetoothDevice device, byte type, byte id, int bufferSize);
 
-    public abstract void onSetReport(BluetoothDevice rDevice, byte type, byte id, byte[] data);
+    public abstract void onSetReport(BluetoothDevice device, byte type, byte id, byte[] data);
 
-    public abstract void onSetProtocol(BluetoothDevice rDevice, byte protocol);
+    public abstract void onSetProtocol(BluetoothDevice device, byte protocol);
 
-    public abstract void onInterruptData(BluetoothDevice rDevice, byte reportId, byte[] data);
+    public abstract void onInterruptData(BluetoothDevice device, byte reportId, byte[] data);
 
     public abstract void connectingDevice(BluetoothDevice pluggingDevice);
 

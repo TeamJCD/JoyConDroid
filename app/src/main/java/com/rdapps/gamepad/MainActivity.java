@@ -1,6 +1,9 @@
 package com.rdapps.gamepad;
 
-import static android.Manifest.permission.*;
+import static android.Manifest.permission.BLUETOOTH_ADVERTISE;
+import static android.Manifest.permission.BLUETOOTH_CONNECT;
+import static android.Manifest.permission.BLUETOOTH_SCAN;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.bluetooth.BluetoothAdapter.ACTION_STATE_CHANGED;
 import static android.bluetooth.BluetoothAdapter.STATE_OFF;
 import static android.bluetooth.BluetoothAdapter.STATE_ON;
@@ -29,7 +32,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -40,7 +42,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.service.BluetoothBroadcastReceiver;
@@ -50,10 +51,12 @@ import com.rdapps.gamepad.util.PreferenceUtils;
 import com.rdapps.gamepad.versionchecker.Version;
 import com.rdapps.gamepad.versionchecker.VersionCheckerClient;
 import com.rdapps.gamepad.versionchecker.VersionCheckerService;
-
 import java.io.Serializable;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String[] RUNTIME_PERMISSIONS_T
             = new String[] { POST_NOTIFICATIONS };
 
-    private BluetoothBroadcastReceiver mBluetoothBroadcastReceiver;
+    private BluetoothBroadcastReceiver bluetoothBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
                 versionCheckerService.getVersion().enqueue(new Callback<>() {
                     @Override
                     public void onResponse(Call<Version> call, Response<Version> response) {
-                        Version body = response.body();
-                        if (body.getVersionCode() != null && BuildConfig.VERSION_CODE < body.getVersionCode()) {
-                            showUpdateDialog(body.getVersion());
-                        }
+                        Optional.ofNullable(response.body())
+                                .filter(version -> version.getVersionCode() != null
+                                        && BuildConfig.VERSION_CODE < version.getVersionCode())
+                                .ifPresent(version -> showUpdateDialog(version.getVersion()));
                     }
 
                     @Override
@@ -148,15 +151,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             Arrays.stream(RUNTIME_PERMISSIONS_S)
-                    .filter(p ->
-                            ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED)
+                    .filter(p -> ContextCompat.checkSelfPermission(this, p)
+                            != PackageManager.PERMISSION_GRANTED)
                     .forEach(permissions::add);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             Arrays.stream(RUNTIME_PERMISSIONS_T)
-                    .filter(p ->
-                            ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED)
+                    .filter(p -> ContextCompat.checkSelfPermission(this, p)
+                            != PackageManager.PERMISSION_GRANTED)
                     .forEach(permissions::add);
         }
 
@@ -184,13 +187,13 @@ public class MainActivity extends AppCompatActivity {
             showGuide();
             return true;
         } else if (id == R.id.action_revert_bluetooth) {
-            revertBTConfig();
+            revertBluetoothConfig();
             return true;
         } else if (id == R.id.action_info) {
             showInfoAndLegal();
             return true;
         } else if (id == R.id.action_custom_left_joycon) {
-            showCustomUI();
+            showCustomUi();
             return true;
         } else if (id == R.id.action_button_mapping) {
             showButtonMapping();
@@ -199,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             showSettings();
             return true;
         } else if (id == R.id.action_faq) {
-            showFAQ();
+            showFaq();
             return true;
         } else if (id == R.id.action_discord) {
             showDiscord();
@@ -217,15 +220,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void showFAQ() {
+    private void showFaq() {
         Intent intent = new Intent(this, UserGuideActivity.class);
         intent.putExtra(PATH, "faq");
         startActivity(intent);
     }
 
-    private void showCustomUI() {
-        Intent intent = new Intent(this, CustomUIActivity.class);
+    private void showCustomUi() {
+        Intent intent = new Intent(this, CustomUiActivity.class);
         startActivity(intent);
+    }
+
+    public void showCustomUi(View v) {
+        showCustomUi();
     }
 
     private void showButtonMapping() {
@@ -253,8 +260,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (Objects.nonNull(mBluetoothBroadcastReceiver)) {
-            unregisterReceiver(mBluetoothBroadcastReceiver);
+        if (Objects.nonNull(bluetoothBroadcastReceiver)) {
+            unregisterReceiver(bluetoothBroadcastReceiver);
         }
     }
 
@@ -280,10 +287,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void showProController(View v) {
         showController(ControllerType.PRO_CONTROLLER);
-    }
-
-    public void showCustomUi(View v) {
-        showCustomUI();
     }
 
     private void showController(ControllerType type) {
@@ -339,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(new Intent(this, InfoAndLegalActivity.class), LEGAL_CODE);
     }
 
-    public void revertBTConfig() {
+    public void revertBluetoothConfig() {
         Optional<String> originalNameOpt = PreferenceUtils.getOriginalName(this);
         if (!originalNameOpt.isPresent()) {
             Toast.makeText(this, R.string.bt_config_was_not_changed, Toast.LENGTH_LONG).show();
@@ -363,8 +366,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else {
-            mBluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(new MainActBbrListener());
-            registerReceiver(mBluetoothBroadcastReceiver, new IntentFilter(ACTION_STATE_CHANGED));
+            bluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(new MainActBbrListener());
+            registerReceiver(bluetoothBroadcastReceiver, new IntentFilter(ACTION_STATE_CHANGED));
         }
     }
 
@@ -376,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case STATE_ON:
                     log(TAG, "Bluetooth on");
-                    revertBTConfig();
+                    revertBluetoothConfig();
                     break;
                 case STATE_TURNING_OFF:
                     log(TAG, "Bluetooth turning off");
@@ -384,6 +387,7 @@ public class MainActivity extends AppCompatActivity {
                 case STATE_OFF:
                     log(TAG, "Bluetooth off");
                     break;
+                default:
             }
         }
     }

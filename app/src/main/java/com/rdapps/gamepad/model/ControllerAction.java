@@ -23,10 +23,10 @@ public class ControllerAction implements Serializable {
     private ButtonType button;
 
     private JoystickType joystick;
-    private int xAxis;
-    private int xDirection;
-    private int yAxis;
-    private int yDirection;
+    private int axisX;
+    private int directionX;
+    private int axisY;
+    private int directionY;
 
     public enum Type {
         BUTTON,
@@ -40,21 +40,21 @@ public class ControllerAction implements Serializable {
         this.button = button;
     }
 
-    public ControllerAction(ButtonType button, int xAxis, int xDirection) {
+    public ControllerAction(ButtonType button, int axisX, int directionX) {
         this.type = Type.AXIS;
         this.button = button;
-        this.xAxis = xAxis;
-        this.xDirection = xDirection;
+        this.axisX = axisX;
+        this.directionX = directionX;
     }
 
     public ControllerAction(
-            JoystickType joystick, int xAxis, int xDirection, int yAxis, int yDirection) {
+            JoystickType joystick, int axisX, int directionX, int axisY, int directionY) {
         this.type = Type.JOYSTICK;
         this.joystick = joystick;
-        this.xAxis = xAxis;
-        this.xDirection = xDirection;
-        this.yAxis = yAxis;
-        this.yDirection = yDirection;
+        this.axisX = axisX;
+        this.directionX = directionX;
+        this.axisY = axisY;
+        this.directionY = directionY;
     }
 
 
@@ -64,9 +64,9 @@ public class ControllerAction implements Serializable {
         this.button = ca.button;
 
         this.joystick = ca.joystick;
-        this.xAxis = ca.xAxis;
-        this.xDirection = ca.xDirection;
-        this.yAxis = ca.yAxis;
-        this.yDirection = ca.yDirection;
+        this.axisX = ca.axisX;
+        this.directionX = ca.directionX;
+        this.axisY = ca.axisY;
+        this.directionY = ca.directionY;
     }
 }
