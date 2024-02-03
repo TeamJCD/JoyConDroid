@@ -1,5 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+import groovy.json.JsonOutput
+import org.ajoberstar.grgit.gradle.GrgitService
+
+import javax.inject.Inject
+
 buildscript {
     
     repositories {
@@ -13,6 +18,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'org.ajoberstar.grgit-service' version '5.0.0-rc.3'
+}
+
 allprojects {
     repositories {
         google()
@@ -20,6 +29,31 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 }
+
+class VersionJsonTask extends DefaultTask {
+    private final Provider<GrgitService> service
+    private final String version
+
+    @OutputFile
+    final abstract RegularFileProperty outputFile = project.objects.fileProperty()
+            .convention(project.layout.projectDirectory.file('version.json'))
+
+    @Inject
+    VersionJsonTask(Provider<GrgitService> service, Project project) {
+        this.service = service
+        this.version = project.version
+    }
+
+    @TaskAction
+    void execute() {
+        outputFile.get().asFile.write(JsonOutput.prettyPrint(JsonOutput.toJson([
+                version: version,
+                versionCode: service.get().grgit.log().size()
+        ])))
+    }
+}
+
+tasks.register('generateVersionJson', VersionJsonTask, grgitService.service)
 
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
