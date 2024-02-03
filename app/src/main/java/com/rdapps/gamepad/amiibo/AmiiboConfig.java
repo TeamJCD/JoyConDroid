@@ -1,9 +1,7 @@
 package com.rdapps.gamepad.amiibo;
 
 import android.content.Context;
-
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

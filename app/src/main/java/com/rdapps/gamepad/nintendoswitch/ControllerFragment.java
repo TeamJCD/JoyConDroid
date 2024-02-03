@@ -1,36 +1,4 @@
-package com.rdapps.gamepad.nintendo_switch;
-
-import android.content.Context;
-import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-import android.net.Uri;
-import android.os.Vibrator;
-import android.view.InputDevice;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-
-import android.widget.ImageButton;
-import androidx.fragment.app.Fragment;
-
-import com.erz.joysticklibrary.JoyStick;
-import com.rdapps.gamepad.device.ButtonType;
-import com.rdapps.gamepad.device.JoystickType;
-import com.rdapps.gamepad.led.LedState;
-import com.rdapps.gamepad.model.ControllerAction;
-import com.rdapps.gamepad.protocol.JoyController;
-import com.rdapps.gamepad.util.Pair;
-import com.rdapps.gamepad.util.PreferenceUtils;
-import com.rdapps.gamepad.vibrator.VibrationPattern;
-
-import lombok.Setter;
-import org.apache.commons.io.IOUtils;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+package com.rdapps.gamepad.nintendoswitch;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN;
@@ -44,6 +12,34 @@ import static com.rdapps.gamepad.util.EventUtils.getCenteredAxis;
 import static com.rdapps.gamepad.util.EventUtils.getJoyStickEvent;
 import static com.rdapps.gamepad.util.EventUtils.getTouchDownEvent;
 import static com.rdapps.gamepad.util.EventUtils.getTouchUpEvent;
+
+import android.content.Context;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.net.Uri;
+import android.os.Vibrator;
+import android.view.InputDevice;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.widget.ImageButton;
+import androidx.fragment.app.Fragment;
+import com.erz.joysticklibrary.JoyStick;
+import com.rdapps.gamepad.device.ButtonType;
+import com.rdapps.gamepad.device.JoystickType;
+import com.rdapps.gamepad.led.LedState;
+import com.rdapps.gamepad.model.ControllerAction;
+import com.rdapps.gamepad.protocol.JoyController;
+import com.rdapps.gamepad.util.Pair;
+import com.rdapps.gamepad.util.PreferenceUtils;
+import com.rdapps.gamepad.vibrator.VibrationPattern;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import lombok.Setter;
+import org.apache.commons.io.IOUtils;
 
 public abstract class ControllerFragment extends Fragment {
     public static final int REQUEST_SELECT_FILE = 1;
@@ -146,17 +142,17 @@ public abstract class ControllerFragment extends Fragment {
 
     public abstract ImageButton getY();
 
-    public abstract ImageButton getSL();
+    public abstract ImageButton getSl();
 
-    public abstract ImageButton getSR();
+    public abstract ImageButton getSr();
 
     public abstract ImageButton getL();
 
     public abstract ImageButton getR();
 
-    public abstract ImageButton getZL();
+    public abstract ImageButton getZl();
 
-    public abstract ImageButton getZR();
+    public abstract ImageButton getZr();
 
     public abstract ImageButton getMinus();
 
@@ -184,7 +180,7 @@ public abstract class ControllerFragment extends Fragment {
 
     public abstract boolean setRightStickPress(boolean pressed);
 
-    public abstract boolean reverseJoyStickXY();
+    public abstract boolean reverseJoystickXy();
 
     public boolean handleKey(int keyCode, KeyEvent keyEvent) {
         MotionEvent event;
@@ -216,11 +212,11 @@ public abstract class ControllerFragment extends Fragment {
             case Y -> dispatchEvent(getY(), event);
             case X -> dispatchEvent(getX(), event);
             case R -> dispatchEvent(getR(), event);
-            case ZR -> dispatchEvent(getZR(), event);
-            case RIGHT_SR, LEFT_SR -> dispatchEvent(getSR(), event);
+            case ZR -> dispatchEvent(getZr(), event);
+            case RIGHT_SR, LEFT_SR -> dispatchEvent(getSr(), event);
             case L -> dispatchEvent(getL(), event);
-            case ZL -> dispatchEvent(getZL(), event);
-            case RIGHT_SL, LEFT_SL -> dispatchEvent(getSL(), event);
+            case ZL -> dispatchEvent(getZl(), event);
+            case RIGHT_SL, LEFT_SL -> dispatchEvent(getSl(), event);
             case PLUS -> dispatchEvent(getPlus(), event);
             case MINUS -> dispatchEvent(getMinus(), event);
             case HOME -> dispatchEvent(getHome(), event);
@@ -244,7 +240,7 @@ public abstract class ControllerFragment extends Fragment {
         }
 
         InputDevice device = motionEvent.getDevice();
-        boolean reverse = reverseJoyStickXY();
+        boolean reverse = reverseJoystickXy();
         Map<JoystickType, ControllerAction> joystickMap = getJoystickMap();
         ControllerAction rightJoystickAction = joystickMap.get(JoystickType.RIGHT_JOYSTICK);
         ControllerAction leftJoystickAction = joystickMap.get(JoystickType.LEFT_JOYSTICK);
@@ -291,10 +287,10 @@ public abstract class ControllerFragment extends Fragment {
                             radius, centerX, centerY));
         }
 
-        boolean processed = Float.compare(leftStickX, prevLeftX) != 0 ||
-                Float.compare(leftStickY, prevLeftY) != 0 ||
-                Float.compare(rightStickX, prevRightX) != 0 ||
-                Float.compare(rightStickY, prevRightY) != 0;
+        final boolean processed = Float.compare(leftStickX, prevLeftX) != 0
+                || Float.compare(leftStickY, prevLeftY) != 0
+                || Float.compare(rightStickX, prevRightX) != 0
+                || Float.compare(rightStickY, prevRightY) != 0;
 
         prevLeftX = leftStickX;
         prevLeftY = leftStickY;
@@ -324,8 +320,8 @@ public abstract class ControllerFragment extends Fragment {
         return true;
     }
 
-    private int prevXKeyCode = -1;
-    private int prevYKeyCode = -1;
+    private int prevXkeyCode = -1;
+    private int prevYkexCode = -1;
 
     private void processAxisHatX(MotionEvent motionEvent) {
         float xaxis = motionEvent.getAxisValue(MotionEvent.AXIS_HAT_X);
@@ -339,10 +335,10 @@ public abstract class ControllerFragment extends Fragment {
             keyCode = -1;
         }
 
-        if (prevXKeyCode != keyCode && prevXKeyCode != -1) {
-            handleKey(prevXKeyCode, new KeyEvent(KeyEvent.ACTION_UP, prevXKeyCode));
+        if (prevXkeyCode != keyCode && prevXkeyCode != -1) {
+            handleKey(prevXkeyCode, new KeyEvent(KeyEvent.ACTION_UP, prevXkeyCode));
         }
-        prevXKeyCode = keyCode;
+        prevXkeyCode = keyCode;
         if (keyCode != -1) {
             handleKey(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
         }
@@ -359,10 +355,10 @@ public abstract class ControllerFragment extends Fragment {
             keyCode = -1;
         }
 
-        if (prevYKeyCode != keyCode && prevYKeyCode != -1) {
-            handleKey(prevYKeyCode, new KeyEvent(KeyEvent.ACTION_UP, prevYKeyCode));
+        if (prevYkexCode != keyCode && prevYkexCode != -1) {
+            handleKey(prevYkexCode, new KeyEvent(KeyEvent.ACTION_UP, prevYkexCode));
         }
-        prevYKeyCode = keyCode;
+        prevYkexCode = keyCode;
         if (keyCode != -1) {
             handleKey(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
         }
@@ -371,7 +367,8 @@ public abstract class ControllerFragment extends Fragment {
     public SensorManager getSensorManager() {
         if (Objects.isNull(sensorManager)) {
             sensorManager = Optional.ofNullable(getContext())
-                    .map(context -> (SensorManager) context.getSystemService(Context.SENSOR_SERVICE))
+                    .map(context -> (SensorManager)
+                            context.getSystemService(Context.SENSOR_SERVICE))
                     .orElse(null);
         }
         return sensorManager;
@@ -388,7 +385,8 @@ public abstract class ControllerFragment extends Fragment {
                     && device.isAccelerometerEnabled()
                     && PreferenceUtils.getAccelerometerEnabled(getContext())
             ) {
-                sensorManager.registerListener(device, senAccelerometer, SwitchController.SAMPLING_INTERVAL);
+                sensorManager.registerListener(
+                        device, senAccelerometer, SwitchController.SAMPLING_INTERVAL);
             }
         }
     }
@@ -417,7 +415,8 @@ public abstract class ControllerFragment extends Fragment {
                     && device.isGyroscopeEnabled()
                     && PreferenceUtils.getGyroscopeEnabled(getContext())
             ) {
-                sensorManager.registerListener(device, senGyroscope, SwitchController.SAMPLING_INTERVAL);
+                sensorManager.registerListener(
+                        device, senGyroscope, SwitchController.SAMPLING_INTERVAL);
             }
         }
     }
@@ -470,6 +469,7 @@ public abstract class ControllerFragment extends Fragment {
         }
     }
 
-    public abstract void setPlayerLights(LedState led1, LedState led2, LedState led3, LedState led4);
+    public abstract void setPlayerLights(
+            LedState led1, LedState led2, LedState led3, LedState led4);
 
 }

@@ -3,10 +3,8 @@ package com.rdapps.gamepad.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rdapps.gamepad.device.ButtonType;
 import com.rdapps.gamepad.device.JoystickType;
-
 import java.io.Serial;
 import java.io.Serializable;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -49,7 +47,8 @@ public class ControllerAction implements Serializable {
         this.xDirection = xDirection;
     }
 
-    public ControllerAction(JoystickType joystick, int xAxis, int xDirection, int yAxis, int yDirection) {
+    public ControllerAction(
+            JoystickType joystick, int xAxis, int xDirection, int yAxis, int yDirection) {
         this.type = Type.JOYSTICK;
         this.joystick = joystick;
         this.xAxis = xAxis;

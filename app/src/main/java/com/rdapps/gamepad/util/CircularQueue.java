@@ -83,7 +83,7 @@ public class CircularQueue<E> {
             return null;
         } else {
             size--;
-            E result = underlyingArray[front];
+            final E result = underlyingArray[front];
             underlyingArray[front] = null;
             if (isEmpty()) {
                 clear();
@@ -100,7 +100,7 @@ public class CircularQueue<E> {
             return null;
         } else {
             size--;
-            E result = underlyingArray[rear];
+            final E result = underlyingArray[rear];
             underlyingArray[rear] = null;
             if (isEmpty()) {
                 clear();
@@ -115,7 +115,7 @@ public class CircularQueue<E> {
     public synchronized E remove(E obj) {
         int indexToRemove = findIndex(obj);
         if (indexToRemove >= 0) {
-            E result = underlyingArray[indexToRemove];
+            final E result = underlyingArray[indexToRemove];
             size--;
             for (int i = indexToRemove; i != rear; ) {
                 int nextIndex = rollOverIfNeeded(i + 1);
@@ -243,7 +243,7 @@ public class CircularQueue<E> {
                 throw new IllegalStateException("Next is not called");
             }
 
-            int indexToRemove = lastRetrieved;
+            final int indexToRemove = lastRetrieved;
             lastRetrieved = -1;
             size--;
             modCount++;

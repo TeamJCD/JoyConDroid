@@ -1,4 +1,4 @@
-package com.rdapps.gamepad.nintendo_switch;
+package com.rdapps.gamepad.nintendoswitch;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -388,12 +388,12 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public ImageButton getSR() {
+    public ImageButton getSr() {
         return null;
     }
 
     @Override
-    public ImageButton getSL() {
+    public ImageButton getSl() {
         return null;
     }
 
@@ -418,12 +418,12 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public ImageButton getZL() {
+    public ImageButton getZl() {
         return null;
     }
 
     @Override
-    public ImageButton getZR() {
+    public ImageButton getZr() {
         return null;
     }
 
@@ -493,7 +493,7 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public boolean reverseJoyStickXY() {
+    public boolean reverseJoystickXy() {
         return false;
     }
 

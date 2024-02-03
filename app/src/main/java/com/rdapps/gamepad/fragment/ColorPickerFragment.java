@@ -1,5 +1,7 @@
 package com.rdapps.gamepad.fragment;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -9,24 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
-
 import com.azeesoft.lib.colorpicker.ColorPickerDialog;
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.memory.ControllerMemory;
 import com.rdapps.gamepad.memory.RAFSPIMemory;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.util.ByteUtils;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Optional;
 
-import static com.rdapps.gamepad.log.JoyConLog.log;
-
-public class ColorPickerFragment extends Fragment implements View.OnClickListener, ResettableSettingFragment {
+public class ColorPickerFragment extends Fragment
+        implements View.OnClickListener, ResettableSettingFragment {
 
     private static final String TAG = ColorPickerFragment.class.getName();
 
@@ -49,13 +47,15 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.component_color_setting, container, false);
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.component_color_setting, container, false);
         Bundle arguments = getArguments();
         type = (ControllerType) arguments.getSerializable(TYPE);
         section = (ColorSection) arguments.getSerializable(SECTION);
         try {
-            eeprom = new ControllerMemory(new RAFSPIMemory(getContext(), type.getBTName(), type.getMemoryResource()));
+            eeprom = new ControllerMemory(
+                    new RAFSPIMemory(getContext(), type.getBTName(), type.getMemoryResource()));
         } catch (IOException e) {
             log(TAG, "EEPROM could not load.", e);
         }
@@ -131,10 +131,11 @@ public class ColorPickerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        ColorPickerDialog colorPickerDialog = ColorPickerDialog.createColorPickerDialog(getContext(),
-                nightModeFlags == Configuration.UI_MODE_NIGHT_YES ?
-                        ColorPickerDialog.DARK_THEME : ColorPickerDialog.LIGHT_THEME);
+        int nightModeFlags = getContext().getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+        ColorPickerDialog colorPickerDialog = ColorPickerDialog.createColorPickerDialog(
+                getContext(), nightModeFlags == Configuration.UI_MODE_NIGHT_YES
+                        ? ColorPickerDialog.DARK_THEME : ColorPickerDialog.LIGHT_THEME);
         colorPickerDialog.setTitle(textView.getText());
         colorPickerDialog.setOnColorPickedListener((color, hexVal) -> {
             if (eeprom != null) {

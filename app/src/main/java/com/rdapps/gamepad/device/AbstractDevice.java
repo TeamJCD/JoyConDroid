@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
 import android.content.Context;
 import android.hardware.SensorEventListener;
-
 import lombok.Getter;
 import lombok.Setter;
 

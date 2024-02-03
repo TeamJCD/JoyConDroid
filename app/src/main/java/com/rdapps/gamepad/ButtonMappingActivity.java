@@ -1,5 +1,12 @@
 package com.rdapps.gamepad;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.model.ControllerAction.Type.AXIS;
+import static com.rdapps.gamepad.util.ControllerActionUtils.AXIS_NAMES;
+import static com.rdapps.gamepad.util.ControllerActionUtils.BUTTON_NAMES;
+import static com.rdapps.gamepad.util.ControllerActionUtils.CONTROLLER_ACTIONS;
+import static com.rdapps.gamepad.util.ControllerActionUtils.getControllerActions;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,33 +20,23 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ButtonMappingAlertDialog;
 import androidx.appcompat.widget.Toolbar;
-
 import com.rdapps.gamepad.device.ButtonType;
 import com.rdapps.gamepad.device.JoystickType;
 import com.rdapps.gamepad.listview.ButtonMappingViewAdapter;
 import com.rdapps.gamepad.model.ControllerAction;
 import com.rdapps.gamepad.util.ControllerActionUtils;
 import com.rdapps.gamepad.util.EventUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.rdapps.gamepad.log.JoyConLog.log;
-import static com.rdapps.gamepad.model.ControllerAction.Type.AXIS;
-import static com.rdapps.gamepad.util.ControllerActionUtils.AXIS_NAMES;
-import static com.rdapps.gamepad.util.ControllerActionUtils.BUTTON_NAMES;
-import static com.rdapps.gamepad.util.ControllerActionUtils.CONTROLLER_ACTIONS;
-import static com.rdapps.gamepad.util.ControllerActionUtils.getControllerActions;
-
-public class ButtonMappingActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,
-        ButtonMappingAlertDialog.DialogEventListener {
+public class ButtonMappingActivity extends AppCompatActivity
+        implements AdapterView.OnItemClickListener, ButtonMappingAlertDialog.DialogEventListener {
 
     private ButtonMappingViewAdapter adapter;
     private ButtonMappingAlertDialog alertDialog;
@@ -119,11 +116,9 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == JoystickMappingActivity.MAPPING
                 && resultCode == JoystickMappingActivity.RESULT_OK) {
-            Optional<ControllerAction> controllerAction = Optional.ofNullable(data)
-                    .map(d -> (ControllerAction) d.getSerializableExtra(JoystickMappingActivity.RESULT));
-            if (controllerAction.isPresent()) {
-                remapJoystick(controllerAction.get());
-            }
+            Optional.ofNullable(data).map(d -> (ControllerAction)
+                            d.getSerializableExtra(JoystickMappingActivity.RESULT))
+                    .ifPresent(this::remapJoystick);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -169,9 +164,8 @@ public class ButtonMappingActivity extends AppCompatActivity implements AdapterV
     private void remap(ButtonType buttonType, int axisValue, int axisDirection) {
         List<ControllerAction> newActions = new ArrayList<>(controllerActions);
         for (ControllerAction controllerAction : controllerActions) {
-            if (controllerAction.getType() == AXIS &&
-                    controllerAction.getXAxis() == axisValue &&
-                    controllerAction.getXDirection() == axisDirection) {
+            if (controllerAction.getType() == AXIS && controllerAction.getXAxis() == axisValue
+                    && controllerAction.getXDirection() == axisDirection) {
                 newActions.remove(controllerAction);
             }
             if (controllerAction.getButton() == buttonType) {

@@ -1,5 +1,17 @@
 package com.rdapps.gamepad;
 
+import static android.bluetooth.BluetoothAdapter.ACTION_REQUEST_ENABLE;
+import static android.bluetooth.BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE;
+import static android.bluetooth.BluetoothAdapter.STATE_OFF;
+import static android.bluetooth.BluetoothAdapter.STATE_ON;
+import static android.bluetooth.BluetoothAdapter.STATE_TURNING_OFF;
+import static android.bluetooth.BluetoothAdapter.STATE_TURNING_ON;
+import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
+import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
+import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
+
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -16,20 +28,18 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.rdapps.gamepad.led.LedState;
 import com.rdapps.gamepad.log.JoyConLog;
-import com.rdapps.gamepad.nintendo_switch.ControllerFragment;
-import com.rdapps.gamepad.nintendo_switch.CustomFragment;
-import com.rdapps.gamepad.nintendo_switch.LeftJoyConFragment;
-import com.rdapps.gamepad.nintendo_switch.ProControllerFragment;
-import com.rdapps.gamepad.nintendo_switch.RightJoyConFragment;
+import com.rdapps.gamepad.nintendoswitch.ControllerFragment;
+import com.rdapps.gamepad.nintendoswitch.CustomFragment;
+import com.rdapps.gamepad.nintendoswitch.LeftJoyConFragment;
+import com.rdapps.gamepad.nintendoswitch.ProControllerFragment;
+import com.rdapps.gamepad.nintendoswitch.RightJoyConFragment;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.protocol.JoyController;
 import com.rdapps.gamepad.service.BluetoothBroadcastReceiver;
@@ -37,21 +47,8 @@ import com.rdapps.gamepad.service.BluetoothControllerService;
 import com.rdapps.gamepad.service.BluetoothControllerService.BluetoothControllerServiceBinder;
 import com.rdapps.gamepad.toast.ToastHelper;
 import com.rdapps.gamepad.util.EventUtils;
-
 import java.util.Objects;
 import java.util.Optional;
-
-import static android.bluetooth.BluetoothAdapter.ACTION_REQUEST_ENABLE;
-import static android.bluetooth.BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE;
-import static android.bluetooth.BluetoothAdapter.STATE_OFF;
-import static android.bluetooth.BluetoothAdapter.STATE_ON;
-import static android.bluetooth.BluetoothAdapter.STATE_TURNING_OFF;
-import static android.bluetooth.BluetoothAdapter.STATE_TURNING_ON;
-import static com.rdapps.gamepad.log.JoyConLog.log;
-import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
-import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
-import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
-import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 public class ControllerActivity extends AppCompatActivity {
 
@@ -82,7 +79,7 @@ public class ControllerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(!BuildConfig.VM) {
+        if (!BuildConfig.VM) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -97,7 +94,7 @@ public class ControllerActivity extends AppCompatActivity {
                 .ofNullable((ControllerType) intent.getSerializableExtra(CONTROLLER_TYPE))
                 .orElse(PRO_CONTROLLER);
 
-        boolean customUI = intent.getBooleanExtra(CUSTOM_UI, false);
+        boolean customUi = intent.getBooleanExtra(CUSTOM_UI, false);
 
         //Initialize Bluetooth Adapter
         initializeBluetooth();
@@ -110,7 +107,7 @@ public class ControllerActivity extends AppCompatActivity {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
 
-        if (customUI) {
+        if (customUi) {
             String url = intent.getStringExtra(CUSTOM_UI_URL);
             controllerFragment = CustomFragment.getInstance(url);
         } else {
@@ -136,7 +133,8 @@ public class ControllerActivity extends AppCompatActivity {
         intentFilter.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
-        mBluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(new BluetoothBroadcastReceiverListener());
+        mBluetoothBroadcastReceiver =
+                new BluetoothBroadcastReceiver(new BluetoothBroadcastReceiverListener());
         registerReceiver(mBluetoothBroadcastReceiver, intentFilter);
     }
 
@@ -184,23 +182,26 @@ public class ControllerActivity extends AppCompatActivity {
                 startActivityForResult(enableIntent, REQUEST_BT_ENABLE);
             } catch (SecurityException ex) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                    missingPermission(getApplicationContext(),
+                            Manifest.permission.BLUETOOTH_CONNECT);
                     log(TAG, "Missing permission", ex);
                 }
             }
         } else {
-            setupHIDService();
+            setupHidService();
         }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_BT_ENABLE) {
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getApplicationContext(), R.string.bt_enable_canceled, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.bt_enable_canceled,
+                        Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == REQUEST_BT_DISCOVERY) {
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getApplicationContext(), R.string.bt_discovery_canceled, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.bt_discovery_canceled,
+                        Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -233,8 +234,9 @@ public class ControllerActivity extends AppCompatActivity {
         }
     };
 
-    private void setupHIDService() {
-        Intent controllerIntent = new Intent(getApplicationContext(), BluetoothControllerService.class);
+    private void setupHidService() {
+        Intent controllerIntent =
+                new Intent(getApplicationContext(), BluetoothControllerService.class);
         controllerIntent.putExtra(BluetoothControllerService.DEVICE_TYPE, controllerType);
         startService(controllerIntent);
         bindService(controllerIntent, serviceConnection, BIND_AUTO_CREATE);
@@ -250,9 +252,10 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
 
-    public void startHIDDeviceDiscovery() {
+    public void startHidDeviceDiscovery() {
         try {
-            if (mBluetoothAdapter.getScanMode() != SCAN_MODE_CONNECTABLE_DISCOVERABLE && !askingDiscoverable) {
+            if (mBluetoothAdapter.getScanMode() != SCAN_MODE_CONNECTABLE_DISCOVERABLE
+                    && !askingDiscoverable) {
                 startDiscoverable(60);
             }
         } catch (SecurityException ex) {
@@ -263,9 +266,10 @@ public class ControllerActivity extends AppCompatActivity {
         }
     }
 
-    public void stopHIDDeviceDiscovery() {
+    public void stopHidDeviceDiscovery() {
         try {
-            if (mBluetoothAdapter.getScanMode() == SCAN_MODE_CONNECTABLE_DISCOVERABLE && askingDiscoverable) {
+            if (mBluetoothAdapter.getScanMode() == SCAN_MODE_CONNECTABLE_DISCOVERABLE
+                    && askingDiscoverable) {
                 startDiscoverable(1);
                 askingDiscoverable = false;
             }
@@ -292,7 +296,7 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
     public void sync() {
-        startHIDDeviceDiscovery();
+        startHidDeviceDiscovery();
     }
 
     public void showAmiiboPicker() {
@@ -306,7 +310,8 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
 
-    private class BluetoothBroadcastReceiverListener extends BluetoothBroadcastReceiver.BBRListener {
+    private class BluetoothBroadcastReceiverListener
+            extends BluetoothBroadcastReceiver.BbrListener {
 
         @Override
         public void stateChangedTo(int state) {
@@ -316,7 +321,7 @@ public class ControllerActivity extends AppCompatActivity {
                     break;
                 case STATE_ON:
                     log(TAG, "Bluetooth on");
-                    setupHIDService();
+                    setupHidService();
                     break;
                 case STATE_TURNING_OFF:
                     log(TAG, "Bluetooth turning off");
@@ -324,23 +329,22 @@ public class ControllerActivity extends AppCompatActivity {
                 case STATE_OFF:
                     log(TAG, "Bluetooth off");
                     break;
+                default:
             }
         }
 
         @Override
         public void scanModeChanged(int mode) {
             askingDiscoverable = false;
-            if (mode != SCAN_MODE_CONNECTABLE_DISCOVERABLE &&
-                    bluetoothControllerService != null &&
-                    !bluetoothControllerService.isConnected()) {
-                startHIDDeviceDiscovery();
+            if (mode != SCAN_MODE_CONNECTABLE_DISCOVERABLE && bluetoothControllerService != null
+                    && !bluetoothControllerService.isConnected()) {
+                startHidDeviceDiscovery();
             }
         }
 
         @Override
         public void onBonded(BluetoothDevice device) {
-            if (bluetoothControllerService != null &&
-                    !bluetoothControllerService.isConnected()) {
+            if (bluetoothControllerService != null && !bluetoothControllerService.isConnected()) {
                 bluetoothControllerService.connect(device);
             }
         }
@@ -358,8 +362,7 @@ public class ControllerActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (EventUtils.isGamePadSource(event.getSource())) {
-            if (controllerFragment != null &&
-                    controllerFragment.handleKey(keyCode, event)) {
+            if (controllerFragment != null && controllerFragment.handleKey(keyCode, event)) {
                 return true;
             }
         }
@@ -369,8 +372,7 @@ public class ControllerActivity extends AppCompatActivity {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (EventUtils.isGamePadSource(event.getSource())) {
-            if (controllerFragment != null &&
-                    controllerFragment.handleKey(keyCode, event)) {
+            if (controllerFragment != null && controllerFragment.handleKey(keyCode, event)) {
                 return true;
             }
         }
@@ -381,8 +383,7 @@ public class ControllerActivity extends AppCompatActivity {
     @Override
     public boolean onGenericMotionEvent(MotionEvent event) {
         if (EventUtils.isGamePadSource(event.getSource())) {
-            if (controllerFragment != null &&
-                    controllerFragment.handleGenericMotionEvent(event)) {
+            if (controllerFragment != null && controllerFragment.handleGenericMotionEvent(event)) {
                 return true;
             }
         }

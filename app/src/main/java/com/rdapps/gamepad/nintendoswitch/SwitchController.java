@@ -1,4 +1,4 @@
-package com.rdapps.gamepad.nintendo_switch;
+package com.rdapps.gamepad.nintendoswitch;
 
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.Queue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,9 +38,9 @@ import lombok.Setter;
 
 import static androidx.core.math.MathUtils.clamp;
 import static com.rdapps.gamepad.log.JoyConLog.log;
-import static com.rdapps.gamepad.nintendo_switch.InputMode.NFC_IR_MODE;
-import static com.rdapps.gamepad.nintendo_switch.InputMode.SIMPLE_HID_MODE;
-import static com.rdapps.gamepad.nintendo_switch.InputMode.STANDARD_FULL_MODE;
+import static com.rdapps.gamepad.nintendoswitch.InputMode.NFC_IR_MODE;
+import static com.rdapps.gamepad.nintendoswitch.InputMode.SIMPLE_HID_MODE;
+import static com.rdapps.gamepad.nintendoswitch.InputMode.STANDARD_FULL_MODE;
 import static com.rdapps.gamepad.nx.constant.NXConstants.ACK;
 import static com.rdapps.gamepad.nx.constant.NXConstants.BLUETOOTH_MANUAL_PAIRING;
 import static com.rdapps.gamepad.nx.constant.NXConstants.BUTTON_REPORT;

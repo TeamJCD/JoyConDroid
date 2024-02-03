@@ -2,10 +2,7 @@ package com.rdapps.gamepad.util;
 
 
 import android.graphics.Color;
-
-
 import com.google.android.gms.common.util.Hex;
-
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;

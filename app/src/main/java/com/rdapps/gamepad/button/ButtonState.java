@@ -1,13 +1,11 @@
 package com.rdapps.gamepad.button;
 
 import com.rdapps.gamepad.protocol.ControllerType;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import lombok.Data;
 
 @Data
@@ -29,7 +27,8 @@ public class ButtonState {
                         .collect(Collectors.toMap(Function.identity(), (buttonEnum) -> BUTTON_UP)));
         this.axes = new HashMap<>(
                 Arrays.stream(AxisEnum.values())
-                        .collect(Collectors.toMap(Function.identity(), (axisEnum -> STICK_CENTER))));
+                        .collect(Collectors.toMap(Function.identity(),
+                                (axisEnum -> STICK_CENTER))));
     }
 
     public void setButton(ButtonEnum button, int value) {

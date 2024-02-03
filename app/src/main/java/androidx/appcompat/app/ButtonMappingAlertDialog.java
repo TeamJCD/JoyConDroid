@@ -1,5 +1,7 @@
 package androidx.appcompat.app;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
 import androidx.annotation.ArrayRes;
 import androidx.annotation.AttrRes;
 import androidx.annotation.DrawableRes;
@@ -21,8 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 public class ButtonMappingAlertDialog extends AlertDialog {
 
@@ -63,7 +62,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
     }
 
     public static class Builder {
-        private final AlertController.AlertParams P;
+        private final AlertController.AlertParams params;
         private final int mTheme;
 
         /**
@@ -107,7 +106,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *                   {@code context}'s default alert dialog theme
          */
         public Builder(@NonNull Context context, @StyleRes int themeResId) {
-            P = new AlertController.AlertParams(new ContextThemeWrapper(
+            params = new AlertController.AlertParams(new ContextThemeWrapper(
                     context, resolveDialogTheme(context, themeResId)));
             mTheme = themeResId;
         }
@@ -122,7 +121,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          */
         @NonNull
         public Context getContext() {
-            return P.mContext;
+            return params.mContext;
         }
 
         /**
@@ -131,7 +130,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setTitle(@StringRes int titleId) {
-            P.mTitle = P.mContext.getText(titleId);
+            params.mTitle = params.mContext.getText(titleId);
             return this;
         }
 
@@ -141,7 +140,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setTitle(@Nullable CharSequence title) {
-            P.mTitle = title;
+            params.mTitle = title;
             return this;
         }
 
@@ -158,11 +157,10 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * context obtained via {@link #getContext()}.
          *
          * @param customTitleView the custom view to use as the title
-         * @return this Builder object to allow for chaining of calls to set
-         * methods
+         * @return this Builder object to allow for chaining of calls to set methods
          */
         public Builder setCustomTitle(@Nullable View customTitleView) {
-            P.mCustomTitleView = customTitleView;
+            params.mCustomTitleView = customTitleView;
             return this;
         }
 
@@ -172,7 +170,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setMessage(@StringRes int messageId) {
-            P.mMessage = P.mContext.getText(messageId);
+            params.mMessage = params.mContext.getText(messageId);
             return this;
         }
 
@@ -182,7 +180,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setMessage(@Nullable CharSequence message) {
-            P.mMessage = message;
+            params.mMessage = message;
             return this;
         }
 
@@ -194,7 +192,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setIcon(@DrawableRes int iconId) {
-            P.mIconId = iconId;
+            params.mIconId = iconId;
             return this;
         }
 
@@ -205,11 +203,10 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * should be inflated or constructed using the alert dialog's themed
          * context obtained via {@link #getContext()}.
          *
-         * @return this Builder object to allow for chaining of calls to set
-         * methods
+         * @return this Builder object to allow for chaining of calls to set methods
          */
         public Builder setIcon(@Nullable Drawable icon) {
-            P.mIcon = icon;
+            params.mIcon = icon;
             return this;
         }
 
@@ -224,8 +221,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          */
         public Builder setIconAttribute(@AttrRes int attrId) {
             TypedValue out = new TypedValue();
-            P.mContext.getTheme().resolveAttribute(attrId, out, true);
-            P.mIconId = out.resourceId;
+            params.mContext.getTheme().resolveAttribute(attrId, out, true);
+            params.mIconId = out.resourceId;
             return this;
         }
 
@@ -237,8 +234,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setPositiveButton(@StringRes int textId, final OnClickListener listener) {
-            P.mPositiveButtonText = P.mContext.getText(textId);
-            P.mPositiveButtonListener = listener;
+            params.mPositiveButtonText = params.mContext.getText(textId);
+            params.mPositiveButtonListener = listener;
             return this;
         }
 
@@ -250,8 +247,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setPositiveButton(CharSequence text, final OnClickListener listener) {
-            P.mPositiveButtonText = text;
-            P.mPositiveButtonListener = listener;
+            params.mPositiveButtonText = text;
+            params.mPositiveButtonListener = listener;
             return this;
         }
 
@@ -262,7 +259,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setPositiveButtonIcon(Drawable icon) {
-            P.mPositiveButtonIcon = icon;
+            params.mPositiveButtonIcon = icon;
             return this;
         }
 
@@ -274,8 +271,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setNegativeButton(@StringRes int textId, final OnClickListener listener) {
-            P.mNegativeButtonText = P.mContext.getText(textId);
-            P.mNegativeButtonListener = listener;
+            params.mNegativeButtonText = params.mContext.getText(textId);
+            params.mNegativeButtonListener = listener;
             return this;
         }
 
@@ -287,8 +284,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setNegativeButton(CharSequence text, final OnClickListener listener) {
-            P.mNegativeButtonText = text;
-            P.mNegativeButtonListener = listener;
+            params.mNegativeButtonText = text;
+            params.mNegativeButtonListener = listener;
             return this;
         }
 
@@ -299,7 +296,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setNegativeButtonIcon(Drawable icon) {
-            P.mNegativeButtonIcon = icon;
+            params.mNegativeButtonIcon = icon;
             return this;
         }
 
@@ -311,8 +308,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setNeutralButton(@StringRes int textId, final OnClickListener listener) {
-            P.mNeutralButtonText = P.mContext.getText(textId);
-            P.mNeutralButtonListener = listener;
+            params.mNeutralButtonText = params.mContext.getText(textId);
+            params.mNeutralButtonListener = listener;
             return this;
         }
 
@@ -324,8 +321,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setNeutralButton(CharSequence text, final OnClickListener listener) {
-            P.mNeutralButtonText = text;
-            P.mNeutralButtonListener = listener;
+            params.mNeutralButtonText = text;
+            params.mNeutralButtonListener = listener;
             return this;
         }
 
@@ -336,7 +333,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setNeutralButtonIcon(Drawable icon) {
-            P.mNeutralButtonIcon = icon;
+            params.mNeutralButtonIcon = icon;
             return this;
         }
 
@@ -346,7 +343,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setCancelable(boolean cancelable) {
-            P.mCancelable = cancelable;
+            params.mCancelable = cancelable;
             return this;
         }
 
@@ -365,7 +362,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @see #setOnDismissListener(android.content.DialogInterface.OnDismissListener)
          */
         public Builder setOnCancelListener(OnCancelListener onCancelListener) {
-            P.mOnCancelListener = onCancelListener;
+            params.mOnCancelListener = onCancelListener;
             return this;
         }
 
@@ -375,7 +372,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setOnDismissListener(OnDismissListener onDismissListener) {
-            P.mOnDismissListener = onDismissListener;
+            params.mOnDismissListener = onDismissListener;
             return this;
         }
 
@@ -385,31 +382,32 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setOnKeyListener(OnKeyListener onKeyListener) {
-            P.mOnKeyListener = onKeyListener;
+            params.mOnKeyListener = onKeyListener;
             return this;
         }
 
         /**
-         * Set a list of items to be displayed in the dialog as the content, you will be notified of the
-         * selected item via the supplied listener. This should be an array type i.e. R.array.foo
+         * Set a list of items to be displayed in the dialog as the content, you will be notified
+         * of the selected item via the supplied listener. This should be an array type i.e.
+         * R.array.foo
          *
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setItems(@ArrayRes int itemsId, final OnClickListener listener) {
-            P.mItems = P.mContext.getResources().getTextArray(itemsId);
-            P.mOnClickListener = listener;
+            params.mItems = params.mContext.getResources().getTextArray(itemsId);
+            params.mOnClickListener = listener;
             return this;
         }
 
         /**
-         * Set a list of items to be displayed in the dialog as the content, you will be notified of the
-         * selected item via the supplied listener.
+         * Set a list of items to be displayed in the dialog as the content, you will be notified of
+         * the selected item via the supplied listener.
          *
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setItems(CharSequence[] items, final OnClickListener listener) {
-            P.mItems = items;
-            P.mOnClickListener = listener;
+            params.mItems = items;
+            params.mOnClickListener = listener;
             return this;
         }
 
@@ -423,8 +421,8 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setAdapter(final ListAdapter adapter, final OnClickListener listener) {
-            P.mAdapter = adapter;
-            P.mOnClickListener = listener;
+            params.mAdapter = adapter;
+            params.mOnClickListener = listener;
             return this;
         }
 
@@ -441,9 +439,9 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          */
         public Builder setCursor(final Cursor cursor, final OnClickListener listener,
                                  String labelColumn) {
-            P.mCursor = cursor;
-            P.mLabelColumn = labelColumn;
-            P.mOnClickListener = listener;
+            params.mCursor = cursor;
+            params.mLabelColumn = labelColumn;
+            params.mOnClickListener = listener;
             return this;
         }
 
@@ -457,19 +455,20 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *
          * @param itemsId      the resource id of an array i.e. R.array.foo
          * @param checkedItems specifies which items are checked. It should be null in which case no
-         *                     items are checked. If non-null it must be exactly the same length as the array of
-         *                     items.
+         *                     items are checked. If non-null it must be exactly the same length as
+         *                     the array of items.
          * @param listener     notified when an item on the list is clicked. The dialog will not be
-         *                     dismissed when an item is clicked. It will only be dismissed if clicked on a
-         *                     button, if no buttons are supplied it's up to the user to dismiss the dialog.
+         *                     dismissed when an item is clicked. It will only be dismissed if
+         *                     clicked on a button, if no buttons are supplied it's up to the user
+         *                     to dismiss the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setMultiChoiceItems(@ArrayRes int itemsId, boolean[] checkedItems,
                                            final OnMultiChoiceClickListener listener) {
-            P.mItems = P.mContext.getResources().getTextArray(itemsId);
-            P.mOnCheckboxClickListener = listener;
-            P.mCheckedItems = checkedItems;
-            P.mIsMultiChoice = true;
+            params.mItems = params.mContext.getResources().getTextArray(itemsId);
+            params.mOnCheckboxClickListener = listener;
+            params.mCheckedItems = checkedItems;
+            params.mIsMultiChoice = true;
             return this;
         }
 
@@ -482,19 +481,20 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *
          * @param items        the text of the items to be displayed in the list.
          * @param checkedItems specifies which items are checked. It should be null in which case no
-         *                     items are checked. If non-null it must be exactly the same length as the array of
-         *                     items.
+         *                     items are checked. If non-null it must be exactly the same length as
+         *                     the array of items.
          * @param listener     notified when an item on the list is clicked. The dialog will not be
-         *                     dismissed when an item is clicked. It will only be dismissed if clicked on a
-         *                     button, if no buttons are supplied it's up to the user to dismiss the dialog.
+         *                     dismissed when an item is clicked. It will only be dismissed if
+         *                     clicked on a button, if no buttons are supplied it's up to the user
+         *                     to dismiss the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setMultiChoiceItems(CharSequence[] items, boolean[] checkedItems,
                                            final OnMultiChoiceClickListener listener) {
-            P.mItems = items;
-            P.mOnCheckboxClickListener = listener;
-            P.mCheckedItems = checkedItems;
-            P.mIsMultiChoice = true;
+            params.mItems = items;
+            params.mOnCheckboxClickListener = listener;
+            params.mCheckedItems = checkedItems;
+            params.mIsMultiChoice = true;
             return this;
         }
 
@@ -507,22 +507,24 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          *
          * @param cursor          the cursor used to provide the items.
          * @param isCheckedColumn specifies the column name on the cursor to use to determine
-         *                        whether a checkbox is checked or not. It must return an integer value where 1
-         *                        means checked and 0 means unchecked.
-         * @param labelColumn     The column name on the cursor containing the string to display in the
-         *                        label.
-         * @param listener        notified when an item on the list is clicked. The dialog will not be
-         *                        dismissed when an item is clicked. It will only be dismissed if clicked on a
-         *                        button, if no buttons are supplied it's up to the user to dismiss the dialog.
+         *                        whether a checkbox is checked or not. It must return an integer
+         *                        value where 1 means checked and 0 means unchecked.
+         * @param labelColumn     The column name on the cursor containing the string to display in
+         *                        the label.
+         * @param listener        notified when an item on the list is clicked. The dialog will not
+         *                        be dismissed when an item is clicked. It will only be dismissed if
+         *                        clicked on a button, if no buttons are supplied it's up to the
+         *                        user to dismiss the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        public Builder setMultiChoiceItems(Cursor cursor, String isCheckedColumn, String labelColumn,
-                                           final OnMultiChoiceClickListener listener) {
-            P.mCursor = cursor;
-            P.mOnCheckboxClickListener = listener;
-            P.mIsCheckedColumn = isCheckedColumn;
-            P.mLabelColumn = labelColumn;
-            P.mIsMultiChoice = true;
+        public Builder setMultiChoiceItems(
+                Cursor cursor, String isCheckedColumn, String labelColumn,
+                final OnMultiChoiceClickListener listener) {
+            params.mCursor = cursor;
+            params.mOnCheckboxClickListener = listener;
+            params.mIsCheckedColumn = isCheckedColumn;
+            params.mLabelColumn = labelColumn;
+            params.mIsMultiChoice = true;
             return this;
         }
 
@@ -536,16 +538,17 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @param itemsId     the resource id of an array i.e. R.array.foo
          * @param checkedItem specifies which item is checked. If -1 no items are checked.
          * @param listener    notified when an item on the list is clicked. The dialog will not be
-         *                    dismissed when an item is clicked. It will only be dismissed if clicked on a
-         *                    button, if no buttons are supplied it's up to the user to dismiss the dialog.
+         *                    dismissed when an item is clicked. It will only be dismissed if
+         *                    clicked on a button, if no buttons are supplied it's up to the user to
+         *                    dismiss the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setSingleChoiceItems(@ArrayRes int itemsId, int checkedItem,
                                             final OnClickListener listener) {
-            P.mItems = P.mContext.getResources().getTextArray(itemsId);
-            P.mOnClickListener = listener;
-            P.mCheckedItem = checkedItem;
-            P.mIsSingleChoice = true;
+            params.mItems = params.mContext.getResources().getTextArray(itemsId);
+            params.mOnClickListener = listener;
+            params.mCheckedItem = checkedItem;
+            params.mIsSingleChoice = true;
             return this;
         }
 
@@ -560,17 +563,18 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @param labelColumn The column name on the cursor containing the string to display in the
          *                    label.
          * @param listener    notified when an item on the list is clicked. The dialog will not be
-         *                    dismissed when an item is clicked. It will only be dismissed if clicked on a
-         *                    button, if no buttons are supplied it's up to the user to dismiss the dialog.
+         *                    dismissed when an item is clicked. It will only be dismissed if
+         *                    clicked on a button, if no buttons are supplied it's up to the user to
+         *                    dismiss the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder setSingleChoiceItems(Cursor cursor, int checkedItem, String labelColumn,
                                             final OnClickListener listener) {
-            P.mCursor = cursor;
-            P.mOnClickListener = listener;
-            P.mCheckedItem = checkedItem;
-            P.mLabelColumn = labelColumn;
-            P.mIsSingleChoice = true;
+            params.mCursor = cursor;
+            params.mOnClickListener = listener;
+            params.mCheckedItem = checkedItem;
+            params.mLabelColumn = labelColumn;
+            params.mIsSingleChoice = true;
             return this;
         }
 
@@ -583,15 +587,17 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @param items       the items to be displayed.
          * @param checkedItem specifies which item is checked. If -1 no items are checked.
          * @param listener    notified when an item on the list is clicked. The dialog will not be
-         *                    dismissed when an item is clicked. It will only be dismissed if clicked on a
-         *                    button, if no buttons are supplied it's up to the user to dismiss the dialog.
+         *                    dismissed when an item is clicked. It will only be dismissed if
+         *                    clicked on a button, if no buttons are supplied it's up to the user to
+         *                    dismiss the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        public Builder setSingleChoiceItems(CharSequence[] items, int checkedItem, final OnClickListener listener) {
-            P.mItems = items;
-            P.mOnClickListener = listener;
-            P.mCheckedItem = checkedItem;
-            P.mIsSingleChoice = true;
+        public Builder setSingleChoiceItems(
+                CharSequence[] items, int checkedItem, final OnClickListener listener) {
+            params.mItems = items;
+            params.mOnClickListener = listener;
+            params.mCheckedItem = checkedItem;
+            params.mIsSingleChoice = true;
             return this;
         }
 
@@ -604,15 +610,17 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @param adapter     The {@link ListAdapter} to supply the list of items
          * @param checkedItem specifies which item is checked. If -1 no items are checked.
          * @param listener    notified when an item on the list is clicked. The dialog will not be
-         *                    dismissed when an item is clicked. It will only be dismissed if clicked on a
-         *                    button, if no buttons are supplied it's up to the user to dismiss the dialog.
+         *                    dismissed when an item is clicked. It will only be dismissed if
+         *                    clicked on a button, if no buttons are supplied it's up to the user to
+         *                    dismiss the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        public Builder setSingleChoiceItems(ListAdapter adapter, int checkedItem, final OnClickListener listener) {
-            P.mAdapter = adapter;
-            P.mOnClickListener = listener;
-            P.mCheckedItem = checkedItem;
-            P.mIsSingleChoice = true;
+        public Builder setSingleChoiceItems(
+                ListAdapter adapter, int checkedItem, final OnClickListener listener) {
+            params.mAdapter = adapter;
+            params.mOnClickListener = listener;
+            params.mCheckedItem = checkedItem;
+            params.mIsSingleChoice = true;
             return this;
         }
 
@@ -623,8 +631,9 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * @return this Builder object to allow for chaining of calls to set methods
          * @see AdapterView#setOnItemSelectedListener(android.widget.AdapterView.OnItemSelectedListener)
          */
-        public Builder setOnItemSelectedListener(final AdapterView.OnItemSelectedListener listener) {
-            P.mOnItemSelectedListener = listener;
+        public Builder setOnItemSelectedListener(
+                final AdapterView.OnItemSelectedListener listener) {
+            params.mOnItemSelectedListener = listener;
             return this;
         }
 
@@ -637,9 +646,9 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * methods
          */
         public Builder setView(int layoutResId) {
-            P.mView = null;
-            P.mViewLayoutResId = layoutResId;
-            P.mViewSpacingSpecified = false;
+            params.mView = null;
+            params.mViewLayoutResId = layoutResId;
+            params.mViewSpacingSpecified = false;
             return this;
         }
 
@@ -658,9 +667,9 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          * methods
          */
         public Builder setView(View view) {
-            P.mView = view;
-            P.mViewLayoutResId = 0;
-            P.mViewSpacingSpecified = false;
+            params.mView = view;
+            params.mViewLayoutResId = 0;
+            params.mViewSpacingSpecified = false;
             return this;
         }
 
@@ -690,13 +699,13 @@ public class ButtonMappingAlertDialog extends AlertDialog {
         @Deprecated
         public Builder setView(View view, int viewSpacingLeft, int viewSpacingTop,
                                int viewSpacingRight, int viewSpacingBottom) {
-            P.mView = view;
-            P.mViewLayoutResId = 0;
-            P.mViewSpacingSpecified = true;
-            P.mViewSpacingLeft = viewSpacingLeft;
-            P.mViewSpacingTop = viewSpacingTop;
-            P.mViewSpacingRight = viewSpacingRight;
-            P.mViewSpacingBottom = viewSpacingBottom;
+            params.mView = view;
+            params.mViewLayoutResId = 0;
+            params.mViewSpacingSpecified = true;
+            params.mViewSpacingLeft = viewSpacingLeft;
+            params.mViewSpacingTop = viewSpacingTop;
+            params.mViewSpacingRight = viewSpacingRight;
+            params.mViewSpacingBottom = viewSpacingBottom;
             return this;
         }
 
@@ -712,7 +721,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          */
         @Deprecated
         public Builder setInverseBackgroundForced(boolean useInverseBackground) {
-            P.mForceInverseBackground = useInverseBackground;
+            params.mForceInverseBackground = useInverseBackground;
             return this;
         }
 
@@ -721,7 +730,7 @@ public class ButtonMappingAlertDialog extends AlertDialog {
          */
         @RestrictTo(LIBRARY_GROUP)
         public Builder setRecycleOnMeasureEnabled(boolean enabled) {
-            P.mRecycleOnMeasure = enabled;
+            params.mRecycleOnMeasure = enabled;
             return this;
         }
 
@@ -737,16 +746,17 @@ public class ButtonMappingAlertDialog extends AlertDialog {
         public ButtonMappingAlertDialog create() {
             // We can't use Dialog's 3-arg constructor with the createThemeContextWrapper param,
             // so we always have to re-set the theme
-            final ButtonMappingAlertDialog dialog = new ButtonMappingAlertDialog(P.mContext, mTheme);
-            P.apply(dialog.mAlert);
-            dialog.setCancelable(P.mCancelable);
-            if (P.mCancelable) {
+            final ButtonMappingAlertDialog dialog =
+                    new ButtonMappingAlertDialog(params.mContext, mTheme);
+            params.apply(dialog.mAlert);
+            dialog.setCancelable(params.mCancelable);
+            if (params.mCancelable) {
                 dialog.setCanceledOnTouchOutside(true);
             }
-            dialog.setOnCancelListener(P.mOnCancelListener);
-            dialog.setOnDismissListener(P.mOnDismissListener);
-            if (P.mOnKeyListener != null) {
-                dialog.setOnKeyListener(P.mOnKeyListener);
+            dialog.setOnCancelListener(params.mOnCancelListener);
+            dialog.setOnDismissListener(params.mOnDismissListener);
+            if (params.mOnKeyListener != null) {
+                dialog.setOnKeyListener(params.mOnKeyListener);
             }
             return dialog;
         }

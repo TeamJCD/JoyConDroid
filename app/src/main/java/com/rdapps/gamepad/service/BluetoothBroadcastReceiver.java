@@ -1,12 +1,5 @@
 package com.rdapps.gamepad.service;
 
-import android.Manifest;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-
 import static android.bluetooth.BluetoothAdapter.ACTION_DISCOVERY_FINISHED;
 import static android.bluetooth.BluetoothAdapter.ACTION_DISCOVERY_STARTED;
 import static android.bluetooth.BluetoothAdapter.ACTION_SCAN_MODE_CHANGED;
@@ -20,12 +13,19 @@ import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.service.BluetoothControllerService.NINTENDO_SWITCH;
 import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
+import android.Manifest;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+
 public class BluetoothBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = BluetoothBroadcastReceiver.class.getName();
 
-    private final BBRListener listener;
+    private final BbrListener listener;
 
-    public BluetoothBroadcastReceiver(BBRListener listener) {
+    public BluetoothBroadcastReceiver(BbrListener listener) {
         this.listener = listener;
     }
 
@@ -82,7 +82,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    public static abstract class BBRListener {
+    public abstract static class BbrListener {
         public void discoveryStarted() {
             log(TAG, "Discovery Started");
         }
@@ -93,7 +93,8 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 
         public void deviceFound(BluetoothDevice device) {
             try {
-                log(TAG, "Device Found Address: " + device.getAddress() + " Name:" + device.getName());
+                log(TAG, "Device Found"
+                        + " - Address: " + device.getAddress() + " Name:" + device.getName());
             } catch (SecurityException e) {
                 log(TAG, "Missing permission", e);
             }
@@ -114,8 +115,8 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
         public void onPairingRequest(BluetoothDevice pairingDevice, int variant) {
             try {
                 log(TAG, "Pairing device :" + pairingDevice.getName() + " Variant: " + variant);
-            }catch (SecurityException e) {
-                log(TAG, "Missing permission", e);
+            } catch (SecurityException ex) {
+                log(TAG, "Missing permission", ex);
             }
         }
 

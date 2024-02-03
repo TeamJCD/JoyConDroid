@@ -1,17 +1,21 @@
 package com.rdapps.gamepad.listview;
 
+import static com.rdapps.gamepad.model.ControllerAction.Type.AXIS;
+import static com.rdapps.gamepad.model.ControllerAction.Type.BUTTON;
+import static com.rdapps.gamepad.util.ControllerActionUtils.AXIS_NAMES;
+import static com.rdapps.gamepad.util.ControllerActionUtils.BUTTON_NAMES;
+import static com.rdapps.gamepad.util.ControllerActionUtils.getJoystickMapping;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.device.ButtonType;
 import com.rdapps.gamepad.device.JoystickType;
 import com.rdapps.gamepad.model.ControllerAction;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,12 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-
-import static com.rdapps.gamepad.model.ControllerAction.Type.AXIS;
-import static com.rdapps.gamepad.model.ControllerAction.Type.BUTTON;
-import static com.rdapps.gamepad.util.ControllerActionUtils.AXIS_NAMES;
-import static com.rdapps.gamepad.util.ControllerActionUtils.BUTTON_NAMES;
-import static com.rdapps.gamepad.util.ControllerActionUtils.getJoystickMapping;
 
 public class ButtonMappingViewAdapter extends BaseAdapter {
 

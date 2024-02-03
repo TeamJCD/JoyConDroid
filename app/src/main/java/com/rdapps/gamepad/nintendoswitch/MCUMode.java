@@ -1,4 +1,4 @@
-package com.rdapps.gamepad.nintendo_switch;
+package com.rdapps.gamepad.nintendoswitch;
 
 import lombok.Data;
 

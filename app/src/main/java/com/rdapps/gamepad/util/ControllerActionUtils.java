@@ -1,29 +1,116 @@
 package com.rdapps.gamepad.util;
 
+import static android.view.KeyEvent.KEYCODE_BUTTON_1;
+import static android.view.KeyEvent.KEYCODE_BUTTON_2;
+import static android.view.KeyEvent.KEYCODE_BUTTON_3;
+import static android.view.KeyEvent.KEYCODE_BUTTON_4;
+import static android.view.KeyEvent.KEYCODE_BUTTON_A;
+import static android.view.KeyEvent.KEYCODE_BUTTON_B;
+import static android.view.KeyEvent.KEYCODE_BUTTON_L1;
+import static android.view.KeyEvent.KEYCODE_BUTTON_L2;
+import static android.view.KeyEvent.KEYCODE_BUTTON_MODE;
+import static android.view.KeyEvent.KEYCODE_BUTTON_R1;
+import static android.view.KeyEvent.KEYCODE_BUTTON_R2;
+import static android.view.KeyEvent.KEYCODE_BUTTON_SELECT;
+import static android.view.KeyEvent.KEYCODE_BUTTON_START;
+import static android.view.KeyEvent.KEYCODE_BUTTON_THUMBL;
+import static android.view.KeyEvent.KEYCODE_BUTTON_THUMBR;
+import static android.view.KeyEvent.KEYCODE_BUTTON_X;
+import static android.view.KeyEvent.KEYCODE_BUTTON_Y;
+import static android.view.KeyEvent.KEYCODE_BUTTON_Z;
+import static android.view.KeyEvent.KEYCODE_DPAD_DOWN;
+import static android.view.KeyEvent.KEYCODE_DPAD_LEFT;
+import static android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
+import static android.view.KeyEvent.KEYCODE_DPAD_UP;
+import static android.view.MotionEvent.AXIS_BRAKE;
+import static android.view.MotionEvent.AXIS_DISTANCE;
+import static android.view.MotionEvent.AXIS_GAS;
+import static android.view.MotionEvent.AXIS_GENERIC_1;
+import static android.view.MotionEvent.AXIS_GENERIC_10;
+import static android.view.MotionEvent.AXIS_GENERIC_11;
+import static android.view.MotionEvent.AXIS_GENERIC_12;
+import static android.view.MotionEvent.AXIS_GENERIC_13;
+import static android.view.MotionEvent.AXIS_GENERIC_14;
+import static android.view.MotionEvent.AXIS_GENERIC_15;
+import static android.view.MotionEvent.AXIS_GENERIC_16;
+import static android.view.MotionEvent.AXIS_GENERIC_2;
+import static android.view.MotionEvent.AXIS_GENERIC_3;
+import static android.view.MotionEvent.AXIS_GENERIC_4;
+import static android.view.MotionEvent.AXIS_GENERIC_5;
+import static android.view.MotionEvent.AXIS_GENERIC_6;
+import static android.view.MotionEvent.AXIS_GENERIC_7;
+import static android.view.MotionEvent.AXIS_GENERIC_8;
+import static android.view.MotionEvent.AXIS_GENERIC_9;
+import static android.view.MotionEvent.AXIS_HAT_X;
+import static android.view.MotionEvent.AXIS_HAT_Y;
+import static android.view.MotionEvent.AXIS_HSCROLL;
+import static android.view.MotionEvent.AXIS_LTRIGGER;
+import static android.view.MotionEvent.AXIS_ORIENTATION;
+import static android.view.MotionEvent.AXIS_PRESSURE;
+import static android.view.MotionEvent.AXIS_RELATIVE_X;
+import static android.view.MotionEvent.AXIS_RELATIVE_Y;
+import static android.view.MotionEvent.AXIS_RTRIGGER;
+import static android.view.MotionEvent.AXIS_RUDDER;
+import static android.view.MotionEvent.AXIS_RX;
+import static android.view.MotionEvent.AXIS_RY;
+import static android.view.MotionEvent.AXIS_RZ;
+import static android.view.MotionEvent.AXIS_SCROLL;
+import static android.view.MotionEvent.AXIS_SIZE;
+import static android.view.MotionEvent.AXIS_THROTTLE;
+import static android.view.MotionEvent.AXIS_TILT;
+import static android.view.MotionEvent.AXIS_TOOL_MAJOR;
+import static android.view.MotionEvent.AXIS_TOOL_MINOR;
+import static android.view.MotionEvent.AXIS_TOUCH_MAJOR;
+import static android.view.MotionEvent.AXIS_TOUCH_MINOR;
+import static android.view.MotionEvent.AXIS_VSCROLL;
+import static android.view.MotionEvent.AXIS_WHEEL;
+import static android.view.MotionEvent.AXIS_X;
+import static android.view.MotionEvent.AXIS_Y;
+import static android.view.MotionEvent.AXIS_Z;
+import static com.rdapps.gamepad.device.ButtonType.A;
+import static com.rdapps.gamepad.device.ButtonType.B;
+import static com.rdapps.gamepad.device.ButtonType.CAPTURE;
+import static com.rdapps.gamepad.device.ButtonType.DOWN;
+import static com.rdapps.gamepad.device.ButtonType.HOME;
+import static com.rdapps.gamepad.device.ButtonType.L;
+import static com.rdapps.gamepad.device.ButtonType.LEFT;
+import static com.rdapps.gamepad.device.ButtonType.LEFT_SL;
+import static com.rdapps.gamepad.device.ButtonType.LEFT_SR;
+import static com.rdapps.gamepad.device.ButtonType.LEFT_STICK;
+import static com.rdapps.gamepad.device.ButtonType.MINUS;
+import static com.rdapps.gamepad.device.ButtonType.PLUS;
+import static com.rdapps.gamepad.device.ButtonType.R;
+import static com.rdapps.gamepad.device.ButtonType.RIGHT;
+import static com.rdapps.gamepad.device.ButtonType.RIGHT_SL;
+import static com.rdapps.gamepad.device.ButtonType.RIGHT_SR;
+import static com.rdapps.gamepad.device.ButtonType.RIGHT_STICK;
+import static com.rdapps.gamepad.device.ButtonType.UP;
+import static com.rdapps.gamepad.device.ButtonType.X;
+import static com.rdapps.gamepad.device.ButtonType.Y;
+import static com.rdapps.gamepad.device.ButtonType.ZL;
+import static com.rdapps.gamepad.device.ButtonType.ZR;
+import static com.rdapps.gamepad.device.JoystickType.LEFT_JOYSTICK;
+import static com.rdapps.gamepad.device.JoystickType.RIGHT_JOYSTICK;
+import static com.rdapps.gamepad.model.ControllerAction.Type.AXIS;
+import static com.rdapps.gamepad.model.ControllerAction.Type.BUTTON;
+import static com.rdapps.gamepad.model.ControllerAction.Type.JOYSTICK;
+
 import android.content.Context;
-
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rdapps.gamepad.device.ButtonType;
 import com.rdapps.gamepad.device.JoystickType;
 import com.rdapps.gamepad.model.ControllerAction;
-
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-
-import static android.view.KeyEvent.*;
-import static android.view.MotionEvent.*;
-import static com.rdapps.gamepad.device.ButtonType.*;
-import static com.rdapps.gamepad.device.JoystickType.LEFT_JOYSTICK;
-import static com.rdapps.gamepad.device.JoystickType.RIGHT_JOYSTICK;
-import static com.rdapps.gamepad.model.ControllerAction.Type.AXIS;
-import static com.rdapps.gamepad.model.ControllerAction.Type.BUTTON;
-import static com.rdapps.gamepad.model.ControllerAction.Type.JOYSTICK;
 
 public class ControllerActionUtils {
     public static final Map<Integer, String> BUTTON_NAMES = new HashMap<>();
@@ -403,7 +490,8 @@ public class ControllerActionUtils {
         return getButtonMapping(getControllerActions(context));
     }
 
-    public static Map<Integer, ButtonType> getButtonMapping(Collection<ControllerAction> controllerActions) {
+    public static Map<Integer, ButtonType> getButtonMapping(
+            Collection<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == BUTTON)
@@ -414,11 +502,13 @@ public class ControllerActionUtils {
         return getAxisMapping(getControllerActions(context));
     }
 
-    public static Map<Pair<Integer, Integer>, ButtonType> getAxisMapping(Collection<ControllerAction> controllerActions) {
+    public static Map<Pair<Integer, Integer>, ButtonType> getAxisMapping(
+            Collection<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == AXIS)
-                .map(ca -> new Pair<>(new Pair<>(ca.getXAxis(), ca.getXDirection()), ca.getButton()))
+                .map(ca ->
+                        new Pair<>(new Pair<>(ca.getXAxis(), ca.getXDirection()), ca.getButton()))
                 .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
     }
 
@@ -426,7 +516,8 @@ public class ControllerActionUtils {
         return getJoystickMapping(getControllerActions(context));
     }
 
-    public static Map<JoystickType, ControllerAction> getJoystickMapping(Collection<ControllerAction> controllerActions) {
+    public static Map<JoystickType, ControllerAction> getJoystickMapping(
+            Collection<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == JOYSTICK)
@@ -437,8 +528,9 @@ public class ControllerActionUtils {
         return Optional.ofNullable(PreferenceUtils.getButtonMapping(context))
                 .map(objStr -> {
                     try {
-                        return OBJECT_MAPPER.readValue(objStr, new TypeReference<List<ControllerAction>>() {
-                        });
+                        return OBJECT_MAPPER.readValue(objStr,
+                                new TypeReference<List<ControllerAction>>() {
+                                });
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

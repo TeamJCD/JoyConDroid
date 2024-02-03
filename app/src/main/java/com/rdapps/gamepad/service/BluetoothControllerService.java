@@ -1,5 +1,21 @@
 package com.rdapps.gamepad.service;
 
+import static android.bluetooth.BluetoothHidDeviceAppQosSettings.SERVICE_GUARANTEED;
+import static android.bluetooth.BluetoothProfile.HID_DEVICE;
+import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
+import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
+import static com.rdapps.gamepad.toast.ToastHelper.bluetoothNotAvailable;
+import static com.rdapps.gamepad.toast.ToastHelper.cannotSetBluetoothName;
+import static com.rdapps.gamepad.toast.ToastHelper.couldNotRegisterApp;
+import static com.rdapps.gamepad.toast.ToastHelper.deviceConnected;
+import static com.rdapps.gamepad.toast.ToastHelper.deviceDisconnected;
+import static com.rdapps.gamepad.toast.ToastHelper.deviceIsNotCompatible;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
+import static com.rdapps.gamepad.toast.ToastHelper.sdpFailed;
+import static com.rdapps.gamepad.util.ByteUtils.hexStringToByteArray;
+import static com.rdapps.gamepad.util.PreferenceUtils.MAC_FAKE_ADDRESS;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -20,7 +36,6 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-
 import com.rdapps.gamepad.ControllerActivity;
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.led.LedState;
@@ -29,7 +44,6 @@ import com.rdapps.gamepad.protocol.JoyController;
 import com.rdapps.gamepad.protocol.JoyControllerBuilder;
 import com.rdapps.gamepad.protocol.JoyControllerListener;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,17 +55,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
-
 import lombok.SneakyThrows;
-
-import static android.bluetooth.BluetoothHidDeviceAppQosSettings.SERVICE_GUARANTEED;
-import static android.bluetooth.BluetoothProfile.HID_DEVICE;
-import static com.rdapps.gamepad.log.JoyConLog.log;
-import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
-import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
-import static com.rdapps.gamepad.toast.ToastHelper.*;
-import static com.rdapps.gamepad.util.ByteUtils.hexStringToByteArray;
-import static com.rdapps.gamepad.util.PreferenceUtils.MAC_FAKE_ADDRESS;
 
 public class BluetoothControllerService extends Service implements BluetoothProfile.ServiceListener,
         JoyControllerListener {
@@ -103,7 +107,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                         return NINTENDO_SWITCH.equalsIgnoreCase(device.getName());
                     } catch (SecurityException ex) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                            missingPermission(getApplicationContext(),
+                                    Manifest.permission.BLUETOOTH_CONNECT);
                             log(TAG, "Missing permission", ex);
                         }
                         return false;
@@ -119,7 +124,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 PreferenceUtils.saveOriginalName(getApplicationContext(), name);
                 boolean setNameSuccess = mBluetoothAdapter.setName(deviceName);
                 if (!setNameSuccess) {
-                    mainHandler.post(() -> cannotSetBluetoothName(getApplicationContext(), deviceName));
+                    mainHandler.post(() ->
+                            cannotSetBluetoothName(getApplicationContext(), deviceName));
                     return false;
                 }
             }
@@ -143,7 +149,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 }
             } catch (SecurityException ex) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                    missingPermission(getApplicationContext(),
+                            Manifest.permission.BLUETOOTH_CONNECT);
                     log(TAG, "Missing permission", ex);
                 }
             }
@@ -160,13 +167,13 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         }
 
         if (MAC_FAKE_ADDRESS.equalsIgnoreCase(address)) {
-            address = randomMACAddress();
+            address = randomMacAddress();
         }
 
         return address;
     }
 
-    private String randomMACAddress() {
+    private String randomMacAddress() {
         Random rand = new Random();
         byte[] macAddr = new byte[6];
         rand.nextBytes(macAddr);
@@ -177,8 +184,9 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         StringBuilder sb = new StringBuilder(18);
         for (byte b : macAddr) {
 
-            if (sb.length() > 0)
+            if (sb.length() > 0) {
                 sb.append(":");
+            }
 
             sb.append(String.format("%02x", b));
         }
@@ -205,7 +213,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
         if (controllerActivity != null) {
             if (state == State.DISCOVERY) {
-                controllerActivity.startHIDDeviceDiscovery();
+                controllerActivity.startHidDeviceDiscovery();
             }
         }
     }
@@ -235,14 +243,14 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                     this,
                     HID_DEVICE
             );
-            hidFuture = timeoutScheduler.schedule(this::checkHIDProfile, HID_PROFILE_TIME_OUT_SECONDS,
-                    TimeUnit.SECONDS);
+            hidFuture = timeoutScheduler.schedule(this::checkHidProfile,
+                    HID_PROFILE_TIME_OUT_SECONDS, TimeUnit.SECONDS);
         }
 
         startForeground();
     }
 
-    private void checkHIDProfile() {
+    private void checkHidProfile() {
         try {
             if (Objects.isNull(mBluetoothHidDevice)) {
                 mainHandler.post(() -> {
@@ -261,7 +269,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         }
     }
 
-    private void cancelHIDCheck() {
+    private void cancelHidCheck() {
         try {
             if (Objects.nonNull(timeoutScheduler)) {
                 hidFuture.cancel(true);
@@ -319,7 +327,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 channelName, NotificationManager.IMPORTANCE_NONE);
         chan.setLightColor(Color.BLUE);
         chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-        NotificationManager service = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager service = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
         service.createNotificationChannel(chan);
         return channelId;
     }
@@ -342,10 +351,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             }
         }
 
-        if (Objects.nonNull(switchController) &&
-                deviceConnected &&
-                type != null &&
-                controllerType == type) {
+        if (Objects.nonNull(switchController) && deviceConnected && type != null
+                && controllerType == type) {
             return START_STICKY;
         }
 
@@ -444,7 +451,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     public void onDestroy() {
         state = State.DESTROYING;
 
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancel(NOTIFICATION_ID);
 
         if (Objects.nonNull(switchController)) {
@@ -457,7 +465,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 mBluetoothHidDevice.unregisterApp();
             } catch (SecurityException ex) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                    missingPermission(getApplicationContext(),
+                            Manifest.permission.BLUETOOTH_CONNECT);
                     log(TAG, "Missing permission", ex);
                 }
             }
@@ -476,19 +485,20 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             try {
                 if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
                     if (Objects.nonNull(controllerActivity)) {
-                        controllerActivity.stopHIDDeviceDiscovery();
+                        controllerActivity.stopHidDeviceDiscovery();
                     }
                     boolean connect = mBluetoothHidDevice.connect(device);
                     log(TAG, "Connect result: " + connect);
                 } else {
                     if (Objects.nonNull(controllerActivity)) {
-                        controllerActivity.startHIDDeviceDiscovery();
+                        controllerActivity.startHidDeviceDiscovery();
                     }
                     device.createBond();
                 }
             } catch (SecurityException ex) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                    missingPermission(getApplicationContext(),
+                            Manifest.permission.BLUETOOTH_CONNECT);
                     log(TAG, "Missing permission", ex);
                 }
             }
@@ -513,7 +523,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         log(TAG, "Connected Profile: " + profile);
         if (profile == HID_DEVICE) {
             synchronized (registerLock) {
-                cancelHIDCheck();
+                cancelHidCheck();
                 serviceConnected = true;
                 mBluetoothHidDevice = (BluetoothHidDevice) proxy;
                 if (Objects.nonNull(switchController)) {
@@ -534,7 +544,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             switchController.setProxy(mBluetoothHidDevice);
             switchController.setRemoteDevice(pluggedDevice);
             if (Objects.nonNull(controllerActivity)) {
-                controllerActivity.stopHIDDeviceDiscovery();
+                controllerActivity.stopHidDeviceDiscovery();
             }
         }
 
@@ -542,7 +552,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             switchController.setProxy(null);
             switchController.setRemoteDevice(null);
             if (Objects.nonNull(controllerActivity)) {
-                controllerActivity.stopHIDDeviceDiscovery();
+                controllerActivity.stopHidDeviceDiscovery();
             }
         }
 
@@ -552,10 +562,11 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             if (registered) {
                 setBluetoothAdapterName(switchController.getBtName());
                 try {
-                    if (pluggedDevice == null || pluggedDevice.getBondState() == BluetoothDevice.BOND_NONE) {
+                    if (pluggedDevice == null
+                            || pluggedDevice.getBondState() == BluetoothDevice.BOND_NONE) {
                         state = State.DISCOVERY;
                         if (controllerActivity != null) {
-                            controllerActivity.startHIDDeviceDiscovery();
+                            controllerActivity.startHidDeviceDiscovery();
                         }
                     } else {
                         if (NINTENDO_SWITCH.equalsIgnoreCase(pluggedDevice.getName())) {
@@ -564,7 +575,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                     }
                 } catch (SecurityException ex) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                        missingPermission(getApplicationContext(),
+                                Manifest.permission.BLUETOOTH_CONNECT);
                         log(TAG, "Missing permission", ex);
                     }
                 }
@@ -583,7 +595,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                 }
             } catch (SecurityException ex) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+                    missingPermission(getApplicationContext(),
+                            Manifest.permission.BLUETOOTH_CONNECT);
                     log(TAG, "Missing permission", ex);
                 }
                 return;

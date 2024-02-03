@@ -363,12 +363,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else {
-            mBluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(new MainActBBRListener());
+            mBluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(new MainActBbrListener());
             registerReceiver(mBluetoothBroadcastReceiver, new IntentFilter(ACTION_STATE_CHANGED));
         }
     }
 
-    private class MainActBBRListener extends BluetoothBroadcastReceiver.BBRListener {
+    private class MainActBbrListener extends BluetoothBroadcastReceiver.BbrListener {
         public void stateChangedTo(int state) {
             switch (state) {
                 case STATE_TURNING_ON:

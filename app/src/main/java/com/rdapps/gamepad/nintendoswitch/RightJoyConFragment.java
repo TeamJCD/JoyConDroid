@@ -1,4 +1,4 @@
-package com.rdapps.gamepad.nintendo_switch;
+package com.rdapps.gamepad.nintendoswitch;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -23,37 +23,26 @@ import java.util.Objects;
 
 import static com.rdapps.gamepad.button.ButtonEnum.A;
 import static com.rdapps.gamepad.button.ButtonEnum.B;
-import static com.rdapps.gamepad.button.ButtonEnum.CAPTURE;
-import static com.rdapps.gamepad.button.ButtonEnum.DOWN;
 import static com.rdapps.gamepad.button.ButtonEnum.HOME;
-import static com.rdapps.gamepad.button.ButtonEnum.L;
-import static com.rdapps.gamepad.button.ButtonEnum.LEFT;
-import static com.rdapps.gamepad.button.ButtonEnum.LEFT_STICK_BUTTON;
-import static com.rdapps.gamepad.button.ButtonEnum.MINUS;
 import static com.rdapps.gamepad.button.ButtonEnum.PLUS;
-import static com.rdapps.gamepad.button.ButtonEnum.RIGHT;
-import static com.rdapps.gamepad.button.ButtonEnum.UP;
+import static com.rdapps.gamepad.button.ButtonEnum.RIGHT_SL;
+import static com.rdapps.gamepad.button.ButtonEnum.RIGHT_SR;
+import static com.rdapps.gamepad.button.ButtonEnum.RIGHT_STICK_BUTTON;
 import static com.rdapps.gamepad.button.ButtonEnum.X;
 import static com.rdapps.gamepad.button.ButtonEnum.Y;
-import static com.rdapps.gamepad.button.ButtonEnum.ZL;
 import static com.rdapps.gamepad.button.ButtonEnum.ZR;
 import static com.rdapps.gamepad.button.ButtonState.BUTTON_DOWN;
-import static com.rdapps.gamepad.button.ButtonState.BUTTON_UP;
+import static com.rdapps.gamepad.nintendoswitch.SwitchController.ButtonStates.DOWN;
+import static com.rdapps.gamepad.nintendoswitch.SwitchController.ButtonStates.UP;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.BUTTON_PRESS;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.BUTTON_RELEASE;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.STICK_PRESS;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.STICK_RELEASE;
 
-public class ProControllerFragment extends ControllerFragment implements View.OnClickListener {
+public class RightJoyConFragment extends ControllerFragment implements JoyStick.JoyStickListener, View.OnClickListener {
 
-    private ImageButton up;
-    private ImageButton down;
-    private ImageButton left;
-    private ImageButton right;
-    private ImageButton zl;
-    private ImageButton l;
-    private ImageButton minus;
-    private ImageButton capture;
+    private ImageButton sr;
+    private ImageButton sl;
     private ImageButton x;
     private ImageButton y;
     private ImageButton a;
@@ -64,16 +53,14 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     private ImageButton home;
     private ImageButton sync;
 
-    private JoyStick leftJoyStick;
-    private JoyStick rightJoyStick;
-
     private View led1;
     private View led2;
     private View led3;
     private View led4;
 
-    private boolean rightStickPressed = false;
-    private boolean leftStickPressed = false;
+    private JoyStick joyStick;
+
+    private boolean stickPressed = false;
 
     @Override
     public void onAttach(Context context) {
@@ -82,22 +69,15 @@ public class ProControllerFragment extends ControllerFragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.pro_controller_layout, parent, false);
+        return inflater.inflate(R.layout.right_joycon_layout, parent, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         View.OnTouchListener buttonTouchListener = new ButtonTouchListener();
-        up = view.findViewById(R.id.up);
-        down = view.findViewById(R.id.down);
-        left = view.findViewById(R.id.left);
-        right = view.findViewById(R.id.right);
-        l = view.findViewById(R.id.l);
-        zl = view.findViewById(R.id.zl);
-        minus = view.findViewById(R.id.minus);
-        capture = view.findViewById(R.id.capture);
-        leftJoyStick = view.findViewById(R.id.left_joy);
+        sr = view.findViewById(R.id.sr);
+        sl = view.findViewById(R.id.sl);
         a = view.findViewById(R.id.a);
         b = view.findViewById(R.id.b);
         x = view.findViewById(R.id.x);
@@ -106,7 +86,7 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         zr = view.findViewById(R.id.zr);
         plus = view.findViewById(R.id.plus);
         home = view.findViewById(R.id.home);
-        rightJoyStick = view.findViewById(R.id.right_joy);
+        joyStick = view.findViewById(R.id.joy);
         sync = view.findViewById(R.id.sync);
 
         led1 = view.findViewById(R.id.led1);
@@ -114,15 +94,8 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         led3 = view.findViewById(R.id.led3);
         led4 = view.findViewById(R.id.led4);
 
-        up.setOnTouchListener(buttonTouchListener);
-        down.setOnTouchListener(buttonTouchListener);
-        left.setOnTouchListener(buttonTouchListener);
-        right.setOnTouchListener(buttonTouchListener);
-        l.setOnTouchListener(buttonTouchListener);
-        zl.setOnTouchListener(buttonTouchListener);
-        capture.setOnTouchListener(buttonTouchListener);
-        minus.setOnTouchListener(buttonTouchListener);
-        leftJoyStick.setListener(new LeftStickListener());
+        sr.setOnTouchListener(buttonTouchListener);
+        sl.setOnTouchListener(buttonTouchListener);
         a.setOnTouchListener(buttonTouchListener);
         b.setOnTouchListener(buttonTouchListener);
         x.setOnTouchListener(buttonTouchListener);
@@ -131,96 +104,37 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         zr.setOnTouchListener(buttonTouchListener);
         home.setOnTouchListener(buttonTouchListener);
         plus.setOnTouchListener(buttonTouchListener);
-        rightJoyStick.setListener(new RightStickListener());
+        joyStick.setListener(this);
         sync.setOnClickListener(this);
     }
 
-    private class LeftStickListener implements JoyStick.JoyStickListener {
-        @Override
-        public void onMove(JoyStick joyStick, double angle, double power, int direction) {
-            if (Objects.isNull(device)) {
-                return;
-            }
-
-            double x = power * Math.cos(angle) * -1;
-            double y = power * Math.sin(angle) * -1;
-
-            device.setAxis(AxisEnum.LEFT_STICK_X, (int) y);
-            device.setAxis(AxisEnum.LEFT_STICK_Y, (int) x);
+    @Override
+    public void onMove(JoyStick joyStick, double angle, double power, int direction) {
+        if (Objects.isNull(device)) {
+            return;
         }
 
-        @Override
-        public void onTap() {
-            if (Objects.isNull(device)) {
-                return;
-            }
-
-            setLeftStickPress(!leftStickPressed);
-            leftStickPressed = !leftStickPressed;
-
-            vibrate(leftStickPressed ? STICK_PRESS : STICK_RELEASE);
-        }
-
-        @Override
-        public void onDoubleTap() {
-
-        }
+        double x = power * Math.cos(angle) * -1;
+        double y = power * Math.sin(angle);
+        device.setAxis(AxisEnum.RIGHT_STICK_X, (int) x);
+        device.setAxis(AxisEnum.RIGHT_STICK_Y, (int) y);
     }
 
     @Override
-    public boolean setLeftStickPress(boolean pressed) {
+    public void onTap() {
         if (Objects.isNull(device)) {
-            return false;
+            return;
         }
 
-        device.setButton(LEFT_STICK_BUTTON, pressed ? BUTTON_DOWN : BUTTON_UP);
-        leftJoyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_blue));
-        leftJoyStick.invalidate();
-        return true;
-    }
+        setRightStickPress(!stickPressed);
+        stickPressed = !stickPressed;
 
-    private class RightStickListener implements JoyStick.JoyStickListener {
-        @Override
-        public void onMove(JoyStick joyStick, double angle, double power, int direction) {
-            if (Objects.isNull(device)) {
-                return;
-            }
-
-            double x = power * Math.cos(angle) * -1;
-            double y = power * Math.sin(angle) * -1;
-
-            device.setAxis(AxisEnum.RIGHT_STICK_X, (int) y);
-            device.setAxis(AxisEnum.RIGHT_STICK_Y, (int) x);
-        }
-
-        @Override
-        public void onTap() {
-            if (Objects.isNull(device)) {
-                return;
-            }
-
-            setRightStickPress(!rightStickPressed);
-            rightStickPressed = !rightStickPressed;
-
-            vibrate(rightStickPressed ? STICK_PRESS : STICK_RELEASE);
-        }
-
-        @Override
-        public void onDoubleTap() {
-
-        }
+        vibrate(stickPressed ? STICK_PRESS : STICK_RELEASE);
     }
 
     @Override
-    public boolean setRightStickPress(boolean pressed) {
-        if (Objects.isNull(device)) {
-            return false;
-        }
+    public void onDoubleTap() {
 
-        device.setButton(ButtonEnum.RIGHT_STICK_BUTTON, pressed ? BUTTON_DOWN : BUTTON_UP);
-        rightJoyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_red));
-        rightJoyStick.invalidate();
-        return true;
     }
 
     @Override
@@ -229,6 +143,24 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         if (activity instanceof ControllerActivity controllerActivity) {
             controllerActivity.sync();
         }
+    }
+
+
+    @Override
+    public boolean setLeftStickPress(boolean pressed) {
+        return false;
+    }
+
+    @Override
+    public boolean setRightStickPress(boolean pressed) {
+        if (Objects.isNull(device)) {
+            return false;
+        }
+
+        device.setButton(RIGHT_STICK_BUTTON, pressed ? DOWN : UP);
+        joyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_red));
+        joyStick.invalidate();
+        return true;
     }
 
     private class ButtonTouchListener implements View.OnTouchListener {
@@ -243,10 +175,10 @@ public class ProControllerFragment extends ControllerFragment implements View.On
             int buttonState;
             if (action == MotionEvent.ACTION_DOWN) {
                 v.setPressed(true);
-                buttonState = BUTTON_DOWN;
+                buttonState = DOWN;
             } else if (action == MotionEvent.ACTION_UP) {
                 v.setPressed(false);
-                buttonState = BUTTON_UP;
+                buttonState = UP;
             } else {
                 return false;
             }
@@ -254,22 +186,10 @@ public class ProControllerFragment extends ControllerFragment implements View.On
             vibrate(buttonState == BUTTON_DOWN ? BUTTON_PRESS : BUTTON_RELEASE);
 
             ButtonEnum buttonEnum;
-            if (v == left) {
-                buttonEnum = LEFT;
-            } else if (v == right) {
-                buttonEnum = RIGHT;
-            } else if (v == down) {
-                buttonEnum = DOWN;
-            } else if (v == up) {
-                buttonEnum = UP;
-            } else if (v == l) {
-                buttonEnum = L;
-            } else if (v == zl) {
-                buttonEnum = ZL;
-            } else if (v == capture) {
-                buttonEnum = CAPTURE;
-            } else if (v == minus) {
-                buttonEnum = MINUS;
+            if (v == sl) {
+                buttonEnum = RIGHT_SL;
+            } else if (v == sr) {
+                buttonEnum = RIGHT_SR;
             } else if (v == y) {
                 buttonEnum = Y;
             } else if (v == a) {
@@ -295,43 +215,18 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     }
 
     @Override
-    public ImageButton getUp() {
-        return up;
-    }
-
-    @Override
-    public ImageButton getDown() {
-        return down;
-    }
-
-    @Override
-    public ImageButton getLeft() {
-        return left;
-    }
-
-    @Override
-    public ImageButton getRight() {
-        return right;
-    }
-
-    @Override
-    public ImageButton getZL() {
-        return zl;
+    public ImageButton getSr() {
+        return sr;
     }
 
     @Override
     public ImageButton getL() {
-        return l;
+        return null;
     }
 
     @Override
-    public ImageButton getMinus() {
-        return minus;
-    }
-
-    @Override
-    public ImageButton getCapture() {
-        return capture;
+    public ImageButton getSl() {
+        return sl;
     }
 
     @Override
@@ -345,16 +240,6 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     }
 
     @Override
-    public ImageButton getSL() {
-        return null;
-    }
-
-    @Override
-    public ImageButton getSR() {
-        return null;
-    }
-
-    @Override
     public ImageButton getA() {
         return a;
     }
@@ -365,13 +250,23 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     }
 
     @Override
-    public ImageButton getZR() {
+    public ImageButton getZr() {
         return zr;
+    }
+
+    @Override
+    public ImageButton getMinus() {
+        return null;
     }
 
     @Override
     public ImageButton getR() {
         return r;
+    }
+
+    @Override
+    public ImageButton getZl() {
+        return null;
     }
 
     @Override
@@ -385,25 +280,49 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     }
 
     @Override
+    public ImageButton getCapture() {
+        return null;
+    }
+
+    @Override
+    public ImageButton getLeft() {
+        return null;
+    }
+
+    @Override
+    public ImageButton getRight() {
+        return null;
+    }
+
+    @Override
+    public ImageButton getUp() {
+        return null;
+    }
+
+    @Override
+    public ImageButton getDown() {
+        return null;
+    }
+
+    @Override
     public ImageButton getSync() {
         return sync;
     }
 
     @Override
     public JoyStick getLeftJoyStick() {
-        return leftJoyStick;
+        return null;
     }
 
     @Override
     public JoyStick getRightJoyStick() {
-        return rightJoyStick;
+        return joyStick;
     }
 
     @Override
-    public boolean reverseJoyStickXY() {
-        return true;
+    public boolean reverseJoystickXy() {
+        return false;
     }
-
 
     @Override
     public void showAmiiboPicker() {
@@ -459,5 +378,4 @@ public class ProControllerFragment extends ControllerFragment implements View.On
             }
         }
     }
-
 }

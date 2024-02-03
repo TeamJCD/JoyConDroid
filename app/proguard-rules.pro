@@ -8,7 +8,7 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
--keepclassmembers class com.rdapps.gamepad.nintendo_switch.CustomFragment$JoyConJSInterface {
+-keepclassmembers class com.rdapps.gamepad.nintendoswitch.CustomFragment$JoyConJSInterface {
    public *;
 }
 -keepclassmembers class com.rdapps.gamepad.util.ControllerFunctions {

@@ -1,4 +1,4 @@
-package com.rdapps.gamepad.nintendo_switch;
+package com.rdapps.gamepad.nintendoswitch;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -21,23 +21,31 @@ import com.rdapps.gamepad.led.LedState;
 
 import java.util.Objects;
 
+import static com.rdapps.gamepad.button.ButtonEnum.A;
+import static com.rdapps.gamepad.button.ButtonEnum.B;
+import static com.rdapps.gamepad.button.ButtonEnum.CAPTURE;
+import static com.rdapps.gamepad.button.ButtonEnum.DOWN;
+import static com.rdapps.gamepad.button.ButtonEnum.HOME;
+import static com.rdapps.gamepad.button.ButtonEnum.L;
 import static com.rdapps.gamepad.button.ButtonEnum.LEFT;
-import static com.rdapps.gamepad.button.ButtonEnum.LEFT_SL;
-import static com.rdapps.gamepad.button.ButtonEnum.LEFT_SR;
 import static com.rdapps.gamepad.button.ButtonEnum.LEFT_STICK_BUTTON;
 import static com.rdapps.gamepad.button.ButtonEnum.MINUS;
+import static com.rdapps.gamepad.button.ButtonEnum.PLUS;
 import static com.rdapps.gamepad.button.ButtonEnum.RIGHT;
+import static com.rdapps.gamepad.button.ButtonEnum.UP;
+import static com.rdapps.gamepad.button.ButtonEnum.X;
+import static com.rdapps.gamepad.button.ButtonEnum.Y;
+import static com.rdapps.gamepad.button.ButtonEnum.ZL;
+import static com.rdapps.gamepad.button.ButtonEnum.ZR;
 import static com.rdapps.gamepad.button.ButtonState.BUTTON_DOWN;
-import static com.rdapps.gamepad.nintendo_switch.SwitchController.ButtonStates.UP;
+import static com.rdapps.gamepad.button.ButtonState.BUTTON_UP;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.BUTTON_PRESS;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.BUTTON_RELEASE;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.STICK_PRESS;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.STICK_RELEASE;
 
-public class LeftJoyConFragment extends ControllerFragment implements JoyStick.JoyStickListener, View.OnClickListener {
+public class ProControllerFragment extends ControllerFragment implements View.OnClickListener {
 
-    private ImageButton sr;
-    private ImageButton sl;
     private ImageButton up;
     private ImageButton down;
     private ImageButton left;
@@ -46,16 +54,26 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
     private ImageButton l;
     private ImageButton minus;
     private ImageButton capture;
+    private ImageButton x;
+    private ImageButton y;
+    private ImageButton a;
+    private ImageButton b;
+    private ImageButton zr;
+    private ImageButton r;
+    private ImageButton plus;
+    private ImageButton home;
     private ImageButton sync;
+
+    private JoyStick leftJoyStick;
+    private JoyStick rightJoyStick;
 
     private View led1;
     private View led2;
     private View led3;
     private View led4;
 
-    private JoyStick joyStick;
-
-    private boolean stickPressed = false;
+    private boolean rightStickPressed = false;
+    private boolean leftStickPressed = false;
 
     @Override
     public void onAttach(Context context) {
@@ -64,15 +82,13 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.left_joycon_layout, parent, false);
+        return inflater.inflate(R.layout.pro_controller_layout, parent, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         View.OnTouchListener buttonTouchListener = new ButtonTouchListener();
-        sr = view.findViewById(R.id.sr);
-        sl = view.findViewById(R.id.sl);
         up = view.findViewById(R.id.up);
         down = view.findViewById(R.id.down);
         left = view.findViewById(R.id.left);
@@ -81,7 +97,16 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
         zl = view.findViewById(R.id.zl);
         minus = view.findViewById(R.id.minus);
         capture = view.findViewById(R.id.capture);
-        joyStick = view.findViewById(R.id.joy);
+        leftJoyStick = view.findViewById(R.id.left_joy);
+        a = view.findViewById(R.id.a);
+        b = view.findViewById(R.id.b);
+        x = view.findViewById(R.id.x);
+        y = view.findViewById(R.id.y);
+        r = view.findViewById(R.id.r);
+        zr = view.findViewById(R.id.zr);
+        plus = view.findViewById(R.id.plus);
+        home = view.findViewById(R.id.home);
+        rightJoyStick = view.findViewById(R.id.right_joy);
         sync = view.findViewById(R.id.sync);
 
         led1 = view.findViewById(R.id.led1);
@@ -89,8 +114,6 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
         led3 = view.findViewById(R.id.led3);
         led4 = view.findViewById(R.id.led4);
 
-        sr.setOnTouchListener(buttonTouchListener);
-        sl.setOnTouchListener(buttonTouchListener);
         up.setOnTouchListener(buttonTouchListener);
         down.setOnTouchListener(buttonTouchListener);
         left.setOnTouchListener(buttonTouchListener);
@@ -99,32 +122,49 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
         zl.setOnTouchListener(buttonTouchListener);
         capture.setOnTouchListener(buttonTouchListener);
         minus.setOnTouchListener(buttonTouchListener);
-        joyStick.setListener(this);
+        leftJoyStick.setListener(new LeftStickListener());
+        a.setOnTouchListener(buttonTouchListener);
+        b.setOnTouchListener(buttonTouchListener);
+        x.setOnTouchListener(buttonTouchListener);
+        y.setOnTouchListener(buttonTouchListener);
+        r.setOnTouchListener(buttonTouchListener);
+        zr.setOnTouchListener(buttonTouchListener);
+        home.setOnTouchListener(buttonTouchListener);
+        plus.setOnTouchListener(buttonTouchListener);
+        rightJoyStick.setListener(new RightStickListener());
         sync.setOnClickListener(this);
     }
 
-    @Override
-    public void onMove(JoyStick joyStick, double angle, double power, int direction) {
-        if (Objects.isNull(device)) {
-            return;
+    private class LeftStickListener implements JoyStick.JoyStickListener {
+        @Override
+        public void onMove(JoyStick joyStick, double angle, double power, int direction) {
+            if (Objects.isNull(device)) {
+                return;
+            }
+
+            double x = power * Math.cos(angle) * -1;
+            double y = power * Math.sin(angle) * -1;
+
+            device.setAxis(AxisEnum.LEFT_STICK_X, (int) y);
+            device.setAxis(AxisEnum.LEFT_STICK_Y, (int) x);
         }
 
-        double x = power * Math.cos(angle) * -1;
-        double y = power * Math.sin(angle);
-        device.setAxis(AxisEnum.LEFT_STICK_X, (int) x);
-        device.setAxis(AxisEnum.LEFT_STICK_Y, (int) y);
-    }
+        @Override
+        public void onTap() {
+            if (Objects.isNull(device)) {
+                return;
+            }
 
-    @Override
-    public void onTap() {
-        if (Objects.isNull(device)) {
-            return;
+            setLeftStickPress(!leftStickPressed);
+            leftStickPressed = !leftStickPressed;
+
+            vibrate(leftStickPressed ? STICK_PRESS : STICK_RELEASE);
         }
 
-        setLeftStickPress(!stickPressed);
-        stickPressed = !stickPressed;
+        @Override
+        public void onDoubleTap() {
 
-        vibrate(stickPressed ? STICK_PRESS : STICK_RELEASE);
+        }
     }
 
     @Override
@@ -133,21 +173,54 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
             return false;
         }
 
-        device.setButton(LEFT_STICK_BUTTON, pressed ? SwitchController.ButtonStates.DOWN : UP);
-        joyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_blue));
-        joyStick.invalidate();
+        device.setButton(LEFT_STICK_BUTTON, pressed ? BUTTON_DOWN : BUTTON_UP);
+        leftJoyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_blue));
+        leftJoyStick.invalidate();
         return true;
+    }
+
+    private class RightStickListener implements JoyStick.JoyStickListener {
+        @Override
+        public void onMove(JoyStick joyStick, double angle, double power, int direction) {
+            if (Objects.isNull(device)) {
+                return;
+            }
+
+            double x = power * Math.cos(angle) * -1;
+            double y = power * Math.sin(angle) * -1;
+
+            device.setAxis(AxisEnum.RIGHT_STICK_X, (int) y);
+            device.setAxis(AxisEnum.RIGHT_STICK_Y, (int) x);
+        }
+
+        @Override
+        public void onTap() {
+            if (Objects.isNull(device)) {
+                return;
+            }
+
+            setRightStickPress(!rightStickPressed);
+            rightStickPressed = !rightStickPressed;
+
+            vibrate(rightStickPressed ? STICK_PRESS : STICK_RELEASE);
+        }
+
+        @Override
+        public void onDoubleTap() {
+
+        }
     }
 
     @Override
     public boolean setRightStickPress(boolean pressed) {
-        return false;
-    }
+        if (Objects.isNull(device)) {
+            return false;
+        }
 
-
-    @Override
-    public void onDoubleTap() {
-
+        device.setButton(ButtonEnum.RIGHT_STICK_BUTTON, pressed ? BUTTON_DOWN : BUTTON_UP);
+        rightJoyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_red));
+        rightJoyStick.invalidate();
+        return true;
     }
 
     @Override
@@ -170,10 +243,10 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
             int buttonState;
             if (action == MotionEvent.ACTION_DOWN) {
                 v.setPressed(true);
-                buttonState = SwitchController.ButtonStates.DOWN;
+                buttonState = BUTTON_DOWN;
             } else if (action == MotionEvent.ACTION_UP) {
                 v.setPressed(false);
-                buttonState = UP;
+                buttonState = BUTTON_UP;
             } else {
                 return false;
             }
@@ -181,42 +254,44 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
             vibrate(buttonState == BUTTON_DOWN ? BUTTON_PRESS : BUTTON_RELEASE);
 
             ButtonEnum buttonEnum;
-            if (v == sl) {
-                buttonEnum = LEFT_SL;
-            } else if (v == sr) {
-                buttonEnum = LEFT_SR;
-            } else if (v == left) {
+            if (v == left) {
                 buttonEnum = LEFT;
             } else if (v == right) {
                 buttonEnum = RIGHT;
             } else if (v == down) {
-                buttonEnum = ButtonEnum.DOWN;
+                buttonEnum = DOWN;
             } else if (v == up) {
-                buttonEnum = ButtonEnum.UP;
+                buttonEnum = UP;
             } else if (v == l) {
-                buttonEnum = ButtonEnum.L;
+                buttonEnum = L;
             } else if (v == zl) {
-                buttonEnum = ButtonEnum.ZL;
+                buttonEnum = ZL;
             } else if (v == capture) {
-                buttonEnum = ButtonEnum.CAPTURE;
+                buttonEnum = CAPTURE;
             } else if (v == minus) {
                 buttonEnum = MINUS;
+            } else if (v == y) {
+                buttonEnum = Y;
+            } else if (v == a) {
+                buttonEnum = A;
+            } else if (v == b) {
+                buttonEnum = B;
+            } else if (v == x) {
+                buttonEnum = X;
+            } else if (v == r) {
+                buttonEnum = ButtonEnum.R;
+            } else if (v == zr) {
+                buttonEnum = ZR;
+            } else if (v == home) {
+                buttonEnum = HOME;
+            } else if (v == plus) {
+                buttonEnum = PLUS;
             } else {
                 return false;
             }
             device.setButton(buttonEnum, buttonState);
             return true;
         }
-    }
-
-    @Override
-    public ImageButton getSR() {
-        return sr;
-    }
-
-    @Override
-    public ImageButton getSL() {
-        return sl;
     }
 
     @Override
@@ -240,13 +315,8 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
     }
 
     @Override
-    public ImageButton getZL() {
+    public ImageButton getZl() {
         return zl;
-    }
-
-    @Override
-    public ImageButton getZR() {
-        return null;
     }
 
     @Override
@@ -255,28 +325,63 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
     }
 
     @Override
-    public ImageButton getR() {
-        return null;
-    }
-
-    @Override
     public ImageButton getMinus() {
         return minus;
     }
 
     @Override
-    public ImageButton getPlus() {
+    public ImageButton getCapture() {
+        return capture;
+    }
+
+    @Override
+    public ImageButton getX() {
+        return x;
+    }
+
+    @Override
+    public ImageButton getY() {
+        return y;
+    }
+
+    @Override
+    public ImageButton getSl() {
         return null;
+    }
+
+    @Override
+    public ImageButton getSr() {
+        return null;
+    }
+
+    @Override
+    public ImageButton getA() {
+        return a;
+    }
+
+    @Override
+    public ImageButton getB() {
+        return b;
+    }
+
+    @Override
+    public ImageButton getZr() {
+        return zr;
+    }
+
+    @Override
+    public ImageButton getR() {
+        return r;
+    }
+
+    @Override
+    public ImageButton getPlus() {
+        return plus;
     }
 
     @Override
     public ImageButton getHome() {
-        return null;
-    }
-
-    @Override
-    public ImageButton getCapture() {
-        return capture;
+        return home;
     }
 
     @Override
@@ -286,37 +391,23 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
 
     @Override
     public JoyStick getLeftJoyStick() {
-        return joyStick;
+        return leftJoyStick;
     }
 
     @Override
     public JoyStick getRightJoyStick() {
-        return null;
+        return rightJoyStick;
     }
 
     @Override
-    public ImageButton getA() {
-        return null;
+    public boolean reverseJoystickXy() {
+        return true;
     }
 
-    @Override
-    public ImageButton getB() {
-        return null;
-    }
 
     @Override
-    public ImageButton getX() {
-        return null;
-    }
-
-    @Override
-    public ImageButton getY() {
-        return null;
-    }
-
-    @Override
-    public boolean reverseJoyStickXY() {
-        return false;
+    public void showAmiiboPicker() {
+        openFileSelectionDialog();
     }
 
     @Override
@@ -368,4 +459,5 @@ public class LeftJoyConFragment extends ControllerFragment implements JoyStick.J
             }
         }
     }
+
 }
