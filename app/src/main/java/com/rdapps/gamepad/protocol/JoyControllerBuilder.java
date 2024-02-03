@@ -2,7 +2,6 @@ package com.rdapps.gamepad.protocol;
 
 import android.content.Context;
 import android.os.Process;
-
 import com.rdapps.gamepad.amiibo.AmiiboConfig;
 import com.rdapps.gamepad.button.ButtonState;
 import com.rdapps.gamepad.command.handler.InputHandler;
@@ -11,11 +10,10 @@ import com.rdapps.gamepad.log.JoyConLog;
 import com.rdapps.gamepad.memory.ControllerMemory;
 import com.rdapps.gamepad.memory.DummySpiMemory;
 import com.rdapps.gamepad.memory.FileSpiMemory;
-import com.rdapps.gamepad.memory.RAFSPIMemory;
+import com.rdapps.gamepad.memory.RafSpiMemory;
 import com.rdapps.gamepad.memory.SpiMemory;
 import com.rdapps.gamepad.util.MacUtils;
 import com.rdapps.gamepad.util.PriorityThreadFactory;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.Executors;
@@ -107,7 +105,7 @@ public class JoyControllerBuilder {
     private void createMemory() {
         SpiMemory memory = null;
         try {
-            memory = createRAFSPIMemory();
+            memory = createRafSpiMemory();
         } catch (IOException e) {
             JoyConLog.log(TAG, "RAFSPIMemory Failed.", e);
         }
@@ -127,10 +125,10 @@ public class JoyControllerBuilder {
         this.memory = new ControllerMemory(memory);
     }
 
-    private RAFSPIMemory createRAFSPIMemory() throws IOException {
+    private RafSpiMemory createRafSpiMemory() throws IOException {
         String bluetoothName = type.getBtName();
         int memoryResource = type.getMemoryResource();
-        return new RAFSPIMemory(context, bluetoothName, memoryResource);
+        return new RafSpiMemory(context, bluetoothName, memoryResource);
     }
 
     private FileSpiMemory createFileMemory() throws IOException {

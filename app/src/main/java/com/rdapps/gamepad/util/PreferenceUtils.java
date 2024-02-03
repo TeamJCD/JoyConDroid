@@ -3,9 +3,7 @@ package com.rdapps.gamepad.util;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Base64;
-
 import androidx.preference.PreferenceManager;
-
 import java.util.Objects;
 import java.util.Optional;
 

@@ -1,5 +1,7 @@
 package com.rdapps.gamepad.command.handler.subcommand;
 
+import static com.rdapps.gamepad.report.InputReport.Type.SUBCOMMAND_REPLY_REPORT;
+
 import com.rdapps.gamepad.memory.ControllerMemory;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.protocol.JoyController;
@@ -7,13 +9,12 @@ import com.rdapps.gamepad.protocol.JoyControllerState;
 import com.rdapps.gamepad.report.InputReport;
 import com.rdapps.gamepad.report.OutputReport;
 
-import static com.rdapps.gamepad.report.InputReport.Type.SUBCOMMAND_REPLY_REPORT;
-
 class RequestDeviceInfoHandler implements SubCommandHandler {
-    private final static byte ACK = (byte) 0x82;
+    private static final byte ACK = (byte) 0x82;
 
     @Override
-    public InputReport handleRumbleAndSubCommand(JoyController joyController, OutputReport outputReport) {
+    public InputReport handleRumbleAndSubCommand(
+            JoyController joyController, OutputReport outputReport) {
         InputReport subCommandReply = new InputReport(SUBCOMMAND_REPLY_REPORT);
         subCommandReply.fillAckByte(ACK);
         subCommandReply.fillSubCommand(outputReport.getSubCommandId());
@@ -22,8 +23,6 @@ class RequestDeviceInfoHandler implements SubCommandHandler {
     }
 
     private void fillDeviceInformation(JoyController joyController, InputReport subcommandReply) {
-        ControllerMemory controllerMemory = joyController.getControllerMemory();
-        JoyControllerState state = joyController.getState();
         ControllerType controllerType = joyController.getControllerType();
         byte[] deviceInfo = new byte[12];
         //Firmware Version
@@ -42,6 +41,7 @@ class RequestDeviceInfoHandler implements SubCommandHandler {
         deviceInfo[3] = 0x02;
 
         // Mac Address
+        JoyControllerState state = joyController.getState();
         byte[] macBytes = state.getMacBytes();
         for (int i = 0; i < 6; i++) {
             deviceInfo[4 + i] = macBytes[6 - i - 1];
@@ -50,6 +50,7 @@ class RequestDeviceInfoHandler implements SubCommandHandler {
         deviceInfo[10] = 0x01;
         //If 01, colors in SPI are used. Otherwise, default ones.
         //  buffer[index + 11] = 0x01;
+        ControllerMemory controllerMemory = joyController.getControllerMemory();
         deviceInfo[11] = controllerMemory.read(0x601B, 1)[0];
         subcommandReply.fillData(14, deviceInfo);
     }

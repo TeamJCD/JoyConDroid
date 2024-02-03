@@ -1,12 +1,11 @@
 package com.rdapps.gamepad.toast;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
-
 import com.rdapps.gamepad.R;
-
-import static com.rdapps.gamepad.log.JoyConLog.log;
 
 public class ToastHelper {
     private static final String TAG = ToastHelper.class.getName();

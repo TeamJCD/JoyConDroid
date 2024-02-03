@@ -3,21 +3,19 @@ package com.rdapps.gamepad;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.rdapps.gamepad.fragment.FeatureSwitchFragment;
 import com.rdapps.gamepad.fragment.ResettableSettingFragment;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import java.util.List;
 import java.util.Objects;
 
-public class SettingsActivity extends AppCompatActivity implements FeatureSwitchFragment.FeatureSwitchListener {
+public class SettingsActivity extends AppCompatActivity
+        implements FeatureSwitchFragment.FeatureSwitchListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

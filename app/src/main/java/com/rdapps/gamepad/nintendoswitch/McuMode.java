@@ -3,7 +3,7 @@ package com.rdapps.gamepad.nintendoswitch;
 import lombok.Data;
 
 @Data
-public class MCUMode {
+public class McuMode {
     public enum State {
         NOT_INITIALIZED,
         IRC,

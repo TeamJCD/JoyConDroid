@@ -1,10 +1,10 @@
 package com.rdapps.gamepad;
 
-import android.content.Context;
+import static com.rdapps.gamepad.log.JoyConLog.log;
 
+import android.content.Context;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.platform.app.InstrumentationRegistry;
-
 import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.protocol.JoyController;
@@ -12,16 +12,11 @@ import com.rdapps.gamepad.protocol.JoyControllerBuilder;
 import com.rdapps.gamepad.report.InputReport;
 import com.rdapps.gamepad.sensor.AccelerometerEvent;
 import com.rdapps.gamepad.sensor.GyroscopeEvent;
-
+import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.Arrays;
-
-import static com.rdapps.gamepad.log.JoyConLog.log;
-
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class SensorTest {

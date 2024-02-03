@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.azeesoft.lib.colorpicker.ColorPickerDialog;
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.memory.ControllerMemory;
-import com.rdapps.gamepad.memory.RAFSPIMemory;
+import com.rdapps.gamepad.memory.RafSpiMemory;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.util.ByteUtils;
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class ColorPickerFragment extends Fragment
         section = (ColorSection) arguments.getSerializable(SECTION);
         try {
             eeprom = new ControllerMemory(
-                    new RAFSPIMemory(getContext(), type.getBtName(), type.getMemoryResource()));
+                    new RafSpiMemory(getContext(), type.getBtName(), type.getMemoryResource()));
         } catch (IOException e) {
             log(TAG, "EEPROM could not load.", e);
         }

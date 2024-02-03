@@ -134,43 +134,43 @@ public abstract class ControllerFragment extends Fragment {
     }
 
 
-    public abstract ImageButton getA();
+    public abstract ImageButton getImageButtonA();
 
-    public abstract ImageButton getB();
+    public abstract ImageButton getImageButtonB();
 
-    public abstract ImageButton getX();
+    public abstract ImageButton getImageButtonX();
 
-    public abstract ImageButton getY();
+    public abstract ImageButton getImageButtonY();
 
-    public abstract ImageButton getSl();
+    public abstract ImageButton getImageButtonSl();
 
-    public abstract ImageButton getSr();
+    public abstract ImageButton getImageButtonSr();
 
-    public abstract ImageButton getL();
+    public abstract ImageButton getImageButtonL();
 
-    public abstract ImageButton getR();
+    public abstract ImageButton getImageButtonR();
 
-    public abstract ImageButton getZl();
+    public abstract ImageButton getImageButtonZl();
 
-    public abstract ImageButton getZr();
+    public abstract ImageButton getImageButtonZr();
 
-    public abstract ImageButton getMinus();
+    public abstract ImageButton getImageButtonMinus();
 
-    public abstract ImageButton getPlus();
+    public abstract ImageButton getImageButtonPlus();
 
-    public abstract ImageButton getHome();
+    public abstract ImageButton getImageButtonHome();
 
-    public abstract ImageButton getCapture();
+    public abstract ImageButton getImageButtonCapture();
 
-    public abstract ImageButton getLeft();
+    public abstract ImageButton getImageButtonLeft();
 
-    public abstract ImageButton getRight();
+    public abstract ImageButton getImageButtonRight();
 
-    public abstract ImageButton getUp();
+    public abstract ImageButton getImageButtonUp();
 
-    public abstract ImageButton getDown();
+    public abstract ImageButton getImageButtonDown();
 
-    public abstract ImageButton getSync();
+    public abstract ImageButton getImageButtonSync();
 
     public abstract JoyStick getLeftJoyStick();
 
@@ -203,27 +203,27 @@ public abstract class ControllerFragment extends Fragment {
 
     private boolean dispatchButton(KeyEvent keyEvent, MotionEvent event, ButtonType buttonType) {
         return switch (buttonType) {
-            case LEFT -> dispatchEvent(getLeft(), event);
-            case RIGHT -> dispatchEvent(getRight(), event);
-            case UP -> dispatchEvent(getUp(), event);
-            case DOWN -> dispatchEvent(getDown(), event);
-            case B -> dispatchEvent(getB(), event);
-            case A -> dispatchEvent(getA(), event);
-            case Y -> dispatchEvent(getY(), event);
-            case X -> dispatchEvent(getX(), event);
-            case R -> dispatchEvent(getR(), event);
-            case ZR -> dispatchEvent(getZr(), event);
-            case RIGHT_SR, LEFT_SR -> dispatchEvent(getSr(), event);
-            case L -> dispatchEvent(getL(), event);
-            case ZL -> dispatchEvent(getZl(), event);
-            case RIGHT_SL, LEFT_SL -> dispatchEvent(getSl(), event);
-            case PLUS -> dispatchEvent(getPlus(), event);
-            case MINUS -> dispatchEvent(getMinus(), event);
-            case HOME -> dispatchEvent(getHome(), event);
-            case CAPTURE -> dispatchEvent(getCapture(), event);
+            case LEFT -> dispatchEvent(getImageButtonLeft(), event);
+            case RIGHT -> dispatchEvent(getImageButtonRight(), event);
+            case UP -> dispatchEvent(getImageButtonUp(), event);
+            case DOWN -> dispatchEvent(getImageButtonDown(), event);
+            case B -> dispatchEvent(getImageButtonB(), event);
+            case A -> dispatchEvent(getImageButtonA(), event);
+            case Y -> dispatchEvent(getImageButtonY(), event);
+            case X -> dispatchEvent(getImageButtonX(), event);
+            case R -> dispatchEvent(getImageButtonR(), event);
+            case ZR -> dispatchEvent(getImageButtonZr(), event);
+            case RIGHT_SR, LEFT_SR -> dispatchEvent(getImageButtonSr(), event);
+            case L -> dispatchEvent(getImageButtonL(), event);
+            case ZL -> dispatchEvent(getImageButtonZl(), event);
+            case RIGHT_SL, LEFT_SL -> dispatchEvent(getImageButtonSl(), event);
+            case PLUS -> dispatchEvent(getImageButtonPlus(), event);
+            case MINUS -> dispatchEvent(getImageButtonMinus(), event);
+            case HOME -> dispatchEvent(getImageButtonHome(), event);
+            case CAPTURE -> dispatchEvent(getImageButtonCapture(), event);
             case LEFT_STICK -> setLeftStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
             case RIGHT_STICK -> setRightStickPress(keyEvent.getAction() == KeyEvent.ACTION_DOWN);
-            case SYNC -> dispatchEvent(getSync(), event);
+            case SYNC -> dispatchEvent(getImageButtonSync(), event);
             default -> false;
         };
     }

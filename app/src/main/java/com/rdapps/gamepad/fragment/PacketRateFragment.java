@@ -8,15 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
-
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import java.util.Objects;
 
-public class PacketRateFragment extends Fragment implements ResettableSettingFragment, SeekBar.OnSeekBarChangeListener {
+public class PacketRateFragment extends Fragment
+        implements ResettableSettingFragment, SeekBar.OnSeekBarChangeListener {
 
     private static String TAG = PacketRateFragment.class.getName();
 
@@ -32,7 +30,8 @@ public class PacketRateFragment extends Fragment implements ResettableSettingFra
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.component_pps_setting, container, false);
         textView = view.findViewById(R.id.ppsTitle);
         seekBar = view.findViewById(R.id.ppsBar);

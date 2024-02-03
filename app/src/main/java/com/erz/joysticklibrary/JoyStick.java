@@ -28,7 +28,6 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-
 import com.rdapps.gamepad.R;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +36,8 @@ import lombok.Setter;
  * Created by edgarramirez on 10/30/15.
  * JoyStick view with lots of customizable options
  */
-public class JoyStick extends View implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+public class JoyStick extends View
+        implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
     public static final int DIRECTION_CENTER = -1;
     public static final int DIRECTION_LEFT = 0;
@@ -93,7 +93,7 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
     private int percentage = 25;
 
     //Background Bitmap
-    private Bitmap padBGBitmap = null;
+    private Bitmap padBgBitmap = null;
 
     //Button Bitmap
     private Bitmap buttonBitmap = null;
@@ -133,14 +133,19 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
                 buttonColor = typedArray.getColor(R.styleable.JoyStick_buttonColor, Color.RED);
                 stayPut = typedArray.getBoolean(R.styleable.JoyStick_stayPut, false);
                 percentage = typedArray.getInt(R.styleable.JoyStick_percentage, 25);
-                if (percentage > 50) percentage = 50;
-                if (percentage < 25) percentage = 25;
+                if (percentage > 50) {
+                    percentage = 50;
+                } else if (percentage < 25) {
+                    percentage = 25;
+                }
 
-                int padResId = typedArray.getResourceId(R.styleable.JoyStick_backgroundDrawable, -1);
-                int buttonResId = typedArray.getResourceId(R.styleable.JoyStick_buttonDrawable, -1);
+                int padResId = typedArray.getResourceId(
+                        R.styleable.JoyStick_backgroundDrawable, -1);
+                int buttonResId = typedArray.getResourceId(
+                        R.styleable.JoyStick_buttonDrawable, -1);
 
                 if (padResId > 0) {
-                    padBGBitmap = BitmapFactory.decodeResource(getResources(), padResId);
+                    padBgBitmap = BitmapFactory.decodeResource(getResources(), padResId);
                 }
                 if (buttonResId > 0) {
                     buttonBitmap = BitmapFactory.decodeResource(getResources(), buttonResId);
@@ -167,19 +172,22 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
 
     @Override
     public void onDraw(Canvas canvas) {
-        if (canvas == null) return;
-        if (padBGBitmap == null) {
+        if (canvas == null) {
+            return;
+        }
+        if (padBgBitmap == null) {
             paint.setColor(padColor);
             canvas.drawCircle(centerX, centerY, radius, paint);
         } else {
             temp.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
-            canvas.drawBitmap(padBGBitmap, null, temp, paint);
+            canvas.drawBitmap(padBgBitmap, null, temp, paint);
         }
         if (buttonBitmap == null) {
             paint.setColor(buttonColor);
             canvas.drawCircle(posX, posY, buttonRadius, paint);
         } else {
-            temp.set(posX - buttonRadius, posY - buttonRadius, posX + buttonRadius, posY + buttonRadius);
+            temp.set(posX - buttonRadius, posY - buttonRadius, posX + buttonRadius,
+                    posY + buttonRadius);
             canvas.drawBitmap(buttonBitmap, null, temp, paint);
         }
     }
@@ -199,8 +207,11 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
                 } else if (type == TYPE_2_AXIS_UP_DOWN) {
                     posX = centerX;
                 } else if (type == TYPE_4_AXIS) {
-                    if (Math.abs(posX - centerX) > Math.abs(posY - centerY)) posY = centerY;
-                    else posX = centerX;
+                    if (Math.abs(posX - centerX) > Math.abs(posY - centerY)) {
+                        posY = centerY;
+                    } else {
+                        posX = centerX;
+                    }
                 }
 
                 float abs = (float) Math.sqrt((posX - centerX) * (posX - centerX)
@@ -231,6 +242,7 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
                     invalidate();
                 }
                 break;
+            default:
         }
 
         if (listener != null) {
@@ -267,13 +279,17 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-        if (listener != null) listener.onTap();
+        if (listener != null) {
+            listener.onTap();
+        }
         return false;
     }
 
     @Override
     public boolean onDoubleTap(MotionEvent motionEvent) {
-        if (listener != null) listener.onDoubleTap();
+        if (listener != null) {
+            listener.onDoubleTap();
+        }
         return false;
     }
 
@@ -314,8 +330,11 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
     //percentage must be between 25 - 50
     public void setButtonRadiusScale(int scale) {
         percentage = scale;
-        if (percentage > 50) percentage = 50;
-        if (percentage < 25) percentage = 25;
+        if (percentage > 50) {
+            percentage = 50;
+        } else if (percentage < 25) {
+            percentage = 25;
+        }
     }
 
     public void enableStayPut(boolean enable) {
@@ -323,11 +342,11 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
     }
 
     public void setPadBackground(int resId) {
-        this.padBGBitmap = BitmapFactory.decodeResource(getResources(), resId);
+        this.padBgBitmap = BitmapFactory.decodeResource(getResources(), resId);
     }
 
     public void setPadBackground(Bitmap bitmap) {
-        this.padBGBitmap = bitmap;
+        this.padBgBitmap = bitmap;
     }
 
     public void setButtonDrawable(int resId) {

@@ -1,15 +1,13 @@
 package com.rdapps.gamepad.report;
 
-import com.rdapps.gamepad.util.ByteUtils;
-import com.rdapps.gamepad.vibrator.RumbleData;
-
-import java.util.Arrays;
-import java.util.Optional;
-
-import lombok.Data;
-
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.report.OutputReportMode.UNKNOWN;
+
+import com.rdapps.gamepad.util.ByteUtils;
+import com.rdapps.gamepad.vibrator.RumbleData;
+import java.util.Arrays;
+import java.util.Optional;
+import lombok.Data;
 
 @Data
 public class OutputReport {
@@ -48,7 +46,7 @@ public class OutputReport {
     }
 
     public String toString() {
-        return "Output Report Id: " + ByteUtils.encodeHexString(reportId) +
-                " data: " + ByteUtils.bytesToStringUppercase(data);
+        return "Output Report Id: " + ByteUtils.encodeHexString(reportId)
+                + " data: " + ByteUtils.bytesToStringUppercase(data);
     }
 }

@@ -6,22 +6,19 @@ import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-
 import com.rdapps.gamepad.log.JoyConLog;
 import com.rdapps.gamepad.model.CustomUiItem;
 import com.rdapps.gamepad.sql.CustomUiDbHandler;
 import com.rdapps.gamepad.toast.ToastHelper;
 import com.rdapps.gamepad.util.UnzipUtil;
-
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Objects;
+import org.apache.commons.io.FileUtils;
 
-public class RegisterUIActivity extends Activity {
-    private static final String TAG = RegisterUIActivity.class.getName();
+public class RegisterUiActivity extends Activity {
+    private static final String TAG = RegisterUiActivity.class.getName();
 
     public static final String ACTION_NAME = "com.rdapps.gamepad.registerui";
     public static final String EXTRA_UI_AUTHORITY = "JC_UI_AUTHORITY";
@@ -47,8 +44,9 @@ public class RegisterUIActivity extends Activity {
             String authority = extras.getString(EXTRA_UI_AUTHORITY);
             if (Objects.nonNull(authority)) {
                 Uri content = Uri.parse("content://" + authority + "/");
-                Cursor query = getContentResolver()
-                        .query(content, new String[]{ID, NAME, TYPE, VERSION, ENTRY, APP_VERSION}, null, null, null);
+                Cursor query = getContentResolver().query(content,
+                        new String[] { ID, NAME, TYPE, VERSION, ENTRY, APP_VERSION },
+                        null, null, null);
 
                 if (Objects.nonNull(query)) {
                     try {
@@ -59,7 +57,8 @@ public class RegisterUIActivity extends Activity {
                                 parent.mkdir();
                             }
 
-                            try (CustomUiDbHandler customUIDBHandler = new CustomUiDbHandler(this)) {
+                            try (CustomUiDbHandler customUIDBHandler =
+                                         new CustomUiDbHandler(this)) {
                                 for (int i = 0; i < count; i++) {
                                     query.moveToPosition(i);
 
@@ -72,9 +71,9 @@ public class RegisterUIActivity extends Activity {
                                     File folder = new File(parent, name + "_" + id);
                                     String path = Uri.fromFile(new File(folder, entry)).toString();
 
-                                    CustomUiItem customUI = customUIDBHandler.getCustomUi(path, id);
-                                    if (Objects.nonNull(customUI)) {
-                                        int oldVersion = customUI.getVersion();
+                                    CustomUiItem customUi = customUIDBHandler.getCustomUi(path, id);
+                                    if (Objects.nonNull(customUi)) {
+                                        int oldVersion = customUi.getVersion();
                                         if (oldVersion >= version) {
                                             ToastHelper.uiHasNewerVersion(this);
                                             finish();
@@ -90,8 +89,10 @@ public class RegisterUIActivity extends Activity {
                                             .appendQueryParameter(ID, id)
                                             .appendQueryParameter(NAME, name)
                                             .appendQueryParameter(TYPE, type)
-                                            .appendQueryParameter(VERSION, Integer.toString(version))
-                                            .appendQueryParameter(APP_VERSION, Integer.toString(appVersion))
+                                            .appendQueryParameter(VERSION,
+                                                    Integer.toString(version))
+                                            .appendQueryParameter(APP_VERSION,
+                                                    Integer.toString(appVersion))
                                             .appendQueryParameter(ENTRY, entry)
                                             .build();
 
@@ -105,9 +106,11 @@ public class RegisterUIActivity extends Activity {
                                     }
 
 
-                                    UnzipUtil unzipUtil = new UnzipUtil(uiBundle, folder.getAbsolutePath());
+                                    UnzipUtil unzipUtil =
+                                            new UnzipUtil(uiBundle, folder.getAbsolutePath());
                                     unzipUtil.unzip();
-                                    customUIDBHandler.insertUi(path, id, name, type, version, appVersion);
+                                    customUIDBHandler
+                                            .insertUi(path, id, name, type, version, appVersion);
                                 }
                             }
 

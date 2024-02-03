@@ -1,7 +1,6 @@
 package com.rdapps.gamepad.util;
 
 import android.util.Log;
-
 import com.google.android.gms.common.util.Hex;
 
 public class MacUtils {

@@ -10,18 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.toast.ToastHelper;
 import com.rdapps.gamepad.util.MacUtils;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import java.util.Objects;
 
-public class MacAddressFragment extends Fragment implements ResettableSettingFragment, View.OnClickListener {
+public class MacAddressFragment extends Fragment
+        implements ResettableSettingFragment, View.OnClickListener {
 
     private static final String TAG = MacAddressFragment.class.getName();
 
@@ -37,7 +35,8 @@ public class MacAddressFragment extends Fragment implements ResettableSettingFra
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.component_file_selector, container, false);
         ((TextView) view.findViewById(R.id.title)).setText(R.string.mac_address);
         textView = view.findViewById(R.id.selected_file_path);

@@ -1,9 +1,9 @@
-package com.rdapps.gamepad.nfc_ir_mcu;
+package com.rdapps.gamepad.nfcirmcu;
+
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.NON;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.McuState.NOT_INITIALIZED;
 
 import lombok.Data;
-
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.NON;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.MCUState.NOT_INITIALIZED;
 
 @Data
 public class NfcIrMcu {
@@ -19,7 +19,7 @@ public class NfcIrMcu {
         WRITE_TAG;
     }
 
-    public enum MCUState {
+    public enum McuState {
         NOT_INITIALIZED,
         IRC,
         NFC,
@@ -39,5 +39,5 @@ public class NfcIrMcu {
     private byte[] firmwareMajor = new byte[]{0x00, 0x08};
     private byte[] firmwareMinor = new byte[]{0x00, 0x1B};
     private Action action = NON;
-    private MCUState mcuState = NOT_INITIALIZED;
+    private McuState mcuState = NOT_INITIALIZED;
 }

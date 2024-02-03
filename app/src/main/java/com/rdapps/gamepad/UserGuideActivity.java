@@ -1,5 +1,7 @@
 package com.rdapps.gamepad;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,16 +13,11 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.rdapps.gamepad.util.ControllerFunctions;
 import com.rdapps.gamepad.util.PreferenceUtils;
-
 import java.util.Locale;
 import java.util.Optional;
-
-import static com.rdapps.gamepad.log.JoyConLog.log;
 
 public class UserGuideActivity extends AppCompatActivity {
 
@@ -36,24 +33,25 @@ public class UserGuideActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_user_guide);
 
+        WebView webView = findViewById(R.id.webContent);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        Locale defaultLocale = Locale.getDefault();
+        log("Locale", "Locale:" + defaultLocale);
+        webSettings.setMediaPlaybackRequiresUserGesture(false);
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+
         String url = Optional.ofNullable(getIntent())
                 .map(intent -> intent.getStringExtra(PATH))
                 .map(path -> BASE_URL + path)
                 .orElse(BASE_URL);
 
-        WebView webView = findViewById(R.id.webContent);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        Locale aDefault = Locale.getDefault();
-        log("Locale", "Locale:" + aDefault.toString());
-        webSettings.setMediaPlaybackRequiresUserGesture(false);
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-
         webView.loadUrl(url);
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            public void onReceivedError(
+                    WebView view, WebResourceRequest request, WebResourceError error) {
                 webView.loadUrl("file:///android_asset/error.html");
             }
         });

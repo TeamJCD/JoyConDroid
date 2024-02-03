@@ -1,6 +1,6 @@
 package com.rdapps.gamepad.nx.constant;
 
-public class NXConstants {
+public class NxConstants {
 
     public static final byte BUTTON_REPORT = 0x3F;
     public static final byte SUBCOMMAND_REPLY_REPORT = 0x21;

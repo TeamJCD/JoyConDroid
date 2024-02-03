@@ -1,7 +1,6 @@
 package com.rdapps.gamepad.command.handler.subcommand;
 
 import java.util.Arrays;
-
 import lombok.Getter;
 
 @Getter
@@ -19,12 +18,12 @@ public enum SubCommand {
     //SET_HCI_STATE(0x06),
     //RESET_PAIRING_INFO(0x07),
     SET_SHIPMENT_LOW_POWER_STATE(0x08, new SetShipmentLowPowerStateHandler()),
-    SPI_FLASH_READ(0x10, new SPIFlashReadHandler()),
-    SPI_FLASH_WRITE(0x11, new SPIFLashWriteHandler()),
+    SPI_FLASH_READ(0x10, new SpiFlashReadHandler()),
+    SPI_FLASH_WRITE(0x11, new SpiFlashWriteHandler()),
     //SPI_SECTOR_ERASE(0x12),
     //RESET_NFC_IR_MCU(0x20),
-    SET_NFC_IR_MCU_CONFIG(0x21, new SetNFCIRMCUConfigHandler()),
-    SET_NFC_IR_STATE(0x22, new SetNFCIRMCUStateHandler()),
+    SET_NFC_IR_MCU_CONFIG(0x21, new SetNfcIrMcuConfigHandler()),
+    SET_NFC_IR_STATE(0x22, new SetNfcIrMcuStateHandler()),
     //SET_UNKNOWN(0x24),
     //RESET_UNKNOWN(0x25),
     //TODO .... BUNCH OF THINGS
@@ -32,7 +31,7 @@ public enum SubCommand {
     GET_PLAYER_LIGHTS(0x31, new GetPlayerLightsHandler()),
     //SET_HOME_LIGHT(0x38),
     ENABLE_IMU_6_AXIS_SENSOR(0x40, new EnableImu6AxisSensorHandler()),
-    SET_IMU_6_AXIS_SENSITIVITY(0x41, new SetIMU6AxisSensitivityHandler()),
+    SET_IMU_6_AXIS_SENSITIVITY(0x41, new SetImu6AxisSensitivityHandler()),
     //WRITE_TO_IMU_REGISTERS(0x42),
     //READ_FROM_IMU_REGISTERS(0x43),
     ENABLE_VIBRATION(0x48, new EnableVibrationHandler()),

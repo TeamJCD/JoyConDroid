@@ -384,77 +384,77 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public ImageButton getSr() {
+    public ImageButton getImageButtonSr() {
         return null;
     }
 
     @Override
-    public ImageButton getSl() {
+    public ImageButton getImageButtonSl() {
         return null;
     }
 
     @Override
-    public ImageButton getUp() {
+    public ImageButton getImageButtonUp() {
         return null;
     }
 
     @Override
-    public ImageButton getDown() {
+    public ImageButton getImageButtonDown() {
         return null;
     }
 
     @Override
-    public ImageButton getLeft() {
+    public ImageButton getImageButtonLeft() {
         return null;
     }
 
     @Override
-    public ImageButton getRight() {
+    public ImageButton getImageButtonRight() {
         return null;
     }
 
     @Override
-    public ImageButton getZl() {
+    public ImageButton getImageButtonZl() {
         return null;
     }
 
     @Override
-    public ImageButton getZr() {
+    public ImageButton getImageButtonZr() {
         return null;
     }
 
     @Override
-    public ImageButton getL() {
+    public ImageButton getImageButtonL() {
         return null;
     }
 
     @Override
-    public ImageButton getR() {
+    public ImageButton getImageButtonR() {
         return null;
     }
 
     @Override
-    public ImageButton getMinus() {
+    public ImageButton getImageButtonMinus() {
         return null;
     }
 
     @Override
-    public ImageButton getPlus() {
+    public ImageButton getImageButtonPlus() {
         return null;
     }
 
     @Override
-    public ImageButton getHome() {
+    public ImageButton getImageButtonHome() {
         return null;
     }
 
     @Override
-    public ImageButton getCapture() {
+    public ImageButton getImageButtonCapture() {
         return null;
     }
 
     @Override
-    public ImageButton getSync() {
+    public ImageButton getImageButtonSync() {
         return null;
     }
 
@@ -469,22 +469,22 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public ImageButton getA() {
+    public ImageButton getImageButtonA() {
         return null;
     }
 
     @Override
-    public ImageButton getB() {
+    public ImageButton getImageButtonB() {
         return null;
     }
 
     @Override
-    public ImageButton getX() {
+    public ImageButton getImageButtonX() {
         return null;
     }
 
     @Override
-    public ImageButton getY() {
+    public ImageButton getImageButtonY() {
         return null;
     }
 

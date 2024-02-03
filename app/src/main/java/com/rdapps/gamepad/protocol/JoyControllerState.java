@@ -1,22 +1,20 @@
 package com.rdapps.gamepad.protocol;
 
-import com.google.android.gms.common.util.Hex;
-import com.rdapps.gamepad.battery.BatteryData;
-import com.rdapps.gamepad.memory.SpiMemory;
-import com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu;
-import com.rdapps.gamepad.report.InputReportMode;
-import com.rdapps.gamepad.vibrator.VibratorData;
-
-import java.util.concurrent.atomic.AtomicInteger;
-
-import lombok.Getter;
-import lombok.Setter;
-
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.report.InputReportMode.NFC_IR_MODE;
 import static com.rdapps.gamepad.report.InputReportMode.SIMPLE_HID;
 import static com.rdapps.gamepad.util.ByteUtils.toShort;
 import static java.lang.Math.PI;
+
+import com.google.android.gms.common.util.Hex;
+import com.rdapps.gamepad.battery.BatteryData;
+import com.rdapps.gamepad.memory.SpiMemory;
+import com.rdapps.gamepad.nfcirmcu.NfcIrMcu;
+import com.rdapps.gamepad.report.InputReportMode;
+import com.rdapps.gamepad.vibrator.VibratorData;
+import java.util.concurrent.atomic.AtomicInteger;
+import lombok.Getter;
+import lombok.Setter;
 
 public class JoyControllerState {
     private static final String TAG = JoyControllerState.class.getName();
@@ -120,7 +118,7 @@ public class JoyControllerState {
     public void setInputReportMode(InputReportMode inputReportMode) {
         this.inputReportMode = inputReportMode;
         if (inputReportMode != NFC_IR_MODE) {
-            nfcIrMcu.setMcuState(NfcIrMcu.MCUState.NOT_INITIALIZED);
+            nfcIrMcu.setMcuState(NfcIrMcu.McuState.NOT_INITIALIZED);
             nfcIrMcu.setAction(NfcIrMcu.Action.NON);
         }
     }

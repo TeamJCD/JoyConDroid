@@ -1,12 +1,14 @@
 package com.rdapps.gamepad.protocol;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
+
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-
 import android.os.Build;
 import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.BuildConfig;
@@ -26,7 +28,6 @@ import com.rdapps.gamepad.sensor.AccelerometerEvent;
 import com.rdapps.gamepad.sensor.GyroscopeEvent;
 import com.rdapps.gamepad.util.ByteUtils;
 import com.rdapps.gamepad.util.ThreadUtil;
-
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -35,12 +36,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import lombok.Getter;
 import lombok.Setter;
-
-import static com.rdapps.gamepad.log.JoyConLog.log;
-import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 public class JoyController extends AbstractDevice {
     private static final String TAG = JoyController.class.getName();
@@ -151,7 +148,7 @@ public class JoyController extends AbstractDevice {
     @Override
     public void setRemoteDevice(BluetoothDevice pluggedDevice) {
         super.setRemoteDevice(pluggedDevice);
-//        TODO Is handshake needed?
+        // TODO Is handshake needed?
         if (Objects.nonNull(pluggedDevice)) {
             log(TAG, "Handshake sent.");
             startHandShake();
@@ -184,7 +181,7 @@ public class JoyController extends AbstractDevice {
                 ControllerType controllerType = getControllerType();
                 long delay = getDelay();
                 long endTime = System.nanoTime();
-                long wait = ((startTime + delay) - endTime)/ 1000_000L;
+                long wait = ((startTime + delay) - endTime) / 1000_000L;
                 if (wait > 0) {
                     ThreadUtil.safeSleep((int) wait);
                 }
@@ -221,8 +218,8 @@ public class JoyController extends AbstractDevice {
                 if ((playerLights & 1) == 1) {
                     leds[i % 4] = (i / 4 == 0) ? LedState.ON : LedState.BLINK;
                 }
-                i ++;
-                playerLights = (byte)(playerLights >>> 1);
+                i++;
+                playerLights = (byte) (playerLights >>> 1);
             }
 
             listener.setPlayerLights(leds[0], leds[1], leds[2], leds[3]);
@@ -246,7 +243,8 @@ public class JoyController extends AbstractDevice {
 
     @Override
     public void onSetReport(BluetoothDevice device, byte type, byte id, byte[] data) {
-        log(TAG, "Set Report Type: " + type + " Id: " + id + " data: " + Hex.bytesToStringUppercase(data), true);
+        log(TAG, "Set Report Type: " + type + " Id: " + id + " data: "
+                + Hex.bytesToStringUppercase(data), true);
     }
 
     @Override

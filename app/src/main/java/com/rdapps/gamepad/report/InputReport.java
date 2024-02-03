@@ -28,44 +28,44 @@ import static com.rdapps.gamepad.button.ButtonEnum.Y;
 import static com.rdapps.gamepad.button.ButtonEnum.ZL;
 import static com.rdapps.gamepad.button.ButtonEnum.ZR;
 import static com.rdapps.gamepad.log.JoyConLog.log;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.READ_TAG;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.READ_TAG_2;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.READ_TAG_FINISHED;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.START_TAG_DISCOVERY;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.START_TAG_DISCOVERY_AUTO_MOVE;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.START_TAG_POLLING;
-import static com.rdapps.gamepad.nx.constant.NXConstants.CAPTURE_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.DOWN_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_A_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_B_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_CAPTURE_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_DOWN_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_HOME_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_LEFT_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_LEFT_STICK_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_L_R_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_MINUS_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_PLUS_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_RIGHT_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_RIGHT_STICK_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_SL_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_SR_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_UP_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_X_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_Y_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_ZL_ZR_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.HOME_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.LEFT_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.LEFT_STICK_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.L_R_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.MINUS_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.PLUS_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.RIGHT_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.RIGHT_STICK_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.SL_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.SR_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.UP_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.ZL_ZR_BIT;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG_2;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG_FINISHED;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_DISCOVERY;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_DISCOVERY_AUTO_MOVE;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_POLLING;
+import static com.rdapps.gamepad.nx.constant.NxConstants.CAPTURE_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.DOWN_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_A_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_B_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_CAPTURE_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_DOWN_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_HOME_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_LEFT_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_LEFT_STICK_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_L_R_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_MINUS_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_PLUS_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_RIGHT_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_RIGHT_STICK_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_SL_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_SR_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_UP_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_X_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_Y_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_ZL_ZR_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.HOME_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.LEFT_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.LEFT_STICK_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.L_R_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.MINUS_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.PLUS_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.RIGHT_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.RIGHT_STICK_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.SL_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.SR_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.UP_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.ZL_ZR_BIT;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
@@ -77,7 +77,7 @@ import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.amiibo.AmiiboConfig;
 import com.rdapps.gamepad.battery.BatteryData;
 import com.rdapps.gamepad.button.ButtonState;
-import com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu;
+import com.rdapps.gamepad.nfcirmcu.NfcIrMcu;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.protocol.JoyController;
 import com.rdapps.gamepad.protocol.JoyControllerState;
@@ -335,12 +335,14 @@ public class InputReport {
         //log(TAG, "accSize: " + accEvents.length);
         if (accEvents.length > 0) {
             int start = 0;
-            int end = accEvents.length - 1;
             //Start
 
             accs[0] = accEvents[start].values[0];
             accs[1] = accEvents[start].values[1];
             accs[2] = accEvents[start].values[2];
+
+            int end = accEvents.length - 1;
+
             accs[6] = accEvents[end].values[0];
             accs[7] = accEvents[end].values[1];
             accs[8] = accEvents[end].values[2];
@@ -357,11 +359,13 @@ public class InputReport {
         //log(TAG, "gyrSize: " + gyrEvents.length);
         if (gyrEvents.length > 0) {
             int start = 0;
-            int end = gyrEvents.length - 1;
             //Start
             gyrs[0] = gyrEvents[start].values[0];
             gyrs[1] = gyrEvents[start].values[1];
             gyrs[2] = gyrEvents[start].values[2];
+
+            int end = gyrEvents.length - 1;
+
             gyrs[6] = gyrEvents[end].values[0];
             gyrs[7] = gyrEvents[end].values[1];
             gyrs[8] = gyrEvents[end].values[2];
@@ -452,8 +456,6 @@ public class InputReport {
     }
 
     private void fillReadFinished(JoyController controller) {
-        AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
-        byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
         //NFC State/Tag Info
         buffer[48] = (byte) 0x2a;
         //Error Code
@@ -463,16 +465,18 @@ public class InputReport {
         buffer[51] = (byte) 0x00;
         buffer[52] = (byte) 0x00;
         byte[] bytes = Hex.stringToBytes("0931040000000101020007");
+        AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
+        byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
         System.arraycopy(bytes, 0, buffer, 53, bytes.length);
         System.arraycopy(amiiboBytes, 0, buffer, 53 + bytes.length, 3);
         System.arraycopy(amiiboBytes, 4, buffer, 53 + 3 + bytes.length, 4);
     }
 
     private void fillNfcIrStatus(JoyControllerState state) {
-        NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
         buffer[48] = 0x01;
         buffer[49] = 0x00;
         buffer[50] = 0x00;
+        NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
         System.arraycopy(nfcIrMcu.getFirmwareMajor(), 0, buffer, 51, 2);
         System.arraycopy(nfcIrMcu.getFirmwareMinor(), 0, buffer, 53, 2);
         buffer[55] = nfcIrMcu.getMcuState().getByte();
@@ -509,8 +513,6 @@ public class InputReport {
     }
 
     private void fillTagPolling(JoyController controller) {
-        AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
-        byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
         //NFC State/Tag Info
         buffer[48] = (byte) 0x2a;
         //Error Code
@@ -519,6 +521,8 @@ public class InputReport {
         buffer[50] = (byte) 0x05;
         buffer[51] = 0x00;
         buffer[52] = 0x00;
+        AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
+        byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
         if (Objects.isNull(amiiboBytes)) {
             buffer[53] = 0x09;
             buffer[54] = 0x31;
@@ -535,7 +539,7 @@ public class InputReport {
 
     private void fillReadTag(JoyController controller) {
         JoyControllerState state = controller.getState();
-        NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
+        final NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
         AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
         byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
         //NFC TAG read

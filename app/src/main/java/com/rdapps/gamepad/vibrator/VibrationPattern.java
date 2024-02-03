@@ -1,10 +1,9 @@
 package com.rdapps.gamepad.vibrator;
 
-import android.os.VibrationEffect;
-
-import lombok.Getter;
-
 import static android.os.VibrationEffect.DEFAULT_AMPLITUDE;
+
+import android.os.VibrationEffect;
+import lombok.Getter;
 
 @Getter
 public enum VibrationPattern {
@@ -17,8 +16,7 @@ public enum VibrationPattern {
             new int[]{50, 30, 25},
             -1));
 
-    final
-    VibrationEffect vibrationEffect;
+    final VibrationEffect vibrationEffect;
 
     VibrationPattern(VibrationEffect vibrationEffect) {
         this.vibrationEffect = vibrationEffect;

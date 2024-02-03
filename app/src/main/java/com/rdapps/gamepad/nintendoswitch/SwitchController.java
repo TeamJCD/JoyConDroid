@@ -1,101 +1,65 @@
 package com.rdapps.gamepad.nintendoswitch;
 
-import android.Manifest;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothHidDevice;
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.os.Build;
-import android.os.Process;
-import android.util.Log;
-
-import com.google.android.gms.common.util.Hex;
-import com.rdapps.gamepad.device.AbstractDevice;
-import com.rdapps.gamepad.log.JoyConLog;
-import com.rdapps.gamepad.memory.FileSpiMemory;
-import com.rdapps.gamepad.memory.RAFSPIMemory;
-import com.rdapps.gamepad.memory.SpiMemory;
-import com.rdapps.gamepad.protocol.ControllerType;
-import com.rdapps.gamepad.service.BluetoothControllerService;
-import com.rdapps.gamepad.util.ByteUtils;
-import com.rdapps.gamepad.util.MacUtils;
-import com.rdapps.gamepad.util.PreferenceUtils;
-import com.rdapps.gamepad.util.PriorityThreadFactory;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
-import lombok.Data;
-import lombok.Setter;
-
 import static androidx.core.math.MathUtils.clamp;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.nintendoswitch.InputMode.NFC_IR_MODE;
 import static com.rdapps.gamepad.nintendoswitch.InputMode.SIMPLE_HID_MODE;
 import static com.rdapps.gamepad.nintendoswitch.InputMode.STANDARD_FULL_MODE;
-import static com.rdapps.gamepad.nx.constant.NXConstants.ACK;
-import static com.rdapps.gamepad.nx.constant.NXConstants.BLUETOOTH_MANUAL_PAIRING;
-import static com.rdapps.gamepad.nx.constant.NXConstants.BUTTON_REPORT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.CAPTURE_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.CONTROLLER_STATE;
-import static com.rdapps.gamepad.nx.constant.NXConstants.DOWN_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_A_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_BUTTON_REPORT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_B_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_CAPTURE_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_DOWN_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_HOME_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_LEFT_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_LEFT_STICK_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_L_R_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_MINUS_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_PLUS_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_RIGHT_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_RIGHT_STICK_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_SL_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_SR_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_UP_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_X_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_Y_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.FULL_ZL_ZR_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.HOME_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.LEFT_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.LEFT_STICK_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.L_R_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.MINUS_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.NFC_IR_REPORT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.PLUS_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_AXIS_SENSOR;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_DEVICE_INFO;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_INPUT_REPORT_MODE;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_NFC_IR_MCU;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_RUMBLE_AND_SUBCOMMAND;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_RUMBLE_ONLY;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_SET_NFC_IR_CONFIGURATION;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_SET_NFC_IR_STATE;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_SET_PLAYER_LIGHTS;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_SET_SHIPMENT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_SPI_FLASH_READ;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_SPI_FLASH_WRITE;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_TRIGGER_BUTTONS;
-import static com.rdapps.gamepad.nx.constant.NXConstants.REQUEST_VIBRATION;
-import static com.rdapps.gamepad.nx.constant.NXConstants.RIGHT_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.RIGHT_STICK_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.SET_IMU_SENSITIVITY;
-import static com.rdapps.gamepad.nx.constant.NXConstants.SIMPLE_HID_REPORT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.SL_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.SR_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.SUBCOMMAND_REPLY_REPORT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.UP_BIT;
-import static com.rdapps.gamepad.nx.constant.NXConstants.ZL_ZR_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.ACK;
+import static com.rdapps.gamepad.nx.constant.NxConstants.BLUETOOTH_MANUAL_PAIRING;
+import static com.rdapps.gamepad.nx.constant.NxConstants.BUTTON_REPORT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.CAPTURE_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.CONTROLLER_STATE;
+import static com.rdapps.gamepad.nx.constant.NxConstants.DOWN_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_A_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_BUTTON_REPORT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_B_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_CAPTURE_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_DOWN_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_HOME_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_LEFT_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_LEFT_STICK_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_L_R_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_MINUS_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_PLUS_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_RIGHT_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_RIGHT_STICK_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_SL_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_SR_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_UP_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_X_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_Y_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_ZL_ZR_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.HOME_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.LEFT_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.LEFT_STICK_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.L_R_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.MINUS_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.NFC_IR_REPORT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.PLUS_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_AXIS_SENSOR;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_DEVICE_INFO;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_INPUT_REPORT_MODE;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_NFC_IR_MCU;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_RUMBLE_AND_SUBCOMMAND;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_RUMBLE_ONLY;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_SET_NFC_IR_CONFIGURATION;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_SET_NFC_IR_STATE;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_SET_PLAYER_LIGHTS;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_SET_SHIPMENT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_SPI_FLASH_READ;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_SPI_FLASH_WRITE;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_TRIGGER_BUTTONS;
+import static com.rdapps.gamepad.nx.constant.NxConstants.REQUEST_VIBRATION;
+import static com.rdapps.gamepad.nx.constant.NxConstants.RIGHT_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.RIGHT_STICK_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.SET_IMU_SENSITIVITY;
+import static com.rdapps.gamepad.nx.constant.NxConstants.SIMPLE_HID_REPORT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.SL_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.SR_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.SUBCOMMAND_REPLY_REPORT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.UP_BIT;
+import static com.rdapps.gamepad.nx.constant.NxConstants.ZL_ZR_BIT;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
@@ -105,6 +69,39 @@ import static java.lang.Short.MAX_VALUE;
 import static java.lang.Short.MIN_VALUE;
 import static java.lang.Short.toUnsignedInt;
 
+import android.Manifest;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothHidDevice;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.os.Build;
+import android.os.Process;
+import android.util.Log;
+import com.google.android.gms.common.util.Hex;
+import com.rdapps.gamepad.device.AbstractDevice;
+import com.rdapps.gamepad.log.JoyConLog;
+import com.rdapps.gamepad.memory.FileSpiMemory;
+import com.rdapps.gamepad.memory.RafSpiMemory;
+import com.rdapps.gamepad.memory.SpiMemory;
+import com.rdapps.gamepad.protocol.ControllerType;
+import com.rdapps.gamepad.service.BluetoothControllerService;
+import com.rdapps.gamepad.util.ByteUtils;
+import com.rdapps.gamepad.util.MacUtils;
+import com.rdapps.gamepad.util.PreferenceUtils;
+import com.rdapps.gamepad.util.PriorityThreadFactory;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import lombok.Data;
+import lombok.Setter;
+
 public class SwitchController extends AbstractDevice {
     private static final String TAG = SwitchController.class.getName();
 
@@ -113,10 +110,11 @@ public class SwitchController extends AbstractDevice {
     private static final String HID_DESCRIPTION = "Gamepad";
     private static final String HID_PROVIDER = "Nintendo";
     private static final String DESCRIPTOR
-            = "05010905a1010601ff85210921750895308102853009307508953081028531093175089669018102853209327508966901810285"
-            + "33093375089669018102853f05091901291015002501750195108102050109391500250775049501814205097504950181010501"
-            + "093009310933093416000027ffff00007510950481020601ff850109017508953091028510091075089530910285110911750895"
-            + "30910285120912750895309102c0";
+            = "05010905a1010601ff852109217508953081028530093075089530810285310931750896690181028532"
+            + "0932750896690181028533093375089669018102853f0509190129101500250175019510810205010939"
+            + "1500250775049501814205097504950181010501093009310933093416000027ffff0000751095048102"
+            + "0601ff850109017508953091028510091075089530910285110911750895309102851209127508953091"
+            + "02c0";
 
 
     private static final long WAIT_BEFORE_HANDSHAKE_MS = 1000;
@@ -134,7 +132,7 @@ public class SwitchController extends AbstractDevice {
     private final BluetoothControllerService service;
     private final boolean amiiboEnabled;
     private volatile InputMode inputMode;
-    private final MCUMode mcuMode;
+    private final McuMode mcuMode;
 
     @Setter
     private volatile byte[] amiiboBytes;
@@ -171,7 +169,7 @@ public class SwitchController extends AbstractDevice {
         Context context = service.getApplicationContext();
         try {
             String btName = type.getBtName();
-            this.eeprom = new RAFSPIMemory(context, btName, type.getMemoryResource());
+            this.eeprom = new RafSpiMemory(context, btName, type.getMemoryResource());
         } catch (Exception e) {
             Log.e(TAG, "RAFEEPROM Failed.", e);
             try {
@@ -191,7 +189,7 @@ public class SwitchController extends AbstractDevice {
         );
         calculateCoeffs();
         this.amiiboBytes = null;
-        this.mcuMode = new MCUMode();
+        this.mcuMode = new McuMode();
         this.amiiboBytes = PreferenceUtils.getAmiiboBytes(context);
     }
 
@@ -217,183 +215,183 @@ public class SwitchController extends AbstractDevice {
         }
     }
 
-    public void setLeftSLState(int buttonState) {
-        this.buttonStates.setLeft_sl(buttonState);
+    public void setStateLeftSl(int buttonState) {
+        this.buttonStates.setButtonLeftSl(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setLeftSRState(int buttonState) {
-        this.buttonStates.setLeft_sr(buttonState);
+    public void setStateLeftSr(int buttonState) {
+        this.buttonStates.setButtonLeftSr(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setRightSLState(int buttonState) {
-        this.buttonStates.setRight_sl(buttonState);
+    public void setStateRightSl(int buttonState) {
+        this.buttonStates.setButtonRightSl(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setRightSRState(int buttonState) {
-        this.buttonStates.setRight_sr(buttonState);
+    public void setStateRightSr(int buttonState) {
+        this.buttonStates.setButtonRightSr(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setLeftState(int buttonState) {
-        this.buttonStates.setLeft(buttonState);
+    public void setStateLeft(int buttonState) {
+        this.buttonStates.setButtonLeft(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setRightState(int buttonState) {
-        this.buttonStates.setRight(buttonState);
+    public void setStateRight(int buttonState) {
+        this.buttonStates.setButtonRight(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setUpState(int buttonState) {
-        this.buttonStates.setUp(buttonState);
+    public void setStateUp(int buttonState) {
+        this.buttonStates.setButtonUp(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setDownState(int buttonState) {
-        this.buttonStates.setDown(buttonState);
+    public void setStateDown(int buttonState) {
+        this.buttonStates.setButtonDown(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setYState(int buttonState) {
-        this.buttonStates.setY(buttonState);
+    public void setStateY(int buttonState) {
+        this.buttonStates.setButtonY(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setAState(int buttonState) {
-        this.buttonStates.setA(buttonState);
+    public void setStateA(int buttonState) {
+        this.buttonStates.setButtonA(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setXState(int buttonState) {
-        this.buttonStates.setX(buttonState);
+    public void setStateX(int buttonState) {
+        this.buttonStates.setButtonX(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setBState(int buttonState) {
-        this.buttonStates.setB(buttonState);
+    public void setStateB(int buttonState) {
+        this.buttonStates.setButtonB(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setL(int buttonState) {
-        this.buttonStates.setL(buttonState);
+        this.buttonStates.setButtonL(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setZL(int buttonState) {
-        this.buttonStates.setZl(buttonState);
+    public void setZl(int buttonState) {
+        this.buttonStates.setButtonZl(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setR(int buttonState) {
-        this.buttonStates.setR(buttonState);
+        this.buttonStates.setButtonR(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
-    public void setZR(int buttonState) {
-        this.buttonStates.setZr(buttonState);
+    public void setZr(int buttonState) {
+        this.buttonStates.setButtonZr(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setMinus(int buttonState) {
-        this.buttonStates.setMinus(buttonState);
+        this.buttonStates.setButtonMinus(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setPlus(int buttonState) {
-        this.buttonStates.setPlus(buttonState);
+        this.buttonStates.setButtonPlus(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setCapture(int buttonState) {
-        this.buttonStates.setCapture(buttonState);
+        this.buttonStates.setButtonCapture(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setHome(int buttonState) {
-        this.buttonStates.setHome(buttonState);
+        this.buttonStates.setButtonHome(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setLeftStickX(int stickValue) {
-        this.buttonStates.setLeft_stick_x(stickValue);
+        this.buttonStates.setLeftStickX(stickValue);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setLeftStickY(int stickValue) {
-        this.buttonStates.setLeft_stick_y(stickValue);
+        this.buttonStates.setLeftStickY(stickValue);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setLeftStick(int buttonState) {
-        this.buttonStates.setLeft_stick_button(buttonState);
+        this.buttonStates.setButtonLeftStick(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setRightStickX(int stickValue) {
-        this.buttonStates.setRight_stick_x(stickValue);
+        this.buttonStates.setRightStickX(stickValue);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setRightStickY(int stickValue) {
-        this.buttonStates.setRight_stick_y(stickValue);
+        this.buttonStates.setRightStickY(stickValue);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
     }
 
     public void setRightStick(int buttonState) {
-        this.buttonStates.setRight_stick_button(buttonState);
+        this.buttonStates.setButtonRightStick(buttonState);
         if (inputMode == SIMPLE_HID_MODE) {
             sendShortButton();
         }
@@ -431,7 +429,8 @@ public class SwitchController extends AbstractDevice {
 
     @Override
     public void onSetReport(BluetoothDevice device, byte type, byte id, byte[] data) {
-        Log.w(TAG, "Set Report Type: " + type + " Id: " + id + " data: " + Hex.bytesToStringUppercase(data));
+        Log.w(TAG, "Set Report Type: " + type + " Id: " + id + " data: "
+                + Hex.bytesToStringUppercase(data));
     }
 
     @Override
@@ -449,7 +448,7 @@ public class SwitchController extends AbstractDevice {
         } else if (reportId == REQUEST_RUMBLE_ONLY) {
             handleRumbleOnly(data);
         } else if (reportId == REQUEST_NFC_IR_MCU) {
-            handleNFC_IR(data);
+            handleNfcIr(data);
         } else {
             Log.w(TAG, "Unknown Command : " + ByteUtils.encodeHexString(reportId));
         }
@@ -458,8 +457,6 @@ public class SwitchController extends AbstractDevice {
     private void handleRumbleAndSubcommand(byte[] data) {
         byte globalPacketNumber = data[0];
         byte[] rumbleData = Arrays.copyOfRange(data, 1, 9);
-
-        byte subcommand = data[9];
 
         byte[] output = new byte[48];
         //Clean Data
@@ -470,6 +467,8 @@ public class SwitchController extends AbstractDevice {
         //Fills 9 bytes of data
         buttonStates.fillFullButtonReport(output, 2);
         output[11] = getVibratorData();
+
+        byte subcommand = data[9];
 
         if (subcommand == CONTROLLER_STATE) {
             output[12] = ACK;
@@ -483,26 +482,20 @@ public class SwitchController extends AbstractDevice {
             output[13] = subcommand;
             Log.w(TAG, "BT Pairing ");
             //TODO Implement this
-        }
-        //Request Device Information
-        else if (subcommand == REQUEST_DEVICE_INFO) {
+        } else if (subcommand == REQUEST_DEVICE_INFO) { // Request Device Information
             //ACK
             output[12] = ACK | REQUEST_DEVICE_INFO;
             output[13] = subcommand;
             log(TAG, "Device Info ");
             fillDeviceInformation(output, 14);
-        }
-        //Set shipment
-        else if (subcommand == REQUEST_SET_SHIPMENT) {
+        } else if (subcommand == REQUEST_SET_SHIPMENT) { // Set shipment
             //ACK
             output[12] = ACK;
             output[13] = subcommand;
 
             byte arg = data[10];
             log(TAG, "Set shipment input: " + ByteUtils.encodeHexString(arg));
-        }
-        //Set input report mode
-        else if (subcommand == REQUEST_INPUT_REPORT_MODE) {
+        } else if (subcommand == REQUEST_INPUT_REPORT_MODE) { // Set input report mode
             byte mode = data[10];
             log(TAG, "Input Report Mode: " + ByteUtils.encodeHexString(mode));
             //ACK
@@ -518,30 +511,26 @@ public class SwitchController extends AbstractDevice {
             } else {
                 Log.w(TAG, "Unknown mode " + mode);
             }
-        }
-        //Trigger buttons elapsed time
-        else if (subcommand == REQUEST_TRIGGER_BUTTONS) {
+        } else if (subcommand == REQUEST_TRIGGER_BUTTONS) { // Trigger buttons elapsed time
             //ACK
             output[12] = (byte) 0x83;
             output[13] = subcommand;
 
-//            //PROCONTROLLER
-//            if (type.getTypeByte() == 0x03) {
-//                output[14] = 0x2C;
-//                output[15] = 0x01;
-//                output[16] = 0x2C;
-//                output[17] = 0x01;
-//            } else {
-//                output[22] = 0x2C;
-//                output[23] = 0x01;
-//                output[24] = 0x2C;
-//                output[25] = 0x01;
-//            }
+            // PROCONTROLLER
+            // if (type.getTypeByte() == 0x03) {
+            //     output[14] = 0x2C;
+            //     output[15] = 0x01;
+            //     output[16] = 0x2C;
+            //     output[17] = 0x01;
+            // } else {
+            //     output[22] = 0x2C;
+            //     output[23] = 0x01;
+            //     output[24] = 0x2C;
+            //     output[25] = 0x01;
+            // }
             //TODO start sending full report 60hz
             //startFullReport();
-        }
-        //SPI flash read
-        else if (subcommand == REQUEST_SPI_FLASH_READ) {
+        } else if (subcommand == REQUEST_SPI_FLASH_READ) { // SPI flash read
             int eepromLocation = 0;
             for (int i = 0; i < 4; i++) {
                 int a = data[10 + i] & 0xFF;
@@ -561,9 +550,7 @@ public class SwitchController extends AbstractDevice {
             //Copy parameters back to reply
             System.arraycopy(data, 10, output, 14, 5);
             System.arraycopy(readBytes, 0, output, 19, readBytes.length);
-        }
-        //SPI flash Write
-        else if (subcommand == REQUEST_SPI_FLASH_WRITE) {
+        } else if (subcommand == REQUEST_SPI_FLASH_WRITE) { // SPI flash Write
             Log.w(TAG, "Unknown Subcommand : " + ByteUtils.encodeHexString(subcommand));
             Log.w(TAG, "Unknown Subcommand  Data: " + Hex.bytesToStringUppercase(data));
             int eepromLocation = 0;
@@ -582,45 +569,35 @@ public class SwitchController extends AbstractDevice {
             if (len > 0) {
                 eeprom.write(eepromLocation, Arrays.copyOfRange(data, 15, len));
             }
-        }
-        //Set player lights
-        else if (subcommand == REQUEST_SET_PLAYER_LIGHTS) {
+        } else if (subcommand == REQUEST_SET_PLAYER_LIGHTS) { // Set player lights
             output[12] = ACK;
             output[13] = subcommand;
 
             //TODO: set player lights on UI
             byte arg = data[10];
             log(TAG, "player lights: " + ByteUtils.encodeHexString(arg));
-        }
-        //Enable 6-Axis sensor
-        else if (subcommand == REQUEST_AXIS_SENSOR) {
+        } else if (subcommand == REQUEST_AXIS_SENSOR) { // Enable 6-Axis sensor
             output[12] = ACK;
             output[13] = subcommand;
 
             //TODO: Enable 6-Axis sensor
             byte arg = data[10];
             Log.w(TAG, "Enable 6-Axis sensor: " + ByteUtils.encodeHexString(arg));
-        }
-        //Set 6-Axis sensor sensitivity
-        else if (subcommand == SET_IMU_SENSITIVITY) {
+        } else if (subcommand == SET_IMU_SENSITIVITY) { // Set 6-Axis sensor sensitivity
             output[12] = ACK;
             output[13] = subcommand;
 
             //TODO: Enable 6-Axis sensor
             byte arg = data[10];
             Log.w(TAG, "Enable 6-Axis sensor: " + ByteUtils.encodeHexString(arg));
-        }
-        //Enable vibration
-        else if (subcommand == REQUEST_VIBRATION) {
+        } else if (subcommand == REQUEST_VIBRATION) { // Enable vibration
             output[12] = ACK;
             output[13] = subcommand;
 
             //TODO: Enable vibration
             byte arg = data[10];
             log(TAG, "Enable vibration: " + ByteUtils.encodeHexString(arg));
-        }
-        //Set NFC/IR MCU state
-        else if (subcommand == REQUEST_SET_NFC_IR_CONFIGURATION) {
+        } else if (subcommand == REQUEST_SET_NFC_IR_CONFIGURATION) { // Set NFC/IR MCU state
             output[12] = (byte) 0xA0;
             output[13] = subcommand;
 
@@ -629,8 +606,6 @@ public class SwitchController extends AbstractDevice {
 
             if (mcucmd == 0x21) {
                 if (mcusubcmd == 0x00) {
-                    byte mode = data[12];
-
                     output[14] = 0x01;
                     output[15] = 0x00;
                     output[16] = 0x00;
@@ -639,19 +614,18 @@ public class SwitchController extends AbstractDevice {
                     output[21] = 0x01; //Stand By
 
                     //NFC Mode
+                    byte mode = data[12];
                     if (mode == 0x04) {
-                        mcuMode.setState(MCUMode.State.NFC);
+                        mcuMode.setState(McuMode.State.NFC);
                     } else {
                         output[16] = (byte) 0xFF;
-                        mcuMode.setState(MCUMode.State.NOT_INITIALIZED);
+                        mcuMode.setState(McuMode.State.NOT_INITIALIZED);
                     }
                 }
             }
 
             output[47] = ByteUtils.crc8(Arrays.copyOfRange(output, 14, output.length));
-        }
-        //Set NFC/IR MCU state
-        else if (subcommand == REQUEST_SET_NFC_IR_STATE) {
+        } else if (subcommand == REQUEST_SET_NFC_IR_STATE) { // Set NFC/IR MCU state
             output[12] = ACK;
             output[13] = subcommand;
 
@@ -659,7 +633,7 @@ public class SwitchController extends AbstractDevice {
             String argument = "Unknown";
             if (arg == 0x00) {
                 argument = "Suspend";
-                mcuMode.setState(MCUMode.State.STAND_BY);
+                mcuMode.setState(McuMode.State.STAND_BY);
             } else if (arg == 0x01) {
                 argument = "Resume";
             } else if (arg == 0x02) {
@@ -683,40 +657,40 @@ public class SwitchController extends AbstractDevice {
         log(TAG, "Rumble Data: " + Hex.bytesToStringUppercase(data));
     }
 
-    private void handleNFC_IR(byte[] data) {
+    private void handleNfcIr(byte[] data) {
         log(TAG, "NFC/IR Data: " + Hex.bytesToStringUppercase(data));
         byte globalPacketNumber = data[0];
         byte[] rumbleData = Arrays.copyOfRange(data, 1, 9);
 
         byte subcommand = data[9];
 
-        if (mcuMode.getAction() == MCUMode.Action.READ_TAG ||
-                mcuMode.getAction() == MCUMode.Action.READ_TAG_2 ||
-                mcuMode.getAction() == MCUMode.Action.READ_FINISHED) {
+        if (mcuMode.getAction() == McuMode.Action.READ_TAG
+                || mcuMode.getAction() == McuMode.Action.READ_TAG_2
+                || mcuMode.getAction() == McuMode.Action.READ_FINISHED) {
             return;
         }
 
         //Request MCU status
         if (subcommand == 0x01) {
-            mcuMode.setAction(MCUMode.Action.REQUEST_STATUS);
-        }
-        // Request NFC data report
-        else if (subcommand == 0x02) {
+            mcuMode.setAction(McuMode.Action.REQUEST_STATUS);
+        } else if (subcommand == 0x02) { // Request NFC data report
             byte nfcCommand = data[10];
             switch (nfcCommand) {
                 //Start Tag Discovery
                 case 0x04:
                 case 0x05:
-                    mcuMode.setAction(MCUMode.Action.START_TAG_DISCOVERY);
+                    mcuMode.setAction(McuMode.Action.START_TAG_DISCOVERY);
                     break;
                 case 0x01:
-                    mcuMode.setAction(MCUMode.Action.START_TAG_POLLING);
+                    mcuMode.setAction(McuMode.Action.START_TAG_POLLING);
                     break;
                 case 0x02:
-                    mcuMode.setAction(MCUMode.Action.NON);
+                    mcuMode.setAction(McuMode.Action.NON);
                     break;
                 case 0x06:
-                    mcuMode.setAction(MCUMode.Action.READ_TAG);
+                    mcuMode.setAction(McuMode.Action.READ_TAG);
+                    break;
+                default:
             }
         }
     }
@@ -743,6 +717,7 @@ public class SwitchController extends AbstractDevice {
 
 
     private static byte timeByte = 0;
+
     private byte getTimeByte() {
         long nanoTime = System.nanoTime();
         return timeByte++;
@@ -751,7 +726,8 @@ public class SwitchController extends AbstractDevice {
     private byte getBatteryReport() {
         // TODO: Currently returning battery is full all the time
         // Might be improved to return correct battery level
-        byte batteryReport = (byte) 0x90; //Battery level. 8=full, 6=medium, 4=low, 2=critical, 0=empty. LSB=Charging.
+        // Battery level. 8=full, 6=medium, 4=low, 2=critical, 0=empty. LSB=Charging.
+        byte batteryReport = (byte) 0x90;
         if (type != PRO_CONTROLLER) {
             batteryReport = (byte) (batteryReport | 0x0E);
         }
@@ -786,12 +762,14 @@ public class SwitchController extends AbstractDevice {
         //log(TAG, "accSize: " + accEvents.length);
         if (accEvents.length > 0) {
             int start = 0;
-            int end = accEvents.length - 1;
             //Start
 
             accs[0] = accEvents[start].values[0];
             accs[1] = accEvents[start].values[1];
             accs[2] = accEvents[start].values[2];
+
+            int end = accEvents.length - 1;
+
             accs[6] = accEvents[end].values[0];
             accs[7] = accEvents[end].values[1];
             accs[8] = accEvents[end].values[2];
@@ -808,11 +786,13 @@ public class SwitchController extends AbstractDevice {
         //log(TAG, "gyrSize: " + gyrEvents.length);
         if (gyrEvents.length > 0) {
             int start = 0;
-            int end = gyrEvents.length - 1;
             //Start
             gyrs[0] = gyrEvents[start].values[0];
             gyrs[1] = gyrEvents[start].values[1];
             gyrs[2] = gyrEvents[start].values[2];
+
+            int end = gyrEvents.length - 1;
+
             gyrs[6] = gyrEvents[end].values[0];
             gyrs[7] = gyrEvents[end].values[1];
             gyrs[8] = gyrEvents[end].values[2];
@@ -828,12 +808,14 @@ public class SwitchController extends AbstractDevice {
         //log(TAG, "Gyrs: " + Arrays.toString(gyrs));
 
         for (int i = 0; i < SAMPLES_PER_INTERVAL; i++) {
-            float accX = multiplier * accs[i * 3], accY = accs[i * 3 + 1], accZ = multiplier * accs[i * 3 + 2];
+            float accX = multiplier * accs[i * 3];
+            float accY = accs[i * 3 + 1];
+            float accZ = multiplier * accs[i * 3 + 2];
             short rawAccX = (short) clamp(((isPro ? -accZ : accY))
                     * accCoeffs[0], MIN_VALUE, MAX_VALUE);
             short rawAccY = (short) clamp((-accX)
                     * accCoeffs[1], MIN_VALUE, MAX_VALUE);
-            short rawAccZ = (short) clamp(((isPro ? accY : accZ))
+            final short rawAccZ = (short) clamp(((isPro ? accY : accZ))
                     * accCoeffs[2], MIN_VALUE, MAX_VALUE);
 
             sensorData[i * 12] = (byte) (rawAccX & 0xFF);
@@ -843,24 +825,26 @@ public class SwitchController extends AbstractDevice {
             sensorData[4 + i * 12] = (byte) (rawAccZ & 0xFF);
             sensorData[5 + i * 12] = (byte) (rawAccZ >> 8 & 0xFF);
 
-//            log(TAG, "accRaw: " +
-//                    ByteUtils.encodeHexString(sensorData[1 + i * 12]) +
-//                    ByteUtils.encodeHexString(sensorData[0 + i * 12]) +
-//                    " " +
-//                    ByteUtils.encodeHexString(sensorData[3 + i * 12]) +
-//                    ByteUtils.encodeHexString(sensorData[2 + i * 12]) +
-//                    " " +
-//                    ByteUtils.encodeHexString(sensorData[5 + i * 12]) +
-//                    ByteUtils.encodeHexString(sensorData[4 + i * 12]) +
-//                    " "
-//            );
+            // log(TAG, "accRaw: "
+            //         + ByteUtils.encodeHexString(sensorData[1 + i * 12])
+            //         + ByteUtils.encodeHexString(sensorData[0 + i * 12])
+            //         + " "
+            //         + ByteUtils.encodeHexString(sensorData[3 + i * 12])
+            //         + ByteUtils.encodeHexString(sensorData[2 + i * 12])
+            //         + " "
+            //         + ByteUtils.encodeHexString(sensorData[5 + i * 12])
+            //         + ByteUtils.encodeHexString(sensorData[4 + i * 12])
+            //         + " "
+            // );
 
-            float gyrX = multiplier * gyrs[i * 3], gyrY = gyrs[i * 3 + 1], gyrZ = multiplier * gyrs[i * 3 + 2];
+            float gyrX = multiplier * gyrs[i * 3];
+            float gyrY = gyrs[i * 3 + 1];
+            float gyrZ = multiplier * gyrs[i * 3 + 2];
             short rawGyrX = (short) clamp((isPro ? -gyrZ : gyrY)
                     * gyrCoeffs[0] + gyrOffset[0], MIN_VALUE, MAX_VALUE);
             short rawGyrY = (short) clamp(-gyrX
                     * gyrCoeffs[1] + gyrOffset[1], MIN_VALUE, MAX_VALUE);
-            short rawGyrZ = (short) clamp((isPro ? gyrY : gyrZ)
+            final short rawGyrZ = (short) clamp((isPro ? gyrY : gyrZ)
                     * gyrCoeffs[2] + gyrOffset[2], MIN_VALUE, MAX_VALUE);
 
 
@@ -871,17 +855,17 @@ public class SwitchController extends AbstractDevice {
             sensorData[10 + i * 12] = (byte) (rawGyrZ & 0xFF);
             sensorData[11 + i * 12] = (byte) (rawGyrZ >> 8 & 0xFF);
 
-//            log(TAG, "gyrRaw: " +
-//                    ByteUtils.encodeHexString(sensorData[7 + i * 12]) +
-//                    ByteUtils.encodeHexString(sensorData[6 + i * 12]) +
-//                    " " +
-//                    ByteUtils.encodeHexString(sensorData[9 + i * 12]) +
-//                    ByteUtils.encodeHexString(sensorData[8 + i * 12]) +
-//                    " " +
-//                    ByteUtils.encodeHexString(sensorData[11 + i * 12]) +
-//                    ByteUtils.encodeHexString(sensorData[10 + i * 12]) +
-//                    " "
-//            );
+            // log(TAG, "gyrRaw: "
+            //         + ByteUtils.encodeHexString(sensorData[7 + i * 12])
+            //         + ByteUtils.encodeHexString(sensorData[6 + i * 12])
+            //         + " "
+            //         + ByteUtils.encodeHexString(sensorData[9 + i * 12])
+            //         + ByteUtils.encodeHexString(sensorData[8 + i * 12])
+            //         + " "
+            //         + ByteUtils.encodeHexString(sensorData[11 + i * 12])
+            //         + ByteUtils.encodeHexString(sensorData[10 + i * 12])
+            //         + " "
+            // );
         }
         //log(TAG, (sensorData));
         //log(TAG, "sensorData: " + Hex.bytesToStringUppercase(sensorData));
@@ -891,7 +875,7 @@ public class SwitchController extends AbstractDevice {
     private void fillDeviceInformation(byte[] buffer, int index) {
         // Firmware Version
         buffer[index] = 0x04;
-        buffer[index + 1] = (byte) 0x06;//0x91;
+        buffer[index + 1] = (byte) 0x06; //0x91;
         //JoyCon Type 1=Left Joy-Con, 2=Right Joy-Con, 3=Pro Controller.
         //buffer[index + 2] = type.getTypeByte();
         buffer[index + 2] = eeprom.read(0x6012, 1)[0];
@@ -912,14 +896,14 @@ public class SwitchController extends AbstractDevice {
         ;
     }
 
-    private byte[] fillNFCReport() {
+    private byte[] fillNfcReport() {
         byte[] buffer = new byte[313];
-        if (mcuMode.getAction() == MCUMode.Action.REQUEST_STATUS) {
+        if (mcuMode.getAction() == McuMode.Action.REQUEST_STATUS) {
             buffer[0] = 0x01;
             System.arraycopy(mcuMode.getFwMajor(), 0, buffer, 3, 2);
             System.arraycopy(mcuMode.getFwMinor(), 0, buffer, 5, 2);
 
-            MCUMode.State state = mcuMode.getState();
+            McuMode.State state = mcuMode.getState();
             switch (state) {
                 case NFC:
                     buffer[7] = 0x04;
@@ -941,9 +925,9 @@ public class SwitchController extends AbstractDevice {
             } else {
                 mcuMode.setSentCount(sentCount + 1);
             }
-        } else if (mcuMode.getAction() == MCUMode.Action.NON) {
+        } else if (mcuMode.getAction() == McuMode.Action.NON) {
             buffer[0] = (byte) 0xFF;
-        } else if (mcuMode.getAction() == MCUMode.Action.START_TAG_DISCOVERY) {
+        } else if (mcuMode.getAction() == McuMode.Action.START_TAG_DISCOVERY) {
             //NFC State/Tag Info
             buffer[0] = (byte) 0x2a;
             //Error Code
@@ -952,7 +936,7 @@ public class SwitchController extends AbstractDevice {
             buffer[2] = (byte) 0x05;
             byte[] bytes = Hex.stringToBytes("093100");
             System.arraycopy(bytes, 0, buffer, 5, bytes.length);
-        } else if (mcuMode.getAction() == MCUMode.Action.START_TAG_POLLING) {
+        } else if (mcuMode.getAction() == McuMode.Action.START_TAG_POLLING) {
             //NFC State/Tag Info
             buffer[0] = (byte) 0x2a;
             //Error Code
@@ -969,8 +953,8 @@ public class SwitchController extends AbstractDevice {
                 System.arraycopy(bytes, 0, buffer, 5, bytes.length);
                 service.showAmiiboPicker();
             }
-        } else if (mcuMode.getAction() == MCUMode.Action.READ_TAG ||
-                mcuMode.getAction() == MCUMode.Action.READ_TAG_2) {
+        } else if (mcuMode.getAction() == McuMode.Action.READ_TAG
+                || mcuMode.getAction() == McuMode.Action.READ_TAG_2) {
             //NFC TAG read
             buffer[0] = (byte) 0x3a;
             //Error Code
@@ -978,23 +962,24 @@ public class SwitchController extends AbstractDevice {
             //Input type state info
             buffer[2] = (byte) 0x07;
 
-            if (mcuMode.getAction() == MCUMode.Action.READ_TAG) {
+            if (mcuMode.getAction() == McuMode.Action.READ_TAG) {
                 byte[] bytes = Hex.stringToBytes("010001310200000001020007");
                 System.arraycopy(bytes, 0, buffer, 3, bytes.length);
                 System.arraycopy(amiiboBytes, 0, buffer, 3 + bytes.length, 3);
                 System.arraycopy(amiiboBytes, 4, buffer, 6 + bytes.length, 4);
-                byte[] bytes2 = Hex.stringToBytes(
-                        "000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1CE44CC75EAFB27094D087AE803003B3C7778860000");
+                byte[] bytes2 = Hex.stringToBytes("000000007DFDF0793651ABD7466E39C191BABEB856CEEDF1"
+                        + "CE44CC75EAFB27094D087AE803003B3C7778860000");
                 System.arraycopy(bytes2, 0, buffer, 10 + bytes.length, bytes2.length);
                 System.arraycopy(amiiboBytes, 0, buffer, 10 + bytes.length + bytes2.length, 245);
-                mcuMode.setAction(MCUMode.Action.READ_TAG_2);
+                mcuMode.setAction(McuMode.Action.READ_TAG_2);
             } else {
                 byte[] bytes = Hex.stringToBytes("02000927");
                 System.arraycopy(bytes, 0, buffer, 3, bytes.length);
-                System.arraycopy(amiiboBytes, 0xF5, buffer, 3 + bytes.length, amiiboBytes.length - 0xF5);
-                mcuMode.setAction(MCUMode.Action.READ_FINISHED);
+                System.arraycopy(amiiboBytes, 0xF5, buffer, 3 + bytes.length,
+                        amiiboBytes.length - 0xF5);
+                mcuMode.setAction(McuMode.Action.READ_FINISHED);
             }
-        } else if (mcuMode.getAction() == MCUMode.Action.READ_FINISHED) {
+        } else if (mcuMode.getAction() == McuMode.Action.READ_FINISHED) {
             //NFC State/Tag Info
             buffer[0] = (byte) 0x2a;
             //Error Code
@@ -1012,26 +997,26 @@ public class SwitchController extends AbstractDevice {
     }
 
     private void startHandShake() {
-//        try {
-//            if (!executorService.isShutdown()) {
-//                executorService.schedule(
-//                        this::sendHandShake,
-//                        WAIT_BEFORE_HANDSHAKE_MS,
-//                        TimeUnit.MILLISECONDS);
-//            }
-//        } catch (RejectedExecutionException e) {
-//            log(TAG, "View Closed", e);
-//        }
+        // try {
+        //     if (!executorService.isShutdown()) {
+        //         executorService.schedule(
+        //                 this::sendHandShake,
+        //                 WAIT_BEFORE_HANDSHAKE_MS,
+        //                 TimeUnit.MILLISECONDS);
+        //     }
+        // } catch (RejectedExecutionException e) {
+        //     log(TAG, "View Closed", e);
+        // }
     }
 
     public void sendHandShake() {
         if (inputMode != STANDARD_FULL_MODE && isConnected()) {
-            buttonStates.setLeft_stick_x(-1);
-            buttonStates.setLeft_stick_y(1);
+            buttonStates.setLeftStickX(-1);
+            buttonStates.setLeftStickY(1);
             sendShortButton();
 
-            buttonStates.setLeft_stick_x(0);
-            buttonStates.setLeft_stick_y(0);
+            buttonStates.setLeftStickX(0);
+            buttonStates.setLeftStickY(0);
             sendShortButton();
 
             startHandShake();
@@ -1071,7 +1056,7 @@ public class SwitchController extends AbstractDevice {
         if (inputMode == STANDARD_FULL_MODE) {
             sendReport(FULL_BUTTON_REPORT, output);
         } else if (inputMode == NFC_IR_MODE) {
-            System.arraycopy(fillNFCReport(), 0, output, 48, 313);
+            System.arraycopy(fillNfcReport(), 0, output, 48, 313);
             sendReport(NFC_IR_REPORT, output);
         }
     }
@@ -1118,32 +1103,32 @@ public class SwitchController extends AbstractDevice {
         public static final int STICK_NEGATIVE = -100;
         public static final int STICK_POSITIVE = 100;
 
-        private int up;
-        private int down;
-        private int left;
-        private int right;
-        private int y;
-        private int a;
-        private int b;
-        private int x;
-        private int minus;
-        private int plus;
-        private int left_sl;
-        private int left_sr;
-        private int right_sl;
-        private int right_sr;
-        private int l;
-        private int r;
-        private int zl;
-        private int zr;
-        private int left_stick_button;
-        private int left_stick_x;
-        private int left_stick_y;
-        private int right_stick_button;
-        private int right_stick_x;
-        private int right_stick_y;
-        private int capture;
-        private int home;
+        private int buttonUp;
+        private int buttonDown;
+        private int buttonLeft;
+        private int buttonRight;
+        private int buttonY;
+        private int buttonA;
+        private int buttonB;
+        private int buttonX;
+        private int buttonMinus;
+        private int buttonPlus;
+        private int buttonLeftSl;
+        private int buttonLeftSr;
+        private int buttonRightSl;
+        private int buttonRightSr;
+        private int buttonL;
+        private int buttonR;
+        private int buttonZl;
+        private int buttonZr;
+        private int buttonLeftStick;
+        private int leftStickX;
+        private int leftStickY;
+        private int buttonRightStick;
+        private int rightStickX;
+        private int rightStickY;
+        private int buttonCapture;
+        private int buttonHome;
 
         private ControllerType type;
 
@@ -1155,39 +1140,39 @@ public class SwitchController extends AbstractDevice {
 
             int[] buttons = new int[16];
             if (type == LEFT_JOYCON || type == PRO_CONTROLLER) {
-                buttons[0] = down;
-                buttons[1] = right;
-                buttons[2] = left;
-                buttons[3] = up;
-                buttons[4] = left_sl;
-                buttons[5] = left_sr;
-                buttons[6] = minus;
-                buttons[7] = plus;
-                buttons[8] = left_stick_button;
-                buttons[9] = right_stick_button;
-                buttons[10] = home;
-                buttons[11] = capture;
-                buttons[12] = l;
-                buttons[13] = zl;
-                buttons[14] = left_stick_x;
-                buttons[15] = left_stick_y;
+                buttons[0] = buttonDown;
+                buttons[1] = buttonRight;
+                buttons[2] = buttonLeft;
+                buttons[3] = buttonUp;
+                buttons[4] = buttonLeftSl;
+                buttons[5] = buttonLeftSr;
+                buttons[6] = buttonMinus;
+                buttons[7] = buttonPlus;
+                buttons[8] = buttonLeftStick;
+                buttons[9] = buttonRightStick;
+                buttons[10] = buttonHome;
+                buttons[11] = buttonCapture;
+                buttons[12] = buttonL;
+                buttons[13] = buttonZl;
+                buttons[14] = leftStickX;
+                buttons[15] = leftStickY;
             } else {
-                buttons[0] = b;
-                buttons[1] = a;
-                buttons[2] = y;
-                buttons[3] = x;
-                buttons[4] = right_sl;
-                buttons[5] = right_sr;
-                buttons[6] = minus;
-                buttons[7] = plus;
-                buttons[8] = left_stick_button;
-                buttons[9] = right_stick_button;
-                buttons[10] = home;
-                buttons[11] = capture;
-                buttons[12] = r;
-                buttons[13] = zr;
-                buttons[14] = right_stick_x;
-                buttons[15] = right_stick_y;
+                buttons[0] = buttonB;
+                buttons[1] = buttonA;
+                buttons[2] = buttonY;
+                buttons[3] = buttonX;
+                buttons[4] = buttonRightSl;
+                buttons[5] = buttonRightSr;
+                buttons[6] = buttonMinus;
+                buttons[7] = buttonPlus;
+                buttons[8] = buttonLeftStick;
+                buttons[9] = buttonRightStick;
+                buttons[10] = buttonHome;
+                buttons[11] = buttonCapture;
+                buttons[12] = buttonR;
+                buttons[13] = buttonZr;
+                buttons[14] = rightStickX;
+                buttons[15] = rightStickY;
             }
 
             buffer[index] = 0;
@@ -1246,18 +1231,18 @@ public class SwitchController extends AbstractDevice {
 
             //Right joycon bits
             if (type == RIGHT_JOYCON || type == PRO_CONTROLLER) {
-                buffer[index] |= y == 0 ? 0 : FULL_Y_BIT;
-                buffer[index] |= x == 0 ? 0 : FULL_X_BIT;
-                buffer[index] |= b == 0 ? 0 : FULL_B_BIT;
-                buffer[index] |= a == 0 ? 0 : FULL_A_BIT;
-                buffer[index] |= right_sl == 0 ? 0 : FULL_SL_BIT;
-                buffer[index] |= right_sr == 0 ? 0 : FULL_SR_BIT;
-                buffer[index] |= r == 0 ? 0 : FULL_L_R_BIT;
-                buffer[index] |= zr == 0 ? 0 : FULL_ZL_ZR_BIT;
+                buffer[index] |= buttonY == 0 ? 0 : FULL_Y_BIT;
+                buffer[index] |= buttonX == 0 ? 0 : FULL_X_BIT;
+                buffer[index] |= buttonB == 0 ? 0 : FULL_B_BIT;
+                buffer[index] |= buttonA == 0 ? 0 : FULL_A_BIT;
+                buffer[index] |= buttonRightSl == 0 ? 0 : FULL_SL_BIT;
+                buffer[index] |= buttonRightSr == 0 ? 0 : FULL_SR_BIT;
+                buffer[index] |= buttonR == 0 ? 0 : FULL_L_R_BIT;
+                buffer[index] |= buttonZr == 0 ? 0 : FULL_ZL_ZR_BIT;
 
                 //RIGHT Stick bytes for analog stick
-                int dataX = Math.round(((right_stick_x + 100) / 200f) * 4095);
-                int dataY = Math.round(((right_stick_y + 100) / 200f) * 4095);
+                int dataX = Math.round(((rightStickX + 100) / 200f) * 4095);
+                int dataY = Math.round(((rightStickY + 100) / 200f) * 4095);
                 buffer[index + 6] = (byte) (dataX & 0xFF);
                 buffer[index + 7] = (byte) ((dataX >> 8) & 0xF);
                 buffer[index + 7] |= (byte) ((dataY & 0xF) << 4);
@@ -1265,27 +1250,27 @@ public class SwitchController extends AbstractDevice {
             }
 
             //Button status shared
-            buffer[index + 1] |= minus == 0 ? 0 : FULL_MINUS_BIT;
-            buffer[index + 1] |= plus == 0 ? 0 : FULL_PLUS_BIT;
-            buffer[index + 1] |= right_stick_button == 0 ? 0 : FULL_RIGHT_STICK_BIT;
-            buffer[index + 1] |= left_stick_button == 0 ? 0 : FULL_LEFT_STICK_BIT;
-            buffer[index + 1] |= home == 0 ? 0 : FULL_HOME_BIT;
-            buffer[index + 1] |= capture == 0 ? 0 : FULL_CAPTURE_BIT;
+            buffer[index + 1] |= buttonMinus == 0 ? 0 : FULL_MINUS_BIT;
+            buffer[index + 1] |= buttonPlus == 0 ? 0 : FULL_PLUS_BIT;
+            buffer[index + 1] |= buttonRightStick == 0 ? 0 : FULL_RIGHT_STICK_BIT;
+            buffer[index + 1] |= buttonLeftStick == 0 ? 0 : FULL_LEFT_STICK_BIT;
+            buffer[index + 1] |= buttonHome == 0 ? 0 : FULL_HOME_BIT;
+            buffer[index + 1] |= buttonCapture == 0 ? 0 : FULL_CAPTURE_BIT;
 
             //Left joycon bits
             if (type == LEFT_JOYCON || type == PRO_CONTROLLER) {
-                buffer[index + 2] |= down == 0 ? 0 : FULL_DOWN_BIT;
-                buffer[index + 2] |= right == 0 ? 0 : FULL_RIGHT_BIT;
-                buffer[index + 2] |= left == 0 ? 0 : FULL_LEFT_BIT;
-                buffer[index + 2] |= up == 0 ? 0 : FULL_UP_BIT;
-                buffer[index + 2] |= left_sl == 0 ? 0 : FULL_SL_BIT;
-                buffer[index + 2] |= left_sr == 0 ? 0 : FULL_SR_BIT;
-                buffer[index + 2] |= l == 0 ? 0 : FULL_L_R_BIT;
-                buffer[index + 2] |= zl == 0 ? 0 : FULL_ZL_ZR_BIT;
+                buffer[index + 2] |= buttonDown == 0 ? 0 : FULL_DOWN_BIT;
+                buffer[index + 2] |= buttonRight == 0 ? 0 : FULL_RIGHT_BIT;
+                buffer[index + 2] |= buttonLeft == 0 ? 0 : FULL_LEFT_BIT;
+                buffer[index + 2] |= buttonUp == 0 ? 0 : FULL_UP_BIT;
+                buffer[index + 2] |= buttonLeftSl == 0 ? 0 : FULL_SL_BIT;
+                buffer[index + 2] |= buttonLeftSr == 0 ? 0 : FULL_SR_BIT;
+                buffer[index + 2] |= buttonL == 0 ? 0 : FULL_L_R_BIT;
+                buffer[index + 2] |= buttonZl == 0 ? 0 : FULL_ZL_ZR_BIT;
 
                 //LEFT Stick bytes for analog stick
-                int dataX = Math.round(((left_stick_x + 100) / 200f) * 4095);
-                int dataY = Math.round(((left_stick_y + 100) / 200f) * 4095);
+                int dataX = Math.round(((leftStickX + 100) / 200f) * 4095);
+                int dataY = Math.round(((leftStickY + 100) / 200f) * 4095);
                 buffer[index + 3] = (byte) (dataX & 0xFF);
                 buffer[index + 4] = (byte) ((dataX >> 8) & 0xF);
                 buffer[index + 4] |= (byte) ((dataY & 0xF) << 4);

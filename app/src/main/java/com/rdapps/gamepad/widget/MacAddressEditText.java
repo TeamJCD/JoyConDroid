@@ -4,14 +4,13 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-
 import java.util.Locale;
 
 /**
  * Modified version of <a href="https://github.com/r-cohen/macaddress-edittext">Mac Address EditText</a>
  */
 public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditText {
-    String mPreviousMac = null;
+    String previousMac = null;
 
     public MacAddressEditText(Context context) {
         super(context);
@@ -30,15 +29,17 @@ public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditT
 
     private void init() {
         this.addTextChangedListener(new TextWatcher() {
-            private void setMacEdit(CharSequence cleanMac, String formattedMac, int selectionStart, int lengthDiff) {
+            private void setMacEdit(
+                    CharSequence cleanMac, String formattedMac,
+                    int selectionStart, int lengthDiff) {
                 MacAddressEditText.this.removeTextChangedListener(this);
                 if (cleanMac.length() <= 12) {
                     MacAddressEditText.this.setText(formattedMac);
                     MacAddressEditText.this.setSelection(selectionStart + lengthDiff);
-                    mPreviousMac = formattedMac;
+                    previousMac = formattedMac;
                 } else {
-                    MacAddressEditText.this.setText(mPreviousMac);
-                    MacAddressEditText.this.setSelection(mPreviousMac.length());
+                    MacAddressEditText.this.setText(previousMac);
+                    MacAddressEditText.this.setSelection(previousMac.length());
                 }
                 MacAddressEditText.this.addTextChangedListener(this);
             }
@@ -49,7 +50,8 @@ public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditT
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String enteredMac = MacAddressEditText.this.getText().toString().toUpperCase(Locale.ROOT);
+                String enteredMac = MacAddressEditText.this.getText().toString()
+                        .toUpperCase(Locale.ROOT);
                 String cleanMac = clearNonMacCharacters(enteredMac);
 
                 int selectionStart = MacAddressEditText.this.getSelectionStart();
@@ -70,8 +72,8 @@ public class MacAddressEditText extends androidx.appcompat.widget.AppCompatEditT
 
     private String handleColonDeletion(String enteredMac, String formattedMac, int selectionStart) {
         String result = formattedMac;
-        if (mPreviousMac != null && mPreviousMac.length() > 1) {
-            int previousColonCount = colonCount(mPreviousMac);
+        if (previousMac != null && previousMac.length() > 1) {
+            int previousColonCount = colonCount(previousMac);
             int currentColonCount = colonCount(enteredMac);
 
             if (currentColonCount < previousColonCount) {

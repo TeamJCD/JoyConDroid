@@ -1,9 +1,21 @@
 package com.rdapps.gamepad.command.handler;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.NON;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG_2;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG_FINISHED;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.REQUEST_STATUS;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_DISCOVERY;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_DISCOVERY_AUTO_MOVE;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_POLLING;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.WRITE_TAG;
+import static java.util.Arrays.asList;
+
 import com.rdapps.gamepad.amiibo.AmiiboConfig;
 import com.rdapps.gamepad.button.ButtonState;
 import com.rdapps.gamepad.command.handler.subcommand.SubCommand;
-import com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu;
+import com.rdapps.gamepad.nfcirmcu.NfcIrMcu;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.protocol.JoyController;
 import com.rdapps.gamepad.protocol.JoyControllerState;
@@ -11,20 +23,7 @@ import com.rdapps.gamepad.report.InputReport;
 import com.rdapps.gamepad.report.InputReportMode;
 import com.rdapps.gamepad.report.OutputReport;
 import com.rdapps.gamepad.report.OutputReportMode;
-
 import java.util.Arrays;
-
-import static com.rdapps.gamepad.log.JoyConLog.log;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.NON;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.READ_TAG;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.READ_TAG_2;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.READ_TAG_FINISHED;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.REQUEST_STATUS;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.START_TAG_DISCOVERY;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.START_TAG_DISCOVERY_AUTO_MOVE;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.START_TAG_POLLING;
-import static com.rdapps.gamepad.nfc_ir_mcu.NfcIrMcu.Action.WRITE_TAG;
-import static java.util.Arrays.asList;
 
 public class OutputHandler {
     private static final String TAG = OutputHandler.class.getName();
@@ -44,10 +43,10 @@ public class OutputHandler {
                 handleRumbleAndSubCommand(outputReport);
                 break;
             case REQUEST_NFC_IR_MCU_DATA:
-                handleRequestNFCIRMCUData(outputReport);
+                handleRequestNfcIrMcuData(outputReport);
                 break;
             case NFC_IR_MCU_FW_UPDATE_PACKET:
-                handleNFCIRMCUFWUpdatePacket(outputReport);
+                handleNfcIrMcuFwUpdatePacket(outputReport);
                 break;
             case UNKNOWN:
             default:
@@ -73,10 +72,10 @@ public class OutputHandler {
         joyController.sendReport(subCommandReply);
     }
 
-    private void handleNFCIRMCUFWUpdatePacket(OutputReport outputReport) {
+    private void handleNfcIrMcuFwUpdatePacket(OutputReport outputReport) {
     }
 
-    private void handleRequestNFCIRMCUData(OutputReport outputReport) {
+    private void handleRequestNfcIrMcuData(OutputReport outputReport) {
         log(TAG, "NFC/IR Data: " + outputReport.toString());
         JoyControllerState state = joyController.getState();
         NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
@@ -106,9 +105,7 @@ public class OutputHandler {
                 }
             }
             nfcIrMcu.setAction(REQUEST_STATUS);
-        }
-        // Request NFC data report
-        else if (subCommand == 0x02) {
+        } else if (subCommand == 0x02) { // Request NFC data report
             switch (nfcCommand) {
                 //Start Tag Discovery
                 case 0x04:

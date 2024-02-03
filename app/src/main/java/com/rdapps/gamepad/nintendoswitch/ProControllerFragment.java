@@ -1,26 +1,5 @@
 package com.rdapps.gamepad.nintendoswitch;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.ImageButton;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-
-import com.erz.joysticklibrary.JoyStick;
-import com.rdapps.gamepad.ControllerActivity;
-import com.rdapps.gamepad.R;
-import com.rdapps.gamepad.button.AxisEnum;
-import com.rdapps.gamepad.button.ButtonEnum;
-import com.rdapps.gamepad.led.LedState;
-
-import java.util.Objects;
-
 import static com.rdapps.gamepad.button.ButtonEnum.A;
 import static com.rdapps.gamepad.button.ButtonEnum.B;
 import static com.rdapps.gamepad.button.ButtonEnum.CAPTURE;
@@ -44,25 +23,43 @@ import static com.rdapps.gamepad.vibrator.VibrationPattern.BUTTON_RELEASE;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.STICK_PRESS;
 import static com.rdapps.gamepad.vibrator.VibrationPattern.STICK_RELEASE;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import com.erz.joysticklibrary.JoyStick;
+import com.rdapps.gamepad.ControllerActivity;
+import com.rdapps.gamepad.R;
+import com.rdapps.gamepad.button.AxisEnum;
+import com.rdapps.gamepad.button.ButtonEnum;
+import com.rdapps.gamepad.led.LedState;
+import java.util.Objects;
+
 public class ProControllerFragment extends ControllerFragment implements View.OnClickListener {
 
-    private ImageButton up;
-    private ImageButton down;
-    private ImageButton left;
-    private ImageButton right;
-    private ImageButton zl;
-    private ImageButton l;
-    private ImageButton minus;
-    private ImageButton capture;
-    private ImageButton x;
-    private ImageButton y;
-    private ImageButton a;
-    private ImageButton b;
-    private ImageButton zr;
-    private ImageButton r;
-    private ImageButton plus;
-    private ImageButton home;
-    private ImageButton sync;
+    private ImageButton imageButtonUp;
+    private ImageButton imageButtonDown;
+    private ImageButton imageButtonLeft;
+    private ImageButton imageButtonRight;
+    private ImageButton imageButtonZl;
+    private ImageButton imageButtonL;
+    private ImageButton imageButtonMinus;
+    private ImageButton imageButtonCapture;
+    private ImageButton imageButtonX;
+    private ImageButton imageButtonY;
+    private ImageButton imageButtonA;
+    private ImageButton imageButtonB;
+    private ImageButton imageButtonZr;
+    private ImageButton imageButtonR;
+    private ImageButton imageButtonPlus;
+    private ImageButton imageButtonHome;
+    private ImageButton imageButtonSync;
 
     private JoyStick leftJoyStick;
     private JoyStick rightJoyStick;
@@ -88,51 +85,51 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        View.OnTouchListener buttonTouchListener = new ButtonTouchListener();
-        up = view.findViewById(R.id.up);
-        down = view.findViewById(R.id.down);
-        left = view.findViewById(R.id.left);
-        right = view.findViewById(R.id.right);
-        l = view.findViewById(R.id.l);
-        zl = view.findViewById(R.id.zl);
-        minus = view.findViewById(R.id.minus);
-        capture = view.findViewById(R.id.capture);
+        imageButtonUp = view.findViewById(R.id.up);
+        imageButtonDown = view.findViewById(R.id.down);
+        imageButtonLeft = view.findViewById(R.id.left);
+        imageButtonRight = view.findViewById(R.id.right);
+        imageButtonL = view.findViewById(R.id.l);
+        imageButtonZl = view.findViewById(R.id.zl);
+        imageButtonMinus = view.findViewById(R.id.minus);
+        imageButtonCapture = view.findViewById(R.id.capture);
         leftJoyStick = view.findViewById(R.id.left_joy);
-        a = view.findViewById(R.id.a);
-        b = view.findViewById(R.id.b);
-        x = view.findViewById(R.id.x);
-        y = view.findViewById(R.id.y);
-        r = view.findViewById(R.id.r);
-        zr = view.findViewById(R.id.zr);
-        plus = view.findViewById(R.id.plus);
-        home = view.findViewById(R.id.home);
+        imageButtonA = view.findViewById(R.id.a);
+        imageButtonB = view.findViewById(R.id.b);
+        imageButtonX = view.findViewById(R.id.x);
+        imageButtonY = view.findViewById(R.id.y);
+        imageButtonR = view.findViewById(R.id.r);
+        imageButtonZr = view.findViewById(R.id.zr);
+        imageButtonPlus = view.findViewById(R.id.plus);
+        imageButtonHome = view.findViewById(R.id.home);
         rightJoyStick = view.findViewById(R.id.right_joy);
-        sync = view.findViewById(R.id.sync);
+        imageButtonSync = view.findViewById(R.id.sync);
 
         led1 = view.findViewById(R.id.led1);
         led2 = view.findViewById(R.id.led2);
         led3 = view.findViewById(R.id.led3);
         led4 = view.findViewById(R.id.led4);
 
-        up.setOnTouchListener(buttonTouchListener);
-        down.setOnTouchListener(buttonTouchListener);
-        left.setOnTouchListener(buttonTouchListener);
-        right.setOnTouchListener(buttonTouchListener);
-        l.setOnTouchListener(buttonTouchListener);
-        zl.setOnTouchListener(buttonTouchListener);
-        capture.setOnTouchListener(buttonTouchListener);
-        minus.setOnTouchListener(buttonTouchListener);
+        View.OnTouchListener buttonTouchListener = new ButtonTouchListener();
+        imageButtonUp.setOnTouchListener(buttonTouchListener);
+        imageButtonDown.setOnTouchListener(buttonTouchListener);
+        imageButtonLeft.setOnTouchListener(buttonTouchListener);
+        imageButtonRight.setOnTouchListener(buttonTouchListener);
+        imageButtonL.setOnTouchListener(buttonTouchListener);
+        imageButtonZl.setOnTouchListener(buttonTouchListener);
+        imageButtonCapture.setOnTouchListener(buttonTouchListener);
+        imageButtonMinus.setOnTouchListener(buttonTouchListener);
         leftJoyStick.setListener(new LeftStickListener());
-        a.setOnTouchListener(buttonTouchListener);
-        b.setOnTouchListener(buttonTouchListener);
-        x.setOnTouchListener(buttonTouchListener);
-        y.setOnTouchListener(buttonTouchListener);
-        r.setOnTouchListener(buttonTouchListener);
-        zr.setOnTouchListener(buttonTouchListener);
-        home.setOnTouchListener(buttonTouchListener);
-        plus.setOnTouchListener(buttonTouchListener);
+        imageButtonA.setOnTouchListener(buttonTouchListener);
+        imageButtonB.setOnTouchListener(buttonTouchListener);
+        imageButtonX.setOnTouchListener(buttonTouchListener);
+        imageButtonY.setOnTouchListener(buttonTouchListener);
+        imageButtonR.setOnTouchListener(buttonTouchListener);
+        imageButtonZr.setOnTouchListener(buttonTouchListener);
+        imageButtonHome.setOnTouchListener(buttonTouchListener);
+        imageButtonPlus.setOnTouchListener(buttonTouchListener);
         rightJoyStick.setListener(new RightStickListener());
-        sync.setOnClickListener(this);
+        imageButtonSync.setOnClickListener(this);
     }
 
     private class LeftStickListener implements JoyStick.JoyStickListener {
@@ -174,7 +171,8 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         }
 
         device.setButton(LEFT_STICK_BUTTON, pressed ? BUTTON_DOWN : BUTTON_UP);
-        leftJoyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_blue));
+        leftJoyStick.setPadColor(getContext().getColor(pressed
+                ? R.color.custom_pressed : R.color.custom_brand_blue));
         leftJoyStick.invalidate();
         return true;
     }
@@ -218,7 +216,8 @@ public class ProControllerFragment extends ControllerFragment implements View.On
         }
 
         device.setButton(ButtonEnum.RIGHT_STICK_BUTTON, pressed ? BUTTON_DOWN : BUTTON_UP);
-        rightJoyStick.setPadColor(getContext().getColor(pressed ? R.color.custom_pressed : R.color.custom_brand_red));
+        rightJoyStick.setPadColor(getContext().getColor(pressed
+                ? R.color.custom_pressed : R.color.custom_brand_red));
         rightJoyStick.invalidate();
         return true;
     }
@@ -254,37 +253,37 @@ public class ProControllerFragment extends ControllerFragment implements View.On
             vibrate(buttonState == BUTTON_DOWN ? BUTTON_PRESS : BUTTON_RELEASE);
 
             ButtonEnum buttonEnum;
-            if (v == left) {
+            if (v == imageButtonLeft) {
                 buttonEnum = LEFT;
-            } else if (v == right) {
+            } else if (v == imageButtonRight) {
                 buttonEnum = RIGHT;
-            } else if (v == down) {
+            } else if (v == imageButtonDown) {
                 buttonEnum = DOWN;
-            } else if (v == up) {
+            } else if (v == imageButtonUp) {
                 buttonEnum = UP;
-            } else if (v == l) {
+            } else if (v == imageButtonL) {
                 buttonEnum = L;
-            } else if (v == zl) {
+            } else if (v == imageButtonZl) {
                 buttonEnum = ZL;
-            } else if (v == capture) {
+            } else if (v == imageButtonCapture) {
                 buttonEnum = CAPTURE;
-            } else if (v == minus) {
+            } else if (v == imageButtonMinus) {
                 buttonEnum = MINUS;
-            } else if (v == y) {
+            } else if (v == imageButtonY) {
                 buttonEnum = Y;
-            } else if (v == a) {
+            } else if (v == imageButtonA) {
                 buttonEnum = A;
-            } else if (v == b) {
+            } else if (v == imageButtonB) {
                 buttonEnum = B;
-            } else if (v == x) {
+            } else if (v == imageButtonX) {
                 buttonEnum = X;
-            } else if (v == r) {
+            } else if (v == imageButtonR) {
                 buttonEnum = ButtonEnum.R;
-            } else if (v == zr) {
+            } else if (v == imageButtonZr) {
                 buttonEnum = ZR;
-            } else if (v == home) {
+            } else if (v == imageButtonHome) {
                 buttonEnum = HOME;
-            } else if (v == plus) {
+            } else if (v == imageButtonPlus) {
                 buttonEnum = PLUS;
             } else {
                 return false;
@@ -295,98 +294,98 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     }
 
     @Override
-    public ImageButton getUp() {
-        return up;
+    public ImageButton getImageButtonUp() {
+        return imageButtonUp;
     }
 
     @Override
-    public ImageButton getDown() {
-        return down;
+    public ImageButton getImageButtonDown() {
+        return imageButtonDown;
     }
 
     @Override
-    public ImageButton getLeft() {
-        return left;
+    public ImageButton getImageButtonLeft() {
+        return imageButtonLeft;
     }
 
     @Override
-    public ImageButton getRight() {
-        return right;
+    public ImageButton getImageButtonRight() {
+        return imageButtonRight;
     }
 
     @Override
-    public ImageButton getZl() {
-        return zl;
+    public ImageButton getImageButtonZl() {
+        return imageButtonZl;
     }
 
     @Override
-    public ImageButton getL() {
-        return l;
+    public ImageButton getImageButtonL() {
+        return imageButtonL;
     }
 
     @Override
-    public ImageButton getMinus() {
-        return minus;
+    public ImageButton getImageButtonMinus() {
+        return imageButtonMinus;
     }
 
     @Override
-    public ImageButton getCapture() {
-        return capture;
+    public ImageButton getImageButtonCapture() {
+        return imageButtonCapture;
     }
 
     @Override
-    public ImageButton getX() {
-        return x;
+    public ImageButton getImageButtonX() {
+        return imageButtonX;
     }
 
     @Override
-    public ImageButton getY() {
-        return y;
+    public ImageButton getImageButtonY() {
+        return imageButtonY;
     }
 
     @Override
-    public ImageButton getSl() {
+    public ImageButton getImageButtonSl() {
         return null;
     }
 
     @Override
-    public ImageButton getSr() {
+    public ImageButton getImageButtonSr() {
         return null;
     }
 
     @Override
-    public ImageButton getA() {
-        return a;
+    public ImageButton getImageButtonA() {
+        return imageButtonA;
     }
 
     @Override
-    public ImageButton getB() {
-        return b;
+    public ImageButton getImageButtonB() {
+        return imageButtonB;
     }
 
     @Override
-    public ImageButton getZr() {
-        return zr;
+    public ImageButton getImageButtonZr() {
+        return imageButtonZr;
     }
 
     @Override
-    public ImageButton getR() {
-        return r;
+    public ImageButton getImageButtonR() {
+        return imageButtonR;
     }
 
     @Override
-    public ImageButton getPlus() {
-        return plus;
+    public ImageButton getImageButtonPlus() {
+        return imageButtonPlus;
     }
 
     @Override
-    public ImageButton getHome() {
-        return home;
+    public ImageButton getImageButtonHome() {
+        return imageButtonHome;
     }
 
     @Override
-    public ImageButton getSync() {
-        return sync;
+    public ImageButton getImageButtonSync() {
+        return imageButtonSync;
     }
 
     @Override
@@ -414,46 +413,58 @@ public class ProControllerFragment extends ControllerFragment implements View.On
     public void setPlayerLights(LedState led1, LedState led2, LedState led3, LedState led4) {
         if (Objects.nonNull(getActivity())) {
             if (led1 == LedState.ON) {
-                this.led1.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledon));
+                this.led1.setBackground(
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledon));
             }
             if (led2 == LedState.ON) {
-                this.led2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledon));
+                this.led2.setBackground(
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledon));
             }
             if (led3 == LedState.ON) {
-                this.led3.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledon));
+                this.led3.setBackground(
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledon));
             }
             if (led4 == LedState.ON) {
-                this.led4.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledon));
+                this.led4.setBackground(
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledon));
             }
             if (led1 == LedState.OFF) {
-                this.led1.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledofftransparent));
+                this.led1.setBackground(
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledofftransparent));
             }
             if (led2 == LedState.OFF) {
-                this.led2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledofftransparent));
+                this.led2.setBackground(
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledofftransparent));
             }
             if (led3 == LedState.OFF) {
-                this.led3.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledofftransparent));
+                this.led3.setBackground(
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledofftransparent));
             }
             if (led4 == LedState.OFF) {
-                this.led4.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledofftransparent));
+                this.led4.setBackground(
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledofftransparent));
             }
             if (led1 == LedState.BLINK) {
-                Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
+                Drawable drawable =
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led1.setBackground(drawable);
                 ((Runnable) drawable).run();
             }
             if (led2 == LedState.BLINK) {
-                Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
+                Drawable drawable =
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led2.setBackground(drawable);
                 ((Runnable) drawable).run();
             }
             if (led3 == LedState.BLINK) {
-                Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
+                Drawable drawable =
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led3.setBackground(drawable);
                 ((Runnable) drawable).run();
             }
             if (led4 == LedState.BLINK) {
-                Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
+                Drawable drawable =
+                        ContextCompat.getDrawable(getActivity(), R.drawable.ic_ledblink);
                 this.led4.setBackground(drawable);
                 ((Runnable) drawable).run();
             }

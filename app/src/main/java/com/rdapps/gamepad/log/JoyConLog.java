@@ -1,15 +1,14 @@
 package com.rdapps.gamepad.log;
 
-import android.util.Log;
-
-import com.rdapps.gamepad.BuildConfig;
-
 import static android.util.Log.ASSERT;
 import static android.util.Log.DEBUG;
 import static android.util.Log.ERROR;
 import static android.util.Log.INFO;
 import static android.util.Log.VERBOSE;
 import static android.util.Log.WARN;
+
+import android.util.Log;
+import com.rdapps.gamepad.BuildConfig;
 
 public class JoyConLog {
     private static final String PREFIX = "JoyCon Droid-";
