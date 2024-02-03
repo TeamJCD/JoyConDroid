@@ -32,7 +32,7 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
-          echo $KEYSTORE_BASE64 | base64 --decode > app/keystore.jks
+          echo $KEYSTORE_BASE64 | base64 --decode > ${{ runner.temp }}/keystore.jks
 
       - name: Build
         env:
@@ -42,7 +42,7 @@ jobs:
         run: |
           git update-index --assume-unchanged version.json
           ./gradlew assembleApk \
-          -Pandroid.injected.signing.store.file="keystore.jks" \
+          -Pandroid.injected.signing.store.file="${{ runner.temp }}/keystore.jks" \
           -Pandroid.injected.signing.store.password="$KEYSTORE_PASSWORD" \
           -Pandroid.injected.signing.key.alias="$KEY_ALIAS" \
           -Pandroid.injected.signing.key.password="$KEY_PASSWORD"
