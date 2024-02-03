@@ -40,12 +40,14 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
+          git update-index --assume-unchanged version.json
           ./gradlew assembleApk \
           -Pandroid.injected.signing.store.file="keystore.jks" \
           -Pandroid.injected.signing.store.password="$KEYSTORE_PASSWORD" \
           -Pandroid.injected.signing.key.alias="$KEY_ALIAS" \
           -Pandroid.injected.signing.key.password="$KEY_PASSWORD"
           mv "app/build/outputs/apk/apk/app-apk.apk" "app/build/outputs/apk/apk/JoyConDroid-$GITHUB_REF_NAME.apk"
+          git update-index --no-assume-unchanged version.json
 
       - name: Publish
         uses: softprops/action-gh-release@v1
