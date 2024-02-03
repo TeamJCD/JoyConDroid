@@ -1,5 +1,9 @@
+import groovy.json.JsonSlurper
+
 apply plugin: 'com.android.application'
 apply plugin: 'io.freefair.android-lombok'
+
+def versionJson = new JsonSlurper().parseText(rootProject.layout.projectDirectory.file('version.json').asFile.text)
 
 android {
     compileSdk 34
@@ -13,8 +17,8 @@ android {
         applicationId "com.rdapps.gamepad"
         minSdkVersion 28
         targetSdkVersion 34
-        versionCode 122
-        versionName "1.0.91.2"
+        versionCode versionJson.versionCode
+        versionName versionJson.version
         resValue "string", "version_name", versionName
         buildConfigField  'boolean', 'CHECK_UPDATE', 'false'
         buildConfigField  'int', 'LOG_LEVEL', logLevelDefault
