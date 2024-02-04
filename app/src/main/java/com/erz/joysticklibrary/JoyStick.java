@@ -39,6 +39,9 @@ import lombok.Setter;
 public class JoyStick extends View
         implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
+    private static final int MIN_PERCENTAGE = 25;
+    private static final int MAX_PERCENTAGE = 50;
+
     public static final int DIRECTION_CENTER = -1;
     public static final int DIRECTION_LEFT = 0;
     public static final int DIRECTION_LEFT_UP = 1;
@@ -132,11 +135,11 @@ public class JoyStick extends View
                 padColor = typedArray.getColor(R.styleable.JoyStick_padColor, Color.WHITE);
                 buttonColor = typedArray.getColor(R.styleable.JoyStick_buttonColor, Color.RED);
                 stayPut = typedArray.getBoolean(R.styleable.JoyStick_stayPut, false);
-                percentage = typedArray.getInt(R.styleable.JoyStick_percentage, 25);
-                if (percentage > 50) {
-                    percentage = 50;
-                } else if (percentage < 25) {
-                    percentage = 25;
+                percentage = typedArray.getInt(R.styleable.JoyStick_percentage, MIN_PERCENTAGE);
+                if (percentage > MAX_PERCENTAGE) {
+                    percentage = MAX_PERCENTAGE;
+                } else if (percentage < MIN_PERCENTAGE) {
+                    percentage = MIN_PERCENTAGE;
                 }
 
                 int padResId = typedArray.getResourceId(
@@ -330,10 +333,10 @@ public class JoyStick extends View
     //percentage must be between 25 - 50
     public void setButtonRadiusScale(int scale) {
         percentage = scale;
-        if (percentage > 50) {
-            percentage = 50;
-        } else if (percentage < 25) {
-            percentage = 25;
+        if (percentage > MAX_PERCENTAGE) {
+            percentage = MAX_PERCENTAGE;
+        } else if (percentage < MIN_PERCENTAGE) {
+            percentage = MIN_PERCENTAGE;
         }
     }
 
