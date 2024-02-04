@@ -3,6 +3,7 @@ import groovy.json.JsonSlurper
 apply plugin: 'checkstyle'
 apply plugin: 'com.android.application'
 apply plugin: 'io.freefair.android-lombok'
+apply plugin: 'pmd'
 
 def versionJson = new JsonSlurper().parseText(rootProject.layout.projectDirectory.file('version.json').asFile.text)
 
@@ -72,6 +73,10 @@ checkstyle {
     toolVersion = '10.12.5'
 }
 
+pmd {
+    toolVersion = '6.55.0'
+}
+
 tasks.register('checkstyle', Checkstyle) {
     configFile rootProject.file('config/checkstyle/rules.xml')
     source 'src'
@@ -85,8 +90,18 @@ tasks.register('checkstyle', Checkstyle) {
     classpath = files()
 }
 
+tasks.register('pmd', Pmd) {
+    source 'src'
+    include '** /*.java'
+    exclude '** /gen/**'
+    exclude '** /R.java'
+    exclude '** /BuildConfig.java'
+    ruleSets = ['category/java/errorprone.xml', 'category/java/bestpractices.xml']
+    consoleOutput = true
+}
+
 preBuild.configure {
-    dependsOn 'checkstyle'
+    dependsOn 'checkstyle' //, 'pmd'
 }
 
 dependencies {
