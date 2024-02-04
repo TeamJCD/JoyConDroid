@@ -35,9 +35,8 @@
         <activity
                 android:name=".MainActivity"
                 android:configChanges="orientation|keyboardHidden"
-                android:screenOrientation="portrait"
-                android:exported="true"
-                tools:ignore="LockedOrientationActivity">
+                android:screenOrientation="fullSensor"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -53,8 +52,7 @@
         <activity
             android:name=".InfoAndLegalActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".CustomUiActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -63,23 +61,19 @@
         <activity
             android:name=".ButtonMappingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".JoystickMappingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".UserGuideActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            android:screenOrientation="fullSensor" />
 
         <activity android:name=".RegisterUiActivity" android:exported="false">
             <intent-filter>
