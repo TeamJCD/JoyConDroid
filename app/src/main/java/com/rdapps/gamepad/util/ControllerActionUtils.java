@@ -491,7 +491,7 @@ public class ControllerActionUtils {
     }
 
     public static Map<Integer, ButtonType> getButtonMapping(
-            Collection<ControllerAction> controllerActions) {
+            List<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == BUTTON)
@@ -503,7 +503,7 @@ public class ControllerActionUtils {
     }
 
     public static Map<Pair<Integer, Integer>, ButtonType> getAxisMapping(
-            Collection<ControllerAction> controllerActions) {
+            List<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == AXIS)
@@ -517,7 +517,7 @@ public class ControllerActionUtils {
     }
 
     public static Map<JoystickType, ControllerAction> getJoystickMapping(
-            Collection<ControllerAction> controllerActions) {
+            List<ControllerAction> controllerActions) {
         return controllerActions
                 .stream()
                 .filter(ca -> ca.getType() == JOYSTICK)
