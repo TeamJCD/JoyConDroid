@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showDiscord() {
-        String url = "https://youtubeplays.com/joycon-droid";
+        String url = "https://discord.gg/5SFhf5C";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
