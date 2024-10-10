@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 
 public interface CustomUiService {
 
-    @GET("/")
+    @GET("index.html")
     Call<List<CustomUiItem>> getCustomUis();
 }
