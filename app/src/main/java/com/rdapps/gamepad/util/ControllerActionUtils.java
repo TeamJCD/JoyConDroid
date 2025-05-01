@@ -97,14 +97,13 @@ import static com.rdapps.gamepad.model.ControllerAction.Type.JOYSTICK;
 
 import android.content.Context;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rdapps.gamepad.device.ButtonType;
 import com.rdapps.gamepad.device.JoystickType;
 import com.rdapps.gamepad.model.ControllerAction;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -526,15 +525,7 @@ public class ControllerActionUtils {
 
     public static List<ControllerAction> getControllerActions(Context context) {
         return Optional.ofNullable(PreferenceUtils.getButtonMapping(context))
-                .map(objStr -> {
-                    try {
-                        return OBJECT_MAPPER.readValue(objStr,
-                                new TypeReference<List<ControllerAction>>() {
-                                });
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+                .map(ControllerActionUtils::parseControllerActions)
                 .orElse(CONTROLLER_ACTIONS);
     }
 
@@ -543,6 +534,16 @@ public class ControllerActionUtils {
             String actionsStr = OBJECT_MAPPER.writeValueAsString(actions);
             PreferenceUtils.setButtonMapping(context, actionsStr);
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static List<ControllerAction> parseControllerActions(String json) {
+        try {
+            JavaType type = OBJECT_MAPPER.getTypeFactory()
+                    .constructCollectionType(List.class, ControllerAction.class);
+            return OBJECT_MAPPER.readValue(json, type);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
