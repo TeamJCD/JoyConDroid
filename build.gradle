@@ -56,5 +56,5 @@ class VersionJsonTask extends DefaultTask {
 tasks.register('generateVersionJson', VersionJsonTask, grgitService.service)
 
 tasks.register('clean', Delete) {
-    delete rootProject.buildDir
+    delete rootProject.layout.buildDirectory
 }
