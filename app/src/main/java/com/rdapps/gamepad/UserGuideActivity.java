@@ -52,6 +52,8 @@ public class UserGuideActivity extends AppCompatActivity {
             @Override
             public void onReceivedError(
                     WebView view, WebResourceRequest request, WebResourceError error) {
+                log("CONTENT", String.format(Locale.ROOT, "Error fetching %s: %d %s",
+                        request.getUrl(), error.getErrorCode(), error.getDescription()));
                 webView.loadUrl("file:///android_asset/error.html");
             }
         });
