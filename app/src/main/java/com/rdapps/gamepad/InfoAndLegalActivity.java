@@ -12,11 +12,11 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.rdapps.gamepad.util.ControllerFunctions;
 import com.rdapps.gamepad.util.PreferenceUtils;
+import com.rdapps.gamepad.web.CachingWebViewClient;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -49,7 +49,7 @@ public class InfoAndLegalActivity extends AppCompatActivity {
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal");
-        webView.setWebViewClient(new WebViewClient() {
+        webView.setWebViewClient(new CachingWebViewClient() {
             public void onPageFinished(WebView view, String url) {
                 if (!errored.get()) {
                     acceptButton.setEnabled(true);
@@ -59,10 +59,8 @@ public class InfoAndLegalActivity extends AppCompatActivity {
             @Override
             public void onReceivedError(
                     WebView view, WebResourceRequest request, WebResourceError error) {
-                log("CONTENT", String.format(Locale.ROOT, "Error fetching %s: %d %s",
-                        request.getUrl(), error.getErrorCode(), error.getDescription()));
+                super.onReceivedError(view, request, error);
                 errored.set(true);
-                webView.loadUrl("file:///android_asset/error.html");
             }
         });
         webView.setWebChromeClient(new WebChromeClient() {

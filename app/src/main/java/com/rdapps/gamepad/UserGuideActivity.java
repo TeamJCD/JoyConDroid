@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import androidx.appcompat.app.AppCompatActivity;
 import com.rdapps.gamepad.util.ControllerFunctions;
 import com.rdapps.gamepad.util.PreferenceUtils;
+import com.rdapps.gamepad.web.CachingWebViewClient;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -48,15 +46,7 @@ public class UserGuideActivity extends AppCompatActivity {
                 .orElse(BASE_URL);
 
         webView.loadUrl(url);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedError(
-                    WebView view, WebResourceRequest request, WebResourceError error) {
-                log("CONTENT", String.format(Locale.ROOT, "Error fetching %s: %d %s",
-                        request.getUrl(), error.getErrorCode(), error.getDescription()));
-                webView.loadUrl("file:///android_asset/error.html");
-            }
-        });
+        webView.setWebViewClient(new CachingWebViewClient());
         webView.setWebChromeClient(new WebChromeClient() {
 
             @Override

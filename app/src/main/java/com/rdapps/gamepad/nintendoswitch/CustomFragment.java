@@ -18,11 +18,8 @@ import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import androidx.fragment.app.FragmentActivity;
 import com.erz.joysticklibrary.JoyStick;
@@ -32,6 +29,7 @@ import com.rdapps.gamepad.button.AxisEnum;
 import com.rdapps.gamepad.button.ButtonEnum;
 import com.rdapps.gamepad.led.LedState;
 import com.rdapps.gamepad.util.ControllerFunctions;
+import com.rdapps.gamepad.web.CachingWebViewClient;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
@@ -79,15 +77,7 @@ public class CustomFragment extends ControllerFragment {
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.loadUrl(url);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedError(
-                    WebView view, WebResourceRequest request, WebResourceError error) {
-                log("CONTENT", String.format(Locale.ROOT, "Error fetching %s: %d %s",
-                        request.getUrl(), error.getErrorCode(), error.getDescription()));
-                webView.loadUrl("file:///android_asset/error.html");
-            }
-        });
+        webView.setWebViewClient(new CachingWebViewClient());
         webView.setWebChromeClient(new WebChromeClient() {
 
             @Override

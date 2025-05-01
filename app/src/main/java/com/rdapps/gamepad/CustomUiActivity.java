@@ -49,7 +49,7 @@ public class CustomUiActivity extends AppCompatActivity implements Callback<List
 
         customUiViewAdapter.setItems(new ArrayList<>());
 
-        CustomUiService customUiService = CustomUiClient.getService();
+        CustomUiService customUiService = CustomUiClient.getService(this);
         Call<List<CustomUiItem>> customUis = customUiService.getCustomUis();
         customUis.enqueue(this);
     }
