@@ -26,7 +26,7 @@ jobs:
           upload_translations: true
           download_translations: true
           source: app/src/main/res/values/strings.xml
-          translation: app/src/main/res/values-%android_code%/strings.xml
+          translation: app/src/main/res/values-%android_code%/%original_file_name%
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
