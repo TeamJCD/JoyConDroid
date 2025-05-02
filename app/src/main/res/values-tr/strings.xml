@@ -13,7 +13,7 @@
     <string name="bt_config_was_not_changed">Bluetooth Konfigürasyonu modifiye edilmedi.</string>
     <string name="right_joycon">Sağ JoyCon</string>
     <string name="pro_controller">Pro Controller</string>
-    <string name="info_and_legal">>Bilgi Ve Yasal Detaylar</string>
+    <string name="info_and_legal">&gt;Bilgi Ve Yasal Detaylar</string>
     <string name="accept">Kabul Et</string>
     <string name="bt_name_not_set">Cihaz Bluetooth ismi değiştirilemedi, manuel olarak %1$s yapılması gerekiyor</string>
     <string name="bt_sdp_failed">SDP Ayarları başarısız oldu, geliştiriciyle iletişime geç.</string>
@@ -46,7 +46,6 @@
     <string name="incorrect_mac_address">Yanlış Mac Adresi</string>
     <string name="never_ask_again">Bir Daha Sorma</string>
     <string name="push_axis_same_direction_to_map_to_button">Aynı yöne %1$s it %2$s ayarlamak için</string>
-
     <!-- Colors -->
     <string name="pro_controller_body_color">ProController Gövde Rengi:</string>
     <string name="pro_controller_button_color">ProController Tuş Rengi:</string>
@@ -59,7 +58,6 @@
     <string name="enable_accelerometer">Akselerometreyi Etkinleştir</string>
     <string name="enable_gyroscope">Cayroskopu Etkinleştir</string>
     <string name="enable_amiibo">NFC\'yi Etkinleştir (Deneysel)</string>
-
     <string name="mtu_warning_title">MTU Boyut Uyarısı</string>
     <string name="mtu_warning_text">Teknik limitler sebebiyle NFC Fonksiyonu şu an yalnızca Samsung cihazlarında çalışıyor. Cihazında Amiibo desteği olmayabilir.</string>
     <string name="continue_option">Devam Et</string>
@@ -81,4 +79,6 @@
     <string name="mac_address">Mac Adresi</string>
     <string name="clear">Temizle</string>
     <string name="device_name">Cihaz Adı</string>
+    <string name="close">Close</string>
+    <string name="missingPermission">Missing permission: %s</string>
 </resources>
