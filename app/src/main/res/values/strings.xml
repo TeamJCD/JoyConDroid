@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Joy-Con Droid</string>
     <string name="bt_not_available">Bluetooth is not available</string>
@@ -14,14 +15,11 @@
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Info And Legal</string>
     <string name="accept">Accept</string>
-    <string name="bt_name_not_set">Device Bluetooth name could not be changed. It has to be set manually to %1$s.
-    </string>
+    <string name="bt_name_not_set">Device Bluetooth name could not be changed. It has to be set manually to %1$s.</string>
     <string name="bt_sdp_failed">SDP Settings failed contact the developer.</string>
     <string name="bt_register_failed">Bluetooth could not register application</string>
     <string name="disconnect_controller">Disconnect Controller</string>
-    <string name="device_is_not_compatible">Your device might not be compatible with this application. Contact to the
-        developer or manufacturer.
-    </string>
+    <string name="device_is_not_compatible">Your device might not be compatible with this application. Contact to the developer or manufacturer.</string>
     <string name="ok">OK</string>
     <string name="custom_ui_selection">Select Custom UI</string>
     <string name="custom_ui">Custom UI</string>
@@ -64,9 +62,7 @@
     <string name="enable_amiibo">Enable NFC (Experimental)</string>
 
     <string name="mtu_warning_title">MTU Size Warning</string>
-    <string name="mtu_warning_text">NFC Functionality is currently only working on Samsung devices due to technical
-        restrictions. Your device might not support Amiibo.
-    </string>
+    <string name="mtu_warning_text">NFC Functionality is currently only working on Samsung devices due to technical restrictions. Your device might not support Amiibo.</string>
     <string name="continue_option">Continue</string>
     <string name="amiibo_experimental_title">Warning</string>
     <string name="amiibo_experimental_text">NFC Functionality is experimental and might not work.</string>
