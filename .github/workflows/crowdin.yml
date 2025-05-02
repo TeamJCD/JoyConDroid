@@ -1,0 +1,33 @@
+name: Crowdin Action
+
+on:
+  push:
+    paths:
+      - 'app/src/main/res/values/strings.xml'
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  crowdin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Synchronize with Crowdin
+        uses: crowdin/github-action@v2
+        with:
+          upload_translations: true
+          download_translations: true
+          source: app/src/main/res/values/strings.xml
+          translation: app/src/main/res/values-%android_code%/strings.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
