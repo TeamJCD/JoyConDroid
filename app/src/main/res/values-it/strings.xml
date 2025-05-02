@@ -46,7 +46,6 @@
     <string name="incorrect_mac_address">MAC Address non corretto</string>
     <string name="never_ask_again">Non chiedere più</string>
     <string name="push_axis_same_direction_to_map_to_button">Tira %1$s nella stessa direzione per mappare su %2$s</string>
-
     <!-- Colors -->
     <string name="pro_controller_body_color">Colore Corpo ProController:</string>
     <string name="pro_controller_button_color">Colore Pulsante ProController:</string>
@@ -59,7 +58,6 @@
     <string name="enable_accelerometer">Attiva Accelerometro</string>
     <string name="enable_gyroscope">Attiva Giroscopio</string>
     <string name="enable_amiibo">Attiva NFC (sperimentale)</string>
-
     <string name="mtu_warning_title">Avviso Dimensione MTU</string>
     <string name="mtu_warning_text">La funzionalità NFC funziona attualmente solo su dispositivi Samsung a causa di limiti tecnici. Il tuo dispositivo potrebbe non supportare Amiibo.</string>
     <string name="continue_option">Continua</string>
@@ -69,4 +67,18 @@
     <string name="amiibo_file_cannot_be">Attenzione! NFC Binary non può essere impostato.</string>
     <string name="enable_haptic_feedback">Attiva Feedback Aptico</string>
     <string name="amiibo_bin_path">Percorso NFC Binary</string>
+    <string name="update_available">Update Available</string>
+    <string name="update_message">New version of JoyCon Droid is available. Do you want to download the update?</string>
+    <string name="update">Update</string>
+    <string name="packet_rate">Packet Rate: %d pps</string>
+    <string name="invalid_intent">Could NOT Install Custom UI.</string>
+    <string name="custom_ui_loaded">Custom UI is loaded.</string>
+    <string name="custom_ui_is_not_found">Custom UI is not founded.</string>
+    <string name="custom_ui_has_newer_version">Custom UI has newer or same version</string>
+    <string name="device_settings">Device Settings</string>
+    <string name="mac_address">Mac Address</string>
+    <string name="clear">Clear</string>
+    <string name="device_name">Device Name</string>
+    <string name="close">Close</string>
+    <string name="missingPermission">Missing permission: %s</string>
 </resources>
