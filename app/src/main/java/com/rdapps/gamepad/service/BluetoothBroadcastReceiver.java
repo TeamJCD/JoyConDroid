@@ -45,7 +45,15 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
                 listener.discoveryFinished();
                 break;
             case ACTION_FOUND:
-                device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE,
+                            BluetoothDevice.class);
+                } else {
+                    @SuppressWarnings("deprecation")
+                    BluetoothDevice deprecatedDevice = intent
+                            .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    device = deprecatedDevice;
+                }
                 listener.deviceFound(device);
                 break;
             case ACTION_STATE_CHANGED:
@@ -62,7 +70,15 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
                 try {
                     int bondState = intent.getExtras().getInt(BluetoothDevice.EXTRA_BOND_STATE);
                     log(TAG, "Bond State: " + bondState);
-                    device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE,
+                                BluetoothDevice.class);
+                    } else {
+                        @SuppressWarnings("deprecation")
+                        BluetoothDevice deprecatedDevice = intent
+                                .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                        device = deprecatedDevice;
+                    }
                     log(TAG, "Device: " + device);
 
                     if (NINTENDO_SWITCH.equalsIgnoreCase(device.getName())
