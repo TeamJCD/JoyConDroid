@@ -51,10 +51,11 @@ public class FeatureSwitchFragment extends Fragment
         Bundle arguments = getArguments();
         type = (FeatureType) arguments.getSerializable(TYPE);
 
-        TextView textView = view.findViewById(R.id.controllerTextView);
         switchController = view.findViewById(R.id.featureSwitch);
         switchController.setOnCheckedChangeListener(this);
         enabled = false;
+
+        TextView textView = view.findViewById(R.id.controllerTextView);
 
         switch (type) {
             case ACCELEROMETER:
