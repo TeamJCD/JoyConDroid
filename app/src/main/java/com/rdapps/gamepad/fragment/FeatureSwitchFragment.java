@@ -132,6 +132,7 @@ public class FeatureSwitchFragment extends Fragment
                 } else if (!enabled) {
                     DeviceName.with(getContext()).request((info, error) -> {
                         if (Objects.nonNull(info)) {
+                            @SuppressWarnings("deprecation")
                             String manufacturer = info.manufacturer;  // "Samsung"
                             // String name = info.marketName;            // "Galaxy S8+"
                             // String model = info.model;                // "SM-G955W"
