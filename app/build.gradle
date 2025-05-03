@@ -129,7 +129,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.16.1'
 
     constraints {
-        implementation('com.fasterxml.jackson.core:jackson-databind:2.15.2') {
+        implementation('com.fasterxml.jackson.core:jackson-databind:2.19.0') {
             because '2.10.1 is vulnerable'
         }
         implementation('com.squareup.okhttp3:okhttp:4.12.0') {
