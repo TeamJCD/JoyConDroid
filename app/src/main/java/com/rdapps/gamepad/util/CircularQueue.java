@@ -21,6 +21,7 @@ public class CircularQueue<E> {
         this(DEFAULT_MAX_CAPACITY);
     }
 
+    @SuppressWarnings("unchecked")
     public CircularQueue(int capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException("Capacity has to be bigger than 0.");
