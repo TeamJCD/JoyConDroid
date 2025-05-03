@@ -341,7 +341,14 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         ControllerType type = controllerType;
 
         if (Objects.nonNull(intent)) {
-            type = (ControllerType) intent.getSerializableExtra(DEVICE_TYPE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                type = intent.getSerializableExtra(DEVICE_TYPE, ControllerType.class);
+            } else {
+                @SuppressWarnings("deprecation")
+                ControllerType deprecatedType =
+                        (ControllerType) intent.getSerializableExtra(DEVICE_TYPE);
+                type = deprecatedType;
+            }
 
             if (intent.getAction() == INTENT_DISCONNECT) {
                 state = State.DESTROYING;

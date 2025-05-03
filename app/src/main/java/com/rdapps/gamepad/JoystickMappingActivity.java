@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.InputDevice;
 import android.view.MotionEvent;
@@ -50,7 +51,14 @@ public class JoystickMappingActivity extends AppCompatActivity {
         setSupportActionBar(mainToolbar);
 
         Intent intent = getIntent();
-        joystickType = (JoystickType) intent.getSerializableExtra(TYPE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            joystickType = intent.getSerializableExtra(TYPE, JoystickType.class);
+        } else {
+            @SuppressWarnings("deprecation")
+            JoystickType deprecatedType =
+                    (JoystickType) intent.getSerializableExtra(TYPE);
+            joystickType = deprecatedType;
+        }
 
         if (Objects.isNull(joystickType)) {
             finish();

@@ -9,6 +9,7 @@ import static com.rdapps.gamepad.util.ControllerActionUtils.getControllerActions
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.InputDevice;
 import android.view.KeyEvent;
@@ -116,8 +117,17 @@ public class ButtonMappingActivity extends AppCompatActivity
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == JoystickMappingActivity.MAPPING
                 && resultCode == JoystickMappingActivity.RESULT_OK) {
-            Optional.ofNullable(data).map(d -> (ControllerAction)
-                            d.getSerializableExtra(JoystickMappingActivity.RESULT))
+            Optional.ofNullable(data).map(d -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    return d.getSerializableExtra(JoystickMappingActivity.RESULT,
+                            ControllerAction.class);
+                } else {
+                    @SuppressWarnings("deprecation")
+                    ControllerAction deprecatedType = (ControllerAction)
+                            d.getSerializableExtra(JoystickMappingActivity.RESULT);
+                    return deprecatedType;
+                }
+            })
                     .ifPresent(this::remapJoystick);
         } else {
             super.onActivityResult(requestCode, resultCode, data);

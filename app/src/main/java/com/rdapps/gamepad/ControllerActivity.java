@@ -91,9 +91,17 @@ public class ControllerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         // Get Controller Type From Extras
-        controllerType = Optional
-                .ofNullable((ControllerType) intent.getSerializableExtra(CONTROLLER_TYPE))
-                .orElse(PRO_CONTROLLER);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            controllerType = intent.getSerializableExtra(CONTROLLER_TYPE, ControllerType.class);
+        } else {
+            @SuppressWarnings("deprecation")
+            ControllerType deprecatedType =
+                    (ControllerType) intent.getSerializableExtra(CONTROLLER_TYPE);
+            controllerType = deprecatedType;
+        }
+        if (controllerType == null) {
+            controllerType = PRO_CONTROLLER;
+        }
 
         boolean customUi = intent.getBooleanExtra(CUSTOM_UI, false);
 
