@@ -141,6 +141,6 @@ dependencies {
     implementation 'com.github.alexandre-g:AndroidPhotoshopColorPicker:1.2.4'
 
     //Device Name
-    implementation 'com.jaredrummler:android-device-names:1.1.9'
+    implementation 'com.jaredrummler:android-device-names:2.1.1'
 
 }
