@@ -23,6 +23,8 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import com.erz.joysticklibrary.JoyStick;
 import com.rdapps.gamepad.device.ButtonType;
@@ -42,8 +44,6 @@ import lombok.Setter;
 import org.apache.commons.io.IOUtils;
 
 public abstract class ControllerFragment extends Fragment {
-    public static final int REQUEST_SELECT_FILE = 1;
-
     private Context context;
     private SensorManager sensorManager;
     private Sensor senAccelerometer;
@@ -64,6 +64,14 @@ public abstract class ControllerFragment extends Fragment {
     private float prevRightY = 0;
     private float prevLeftX = 0;
     private float prevLeftY = 0;
+
+    private final ActivityResultLauncher<Intent> selectFileResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK) {
+                            onFileSelected(result.getData());
+                        }
+                    });
 
     @Override
     public void onAttach(Context context) {
@@ -450,21 +458,19 @@ public abstract class ControllerFragment extends Fragment {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType(binaryOnly ? "application/octet-stream" : "*/*");
 
-        startActivityForResult(intent, REQUEST_SELECT_FILE);
+        selectFileResultLauncher.launch(intent);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SELECT_FILE && resultCode == RESULT_OK) {
-            if (data != null) {
-                Context context = getContext();
-                Uri uri = data.getData();
-                try (InputStream is = context.getContentResolver().openInputStream(uri)) {
-                    byte[] bytes = IOUtils.toByteArray(is);
-                    PreferenceUtils.setAmiiboFileName(context, uri);
-                    device.setAmiiboBytes(bytes);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    protected void onFileSelected(Intent data) {
+        if (data != null) {
+            Context context = getContext();
+            Uri uri = data.getData();
+            try (InputStream is = context.getContentResolver().openInputStream(uri)) {
+                byte[] bytes = IOUtils.toByteArray(is);
+                PreferenceUtils.setAmiiboFileName(context, uri);
+                device.setAmiiboBytes(bytes);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -486,19 +486,15 @@ public class CustomFragment extends ControllerFragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SELECT_FILE && resultCode == RESULT_OK) {
-            Uri[] results = new Uri[1];
-            if (data != null) {
-                Context context = getContext();
-                results[0] = data.getData();
-                log(LOG_TAG, "file uri: " + results[0]);
-            }
-            uploadMessage.onReceiveValue(results);
-            uploadMessage = null;
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+    protected void onFileSelected(Intent data) {
+        Uri[] results = new Uri[1];
+        if (data != null) {
+            Context context = getContext();
+            results[0] = data.getData();
+            log(LOG_TAG, "file uri: " + results[0]);
         }
+        uploadMessage.onReceiveValue(results);
+        uploadMessage = null;
     }
 
     @Override

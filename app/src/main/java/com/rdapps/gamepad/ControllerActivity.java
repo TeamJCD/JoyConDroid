@@ -29,6 +29,8 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,7 +54,6 @@ import com.rdapps.gamepad.service.BluetoothControllerService.BluetoothController
 import com.rdapps.gamepad.toast.ToastHelper;
 import com.rdapps.gamepad.util.EventUtils;
 import java.util.Objects;
-import java.util.Optional;
 
 public class ControllerActivity extends AppCompatActivity {
 
@@ -60,9 +61,6 @@ public class ControllerActivity extends AppCompatActivity {
     public static final String CONTROLLER_TYPE = "CONTROLLER_TYPE";
     public static final String CUSTOM_UI = "CUSTOM_UI";
     public static final String CUSTOM_UI_URL = "CUSTOM_UI_URL";
-
-    private static final int REQUEST_BT_ENABLE = 1;
-    private static final int REQUEST_BT_DISCOVERY = 2;
 
     private static final String TAG = ControllerActivity.class.getName();
 
@@ -75,6 +73,24 @@ public class ControllerActivity extends AppCompatActivity {
     private BluetoothControllerService bluetoothControllerService;
 
     private boolean askingDiscoverable;
+
+    private final ActivityResultLauncher<Intent> requestBtEnableResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_CANCELED) {
+                            Toast.makeText(getApplicationContext(), R.string.bt_enable_canceled,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+    private final ActivityResultLauncher<Intent> requestBtDiscoveryResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_CANCELED) {
+                            Toast.makeText(getApplicationContext(), R.string.bt_discovery_canceled,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
 
     public ControllerActivity() {
     }
@@ -191,7 +207,7 @@ public class ControllerActivity extends AppCompatActivity {
         if (!bluetoothAdapter.isEnabled()) {
             try {
                 Intent enableIntent = new Intent(ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableIntent, REQUEST_BT_ENABLE);
+                requestBtEnableResultLauncher.launch(enableIntent);
             } catch (SecurityException ex) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     missingPermission(getApplicationContext(),
@@ -201,22 +217,6 @@ public class ControllerActivity extends AppCompatActivity {
             }
         } else {
             setupHidService();
-        }
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_BT_ENABLE) {
-            if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getApplicationContext(), R.string.bt_enable_canceled,
-                        Toast.LENGTH_LONG).show();
-            }
-        } else if (requestCode == REQUEST_BT_DISCOVERY) {
-            if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getApplicationContext(), R.string.bt_discovery_canceled,
-                        Toast.LENGTH_LONG).show();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -297,7 +297,7 @@ public class ControllerActivity extends AppCompatActivity {
         try {
             Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, duration);
-            startActivityForResult(discoverableIntent, REQUEST_BT_DISCOVERY);
+            requestBtDiscoveryResultLauncher.launch(discoverableIntent);
             askingDiscoverable = true;
         } catch (SecurityException ex) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ButtonMappingAlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -48,6 +50,25 @@ public class ButtonMappingActivity extends AppCompatActivity
     private int axisDirection;
 
     private List<ControllerAction> controllerActions;
+
+    private final ActivityResultLauncher<Intent> joystickMappingActivityResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == JoystickMappingActivity.RESULT_OK) {
+                            Optional.ofNullable(result.getData()).map(d -> {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                    return d.getSerializableExtra(JoystickMappingActivity.RESULT,
+                                            ControllerAction.class);
+                                } else {
+                                    @SuppressWarnings("deprecation")
+                                    ControllerAction deprecatedType = (ControllerAction)
+                                            d.getSerializableExtra(JoystickMappingActivity.RESULT);
+                                    return deprecatedType;
+                                }
+                            })
+                                    .ifPresent(this::remapJoystick);
+                        }
+                    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,28 +130,7 @@ public class ButtonMappingActivity extends AppCompatActivity
             JoystickType joystick = controllerAction.getJoystick();
             Intent intent = new Intent(this, JoystickMappingActivity.class);
             intent.putExtra(JoystickMappingActivity.TYPE, joystick);
-            startActivityForResult(intent, JoystickMappingActivity.MAPPING);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == JoystickMappingActivity.MAPPING
-                && resultCode == JoystickMappingActivity.RESULT_OK) {
-            Optional.ofNullable(data).map(d -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    return d.getSerializableExtra(JoystickMappingActivity.RESULT,
-                            ControllerAction.class);
-                } else {
-                    @SuppressWarnings("deprecation")
-                    ControllerAction deprecatedType = (ControllerAction)
-                            d.getSerializableExtra(JoystickMappingActivity.RESULT);
-                    return deprecatedType;
-                }
-            })
-                    .ifPresent(this::remapJoystick);
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+            joystickMappingActivityResultLauncher.launch(intent);
         }
     }
 

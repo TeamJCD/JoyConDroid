@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import com.rdapps.gamepad.R;
 import com.rdapps.gamepad.util.PreferenceUtils;
@@ -27,9 +29,30 @@ public class FileSelectorFragment extends Fragment
 
     private static String TYPE = "TYPE";
 
-    private static final int REQUEST_SELECT_FILE = 1;
-
     private TextView textView;
+
+    private final ActivityResultLauncher<Intent> selectFileResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK) {
+                            final Intent data = result.getData();
+                            if (data != null) {
+                                Context context = getContext();
+                                Uri uri = data.getData();
+                                try (InputStream is = context.getContentResolver()
+                                        .openInputStream(uri)) {
+                                    byte[] bytes = IOUtils.toByteArray(is);
+                                    PreferenceUtils.setAmiiboFileName(context, uri);
+                                    PreferenceUtils.setAmiiboBytes(context, bytes);
+                                    showAmiiboFilePreset();
+                                    setAmiiboFilePathText();
+                                } catch (IOException e) {
+                                    showAmiiboFileCannotSet();
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
 
     public static FileSelectorFragment getInstance() {
         FileSelectorFragment fileSelectorFragment = new FileSelectorFragment();
@@ -85,27 +108,7 @@ public class FileSelectorFragment extends Fragment
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("application/octet-stream");
 
-        startActivityForResult(intent, REQUEST_SELECT_FILE);
-    }
-
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SELECT_FILE && resultCode == RESULT_OK) {
-            if (data != null) {
-                Context context = getContext();
-                Uri uri = data.getData();
-                try (InputStream is = context.getContentResolver().openInputStream(uri)) {
-                    byte[] bytes = IOUtils.toByteArray(is);
-                    PreferenceUtils.setAmiiboFileName(context, uri);
-                    PreferenceUtils.setAmiiboBytes(context, bytes);
-                    showAmiiboFilePreset();
-                    setAmiiboFilePathText();
-                } catch (IOException e) {
-                    showAmiiboFileCannotSet();
-                    e.printStackTrace();
-                }
-            }
-        }
+        selectFileResultLauncher.launch(intent);
     }
 
     public void showAmiiboFilePreset() {

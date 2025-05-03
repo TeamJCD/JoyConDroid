@@ -32,7 +32,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -65,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
 
-    private static final int LEGAL_CODE = 1;
-
     @RequiresApi(Build.VERSION_CODES.S)
     private static final String[] RUNTIME_PERMISSIONS_S
             = new String[] { BLUETOOTH_ADVERTISE, BLUETOOTH_CONNECT, BLUETOOTH_SCAN };
@@ -76,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
             = new String[] { POST_NOTIFICATIONS };
 
     private BluetoothBroadcastReceiver bluetoothBroadcastReceiver;
+
+    private final ActivityResultLauncher<Intent> legalActivityResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() != InfoAndLegalActivity.ACCEPT) {
+                            finish();
+                        } else {
+                            if (!PreferenceUtils.getDoNotShow(this)) {
+                                showGuide();
+                            }
+                        }
+                    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -265,18 +276,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode != LEGAL_CODE || resultCode != InfoAndLegalActivity.ACCEPT) {
-            finish();
-        } else {
-            if (!PreferenceUtils.getDoNotShow(this)) {
-                showGuide();
-            }
-        }
-    }
-
     public void showLeftJoyCon(View v) {
         showController(LEFT_JOYCON);
     }
@@ -339,7 +338,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showInitialInfoAndLegal() {
-        startActivityForResult(new Intent(this, InfoAndLegalActivity.class), LEGAL_CODE);
+        Intent intent = new Intent(this, InfoAndLegalActivity.class);
+        legalActivityResultLauncher.launch(intent);
     }
 
     public void revertBluetoothConfig() {
