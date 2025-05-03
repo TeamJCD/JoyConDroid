@@ -15,6 +15,7 @@ import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -128,7 +129,8 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
     private void initializeBluetooth() {
-        this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        this.bluetoothAdapter = getApplicationContext().getSystemService(BluetoothManager.class)
+                .getAdapter();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);

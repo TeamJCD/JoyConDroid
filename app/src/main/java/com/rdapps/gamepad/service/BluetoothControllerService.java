@@ -28,6 +28,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHidDevice;
 import android.bluetooth.BluetoothHidDeviceAppQosSettings;
 import android.bluetooth.BluetoothHidDeviceAppSdpSettings;
+import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
@@ -227,7 +228,8 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         serviceConnected = false;
         deviceConnected = false;
         state = State.INITIAL;
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        bluetoothAdapter = getApplicationContext().getSystemService(BluetoothManager.class)
+                .getAdapter();
 
         //this.getClass().getMethod("setBluetoothClass", new Class[]{}).invoke(this);
         bluetoothHidExecutor = Executors.newCachedThreadPool();

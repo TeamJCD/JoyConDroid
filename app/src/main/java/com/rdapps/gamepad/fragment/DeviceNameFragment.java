@@ -5,6 +5,7 @@ import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,7 +46,8 @@ public class DeviceNameFragment extends Fragment
         View view = inflater.inflate(R.layout.component_file_selector, container, false);
         ((TextView) view.findViewById(R.id.title)).setText(R.string.device_name);
         textView = view.findViewById(R.id.selected_file_path);
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        bluetoothAdapter = requireContext().getApplicationContext()
+                .getSystemService(BluetoothManager.class).getAdapter();
         view.findViewById(R.id.select_button).setOnClickListener(this);
         setDeviceName();
         return view;
