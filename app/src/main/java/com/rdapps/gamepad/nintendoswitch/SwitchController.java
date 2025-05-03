@@ -748,7 +748,7 @@ public class SwitchController extends AbstractDevice {
 
     private synchronized byte[] getSensorData() {
         int multiplier = 1;
-        boolean isPro = type == PRO_CONTROLLER;
+        final boolean isPro = type == PRO_CONTROLLER;
         if (type == RIGHT_JOYCON) {
             multiplier = -1;
         }

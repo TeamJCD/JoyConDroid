@@ -319,7 +319,7 @@ public class InputReport {
         Queue<AccelerometerEvent> accelerometerEvents = controller.getAccelerometerEvents();
         Queue<GyroscopeEvent> gyroscopeEvents = controller.getGyroscopeEvents();
         int multiplier = 1;
-        boolean isPro = controllerType == PRO_CONTROLLER;
+        final boolean isPro = controllerType == PRO_CONTROLLER;
         if (controllerType == RIGHT_JOYCON) {
             multiplier = -1;
         }
@@ -541,7 +541,7 @@ public class InputReport {
         JoyControllerState state = controller.getState();
         final NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
         AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
-        byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
+        final byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
         //NFC TAG read
         buffer[48] = (byte) 0x3a;
         //Error Code
