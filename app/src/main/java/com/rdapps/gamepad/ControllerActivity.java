@@ -32,6 +32,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.rdapps.gamepad.led.LedState;
@@ -83,8 +86,7 @@ public class ControllerActivity extends AppCompatActivity {
         if (!BuildConfig.VM) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            enableFullscreen();
         }
 
         setContentView(R.layout.activity_left_joycon);
@@ -398,5 +400,29 @@ public class ControllerActivity extends AppCompatActivity {
             }
         }
         return super.onGenericMotionEvent(event);
+    }
+
+    private void enableFullscreen() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            final Window window = getWindow();
+            WindowCompat.setDecorFitsSystemWindows(window, false);
+
+            WindowInsetsControllerCompat controller =
+                    WindowCompat.getInsetsController(window, window.getDecorView());
+
+            controller.hide(WindowInsetsCompat.Type.statusBars()
+                    | WindowInsetsCompat.Type.navigationBars());
+            controller.setSystemBarsBehavior(
+                    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            );
+        } else {
+            enableFullscreenLegacy();
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void enableFullscreenLegacy() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }
