@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">JoyCon Droid</string>
-    <string name="bt_not_available">Bluetooth ist nicht verfügbar/aktiviert.</string>
+    <string name="app_name">Joy-Con Droid</string>
+    <string name="bt_not_available">Bluetooth ist nicht verfügbar</string>
     <string name="bt_enable_canceled">Konnte nicht Verbinden mit der Switch.</string>
     <string name="bt_discovery_canceled">Ein Fehler ist bei der Suche nach der Switch Konsole aufgetreten.</string>
-    <string name="connected_to_switch">Mit der Switch verbunden!</string>
-    <string name="disconnected_from_switch">Die Verbindung mit der Switch wurde getrennt.</string>
+    <string name="connected_to_switch">Gerät mit Switch verbunden</string>
+    <string name="disconnected_from_switch">Gerät von Switch getrennt</string>
     <string name="left_joycon">Linker Joy-Con</string>
     <string name="user_guide">Anleitung</string>
     <string name="revert_bluetooth">Bluetooth-Konfiguration wiederherstellen</string>
-    <string name="bt_config_is_reverted">Die Bluetooth-Konfiguration wurde wiederhergestellt.</string>
+    <string name="bt_config_is_reverted">Die Bluetooth-Konfiguration wurde wiederhergestellt!</string>
     <string name="bt_config_was_not_changed">Die Bluetooth-Konfiguration wurde nicht verändert.</string>
     <string name="right_joycon">Rechter Joy-Con</string>
     <string name="pro_controller">Pro Controller</string>
     <string name="info_and_legal">Infos und Rechtshinweise</string>
     <string name="accept">Annehmen</string>
-    <string name="bt_name_not_set">Bluetooth-Name konnte nicht geändert werden, er muss manuell geändert werden zu: %1$s</string>
-    <string name="bt_sdp_failed">SDP-Einstellungen fehlgeschlagen, kontaktiere den Entwickler.</string>
-    <string name="bt_register_failed">Bluetooth konnte die Anwendung nicht registrieren!</string>
+    <string name="bt_name_not_set">Bluetooth-Name konnte nicht geändert werden. Er muss manuell zu %1$s geändert werden.</string>
+    <string name="bt_sdp_failed">SDP-Einstellungen fehlgeschlagen. Kontaktiere den Entwickler!</string>
+    <string name="bt_register_failed">Bluetooth konnte die Anwendung nicht registrieren</string>
     <string name="disconnect_controller">Controller-Verbindung trennen</string>
     <string name="device_is_not_compatible">Dein Gerät ist möglicherweise nicht mit dieser App kompatibel. Kontaktiere den Entwickler oder den Hersteller.</string>
     <string name="ok">OK</string>
@@ -38,16 +38,16 @@
     <string name="save">Speichern</string>
     <string name="redo">Nochmal</string>
     <string name="save_button">Speichern</string>
-    <string name="button_mappings_saves">Tastenbelegung gespeichert!</string>
+    <string name="button_mappings_saves">Tastenbelegung wurde gespeichert.</string>
     <string name="frequently_asked_questions">Häufig gestellte Fragen</string>
     <string name="set_bt_address">Bluetooth Mac-Adresse für bessere Verbindung eingeben</string>
     <string name="later">Später</string>
     <string name="set">Einstellen</string>
-    <string name="incorrect_mac_address">Inkorrekte Mac-Adresse!</string>
+    <string name="incorrect_mac_address">Inkorrekte MAC-Adresse</string>
     <string name="never_ask_again">Nicht mehr fragen</string>
     <string name="push_axis_same_direction_to_map_to_button">Drücke %1$s in die gleiche Richtung um auf %2$s zu belegen</string>
     <!-- Colors -->
-    <string name="pro_controller_body_color">ProController: Gehäusefarbe:</string>
+    <string name="pro_controller_body_color">Pro Controller Gehäusefarbe:</string>
     <string name="pro_controller_button_color">Pro Controller: Tastenfarbe:</string>
     <string name="left_joycon_body_color">Linker Joy-Con: Gehäusefarbe:</string>
     <string name="left_joycon_button_color">Linker Joy-Con: Tastenfarbe:</string>
@@ -57,7 +57,7 @@
     <string name="feature_settings">Funktionseinstellungen</string>
     <string name="enable_accelerometer">Beschleunigungsmesser aktivieren</string>
     <string name="enable_gyroscope">Gyroskop aktivieren</string>
-    <string name="enable_amiibo">Amiibo aktivieren</string>
+    <string name="enable_amiibo">Amiibo aktivieren (experimentell)</string>
     <string name="mtu_warning_title">MTU Size Warning</string>
     <string name="mtu_warning_text">NFC Functionality is currently only working on Samsung devices due to technical restrictions. Your device might not support Amiibo.</string>
     <string name="continue_option">Continue</string>
