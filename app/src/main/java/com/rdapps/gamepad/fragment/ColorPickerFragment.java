@@ -5,6 +5,7 @@ import static com.rdapps.gamepad.log.JoyConLog.log;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -51,8 +52,17 @@ public class ColorPickerFragment extends Fragment
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.component_color_setting, container, false);
         Bundle arguments = getArguments();
-        type = (ControllerType) arguments.getSerializable(TYPE);
-        section = (ColorSection) arguments.getSerializable(SECTION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            type = arguments.getSerializable(TYPE, ControllerType.class);
+            section = arguments.getSerializable(SECTION, ColorSection.class);
+        } else {
+            @SuppressWarnings("deprecation")
+            ControllerType deprecatedType = (ControllerType) arguments.getSerializable(TYPE);
+            @SuppressWarnings("deprecation")
+            ColorSection deprecatedSection = (ColorSection) arguments.getSerializable(SECTION);
+            type = deprecatedType;
+            section = deprecatedSection;
+        }
         try {
             eeprom = new ControllerMemory(
                     new RafSpiMemory(getContext(), type.getBtName(), type.getMemoryResource()));

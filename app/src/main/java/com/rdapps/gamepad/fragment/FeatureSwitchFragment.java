@@ -2,6 +2,7 @@ package com.rdapps.gamepad.fragment;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -49,7 +50,13 @@ public class FeatureSwitchFragment extends Fragment
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.component_feature_switch, container, false);
         Bundle arguments = getArguments();
-        type = (FeatureType) arguments.getSerializable(TYPE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            type = arguments.getSerializable(TYPE, FeatureType.class);
+        } else {
+            @SuppressWarnings("deprecation")
+            FeatureType deprecatedType = (FeatureType) arguments.getSerializable(TYPE);
+            type = deprecatedType;
+        }
 
         switchController = view.findViewById(R.id.featureSwitch);
         switchController.setOnCheckedChangeListener(this);
