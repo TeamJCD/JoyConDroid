@@ -5,6 +5,6 @@ import retrofit2.http.GET;
 
 public interface VersionCheckerService {
 
-    @GET("YouTubePlays/JoyConDroid/main/version.json")
+    @GET("TeamJCD/JoyConDroid/main/version.json")
     Call<Version> getVersion();
 }

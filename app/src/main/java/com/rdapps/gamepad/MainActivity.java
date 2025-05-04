@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton(R.string.later, (dialog, which) -> {
         });
         builder.setPositiveButton(R.string.update, (dialog, which) -> {
-            String url = "https://github.com/YouTubePlays/JoyConDroid/releases/download/" + version
+            String url = "https://github.com/TeamJCD/JoyConDroid/releases/download/" + version
                     + "/JoyConDroid-" + version + ".apk";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
