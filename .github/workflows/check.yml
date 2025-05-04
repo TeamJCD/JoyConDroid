@@ -23,4 +23,4 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Check
-        run: ./gradlew check
+        run: ./gradlew check --warning-mode all
