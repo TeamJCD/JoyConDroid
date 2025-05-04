@@ -220,15 +220,6 @@ public class ControllerActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (Objects.nonNull(controllerFragment)) {
-            controllerFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
     private boolean isBound = false;
     private final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
