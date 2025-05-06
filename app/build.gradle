@@ -8,7 +8,7 @@ apply plugin: 'pmd'
 def versionJson = new JsonSlurper().parseText(rootProject.layout.projectDirectory.file('version.json').asFile.text)
 
 android {
-    compileSdk 35
+    compileSdk = 35
     // NONE: 0, VERBOSE: 2, DEBUG: 3, INFO: 4, WARN: 5, ERROR: 6, ASSERT: 7
     final def logLevelDefault = "2"
     final def logLevelApk = "0"
@@ -59,10 +59,10 @@ android {
     androidResources {
         noCompress = 'jcui'
     }
-    namespace 'com.rdapps.gamepad'
+    namespace = 'com.rdapps.gamepad'
     lint {
         disable 'VectorPath'
-        abortOnError false
+        abortOnError = false
     }
     buildFeatures {
         buildConfig = true
@@ -78,7 +78,7 @@ pmd {
 }
 
 tasks.register('checkstyle', Checkstyle) {
-    configFile rootProject.file('config/checkstyle/rules.xml')
+    configFile = rootProject.file('config/checkstyle/rules.xml')
     source 'src'
     include '**/*.java'
     exclude '**/gen/**'
