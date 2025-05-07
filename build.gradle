@@ -20,6 +20,7 @@ buildscript {
 
 plugins {
     id 'org.ajoberstar.grgit-service' version '5.0.0-rc.3'
+    id 'org.owasp.dependencycheck' version '12.1.1' apply false
 }
 
 allprojects {
@@ -33,6 +34,23 @@ allprojects {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
         }
+    }
+}
+
+subprojects {
+    apply plugin: 'org.owasp.dependencycheck'
+
+    dependencyCheck {
+        nvd.apiKey = findProperty('nvd.apiKey')
+        scanConfigurations = configurations.findAll {
+            !it.name.startsWithAny('androidTest', 'test', 'debug') &&
+                    it.name.contains("DependenciesMetadata") && (
+                    it.name.startsWithAny("api", "implementation", "runtimeOnly") ||
+                            it.name.contains("Api") ||
+                            it.name.contains("Implementation") ||
+                            it.name.contains("RuntimeOnly")
+            )
+        }.collect { it.name }
     }
 }
 
