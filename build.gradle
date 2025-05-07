@@ -37,23 +37,6 @@ allprojects {
     }
 }
 
-subprojects {
-    apply plugin: 'org.owasp.dependencycheck'
-
-    dependencyCheck {
-        nvd.apiKey = findProperty('nvd.apiKey')
-        scanConfigurations = configurations.findAll {
-            !it.name.startsWithAny('androidTest', 'test', 'debug') &&
-                    it.name.contains("DependenciesMetadata") && (
-                    it.name.startsWithAny("api", "implementation", "runtimeOnly") ||
-                            it.name.contains("Api") ||
-                            it.name.contains("Implementation") ||
-                            it.name.contains("RuntimeOnly")
-            )
-        }.collect { it.name }
-    }
-}
-
 class VersionJsonTask extends DefaultTask {
     private final Provider<GrgitService> service
     private final String version

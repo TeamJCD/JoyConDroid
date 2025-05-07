@@ -3,6 +3,7 @@ import groovy.json.JsonSlurper
 apply plugin: 'checkstyle'
 apply plugin: 'com.android.application'
 apply plugin: 'io.freefair.android-lombok'
+apply plugin: 'org.owasp.dependencycheck'
 apply plugin: 'pmd'
 
 def versionJson = new JsonSlurper().parseText(rootProject.layout.projectDirectory.file('version.json').asFile.text)
@@ -71,6 +72,11 @@ android {
 
 checkstyle {
     toolVersion = '10.23.1'
+}
+
+dependencyCheck {
+    nvd.apiKey = findProperty('nvd.apiKey')
+    scanConfigurations = android.buildTypes.collect { it.name + 'RuntimeClasspath' }
 }
 
 pmd {
