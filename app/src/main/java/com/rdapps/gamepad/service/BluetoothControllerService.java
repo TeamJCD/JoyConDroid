@@ -426,22 +426,22 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         );
 
         try {
-            bluetoothHidDevice.registerApp(
+            boolean isRegisterCommandSent = bluetoothHidDevice.registerApp(
                     bluetoothHidDeviceAppSdpSettings,
                     qos,
                     qos,
                     bluetoothHidExecutor,
                     new Callback()
             );
+
+            if (!isRegisterCommandSent) {
+                mainHandler.post(() -> couldNotRegisterApp(getApplicationContext()));
+            }
         } catch (SecurityException ex) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
                 log(TAG, "Missing permission", ex);
             }
-        }
-
-        if (!appRegistered) {
-            mainHandler.post(() -> couldNotRegisterApp(getApplicationContext()));
         }
     }
 
