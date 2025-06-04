@@ -112,7 +112,7 @@ preBuild.configure {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.browser:browser:1.8.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
