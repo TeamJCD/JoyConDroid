@@ -69,13 +69,13 @@
     <string name="amiibo_bin_path">NFC Binary Path</string>
     <string name="update_available">Update Available</string>
     <string name="update_message">New version of JoyCon Droid is available. Do you want to download the update?</string>
-    <string name="update">Update</string>
+    <string name="update">Atualização</string>
     <string name="packet_rate">Packet Rate: %d pps</string>
     <string name="invalid_intent">Could NOT Install Custom UI.</string>
     <string name="custom_ui_loaded">Custom UI is loaded.</string>
     <string name="custom_ui_is_not_found">Custom UI is not founded.</string>
     <string name="custom_ui_has_newer_version">Custom UI has newer or same version</string>
-    <string name="device_settings">Device Settings</string>
+    <string name="device_settings">Configurações do dispositivo</string>
     <string name="mac_address">Mac Address</string>
     <string name="clear">Clear</string>
     <string name="device_name">Device Name</string>
