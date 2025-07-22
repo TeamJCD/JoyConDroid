@@ -62,6 +62,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         JoyControllerListener {
 
     private static final int HID_PROFILE_TIME_OUT_SECONDS = 10;
+    private static final int MAX_REGISTRATION_RETRY = 10;
 
     public static final String DEVICE_TYPE = "DEVICE_TYPE";
     public static final String NINTENDO_SWITCH = "Nintendo Switch";
@@ -93,6 +94,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     boolean appRegistered;
     boolean serviceConnected;
     boolean deviceConnected;
+    int registrationRetryCounter;
     ControllerType controllerType;
 
     ControllerActivity controllerActivity;
@@ -401,46 +403,53 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     }
 
     private void registerApp() {
-        BluetoothHidDeviceAppSdpSettings bluetoothHidDeviceAppSdpSettings;
-        try {
-            bluetoothHidDeviceAppSdpSettings = new BluetoothHidDeviceAppSdpSettings(
-                    switchController.getHidName(),
-                    switchController.getHidDescription(),
-                    switchController.getHidProvider(),
-                    switchController.getSubclass(),
-                    hexStringToByteArray(switchController.getHidDescriptor())
-            );
-        } catch (IllegalArgumentException e) {
-            log(TAG, "Cannot set SdpSettings", e);
-            mainHandler.post(() -> sdpFailed(getApplicationContext()));
-            return;
-        }
-
-        BluetoothHidDeviceAppQosSettings qos = new BluetoothHidDeviceAppQosSettings(
-                SERVICE_GUARANTEED,
-                QOS_TOKEN_RATE,
-                QOS_TOKEN_BUCKET_SIZE,
-                QOS_PEAK_BANDWIDTH,
-                QOS_LATENCY,
-                QOS_DELAY_VARIATION
-        );
-
-        try {
-            boolean isRegisterCommandSent = bluetoothHidDevice.registerApp(
-                    bluetoothHidDeviceAppSdpSettings,
-                    qos,
-                    qos,
-                    bluetoothHidExecutor,
-                    new Callback()
-            );
-
-            if (!isRegisterCommandSent) {
-                mainHandler.post(() -> couldNotRegisterApp(getApplicationContext()));
+        if (registrationRetryCounter >= MAX_REGISTRATION_RETRY) {
+            mainHandler.post(() -> couldNotRegisterApp(getApplicationContext()));
+        } else {
+            BluetoothHidDeviceAppSdpSettings bluetoothHidDeviceAppSdpSettings;
+            try {
+                bluetoothHidDeviceAppSdpSettings = new BluetoothHidDeviceAppSdpSettings(
+                        switchController.getHidName(),
+                        switchController.getHidDescription(),
+                        switchController.getHidProvider(),
+                        switchController.getSubclass(),
+                        hexStringToByteArray(switchController.getHidDescriptor())
+                );
+            } catch (IllegalArgumentException e) {
+                log(TAG, "Cannot set SdpSettings", e);
+                mainHandler.post(() -> sdpFailed(getApplicationContext()));
+                return;
             }
-        } catch (SecurityException ex) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                missingPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
-                log(TAG, "Missing permission", ex);
+
+            BluetoothHidDeviceAppQosSettings qos = new BluetoothHidDeviceAppQosSettings(
+                    SERVICE_GUARANTEED,
+                    QOS_TOKEN_RATE,
+                    QOS_TOKEN_BUCKET_SIZE,
+                    QOS_PEAK_BANDWIDTH,
+                    QOS_LATENCY,
+                    QOS_DELAY_VARIATION
+            );
+
+            try {
+                boolean isRegisterCommandSent = bluetoothHidDevice.registerApp(
+                        bluetoothHidDeviceAppSdpSettings,
+                        qos,
+                        qos,
+                        bluetoothHidExecutor,
+                        new Callback()
+                );
+
+                if (isRegisterCommandSent) {
+                    registrationRetryCounter = 0;
+                } else {
+                    ++registrationRetryCounter;
+                }
+            } catch (SecurityException ex) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    missingPermission(getApplicationContext(),
+                            Manifest.permission.BLUETOOTH_CONNECT);
+                    log(TAG, "Missing permission", ex);
+                }
             }
         }
     }
