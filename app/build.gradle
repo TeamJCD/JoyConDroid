@@ -80,7 +80,7 @@ dependencyCheck {
 }
 
 pmd {
-    toolVersion = '7.15.0'
+    toolVersion = '7.16.0'
 }
 
 tasks.register('checkstyle', Checkstyle) {
