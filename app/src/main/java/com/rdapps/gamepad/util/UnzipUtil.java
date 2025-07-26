@@ -19,33 +19,37 @@ public class UnzipUtil {
         dirChecker("");
     }
 
-    public void unzip() {
-        try {
-            FileInputStream fin = zipFile.createInputStream();
-            ZipInputStream zin = new ZipInputStream(fin);
-            ZipEntry ze = null;
+        public void unzip() {
+        try (FileInputStream fin = zipFile.createInputStream();
+             ZipInputStream zin = new ZipInputStream(fin)) {
+            ZipEntry ze;
             while ((ze = zin.getNextEntry()) != null) {
                 Log.v("Decompress", "Unzipping " + ze.getName());
-
+                
                 if (ze.isDirectory()) {
                     dirChecker(ze.getName());
                 } else {
                     if (ze.getName() != null && !ze.getName().trim().isEmpty()) {
-                        FileOutputStream fout = new FileOutputStream(
-                                location + File.separator + ze.getName());
-
-                        byte[] buffer = new byte[8192];
-                        int len;
-                        while ((len = zin.read(buffer)) != -1) {
-                            fout.write(buffer, 0, len);
+                        File newFile = new File(location, ze.getName());
+                        // Validate that the file path is within the intended extraction directory
+                        if (!newFile.toPath().normalize().startsWith(new File(location).toPath().normalize())) {
+                            throw new RuntimeException("Bad zip entry: " + ze.getName());
                         }
-                        fout.close();
+                        
+                        // Ensure parent directory exists
+                        new File(newFile.getParent()).mkdirs();
+                        try (FileOutputStream fout = new FileOutputStream(newFile)) {
+                            byte[] buffer = new byte[8192];
+                            int len;
+                            while ((len = zin.read(buffer)) != -1) {
+                                fout.write(buffer, 0, len);
+                            }
+                        }
                     }
                     zin.closeEntry();
                 }
 
             }
-            zin.close();
         } catch (Exception e) {
             Log.e("Decompress", "unzip", e);
         }
