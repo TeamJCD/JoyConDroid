@@ -20,36 +20,41 @@ public class UnzipUtil {
     }
 
     public void unzip() {
-        try {
-            FileInputStream fin = zipFile.createInputStream();
-            ZipInputStream zin = new ZipInputStream(fin);
-            ZipEntry ze = null;
+        try (FileInputStream fin = zipFile.createInputStream();
+                ZipInputStream zin = new ZipInputStream(fin)) {
+            ZipEntry ze;
             while ((ze = zin.getNextEntry()) != null) {
                 Log.v("Decompress", "Unzipping " + ze.getName());
 
                 if (ze.isDirectory()) {
                     dirChecker(ze.getName());
-                } else {
-                    if (ze.getName() != null && !ze.getName().trim().isEmpty()) {
-                        FileOutputStream fout = new FileOutputStream(
-                                location + File.separator + ze.getName());
+                } else if (ze.getName() != null && !ze.getName().trim().isEmpty()) {
+                    File newFile = new File(location, ze.getName());
+                    // Validate that the file path is within the intended extraction directory
+                    if (!newFile.toPath().normalize()
+                            .startsWith(new File(location).toPath().normalize())) {
+                        throw new RuntimeException("Bad zip entry: " + ze.getName());
+                    }
 
+                    // Ensure parent directory exists
+                    File parent = new File(newFile.getParent());
+                    if (!parent.exists()) {
+                        parent.mkdirs();
+                    }
+
+                    try (FileOutputStream fout = new FileOutputStream(newFile)) {
                         byte[] buffer = new byte[8192];
                         int len;
                         while ((len = zin.read(buffer)) != -1) {
                             fout.write(buffer, 0, len);
                         }
-                        fout.close();
                     }
-                    zin.closeEntry();
                 }
-
+                zin.closeEntry();
             }
-            zin.close();
         } catch (Exception e) {
             Log.e("Decompress", "unzip", e);
         }
-
     }
 
     private void dirChecker(String dir) {
