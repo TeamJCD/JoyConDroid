@@ -63,4 +63,4 @@ jobs:
           git commit -m "Update version.json"
 
       - name: Push version.json
-        uses: ad-m/github-push-action@v0.8.0
+        uses: ad-m/github-push-action@v1.0.0
