@@ -14,7 +14,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.11.1'
-        classpath 'io.freefair.gradle:android-gradle-plugins:8.10.0'
+        classpath 'io.freefair.gradle:android-gradle-plugins:8.13.0'
     }
 }
 
