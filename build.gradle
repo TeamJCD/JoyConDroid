@@ -20,7 +20,7 @@ buildscript {
 
 plugins {
     id 'org.ajoberstar.grgit-service' version '5.0.0-rc.3'
-    id 'org.owasp.dependencycheck' version '12.1.6' apply false
+    id 'org.owasp.dependencycheck' version '12.1.7' apply false
 }
 
 allprojects {
