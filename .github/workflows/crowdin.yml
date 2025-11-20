@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Synchronize with Crowdin
         uses: crowdin/github-action@v2
