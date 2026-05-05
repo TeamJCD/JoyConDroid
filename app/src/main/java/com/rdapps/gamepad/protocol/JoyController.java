@@ -226,9 +226,11 @@ public class JoyController extends AbstractDevice {
         }
     }
 
-    public void set6AxisSensorEnabled(boolean enabled) {
-        state.setAxisSensorEnabled(enabled);
-        //TODO Enable 6 Axis Sensor
+    public void setSensorMode(JoyControllerState.SensorMode mode) {
+        state.setSensorMode(mode);
+        if (mode == JoyControllerState.SensorMode.QUATERNION) {
+            state.getQuaternionPacker().reset();
+        }
     }
 
     public void setVibrationEnabled(boolean enabled) {

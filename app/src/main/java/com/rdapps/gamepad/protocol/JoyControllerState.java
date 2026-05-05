@@ -21,6 +21,10 @@ public class JoyControllerState {
 
     private static final double G = 9.8f;
 
+    public enum SensorMode {
+        INACTIVE, STANDARD, QUATERNION
+    }
+
     private final AtomicInteger timeByte = new AtomicInteger(0);
 
     @Getter
@@ -35,7 +39,10 @@ public class JoyControllerState {
 
     @Setter
     @Getter
-    private boolean axisSensorEnabled = false;
+    private SensorMode sensorMode = SensorMode.INACTIVE;
+
+    @Getter
+    private final QuaternionPacker quaternionPacker = new QuaternionPacker();
 
     @Setter
     @Getter

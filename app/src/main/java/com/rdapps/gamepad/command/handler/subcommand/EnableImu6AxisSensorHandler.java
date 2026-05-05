@@ -4,6 +4,7 @@ import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.report.InputReport.Type.SUBCOMMAND_REPLY_REPORT;
 
 import com.rdapps.gamepad.protocol.JoyController;
+import com.rdapps.gamepad.protocol.JoyControllerState;
 import com.rdapps.gamepad.report.InputReport;
 import com.rdapps.gamepad.report.OutputReport;
 
@@ -20,9 +21,17 @@ class EnableImu6AxisSensorHandler implements SubCommandHandler {
         InputReport subCommandReply = new InputReport(SUBCOMMAND_REPLY_REPORT);
         subCommandReply.fillAckByte(ACK);
         subCommandReply.fillSubCommand(outputReport.getSubCommandId());
-        byte enabled = outputReport.getData()[10];
-        log(TAG, "6AxisSensor Enabled: " + enabled);
-        joyController.set6AxisSensorEnabled(enabled > 0);
+        byte mode = outputReport.getData()[10];
+        JoyControllerState.SensorMode sensorMode;
+        if (mode == 0x01) {
+            sensorMode = JoyControllerState.SensorMode.STANDARD;
+        } else if (mode >= 0x02 && mode <= 0x05) {
+            sensorMode = JoyControllerState.SensorMode.QUATERNION;
+        } else {
+            sensorMode = JoyControllerState.SensorMode.INACTIVE;
+        }
+        log(TAG, "6AxisSensor Mode: " + sensorMode);
+        joyController.setSensorMode(sensorMode);
 
         return subCommandReply;
     }

@@ -26,14 +26,8 @@ class RequestDeviceInfoHandler implements SubCommandHandler {
         ControllerType controllerType = joyController.getControllerType();
         byte[] deviceInfo = new byte[12];
         //Firmware Version
-        if (true/*controllerType == PRO_CONTROLLER*/) {
-            //TODO: firmware version 0x04 0x06 has new gyro setup.
-            deviceInfo[0] = 0x03;
-            deviceInfo[1] = 0x48;
-        } else {
-            deviceInfo[0] = 0x04;
-            deviceInfo[1] = 0x06;
-        }
+        deviceInfo[0] = 0x04;
+        deviceInfo[1] = 0x21;
         //JoyCon Type 1=Left Joy-Con, 2=Right Joy-Con, 3=Pro Controller.
         deviceInfo[2] = controllerType.getTypeByte();
         //deviceInfo[2] = controllerMemory.read(0x6012, 1)[0];

@@ -73,6 +73,7 @@ import static java.lang.Math.round;
 import static java.lang.Short.MAX_VALUE;
 import static java.lang.Short.MIN_VALUE;
 
+import android.os.SystemClock;
 import com.google.android.gms.common.util.Hex;
 import com.rdapps.gamepad.amiibo.AmiiboConfig;
 import com.rdapps.gamepad.battery.BatteryData;
@@ -81,6 +82,7 @@ import com.rdapps.gamepad.nfcirmcu.NfcIrMcu;
 import com.rdapps.gamepad.protocol.ControllerType;
 import com.rdapps.gamepad.protocol.JoyController;
 import com.rdapps.gamepad.protocol.JoyControllerState;
+import com.rdapps.gamepad.protocol.QuaternionPacker;
 import com.rdapps.gamepad.sensor.AccelerometerEvent;
 import com.rdapps.gamepad.sensor.GyroscopeEvent;
 import com.rdapps.gamepad.util.ByteUtils;
@@ -307,7 +309,6 @@ public class InputReport {
         buffer[11] = (byte) 0xB0;
     }
 
-    //TODO Implement this
     public void fillSensorData(JoyController controller) {
         float[] accs = new float[3 * 3];
         Arrays.fill(accs, 0);
@@ -381,47 +382,72 @@ public class InputReport {
         //log(TAG, "Gyrs: " + Arrays.toString(gyrs));
 
         double[] accCoeffs = state.getAccCoeffs();
-        double[] gyrCoeffs = state.getGyrCoeffs();
-        short[] gyrOffset = state.getGyrOffset();
 
-        for (int i = 0; i < 3; i++) {
-            float accX = multiplier * accs[i * 3];
-            float accY = accs[i * 3 + 1];
-            float accZ = multiplier * accs[i * 3 + 2];
-            short rawAccX = (short) round(clamp(((isPro ? accX : accY))
-                    * accCoeffs[0], MIN_VALUE, MAX_VALUE));
-            short rawAccY = (short) round(clamp((isPro ? accY : -accX)
-                    * accCoeffs[1], MIN_VALUE, MAX_VALUE));
-            final short rawAccZ = (short) round(clamp((accZ)
-                    * accCoeffs[2], MIN_VALUE, MAX_VALUE));
+        if (state.getSensorMode() == JoyControllerState.SensorMode.QUATERNION) {
+            QuaternionPacker packer = state.getQuaternionPacker();
+            for (GyroscopeEvent ev : gyrEvents) {
+                double gyrInX = multiplier * ev.values[0];
+                double gyrInY = ev.values[1];
+                double gyrInZ = multiplier * ev.values[2];
+                packer.integrateGyro(
+                        isPro ? gyrInX :  gyrInY,
+                        isPro ? gyrInY : -gyrInX,
+                        gyrInZ,
+                        ev.timestamp);
+            }
 
-            sensorData[i * 12] = (byte) (rawAccX & 0xFF);
-            sensorData[1 + i * 12] = (byte) (rawAccX >> 8 & 0xFF);
-            sensorData[2 + i * 12] = (byte) (rawAccY & 0xFF);
-            sensorData[3 + i * 12] = (byte) (rawAccY >> 8 & 0xFF);
-            sensorData[4 + i * 12] = (byte) (rawAccZ & 0xFF);
-            sensorData[5 + i * 12] = (byte) (rawAccZ >> 8 & 0xFF);
+            short[][] accelSamples = new short[3][];
+            for (int i = 0; i < 3; i++) {
+                accelSamples[i] = computeRawAccel(accs, i, multiplier, isPro, accCoeffs);
+            }
+            packer.pack(sensorData, 0, accelSamples, SystemClock.elapsedRealtime());
+        } else {
+            double[] gyrCoeffs = state.getGyrCoeffs();
+            short[] gyrOffset = state.getGyrOffset();
 
-            float gyrX = multiplier * gyrs[i * 3];
-            float gyrY = gyrs[i * 3 + 1];
-            float gyrZ = multiplier * gyrs[i * 3 + 2];
-            short rawGyrX = (short) round(clamp((isPro ? gyrX : gyrY)
-                    * gyrCoeffs[0] + gyrOffset[0], MIN_VALUE, MAX_VALUE));
-            short rawGyrY = (short) round(clamp((isPro ? gyrY : -gyrX)
-                    * gyrCoeffs[1] + gyrOffset[1], MIN_VALUE, MAX_VALUE));
-            final short rawGyrZ = (short) round(clamp(gyrZ
-                    * gyrCoeffs[2] + gyrOffset[2], MIN_VALUE, MAX_VALUE));
+            for (int i = 0; i < 3; i++) {
+                short[] rawAcc = computeRawAccel(accs, i, multiplier, isPro, accCoeffs);
+                sensorData[i * 12] = (byte) (rawAcc[0] & 0xFF);
+                sensorData[1 + i * 12] = (byte) (rawAcc[0] >> 8 & 0xFF);
+                sensorData[2 + i * 12] = (byte) (rawAcc[1] & 0xFF);
+                sensorData[3 + i * 12] = (byte) (rawAcc[1] >> 8 & 0xFF);
+                sensorData[4 + i * 12] = (byte) (rawAcc[2] & 0xFF);
+                sensorData[5 + i * 12] = (byte) (rawAcc[2] >> 8 & 0xFF);
 
+                float gyrX = multiplier * gyrs[i * 3];
+                float gyrY = gyrs[i * 3 + 1];
+                float gyrZ = multiplier * gyrs[i * 3 + 2];
+                short rawGyrX = (short) round(clamp((isPro ? gyrX : gyrY)
+                        * gyrCoeffs[0] + gyrOffset[0], MIN_VALUE, MAX_VALUE));
+                short rawGyrY = (short) round(clamp((isPro ? gyrY : -gyrX)
+                        * gyrCoeffs[1] + gyrOffset[1], MIN_VALUE, MAX_VALUE));
+                final short rawGyrZ = (short) round(clamp(gyrZ
+                        * gyrCoeffs[2] + gyrOffset[2], MIN_VALUE, MAX_VALUE));
 
-            sensorData[6 + i * 12] = (byte) (rawGyrX & 0xFF);
-            sensorData[7 + i * 12] = (byte) (rawGyrX >> 8 & 0xFF);
-            sensorData[8 + i * 12] = (byte) (rawGyrY & 0xFF);
-            sensorData[9 + i * 12] = (byte) (rawGyrY >> 8 & 0xFF);
-            sensorData[10 + i * 12] = (byte) (rawGyrZ & 0xFF);
-            sensorData[11 + i * 12] = (byte) (rawGyrZ >> 8 & 0xFF);
+                sensorData[6 + i * 12] = (byte) (rawGyrX & 0xFF);
+                sensorData[7 + i * 12] = (byte) (rawGyrX >> 8 & 0xFF);
+                sensorData[8 + i * 12] = (byte) (rawGyrY & 0xFF);
+                sensorData[9 + i * 12] = (byte) (rawGyrY >> 8 & 0xFF);
+                sensorData[10 + i * 12] = (byte) (rawGyrZ & 0xFF);
+                sensorData[11 + i * 12] = (byte) (rawGyrZ >> 8 & 0xFF);
+            }
         }
 
         System.arraycopy(sensorData, 0, buffer, 12, 36);
+    }
+
+    private static short[] computeRawAccel(
+            float[] accs, int frame, int multiplier, boolean isPro, double[] accCoeffs) {
+        float accX = multiplier * accs[frame * 3];
+        float accY = accs[frame * 3 + 1];
+        float accZ = multiplier * accs[frame * 3 + 2];
+        short rawX = (short) round(clamp(
+                (isPro ? accX : accY) * accCoeffs[0], MIN_VALUE, MAX_VALUE));
+        short rawY = (short) round(clamp(
+                (isPro ? accY : -accX) * accCoeffs[1], MIN_VALUE, MAX_VALUE));
+        short rawZ = (short) round(clamp(
+                accZ * accCoeffs[2], MIN_VALUE, MAX_VALUE));
+        return new short[]{rawX, rawY, rawZ};
     }
 
     public void fillNfcIrData(JoyController controller) {
