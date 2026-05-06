@@ -21,4 +21,8 @@ public enum VibrationPattern {
     VibrationPattern(VibrationEffect vibrationEffect) {
         this.vibrationEffect = vibrationEffect;
     }
+
+    public static VibrationEffect rumble(int androidAmplitude) {
+        return VibrationEffect.createOneShot(80, androidAmplitude);
+    }
 }

@@ -1,6 +1,7 @@
 package com.rdapps.gamepad.nintendoswitch;
 
 import static android.app.Activity.RESULT_OK;
+import static android.os.VibrationEffect.DEFAULT_AMPLITUDE;
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN;
 import static android.view.KeyEvent.KEYCODE_DPAD_LEFT;
 import static android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
@@ -20,6 +21,7 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.VibrationAttributes;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.InputDevice;
 import android.view.KeyEvent;
@@ -103,8 +105,8 @@ public abstract class ControllerFragment extends Fragment {
         return false;
     }
 
-    public Optional<Vibrator> getVibrator() {
-        if (!isHapticFeedbackEnabled()) {
+    public Optional<Vibrator> getVibrator(boolean checkHapticFeedback) {
+        if (checkHapticFeedback && !isHapticFeedbackEnabled()) {
             return Optional.empty();
         }
         if (Objects.isNull(vibrator)) {
@@ -448,13 +450,32 @@ public abstract class ControllerFragment extends Fragment {
     }
 
     protected void vibrate(VibrationPattern vibrationPattern) {
-        getVibrator().ifPresent(v -> {
+        getVibrator(true).ifPresent(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 v.vibrate(vibrationPattern.getVibrationEffect(), new VibrationAttributes.Builder()
                         .setUsage(VibrationAttributes.USAGE_MEDIA)
                         .build());
             } else {
                 v.vibrate(vibrationPattern.getVibrationEffect());
+            }
+        });
+    }
+
+    public void rumble(int androidAmplitude) {
+        getVibrator(false).ifPresent(v -> {
+            if (androidAmplitude <= 0) {
+                v.cancel();
+            } else {
+                int effectAmplitude = v.hasAmplitudeControl()
+                        ? androidAmplitude : DEFAULT_AMPLITUDE;
+                VibrationEffect effect = VibrationPattern.rumble(effectAmplitude);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    v.vibrate(effect, new VibrationAttributes.Builder()
+                            .setUsage(VibrationAttributes.USAGE_MEDIA)
+                            .build());
+                } else {
+                    v.vibrate(effect);
+                }
             }
         });
     }

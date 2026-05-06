@@ -6,4 +6,6 @@ public interface JoyControllerListener {
     void showAmiiboPicker();
 
     void setPlayerLights(LedState led1, LedState led2, LedState led3, LedState led4);
+
+    void rumble(int androidAmplitude);
 }

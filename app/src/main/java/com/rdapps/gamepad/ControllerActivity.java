@@ -312,6 +312,12 @@ public class ControllerActivity extends AppCompatActivity {
         controllerFragment.setPlayerLights(led1, led2, led3, led4);
     }
 
+    public void rumble(int androidAmplitude) {
+        if (Objects.nonNull(controllerFragment)) {
+            controllerFragment.rumble(androidAmplitude);
+        }
+    }
+
 
     private class BluetoothBroadcastReceiverListener
             extends BluetoothBroadcastReceiver.BbrListener {

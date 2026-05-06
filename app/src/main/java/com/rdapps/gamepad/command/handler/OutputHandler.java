@@ -37,9 +37,10 @@ public class OutputHandler {
         OutputReportMode reportMode = outputReport.getReportMode();
         switch (reportMode) {
             case RUMBLE_ONLY:
-                //TODO implement rumble
+                joyController.rumble(outputReport.getRumbleData());
                 break;
             case RUMBLE_AND_SUBCOMMAND:
+                joyController.rumble(outputReport.getRumbleData());
                 handleRumbleAndSubCommand(outputReport);
                 break;
             case REQUEST_NFC_IR_MCU_DATA:

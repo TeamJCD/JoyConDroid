@@ -28,6 +28,7 @@ import com.rdapps.gamepad.sensor.AccelerometerEvent;
 import com.rdapps.gamepad.sensor.GyroscopeEvent;
 import com.rdapps.gamepad.util.ByteUtils;
 import com.rdapps.gamepad.util.ThreadUtil;
+import com.rdapps.gamepad.vibrator.RumbleData;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -235,7 +236,13 @@ public class JoyController extends AbstractDevice {
 
     public void setVibrationEnabled(boolean enabled) {
         state.setVibrationEnabled(enabled);
-        //TODO Enable Vibration
+    }
+
+    public void rumble(RumbleData rumbleData) {
+        if (!state.isVibrationEnabled() || listener == null) {
+            return;
+        }
+        listener.rumble(rumbleData.getAndroidAmplitude());
     }
 
     @Override

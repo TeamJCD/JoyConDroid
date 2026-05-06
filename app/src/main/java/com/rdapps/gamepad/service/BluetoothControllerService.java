@@ -703,4 +703,11 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     public void setPlayerLights(LedState led1, LedState led2, LedState led3, LedState led4) {
         controllerActivity.setPlayerLights(led1, led2, led3, led4);
     }
+
+    @Override
+    public void rumble(int androidAmplitude) {
+        if (Objects.nonNull(controllerActivity)) {
+            controllerActivity.rumble(androidAmplitude);
+        }
+    }
 }
