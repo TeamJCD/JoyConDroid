@@ -18,6 +18,8 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.VibrationAttributes;
 import android.os.Vibrator;
 import android.view.InputDevice;
 import android.view.KeyEvent;
@@ -446,7 +448,15 @@ public abstract class ControllerFragment extends Fragment {
     }
 
     protected void vibrate(VibrationPattern vibrationPattern) {
-        getVibrator().ifPresent(v -> v.vibrate(vibrationPattern.getVibrationEffect()));
+        getVibrator().ifPresent(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                v.vibrate(vibrationPattern.getVibrationEffect(), new VibrationAttributes.Builder()
+                        .setUsage(VibrationAttributes.USAGE_MEDIA)
+                        .build());
+            } else {
+                v.vibrate(vibrationPattern.getVibrationEffect());
+            }
+        });
     }
 
     protected void openFileSelectionDialog() {
