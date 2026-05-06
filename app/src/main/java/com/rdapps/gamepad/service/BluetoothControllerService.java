@@ -30,9 +30,12 @@ import android.bluetooth.BluetoothHidDeviceAppQosSettings;
 import android.bluetooth.BluetoothHidDeviceAppSdpSettings;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -80,6 +83,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     private static final int QOS_DELAY_VARIATION = 16667;
 
     private Handler mainHandler;
+    private BroadcastReceiver batteryReceiver;
 
     private final Object registerLock = new Object();
 
@@ -251,7 +255,30 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                     HID_PROFILE_TIME_OUT_SECONDS, TimeUnit.SECONDS);
         }
 
+        batteryReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                applyBatteryState(intent);
+            }
+        };
+        registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
         startForeground();
+    }
+
+    private void applyBatteryState(Intent intent) {
+        if (Objects.isNull(switchController)) {
+            return;
+        }
+        int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        if (level < 0 || scale <= 0) {
+            return;
+        }
+        float batteryLevel = (float) level / scale;
+        switchController.getState().setBatteryLevel(batteryLevel);
+        int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+        switchController.getState().setCharging(plugged != 0);
     }
 
     private void checkHidProfile() {
@@ -399,6 +426,12 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             }
         }
 
+        Intent batteryIntent = registerReceiver(null,
+                new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        if (Objects.nonNull(batteryIntent)) {
+            applyBatteryState(batteryIntent);
+        }
+
         return START_STICKY;
     }
 
@@ -468,6 +501,11 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     @Override
     public void onDestroy() {
         state = State.DESTROYING;
+
+        if (Objects.nonNull(batteryReceiver)) {
+            unregisterReceiver(batteryReceiver);
+            batteryReceiver = null;
+        }
 
         NotificationManager notificationManager = (NotificationManager)
                 getSystemService(Context.NOTIFICATION_SERVICE);
