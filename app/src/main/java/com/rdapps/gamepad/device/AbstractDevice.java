@@ -21,9 +21,9 @@ public abstract class AbstractDevice implements SensorEventListener {
     private String hidDescriptor;
 
     private String localMacAddress;
-    private BluetoothDevice remoteDevice;
 
-    private BluetoothHidDevice proxy;
+    private volatile BluetoothDevice remoteDevice;
+    private volatile BluetoothHidDevice proxy;
 
     @Setter
     @Getter
