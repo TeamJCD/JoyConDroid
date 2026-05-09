@@ -80,8 +80,17 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     private static final int QOS_LATENCY = 16667;
     private static final int QOS_DELAY_VARIATION = 16667;
 
+    private static final long RECONNECT_DELAY_MS = 2000;
+    private static final long SHORT_CONNECTION_THRESHOLD_MS = 2000;
+    private static final int MAX_RECONNECT_RETRIES = 1;
+
     private Handler mainHandler;
     private BroadcastReceiver batteryReceiver;
+
+    private Runnable reconnectRunnable;
+    private long connectionStartTime;
+    private boolean reconnectPending;
+    private int reconnectRetryCount;
 
     private final Object registerLock = new Object();
 
@@ -206,6 +215,32 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         } catch (Exception e) {
             log(TAG, "Unpair Failed: ", e);
         }
+    }
+
+    private void scheduleReconnect(BluetoothDevice device) {
+        cancelReconnect();
+        if (state == State.DESTROYING) {
+            return;
+        }
+        log(TAG, "scheduleReconnect: retrying as initiator in " + RECONNECT_DELAY_MS + "ms");
+        reconnectPending = true;
+        reconnectRunnable = () -> {
+            reconnectPending = false;
+            if (state != State.DESTROYING) {
+                log(TAG, "scheduleReconnect: firing connect as initiator");
+                connect(device);
+            }
+        };
+        mainHandler.postDelayed(reconnectRunnable, RECONNECT_DELAY_MS);
+    }
+
+    private void cancelReconnect() {
+        if (reconnectRunnable != null) {
+            mainHandler.removeCallbacks(reconnectRunnable);
+            reconnectRunnable = null;
+        }
+        reconnectPending = false;
+        reconnectRetryCount = 0;
     }
 
     public boolean isConnected() {
@@ -498,6 +533,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
     @Override
     public void onDestroy() {
         state = State.DESTROYING;
+        cancelReconnect();
 
         if (Objects.nonNull(batteryReceiver)) {
             unregisterReceiver(batteryReceiver);
@@ -656,16 +692,28 @@ public class BluetoothControllerService extends Service implements BluetoothProf
             }
 
             if (BluetoothAdapter.STATE_CONNECTED == state) {
+                cancelReconnect();
+                connectionStartTime = System.currentTimeMillis();
+                reconnectRetryCount = 0;
                 deviceConnected = true;
                 BluetoothControllerService.this.state = State.CONNECTED;
                 devicePlugged(device);
                 mainHandler.post(() -> deviceConnected(getApplicationContext()));
-            } else if (BluetoothAdapter.STATE_DISCONNECTED == state) {
+            } else if (BluetoothAdapter.STATE_DISCONNECTED == state && deviceConnected) {
                 deviceConnected = false;
                 BluetoothControllerService.this.state = State.DISCONNECTED;
-                unpairDevice(device);
+                long connectionDuration = System.currentTimeMillis() - connectionStartTime;
                 deviceUnplugged(device);
-                mainHandler.post(() -> deviceDisconnected(getApplicationContext()));
+                if (!reconnectPending && connectionDuration < SHORT_CONNECTION_THRESHOLD_MS
+                        && reconnectRetryCount < MAX_RECONNECT_RETRIES) {
+                    reconnectRetryCount++;
+                    log(TAG, "onConnectionStateChanged: short connection (" + connectionDuration
+                            + "ms), retry " + reconnectRetryCount + "/" + MAX_RECONNECT_RETRIES);
+                    scheduleReconnect(device);
+                } else {
+                    mainHandler.post(() -> deviceDisconnected(getApplicationContext()));
+                }
+                unpairDevice(device);
             }
         }
 
@@ -711,6 +759,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
         public void onVirtualCableUnplug(BluetoothDevice device) {
             log(TAG, "onVirtualCableUnplug: device=" + device);
+            cancelReconnect();
             deviceConnected = false;
             BluetoothControllerService.this.state = State.DISCONNECTED;
             //unpairDevice(device);
