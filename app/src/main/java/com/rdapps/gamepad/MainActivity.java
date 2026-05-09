@@ -14,7 +14,6 @@ import static com.rdapps.gamepad.UserGuideActivity.PATH;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 import static com.rdapps.gamepad.protocol.ControllerType.LEFT_JOYCON;
 import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
-import static com.rdapps.gamepad.util.PreferenceUtils.MAC_FAKE_ADDRESS;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -291,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
     private void showController(ControllerType type) {
         String bluetoothAddress = PreferenceUtils.getBluetoothAddress(this);
         boolean ask = PreferenceUtils.shouldAskMacAddress(this);
-        if (MAC_FAKE_ADDRESS.equals(bluetoothAddress) && ask) {
+        if (Objects.isNull(bluetoothAddress) && ask) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.set_bt_address);
             View inflate = getLayoutInflater().inflate(R.layout.alert_bluetooth_address, null);

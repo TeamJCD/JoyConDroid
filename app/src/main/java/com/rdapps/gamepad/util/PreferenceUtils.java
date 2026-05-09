@@ -8,13 +8,12 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class PreferenceUtils {
-    public static final String MAC_FAKE_ADDRESS = "02:00:00:00:00:00";
-
     private static final String ORIGINAL_NAME = "ORIGINAL_NAME";
     private static final String DO_NOT_SHOW = "DO_NOT_SHOW";
     private static final String LEGAL_ACCEPTED = "LEGAL_ACCEPTED";
     private static final String BUTTON_MAPPING = "BUTTON_MAPPING";
     private static final String BT_ADDRESS = "BT_ADDRESS";
+    private static final String BT_ADDRESS_GENERATED = "BT_ADDRESS_GENERATED";
     private static final String DO_NOT_ASK_BT_ADDRESS = "DO_NOT_ASK_BT_ADDRESS";
     private static final String HAS_FILE_PREFIX = "HAS_";
 
@@ -88,7 +87,7 @@ public class PreferenceUtils {
 
     public static String getBluetoothAddress(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(BT_ADDRESS, MAC_FAKE_ADDRESS);
+                .getString(BT_ADDRESS, null);
     }
 
     public static void setBluetoothAddress(Context context, String btAddress) {
@@ -191,6 +190,18 @@ public class PreferenceUtils {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
                 .remove(ENABLED_AMIIBO)
+                .apply();
+    }
+
+    public static String getGeneratedBluetoothAddress(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(BT_ADDRESS_GENERATED, null);
+    }
+
+    public static void setGeneratedBluetoothAddress(Context context, String generatedBtAddress) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(BT_ADDRESS_GENERATED, generatedBtAddress)
                 .apply();
     }
 

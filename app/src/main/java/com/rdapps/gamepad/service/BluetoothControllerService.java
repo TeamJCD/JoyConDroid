@@ -14,10 +14,8 @@ import static com.rdapps.gamepad.toast.ToastHelper.deviceIsNotCompatible;
 import static com.rdapps.gamepad.toast.ToastHelper.missingPermission;
 import static com.rdapps.gamepad.toast.ToastHelper.sdpFailed;
 import static com.rdapps.gamepad.util.ByteUtils.hexStringToByteArray;
-import static com.rdapps.gamepad.util.PreferenceUtils.MAC_FAKE_ADDRESS;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -165,16 +163,15 @@ public class BluetoothControllerService extends Service implements BluetoothProf
         return false;
     }
 
-    @SuppressLint("HardwareIds")
     private String getBluetoothMacAddress() {
-        String address = bluetoothAdapter.getAddress();
+        String address = PreferenceUtils.getBluetoothAddress(getApplicationContext());
 
         if (Objects.isNull(address)) {
-            address = PreferenceUtils.getBluetoothAddress(getApplicationContext());
-        }
-
-        if (MAC_FAKE_ADDRESS.equalsIgnoreCase(address)) {
-            address = randomMacAddress();
+            address = PreferenceUtils.getGeneratedBluetoothAddress(getApplicationContext());
+            if (Objects.isNull(address)) {
+                address = randomMacAddress();
+                PreferenceUtils.setGeneratedBluetoothAddress(getApplicationContext(), address);
+            }
         }
 
         return address;
