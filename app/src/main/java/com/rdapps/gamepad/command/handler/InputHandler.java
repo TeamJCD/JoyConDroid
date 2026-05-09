@@ -20,7 +20,7 @@ import java.util.Objects;
 public class InputHandler {
     private static final String TAG = InputHandler.class.getName();
 
-    private static final int HANDSHAKE_COUNT = 3;
+    private static final int HANDSHAKE_COUNT = 100;
 
     private final JoyController joyController;
 
@@ -29,10 +29,10 @@ public class InputHandler {
     }
 
     public void sendHandShake() {
-        boolean connected = joyController.isConnected();
-        InputReportMode inputReportMode = joyController.getState().getInputReportMode();
         int tryCount = 0;
-        while (inputReportMode == SIMPLE_HID && connected && tryCount < HANDSHAKE_COUNT) {
+        while (joyController.getState().getInputReportMode() == SIMPLE_HID
+                && joyController.isConnected()
+                && tryCount < HANDSHAKE_COUNT) {
             sendSimpleHidReport();
             safeSleep(100);
             tryCount++;
