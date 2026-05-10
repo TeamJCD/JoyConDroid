@@ -3,6 +3,8 @@ package com.rdapps.gamepad.nfcirmcu;
 import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.NON;
 import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.McuState.NOT_INITIALIZED;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -16,7 +18,10 @@ public class NfcIrMcu {
         READ_TAG,
         READ_TAG_2,
         READ_TAG_FINISHED,
-        WRITE_TAG;
+        WRITE_TAG_SETUP,
+        WRITE_TAG_AWAITING,
+        WRITE_TAG_ACK,
+        WRITE_TAG_REMOVE;
     }
 
     public enum McuState {
@@ -40,4 +45,13 @@ public class NfcIrMcu {
     private byte[] firmwareMinor = new byte[]{0x00, 0x1B};
     private Action action = NON;
     private McuState mcuState = NOT_INITIALIZED;
+
+    // Polling state: true after first POLL (0x01) response; next response uses POLL_AGAIN (0x09)
+    private boolean firstPollSent = false;
+
+    // Write state
+    private List<Byte> writeBuffer = new ArrayList<>();
+    private int ackSeqNo = 0;
+    private boolean lastWritePacketReceived = false;
+    private int removeFramesRemaining = 0;
 }

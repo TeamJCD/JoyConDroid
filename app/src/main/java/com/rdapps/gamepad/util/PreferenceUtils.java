@@ -1,6 +1,9 @@
 package com.rdapps.gamepad.util;
 
+import static com.rdapps.gamepad.log.JoyConLog.log;
+
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Base64;
 import androidx.preference.PreferenceManager;
@@ -8,6 +11,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class PreferenceUtils {
+    private static final String TAG = PreferenceUtils.class.getName();
+
     private static final String ORIGINAL_NAME = "ORIGINAL_NAME";
     private static final String DO_NOT_SHOW = "DO_NOT_SHOW";
     private static final String LEGAL_ACCEPTED = "LEGAL_ACCEPTED";
@@ -21,6 +26,7 @@ public class PreferenceUtils {
     private static final String ENABLED_GYROSCOPE = "ENABLED_GYROSCOPE";
     private static final String ENABLED_AMIIBO = "ENABLED_AMIIBO";
     private static final String AMIIBO_FILE_NAME = "AMIIBO_FILE_NAME";
+    private static final String AMIIBO_FILE_URI = "AMIIBO_FILE_URI";
     private static final String AMIIBO_BYTES = "AMIIBO_BYTES";
     private static final String HAPTIC_FEEDBACK_ENABLED = "HAPTIC_FEEDBACK_ENABLED";
 
@@ -283,6 +289,40 @@ public class PreferenceUtils {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
                 .remove(AMIIBO_FILE_NAME)
+                .apply();
+    }
+
+    public static void setAmiiboFileUri(Context context, Uri uri) {
+        context.getContentResolver().takePersistableUriPermission(
+                uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(AMIIBO_FILE_URI, uri.toString())
+                .apply();
+    }
+
+    public static Uri getAmiiboFileUri(Context context) {
+        String uriStr = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(AMIIBO_FILE_URI, null);
+        return uriStr != null ? Uri.parse(uriStr) : null;
+    }
+
+    public static void removeAmiiboFileUri(Context context) {
+        Uri uri = getAmiiboFileUri(context);
+        if (uri != null) {
+            try {
+                context.getContentResolver().releasePersistableUriPermission(
+                        uri,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            } catch (SecurityException e) {
+                log(TAG, "Failed to release persistable URI permission: " + e.getMessage(), true);
+            }
+        }
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .remove(AMIIBO_FILE_URI)
                 .apply();
     }
 }

@@ -28,12 +28,15 @@ import static com.rdapps.gamepad.button.ButtonEnum.Y;
 import static com.rdapps.gamepad.button.ButtonEnum.ZL;
 import static com.rdapps.gamepad.button.ButtonEnum.ZR;
 import static com.rdapps.gamepad.log.JoyConLog.log;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.NON;
 import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG;
 import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG_2;
 import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.READ_TAG_FINISHED;
 import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_DISCOVERY;
 import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_DISCOVERY_AUTO_MOVE;
 import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.START_TAG_POLLING;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.WRITE_TAG_AWAITING;
+import static com.rdapps.gamepad.nfcirmcu.NfcIrMcu.Action.WRITE_TAG_REMOVE;
 import static com.rdapps.gamepad.nx.constant.NxConstants.CAPTURE_BIT;
 import static com.rdapps.gamepad.nx.constant.NxConstants.DOWN_BIT;
 import static com.rdapps.gamepad.nx.constant.NxConstants.FULL_A_BIT;
@@ -456,7 +459,16 @@ public class InputReport {
         NfcIrMcu.Action action = nfcIrMcu.getAction();
         switch (action) {
             case NON:
-                buffer[48] = (byte) 0xFF;
+                // NFC NONE: no tag present
+                buffer[48] = (byte) 0x2a;
+                buffer[49] = (byte) 0x00;
+                buffer[50] = (byte) 0x05;
+                buffer[51] = (byte) 0x00;
+                buffer[52] = (byte) 0x00;
+                buffer[53] = (byte) 0x09;
+                buffer[54] = (byte) 0x31;
+                buffer[55] = (byte) 0x00;
+                Arrays.fill(buffer, 56, buffer.length, (byte) 0x00);
                 break;
             case REQUEST_STATUS:
                 fillNfcIrStatus(state);
@@ -474,6 +486,18 @@ public class InputReport {
                 break;
             case READ_TAG_FINISHED:
                 fillReadFinished(controller);
+                break;
+            case WRITE_TAG_SETUP:
+                fillWriteSetup(controller);
+                break;
+            case WRITE_TAG_AWAITING:
+                fillWriteAwaiting(controller);
+                break;
+            case WRITE_TAG_ACK:
+                fillWriteAck(controller);
+                break;
+            case WRITE_TAG_REMOVE:
+                fillWriteRemove(controller);
                 break;
             default:
         }
@@ -496,6 +520,9 @@ public class InputReport {
         System.arraycopy(bytes, 0, buffer, 53, bytes.length);
         System.arraycopy(amiiboBytes, 0, buffer, 53 + bytes.length, 3);
         System.arraycopy(amiiboBytes, 4, buffer, 53 + 3 + bytes.length, 4);
+        // Return to polling so the Switch can initiate a write with 0x06 + non-zero UID
+        JoyControllerState state = controller.getState();
+        state.getNfcIrMcu().setAction(START_TAG_POLLING);
     }
 
     private void fillNfcIrStatus(JoyControllerState state) {
@@ -547,6 +574,8 @@ public class InputReport {
         buffer[50] = (byte) 0x05;
         buffer[51] = 0x00;
         buffer[52] = 0x00;
+        JoyControllerState state = controller.getState();
+        NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
         AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
         byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
         if (Objects.isNull(amiiboBytes)) {
@@ -555,11 +584,21 @@ public class InputReport {
             buffer[55] = 0x01;
             controller.showAmiiboPicker();
         } else {
-            //090000000101020007047C7CD24D5D80
-            byte[] bytes = Hex.stringToBytes("0931090000000101020007");
+            // First response: POLL (0x01); subsequent: POLL_AGAIN (0x09)
+            byte nfcState = nfcIrMcu.isFirstPollSent() ? (byte) 0x09 : (byte) 0x01;
+            nfcIrMcu.setFirstPollSent(true);
+            byte[] bytes = new byte[]{
+                0x09, 0x31, nfcState, 0x00, 0x00, 0x00, 0x01, 0x01, 0x02, 0x00, 0x07};
             System.arraycopy(bytes, 0, buffer, 53, bytes.length);
-            System.arraycopy(amiiboBytes, 0, buffer, 53 + bytes.length, 3);
-            System.arraycopy(amiiboBytes, 4, buffer, 53 + 3 + bytes.length, 4);
+            int removing = nfcIrMcu.getRemoveFramesRemaining();
+            if (removing > 0) {
+                // Send zero UID for several frames after write to signal tag removal
+                nfcIrMcu.setRemoveFramesRemaining(removing - 1);
+                // buffer[64..70] are already zero (fresh buffer) — zero UID
+            } else {
+                System.arraycopy(amiiboBytes, 0, buffer, 53 + bytes.length, 3);
+                System.arraycopy(amiiboBytes, 4, buffer, 53 + 3 + bytes.length, 4);
+            }
         }
     }
 
@@ -601,6 +640,102 @@ public class InputReport {
                     amiiboBytes, 0xF5, buffer, 51 + bytes.length, amiiboBytes.length - 0xF5);
             nfcIrMcu.setAction(READ_TAG_FINISHED);
         }
+    }
+
+    // Write setup response: sent once after Switch sends 0x06 with non-zero UID.
+    // Header + UID + fixed 48-byte blob.
+    private void fillWriteSetup(JoyController controller) {
+        JoyControllerState state = controller.getState();
+        final NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
+        AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
+        byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
+
+        byte[] header = Hex.stringToBytes("3a0007010008400200000001020007");
+        System.arraycopy(header, 0, buffer, 48, header.length);
+        int pos = 48 + header.length;
+        System.arraycopy(amiiboBytes, 0, buffer, pos, 3);
+        System.arraycopy(amiiboBytes, 4, buffer, pos + 3, 4);
+        pos += 7;
+        byte[] blob = Hex.stringToBytes(
+                "00000000fdb0c0a434c9bf31690030aaef56444b0f602627366d5a281adc697f"
+                + "de0d6cbc010303000000000000f110ffee");
+        System.arraycopy(blob, 0, buffer, pos, blob.length);
+
+        log(TAG, "NFC write setup response sent → WRITE_TAG_AWAITING");
+        nfcIrMcu.setAction(WRITE_TAG_AWAITING);
+    }
+
+    // NFC status with AWAITING_WRITE state (0x04): sent between write setup and first 0x08 packet.
+    private void fillWriteAwaiting(JoyController controller) {
+        JoyControllerState state = controller.getState();
+        NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
+        AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
+        byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
+
+        fillNfcWriteStatus(buffer, (byte) 0x04, nfcIrMcu.getAckSeqNo(), amiiboBytes);
+    }
+
+    // NFC status ACK for each 0x08 write packet: WRITING (0x03) or PROCESSING_WRITE (0x05) state.
+    private void fillWriteAck(JoyController controller) {
+        JoyControllerState state = controller.getState();
+        NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
+        AmiiboConfig amiiboConfig = controller.getAmiiboConfig();
+        byte[] amiiboBytes = amiiboConfig.getAmiiboBytes();
+
+        boolean lastPacket = nfcIrMcu.isLastWritePacketReceived();
+        if (lastPacket) {
+            fillNfcWriteStatus(buffer, (byte) 0x05, nfcIrMcu.getAckSeqNo(), amiiboBytes);
+            nfcIrMcu.setAction(WRITE_TAG_REMOVE);
+        } else {
+            fillNfcWriteStatus(buffer, (byte) 0x03, nfcIrMcu.getAckSeqNo(), amiiboBytes);
+            nfcIrMcu.setAction(WRITE_TAG_AWAITING);
+        }
+    }
+
+    // Tag-removed response: sent ~4 times after write so Switch exits the amiibo screen.
+    private void fillWriteRemove(JoyController controller) {
+        JoyControllerState state = controller.getState();
+        final NfcIrMcu nfcIrMcu = state.getNfcIrMcu();
+
+        // NFC NONE state: no tag present
+        buffer[48] = 0x2a;
+        buffer[49] = 0x00;
+        buffer[50] = 0x05;
+        buffer[51] = 0x00;
+        buffer[52] = 0x00;
+        buffer[53] = 0x09;
+        buffer[54] = 0x31;
+        buffer[55] = 0x00;
+        Arrays.fill(buffer, 56, buffer.length, (byte) 0x00);
+
+        int remaining = nfcIrMcu.getRemoveFramesRemaining() - 1;
+        nfcIrMcu.setRemoveFramesRemaining(remaining);
+        if (remaining <= 0) {
+            nfcIrMcu.setLastWritePacketReceived(false);
+            nfcIrMcu.setAckSeqNo(0);
+            nfcIrMcu.setAction(NON);
+        }
+    }
+
+    private static void fillNfcWriteStatus(byte[] buffer, byte nfcStateByte, int ackSeqNo,
+            byte[] amiiboBytes) {
+        buffer[48] = 0x2a;
+        buffer[49] = 0x00;
+        buffer[50] = 0x05;
+        buffer[51] = 0x00;              // seq_no (always 0)
+        buffer[52] = (byte) ackSeqNo;
+        buffer[53] = 0x09;
+        buffer[54] = 0x31;
+        buffer[55] = nfcStateByte;
+        buffer[56] = 0x00;
+        buffer[57] = 0x00;
+        buffer[58] = 0x00;
+        buffer[59] = 0x01;
+        buffer[60] = 0x02;
+        buffer[61] = 0x00;
+        buffer[62] = 0x07;
+        System.arraycopy(amiiboBytes, 0, buffer, 63, 3);
+        System.arraycopy(amiiboBytes, 4, buffer, 66, 4);
     }
 
     public void fillAckByte(byte ack) {

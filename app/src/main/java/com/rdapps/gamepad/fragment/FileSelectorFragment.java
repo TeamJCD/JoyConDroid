@@ -43,6 +43,7 @@ public class FileSelectorFragment extends Fragment
                                         .openInputStream(uri)) {
                                     byte[] bytes = IOUtils.toByteArray(is);
                                     PreferenceUtils.setAmiiboFileName(context, uri);
+                                    PreferenceUtils.setAmiiboFileUri(context, uri);
                                     PreferenceUtils.setAmiiboBytes(context, bytes);
                                     showAmiiboFilePreset();
                                     setAmiiboFilePathText();
@@ -100,6 +101,7 @@ public class FileSelectorFragment extends Fragment
         }
         PreferenceUtils.removeAmiiboBytes(context);
         PreferenceUtils.removeAmiiboFileName(context);
+        PreferenceUtils.removeAmiiboFileUri(context);
         setAmiiboFilePathText();
     }
 

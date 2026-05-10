@@ -499,6 +499,7 @@ public abstract class ControllerFragment extends Fragment {
             try (InputStream is = context.getContentResolver().openInputStream(uri)) {
                 byte[] bytes = IOUtils.toByteArray(is);
                 PreferenceUtils.setAmiiboFileName(context, uri);
+                PreferenceUtils.setAmiiboFileUri(context, uri);
                 device.setAmiiboBytes(bytes);
             } catch (IOException e) {
                 e.printStackTrace();
