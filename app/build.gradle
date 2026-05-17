@@ -32,24 +32,24 @@ android {
     }
     buildTypes {
         debug {
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'boolean', 'VM', 'true'
         }
         apk {
             buildConfigField 'int', 'LOG_LEVEL', logLevelApk
             buildConfigField 'boolean', 'CHECK_UPDATE', 'true'
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             buildConfigField 'int', 'LOG_LEVEL', logLevelRelease
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         vm {
             minifyEnabled true
             buildConfigField 'int', 'LOG_LEVEL', logLevelVm
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'boolean', 'VM', 'true'
         }
     }
