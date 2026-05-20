@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp">
 
-    <Button
+    <LinearLayout
         android:id="@+id/menu_left_joycon"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -13,20 +13,36 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:singleLine="true"
-        android:background="@drawable/ic_menu_left_joycon"
-        android:gravity="bottom|center"
-        android:maxLines="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:onClick="showLeftJoyCon"
-        android:textColor="?attr/colorOnBackground"
-        android:text="@string/left_joycon"
+        android:orientation="vertical"
+        android:paddingBottom="4dp"
         app:layout_constraintBottom_toTopOf="@id/menu_pro_controller"
-        app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toStartOf="@id/menu_right_joycon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/left_joycon"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_left_joycon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/left_joycon"
+            android:textColor="?attr/colorOnBackground" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/menu_right_joycon"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -34,20 +50,36 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:singleLine="true"
-        android:background="@drawable/ic_menu_right_joycon"
-        android:gravity="bottom|center"
-        android:maxLines="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:onClick="showRightJoyCon"
-        android:textColor="?attr/colorOnBackground"
-        android:text="@string/right_joycon"
+        android:orientation="vertical"
+        android:paddingBottom="4dp"
         app:layout_constraintBottom_toTopOf="@id/menu_custom_ui"
-        app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/menu_left_joycon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/right_joycon"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_right_joycon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/right_joycon"
+            android:textColor="?attr/colorOnBackground" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/menu_pro_controller"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -55,23 +87,36 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:singleLine="true"
-        android:background="@drawable/ic_menu_pro_controller"
-        android:gravity="bottom|center"
-        android:maxLines="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:onClick="showProController"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:orientation="vertical"
         android:paddingBottom="4dp"
-        android:textColor="?attr/colorOnBackground"
-        android:text="@string/pro_controller"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toStartOf="@id/menu_custom_ui"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_left_joycon" />
+        app:layout_constraintTop_toBottomOf="@id/menu_left_joycon">
 
-    <Button
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/pro_controller"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_pro_controller" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/pro_controller"
+            android:textColor="?attr/colorOnBackground" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/menu_custom_ui"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -79,21 +124,33 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:singleLine="true"
-        android:background="@drawable/ic_menu_pro_controller"
-        android:gravity="bottom|center"
-        android:maxLines="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:onClick="showCustomUi"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingBottom="2dp"
-        android:text="@string/custom_ui"
-        android:textColor="?attr/colorOnBackground"
+        android:orientation="vertical"
+        android:paddingBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/menu_pro_controller"
-        app:layout_constraintTop_toBottomOf="@+id/menu_right_joycon" />
+        app:layout_constraintTop_toBottomOf="@id/menu_right_joycon">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/custom_ui"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_pro_controller" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/custom_ui"
+            android:textColor="?attr/colorOnBackground" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

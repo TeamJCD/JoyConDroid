@@ -20,7 +20,6 @@ import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -253,18 +252,6 @@ public class MainActivity extends AppCompatActivity {
     private void showSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        log(TAG, "Config Changed");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
     }
 
     @Override
