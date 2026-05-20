@@ -70,6 +70,7 @@
     <string name="update_available">Update verfügbar</string>
     <string name="update_message">Eine neue Version von JoyCon Droid ist verfügbar! Willst du das Update herunterladen?</string>
     <string name="update">Update</string>
+    <string name="packet_rate_title">Packet Rate (pps)</string>
     <string name="invalid_intent">Benutzerdefinierte Oberfläche konnte NICHT installiert werden.</string>
     <string name="custom_ui_loaded">Benutzerdefinierte Oberfläche wurde geladen.</string>
     <string name="custom_ui_is_not_found">Benutzerdefinierte Oberfläche wurde nicht geladen.</string>
