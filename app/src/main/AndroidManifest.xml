@@ -60,10 +60,7 @@
             android:name=".ButtonMappingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".SettingsActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="fullSensor" />
+        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".JoystickMappingActivity"
             android:configChanges="orientation|keyboardHidden"

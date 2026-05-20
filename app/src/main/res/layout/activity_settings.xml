@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ButtonMappingActivity">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mainMenuToolbar"
@@ -18,148 +16,10 @@
         app:title="@string/settings"
         app:titleMarginStart="32dp" />
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/settings_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/feature_settings"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/accelerometerFeatureFrag"
-                android:name="com.rdapps.gamepad.fragment.FeatureSwitchFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/enable_accelerometer"
-                app:feature_type="ACCELEROMETER" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/gyroscopeFeatureFrag"
-                android:name="com.rdapps.gamepad.fragment.FeatureSwitchFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/enable_gyroscope"
-                app:feature_type="GYROSCOPE" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/hapticFeedbackFeatureFrag"
-                android:name="com.rdapps.gamepad.fragment.FeatureSwitchFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/enable_haptic_feedback"
-                app:feature_type="HAPTIC_FEEDBACK" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/amiiboFeatureFrag"
-                android:name="com.rdapps.gamepad.fragment.FeatureSwitchFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/enable_amiibo"
-                app:feature_type="AMIIBO" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/amiiboSelector"
-                android:name="com.rdapps.gamepad.fragment.FileSelectorFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/amiibo_bin_path" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/packetRateSelector"
-                android:name="com.rdapps.gamepad.fragment.PacketRateFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="PACKET_RATE" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/color_settings"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/leftJoyConBodyColorSetting"
-                android:name="com.rdapps.gamepad.fragment.ColorPickerFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/left_joycon_body_color"
-                app:section="BODY"
-                app:type="LEFT_JOYCON" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/leftJoyConButtonColorSetting"
-                android:name="com.rdapps.gamepad.fragment.ColorPickerFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/left_joycon_button_color"
-                app:section="BUTTON"
-                app:type="LEFT_JOYCON" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/rightJoyConBodyColorSetting"
-                android:name="com.rdapps.gamepad.fragment.ColorPickerFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/right_joycon_body_color"
-                app:section="BODY"
-                app:type="RIGHT_JOYCON" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/rightJoyConButtonColorSetting"
-                android:name="com.rdapps.gamepad.fragment.ColorPickerFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/right_joycon_button_color"
-                app:section="BUTTON"
-                app:type="RIGHT_JOYCON" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/device_settings"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/macAddressSetting"
-                android:name="com.rdapps.gamepad.fragment.MacAddressFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/mac_address" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/deviceName"
-                android:name="com.rdapps.gamepad.fragment.DeviceNameFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/device_name" />
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/feature_settings">
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="ENABLED_ACCELEROMETER"
+            android:title="@string/enable_accelerometer" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="ENABLED_GYROSCOPE"
+            android:title="@string/enable_gyroscope" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="HAPTIC_FEEDBACK_ENABLED"
+            android:title="@string/enable_haptic_feedback" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="ENABLED_AMIIBO"
+            android:title="@string/enable_amiibo" />
+
+        <Preference
+            android:key="amiibo_file"
+            android:title="@string/amiibo_bin_path" />
+
+        <SeekBarPreference
+            android:defaultValue="15"
+            android:key="PACKET_RATE"
+            android:max="120"
+            android:title="@string/packet_rate_title"
+            app:min="1"
+            app:showSeekBarValue="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/color_settings">
+
+        <Preference
+            android:key="left_joycon_body_color"
+            android:title="@string/left_joycon_body_color" />
+
+        <Preference
+            android:key="left_joycon_button_color"
+            android:title="@string/left_joycon_button_color" />
+
+        <Preference
+            android:key="right_joycon_body_color"
+            android:title="@string/right_joycon_body_color" />
+
+        <Preference
+            android:key="right_joycon_button_color"
+            android:title="@string/right_joycon_button_color" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/device_settings">
+
+        <EditTextPreference
+            android:dialogTitle="@string/set_bt_address"
+            android:key="BT_ADDRESS"
+            android:title="@string/mac_address"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:key="DEVICE_NAME"
+            android:title="@string/device_name" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

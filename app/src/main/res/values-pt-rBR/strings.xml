@@ -70,7 +70,6 @@
     <string name="update_available">Atualização Disponível</string>
     <string name="update_message">Uma nova versão do JoyCon Droid está disponível. Você quer baixar a atualização?</string>
     <string name="update">Atualizar</string>
-    <string name="packet_rate">Taxa do Pacote: %d pps</string>
     <string name="invalid_intent">Não foi possível instalar a IU personalizada.</string>
     <string name="custom_ui_loaded">A IU personalizada está carregada.</string>
     <string name="custom_ui_is_not_found">A IU personalizada não foi encontrada.</string>

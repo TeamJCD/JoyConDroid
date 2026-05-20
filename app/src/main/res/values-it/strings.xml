@@ -70,7 +70,6 @@
     <string name="update_available">Update Available</string>
     <string name="update_message">New version of JoyCon Droid is available. Do you want to download the update?</string>
     <string name="update">Update</string>
-    <string name="packet_rate">Packet Rate: %d pps</string>
     <string name="invalid_intent">Could NOT Install Custom UI.</string>
     <string name="custom_ui_loaded">Custom UI is loaded.</string>
     <string name="custom_ui_is_not_found">Custom UI is not founded.</string>
