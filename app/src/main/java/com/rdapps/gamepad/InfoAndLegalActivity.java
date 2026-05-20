@@ -3,7 +3,6 @@ package com.rdapps.gamepad;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -23,9 +22,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class InfoAndLegalActivity extends AppCompatActivity {
 
     public static final int ACCEPT = 1;
-    public static final int REJECT = 2;
-
-    private static final String TAG = InfoAndLegalActivity.class.getName();
 
     private final AtomicBoolean errored = new AtomicBoolean(false);
 
@@ -77,23 +73,6 @@ public class InfoAndLegalActivity extends AppCompatActivity {
                 webView,
                 () -> webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal")
         ), "Controller");
-    }
-
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        log(TAG, "Config Changed");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     public void setAccepted(View view) {

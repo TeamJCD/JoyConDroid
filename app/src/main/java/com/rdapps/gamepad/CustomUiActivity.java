@@ -9,7 +9,6 @@ import static com.rdapps.gamepad.protocol.ControllerType.PRO_CONTROLLER;
 import static com.rdapps.gamepad.protocol.ControllerType.RIGHT_JOYCON;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,28 +51,6 @@ public class CustomUiActivity extends AppCompatActivity implements Callback<List
         CustomUiService customUiService = CustomUiClient.getService(this);
         Call<List<CustomUiItem>> customUis = customUiService.getCustomUis();
         customUis.enqueue(this);
-    }
-
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        log(TAG, "Config Changed");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override

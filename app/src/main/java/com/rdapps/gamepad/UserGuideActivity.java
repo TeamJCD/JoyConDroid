@@ -3,7 +3,6 @@ package com.rdapps.gamepad;
 import static com.rdapps.gamepad.log.JoyConLog.log;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -19,7 +18,6 @@ import java.util.Optional;
 
 public class UserGuideActivity extends AppCompatActivity {
 
-    private static final String TAG = UserGuideActivity.class.getName();
     private static final String BASE_URL = "https://joycondroid.gitbook.io/joycondroid/";
 
     public static final String PATH = "PATH";
@@ -67,12 +65,5 @@ public class UserGuideActivity extends AppCompatActivity {
     public void closeGuide(View view) {
         PreferenceUtils.setDoNotShow(UserGuideActivity.this, true);
         finish();
-    }
-
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        log(TAG, "Config Changed");
     }
 }

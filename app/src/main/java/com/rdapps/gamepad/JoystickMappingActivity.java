@@ -28,7 +28,6 @@ public class JoystickMappingActivity extends AppCompatActivity {
 
     public static final String TYPE = "TYPE";
     public static final String RESULT = "RESULT";
-    public static final int MAPPING = 1;
 
     private JoystickType joystickType;
     private State state;

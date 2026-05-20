@@ -31,7 +31,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
@@ -91,9 +90,6 @@ public class ControllerActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-
-    public ControllerActivity() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
