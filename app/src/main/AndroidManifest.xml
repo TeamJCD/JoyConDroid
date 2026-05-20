@@ -42,33 +42,19 @@
         </activity>
         <activity
             android:name=".ControllerActivity"
-            android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-        <activity
-            android:name=".InfoAndLegalActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="fullSensor" />
+        <activity android:name=".InfoAndLegalActivity" />
         <activity
             android:name=".CustomUiActivity"
-            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ButtonMappingActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="fullSensor" />
+        <activity android:name=".ButtonMappingActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity
-            android:name=".JoystickMappingActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".UserGuideActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="fullSensor" />
+        <activity android:name=".JoystickMappingActivity" />
+        <activity android:name=".UserGuideActivity" />
 
         <activity android:name=".RegisterUiActivity" android:exported="false">
             <intent-filter>
