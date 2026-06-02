@@ -33,7 +33,9 @@ public class CachingWebViewClient extends WebViewClient {
         log("CONTENT", String.format(Locale.ROOT, "Error fetching %s: %d %s",
                 request.getUrl(), error.getErrorCode(), error.getDescription()));
 
-        view.loadUrl("file:///android_asset/error.html");
+        if (request.isForMainFrame()) {
+            view.loadUrl("file:///android_asset/error.html");
+        }
     }
 
     @Nullable
