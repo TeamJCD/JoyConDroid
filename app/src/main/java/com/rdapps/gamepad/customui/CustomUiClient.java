@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class CustomUiClient {
-    private static final String BASE_URL = "https://youtubeplays.github.io/JoyConDroidJS/";
+    private static final String BASE_URL = "https://teamjcd.github.io/JoyConDroidJS/";
 
     private static Retrofit retrofit = null;
     private static CustomUiService service = null;

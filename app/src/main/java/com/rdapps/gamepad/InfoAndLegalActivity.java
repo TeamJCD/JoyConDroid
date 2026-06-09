@@ -44,7 +44,7 @@ public class InfoAndLegalActivity extends AppCompatActivity {
         webSettings.setMediaPlaybackRequiresUserGesture(false);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal");
+        webView.loadUrl("https://teamjcd.github.io/JoyConDroidJS/TutorialUI/?page=legal");
         webView.setWebViewClient(new CachingWebViewClient() {
             public void onPageFinished(WebView view, String url) {
                 if (!errored.get()) {
@@ -71,7 +71,7 @@ public class InfoAndLegalActivity extends AppCompatActivity {
 
         webView.addJavascriptInterface(new ControllerFunctions(
                 webView,
-                () -> webView.loadUrl("https://youtubeplays.github.io/JoyConDroidJS/TutorialUI/?page=legal")
+                () -> webView.loadUrl("https://teamjcd.github.io/JoyConDroidJS/TutorialUI/?page=legal")
         ), "Controller");
     }
 
