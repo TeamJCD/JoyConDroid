@@ -134,15 +134,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-jackson:3.0.0'
     implementation 'commons-io:commons-io:2.22.0'
 
-    constraints {
-        implementation('com.fasterxml.jackson.core:jackson-databind:2.22.2') {
-            because '2.10.1 is vulnerable'
-        }
-        implementation('com.squareup.okhttp3:okhttp:5.5.0') {
-            because '3.14.9 is vulnerable'
-        }
-    }
-
     //Color Picker
     implementation 'com.github.alexandre-g:AndroidPhotoshopColorPicker:1.2.4'
 
