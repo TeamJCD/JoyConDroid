@@ -71,7 +71,7 @@ android {
 }
 
 checkstyle {
-    toolVersion = '13.11.0'
+    toolVersion = '14.0.0'
 }
 
 dependencyCheck {
