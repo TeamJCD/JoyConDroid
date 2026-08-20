@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class JoyControllerConfig {
-    private static final long WAIT_BEFORE_HANDSHAKE_MS = 1200;
+    private static final long WAIT_BEFORE_HANDSHAKE_MS = 1800;
 
     private Context appContext;
 

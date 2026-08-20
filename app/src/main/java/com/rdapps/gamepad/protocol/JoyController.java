@@ -26,6 +26,7 @@ import com.rdapps.gamepad.report.InputReport;
 import com.rdapps.gamepad.report.OutputReport;
 import com.rdapps.gamepad.sensor.AccelerometerEvent;
 import com.rdapps.gamepad.sensor.GyroscopeEvent;
+import com.rdapps.gamepad.util.BluetoothCompanion;
 import com.rdapps.gamepad.util.ByteUtils;
 import com.rdapps.gamepad.util.ThreadUtil;
 import com.rdapps.gamepad.vibrator.RumbleData;
@@ -94,6 +95,23 @@ public class JoyController extends AbstractDevice {
     private JoyControllerListener listener;
 
     private final AtomicBoolean isInFullMode;
+
+    /*
+     * Bluetooth link-mode gating: a report landing inside BTM's Sniff Mode /
+     * SetTsi renegotiation window makes the Switch disconnect (confirmed via
+     * host-side HCI capture, 2026-08-20). JoyConDroidCompanion's Mode-Change
+     * hook can't see the renegotiation *start* (no hook on the outbound Sniff
+     * Mode command), only its *result* — so whenever the observed link mode
+     * changes, treat the following LINK_MODE_QUIET_MS as unsafe to send in,
+     * on the assumption a fresh renegotiation may still be settling. Falls
+     * back to sending unconditionally when getBluetoothLinkMode() reports
+     * LINK_MODE_UNKNOWN (module not installed, or no hook target found on
+     * this device) — see WAIT_BEFORE_HANDSHAKE_MS in JoyControllerConfig for
+     * that fallback path's own mitigation.
+     */
+    private static final long LINK_MODE_QUIET_MS = 75;
+    private volatile int lastLinkMode = Integer.MIN_VALUE;
+    private volatile long lastLinkModeChangeAtNanos = 0;
 
     JoyController(
             Context context,
@@ -298,7 +316,32 @@ public class JoyController extends AbstractDevice {
 
     }
 
+    /**
+     * Returns true if a report should be held back right now because the
+     * observed Bluetooth link mode either just changed or changed within the
+     * last {@link #LINK_MODE_QUIET_MS}. Always false when no link-mode
+     * signal is available (see field comment above).
+     */
+    private boolean isLinkModeUnsettled() {
+        int mode = BluetoothCompanion.getBluetoothLinkMode();
+        if (mode == BluetoothCompanion.LINK_MODE_UNKNOWN) {
+            return false;
+        }
+        long now = System.nanoTime();
+        if (mode != lastLinkMode) {
+            boolean firstRead = lastLinkMode == Integer.MIN_VALUE;
+            lastLinkMode = mode;
+            lastLinkModeChangeAtNanos = now;
+            return !firstRead;
+        }
+        return TimeUnit.NANOSECONDS.toMillis(now - lastLinkModeChangeAtNanos) < LINK_MODE_QUIET_MS;
+    }
+
     public boolean sendReport(InputReport report) {
+        if (isLinkModeUnsettled()) {
+            log(TAG, "Skipping report, link mode unsettled: " + report.getReportId());
+            return false;
+        }
         if (ByteUtils.asList(BuildConfig.DEBUG_INPUT).contains(report.getReportId())) {
             log(TAG, report.toString());
         }
