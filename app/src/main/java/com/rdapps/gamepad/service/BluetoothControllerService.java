@@ -64,6 +64,7 @@ public class BluetoothControllerService extends Service implements BluetoothProf
 
     private static final int HID_PROFILE_TIME_OUT_SECONDS = 10;
     private static final int MAX_REGISTRATION_RETRY = 10;
+    private static final long RECONNECT_DELAY_MS = 2000;
 
     public static final String DEVICE_TYPE = "DEVICE_TYPE";
     public static final String NINTENDO_SWITCH = "Nintendo Switch";
@@ -540,8 +541,9 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                     if (Objects.nonNull(controllerActivity)) {
                         controllerActivity.stopHidDeviceDiscovery();
                     }
-                    boolean connect = bluetoothHidDevice.connect(device);
-                    log(TAG, "Connect result: " + connect);
+                    // Avoid racing the Switch's own inbound HID connect attempt.
+                    mainHandler.postDelayed(() -> connectHidDevice(device),
+                            RECONNECT_DELAY_MS);
                 } else {
                     if (Objects.nonNull(controllerActivity)) {
                         controllerActivity.startHidDeviceDiscovery();
@@ -554,6 +556,23 @@ public class BluetoothControllerService extends Service implements BluetoothProf
                             Manifest.permission.BLUETOOTH_CONNECT);
                     log(TAG, "Missing permission", ex);
                 }
+            }
+        }
+    }
+
+    private void connectHidDevice(BluetoothDevice device) {
+        if (deviceConnected) {
+            log(TAG, "connectHidDevice: already connected, skipping");
+            return;
+        }
+        try {
+            boolean connect = bluetoothHidDevice.connect(device);
+            log(TAG, "Connect result: " + connect);
+        } catch (SecurityException ex) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                missingPermission(getApplicationContext(),
+                        Manifest.permission.BLUETOOTH_CONNECT);
+                log(TAG, "Missing permission", ex);
             }
         }
     }
